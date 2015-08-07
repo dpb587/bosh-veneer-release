@@ -1,0 +1,4 @@
+---
+name: "directorweb-php"
+files:
+  - "directorweb-php-blobs/**/*"

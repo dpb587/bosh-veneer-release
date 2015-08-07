@@ -1,0 +1,30 @@
+#!/bin/bash
+
+exec 2>&1
+
+set -e
+set -u
+
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+
+
+( cd directorweb-php-blobs/php
+
+  tar -xzf php.tar.gz
+  cd php-*
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET} \
+    --enable-fpm \
+    --enable-intl \
+    --enable-mbstring \
+    --with-mysql \
+    --enable-opcache \
+
+  make -j${CPUS}
+  make install
+)
+
+cat > "${BOSH_INSTALL_TARGET}/lib/php.ini" <<EOF
+zend_extension = "${BOSH_INSTALL_TARGET}/lib/php/extensions/no-debug-non-zts-20131226/opcache.so"
+EOF

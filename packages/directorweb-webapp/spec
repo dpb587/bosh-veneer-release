@@ -1,0 +1,7 @@
+---
+name: "directorweb-webapp"
+dependencies:
+  - "directorweb-php"
+files:
+  - "webapp/*"
+  - "webapp/**/*"

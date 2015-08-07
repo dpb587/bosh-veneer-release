@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+git ls-remote --tags https://github.com/php/php-src.git \
+  | cut -f2 \
+  | grep -Ev '\^{}' \
+  | grep -E '^refs/tags/php-.+$' \
+  | sed -E 's/^refs\/tags\/php-(.+)$/\1/' \
+  | tr '_' '.' \
+  | grep -E '^\d+\.\d+\.\d+$' \
+  | gsort -rV \
+  | head -n1

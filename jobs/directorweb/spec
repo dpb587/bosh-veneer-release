@@ -1,0 +1,42 @@
+---
+name: directorweb
+packages:
+  - directorweb-nginx
+  - directorweb-php
+templates:
+  bin/console.erb: bin/console
+  bin/control-nginx: bin/control-nginx
+  bin/control-phpfpm: bin/control-phpfpm
+  etc/nginx.conf.erb: etc/nginx.conf
+  etc/phpfpm.ini.erb: etc/phpfpm.ini
+  etc/parameters.yml.erb: etc/parameters.yml
+properties:
+  directorweb.webapp.environment:
+    default: dev
+  directorweb.webapp.debug:
+    default: true
+  directorweb.webapp.parameters_yml:
+    default: ~
+
+  directorweb.nginx.http_port:
+    default: 80
+  directorweb.nginx.https_port:
+    default: 443
+  directorweb.nginx.https_certificate:
+    default: ~
+  directorweb.nginx.https_key:
+    default: ~
+
+  directorweb.db.host:
+    default: "127.0.0.1"
+  directorweb.db.user:
+    default: "postgres"
+  directorweb.db.password:
+    default: "postgres"
+  directorweb.db.database:
+    default: "bosh"
+  directorweb.db.adapter:
+    default: "postgres"
+
+  director.name:
+    default: "bosh"

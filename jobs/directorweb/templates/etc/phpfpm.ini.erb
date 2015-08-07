@@ -1,0 +1,44 @@
+daemonize = yes
+error_log = /var/vcap/sys/log/directorweb/phpfpm-error.log
+pid = /var/vcap/sys/run/directorweb/phpfpm.pid
+emergency_restart_interval = 5s
+emergency_restart_threshold = 4
+
+[default]
+user = vcap;
+group = vcap;
+listen = 127.0.0.1:9001
+listen.backlog = 128
+
+pm = dynamic
+pm.max_children = 2
+pm.start_servers = 2
+pm.max_requests = 1024
+pm.min_spare_servers = 0
+pm.max_spare_servers = 2
+pm.process_idle_timeout = 60s
+
+request_terminate_timeout = 5m
+security.limit_extensions = .php
+
+php_admin_flag[cgi.fix_pathinfo] = off
+php_admin_flag[expose_php] = off
+php_admin_flag[date.timezone] = UTC
+php_admin_flag[display_errors] = off
+php_admin_flag[display_startup_errors] = off
+php_admin_flag[log_errors] = on
+php_admin_value[log_errors_max_len] = 32k
+php_admin_value[memory_limit] = 128M
+
+<% if false == p('legacy.debug') %>
+php_admin_value[opcache.revalidate_freq] = 0
+php_admin_value[opcache.validate_timestamps] = 0
+php_admin_value[opcache.max_accelerated_files] = 16384
+php_admin_value[opcache.memory_consumption] = 384
+php_admin_value[opcache.interned_strings_buffer] = 32
+php_admin_value[opcache.fast_shutdown] = 1
+<% end %>
+
+php_value[error_reporting] = E_ALL & ~E_DEPRECATED
+php_value[max_execution_time] = 60
+

@@ -1,0 +1,6 @@
+---
+final_name: directorweb
+blobstore:
+  provider: s3
+  options:
+    bucket_name: directorweb-boshrelease-us-east-1

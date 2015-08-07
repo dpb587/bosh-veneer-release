@@ -1,0 +1,4 @@
+---
+name: "directorweb-nginx"
+files:
+  - "directorweb-nginx-blobs/**/*"

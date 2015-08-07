@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O php.tar.gz \
+  http://us1.php.net/distributions/php-${VERSION}.tar.gz
