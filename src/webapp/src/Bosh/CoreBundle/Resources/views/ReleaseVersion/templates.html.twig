@@ -1,0 +1,20 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title 'Templates' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Template</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in data.results %}
+        <tr>
+          <td><a href="#">{{ result.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

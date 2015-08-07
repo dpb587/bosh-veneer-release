@@ -1,0 +1,32 @@
+{% extends 'BoshCoreBundle:Task:layout.html.twig' %}
+
+{% block def_title 'Tasks' %}
+
+{% block def_description %}
+  The basic unit of work performed by the Director. You can monitor the task throughout its lifecycle, which progresses through states like started, running, done, and error.
+{% endblock %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th class="text-right">Task</th>
+        <th>Username</th>
+        <th>Description</th>
+        <th class="text-center">State</th>
+        <th class="text-right">Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in data.results %}
+        <tr>
+          <td class="text-right"><a href="{{ path('bosh_core_task_index', { 'task' : result.id, '_format' : 'html' }) }}">{{ result.id }}</a></td>
+          <td>{{ result.username }}</td>
+          <td>{{ result.description }}</td>
+          <td class="text-center">{{ result.state }}</td>
+          <td class="text-right">{{ result.timestamp|date('Y-m-d H:i:s') }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

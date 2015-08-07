@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Bosh\CoreBundle\Entity\Domains" table="domains">
+    <unique-constraints>
+      <unique-constraint name="domains_name_key" columns="name"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="name" type="string" column="name" length="255" nullable="false"/>
+    <field name="master" type="string" column="master" length="128" nullable="true"/>
+    <field name="lastCheck" type="integer" column="last_check" nullable="true"/>
+    <field name="type" type="string" column="type" length="6" nullable="false"/>
+    <field name="notifiedSerial" type="integer" column="notified_serial" nullable="true"/>
+    <field name="account" type="string" column="account" length="40" nullable="true"/>
+  </entity>
+</doctrine-mapping>

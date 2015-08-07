@@ -1,0 +1,20 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title 'Releases' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Release</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in data.results %}
+        <tr>
+          <td><a href="{{ path('bosh_core_release_version_index', { 'release' : result.release.name, 'version' : result.version }) }}">{{ result.release.name }}/{{ result.version }}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="bosh_core_index" path="/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\IndexController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- deployment -->
+
+    <route id="bosh_core_deploymentALL_index" path="/deployment/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_index" path="/deployment/{deployment}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_manifest" path="/deployment/{deployment}/manifest.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentController::manifestAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_releases" path="/deployment/{deployment}/releases.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentController::releasesAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_stemcells" path="/deployment/{deployment}/stemcells.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentController::stemcellsAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_instanceALL_index" path="/deployment/{deployment}/instance/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstanceALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_instance_index" path="/deployment/{deployment}/instance/{job_name}/{job_index}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstanceController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_instance_vm" path="/deployment/{deployment}/instance/{job_name}/{job_index}/vm.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstanceController::vmAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vmALL_index" path="/deployment/{deployment}/vm/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_index" path="/deployment/{deployment}/vm/{agent}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_applyspec" path="/deployment/{deployment}/vm/{agent}/applyspec.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmController::applyspecAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_packages" path="/deployment/{deployment}/vm/{agent}/packages.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmController::packagesAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_templates" path="/deployment/{deployment}/vm/{agent}/templates.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmController::templatesAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_networkALL_index" path="/deployment/{deployment}/vm/{agent}/network/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmNetworkALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_network_index" path="/deployment/{deployment}/vm/{agent}/network/{network}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmNetworkController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_network_cpi" path="/deployment/{deployment}/vm/{agent}/network/{network}/cpi.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmNetworkController::cpiAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- task -->
+
+    <route id="bosh_core_taskALL_index" path="/task/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\TaskALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_task_index" path="/task/{task}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\TaskController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- release -->
+
+    <route id="bosh_core_releaseALL_index" path="/release/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_index" path="/release/{release}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_versionALL_index" path="/release/{release}/version/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_version_index" path="/release/{release}/version/{version}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseVersionController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_version_deployments" path="/release/{release}/version/{version}/deployments.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseVersionController::deploymentsAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_version_packages" path="/release/{release}/version/{version}/packages.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseVersionController::packagesAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_version_templates" path="/release/{release}/version/{version}/templates.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleaseVersionController::templatesAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_packageALL_index" path="/release/{release}/package/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleasePackageALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_release_package_index" path="/release/{release}/package/{package}/{version}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\ReleasePackageController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- stemcell -->
+
+    <route id="bosh_core_stemcellALL_index" path="/stemcell/_all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\StemcellALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="bosh_core_stemcell_index" path="/stemcell/{stemcell}/{version}/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\StemcellController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+</routes>

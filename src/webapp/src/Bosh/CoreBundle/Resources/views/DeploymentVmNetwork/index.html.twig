@@ -1,0 +1,44 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title data.result.name %}
+
+{% block frag_content %}  
+  {{ render(links.cpi|bosh_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>Type</dt>
+    <dd>{{ data.result.type }}</dd>
+    
+    <dt>IP</dt>
+    <dd>{{ data.result.ip }}</dd>
+    
+    {% if data.result.netmask is defined %}
+      <dt>Netmask</dt>
+      <dd>{{ data.result.netmask }}</dd>
+    {% endif %}
+    
+    {% if data.result.gateway is defined %}
+      <dt>Gateway</dt>
+      <dd>{{ data.result.gateway }}</dd>
+    {% endif %}
+    
+    {% if data.result.dns is defined %}
+      <dt>DNS</dt>
+      {% for v in data.result.dns %}
+        <dd>{{ v }}</dd>
+      {% endfor %}
+    {% endif %}
+    
+    {% if data.result.default is defined %}
+      <dt>Default</dt>
+      {% for v in data.result.default %}
+        <dd>{{ v }}</dd>
+      {% endfor %}
+    {% endif %}
+    
+    <dt>DNS Record Name</dt>
+    <dd>{{ data.result.dns_record_name }}</dd>
+  </dl>
+{% endblock %}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Bosh\CoreBundle\Entity\RenderedTemplatesArchives" table="rendered_templates_archives">
+    <indexes>
+      <index name="rendered_templates_archives_created_at_index" columns="created_at"/>
+      <index name="IDX_CE4FD63A51721D" columns="instance_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="blobstoreId" type="text" column="blobstore_id" nullable="false"/>
+    <field name="sha1" type="text" column="sha1" nullable="false"/>
+    <field name="contentSha1" type="text" column="content_sha1" nullable="false"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <many-to-one field="instance" target-entity="Instances">
+      <join-columns>
+        <join-column name="instance_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Bosh\CoreBundle\Entity\Snapshots" table="snapshots">
+    <indexes>
+      <index name="IDX_4D91463D3095A1D1" columns="persistent_disk_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="snapshots_snapshot_cid_key" columns="snapshot_cid"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="clean" type="boolean" column="clean" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="snapshotCid" type="text" column="snapshot_cid" nullable="false"/>
+    <many-to-one field="persistentDisk" target-entity="PersistentDisks">
+      <join-columns>
+        <join-column name="persistent_disk_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

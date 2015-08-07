@@ -1,0 +1,23 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title 'Cloud Properties' %}
+
+{% block frag_content %}
+  {% if 0 < data.result|length %}
+    <dl class="dl-horizontal">
+      {% if data.result.subnet is defined %}
+        <dt>Subnet</dt>
+        <dd>{{ data.result.subnet }}</dd>
+      {% endif %}
+
+      {% if data.result.security_groups is defined %}
+        <dt>Security Groups</dt>
+        {% for security_group in data.result.security_groups %}
+          <dd>{{ security_group }}</dd>
+        {% endfor %}
+      {% endif %}
+    </dl>
+  {% else %}
+    <p class="text-muted">No properties configured.</p>
+  {% endif %}
+{% endblock %}

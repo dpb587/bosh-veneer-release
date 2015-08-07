@@ -1,0 +1,30 @@
+{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+
+{% block def_title 'Releases' %}
+
+{% block def_description %}
+  A collection of configuration files, job definitions, source code, package definitions and accompanying information needed to make a software component deployable by BOSH.
+{% endblock %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Release</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in data.results %}
+        <tr>
+          <td><a href="{{ path('bosh_core_release_index', { 'release' : result.name }) }}">{{ result.name }}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+  <ul class="list-unstyled">
+    <li><a href="https://bosh.io/releases"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-info-sign"></span></small>bosh.io/releases</a></li>
+  </ul>
+{% endblock %}

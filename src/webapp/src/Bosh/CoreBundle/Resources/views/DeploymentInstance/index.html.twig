@@ -1,0 +1,21 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title data.result.job ~ '/' ~ data.result.index %}
+
+{% block frag_content %}  
+  something
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>State</dt>
+    <dd>{{ data.result.state }}</dd>
+    
+    <dt>Resurrection Paused</dt>
+    <dd>{{ data.result.resurrectionPaused ? 'Yes' : 'No' }}</dd>
+  </dl>
+
+  <ul class="list-unstyled">
+    <li><a href="{{ links.vm }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-cloud"></span></small>Virtual Machine</a></li>
+  </ul>
+{% endblock %}

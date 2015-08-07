@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Bosh\CoreBundle\Entity\PersistentDisks" table="persistent_disks">
+    <indexes>
+      <index name="IDX_668636903A51721D" columns="instance_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="persistent_disks_disk_cid_key" columns="disk_cid"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="diskCid" type="text" column="disk_cid" nullable="false"/>
+    <field name="size" type="integer" column="size" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="cloudPropertiesJson" type="text" column="cloud_properties_json" nullable="true"/>
+    <many-to-one field="instance" target-entity="Instances">
+      <join-columns>
+        <join-column name="instance_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

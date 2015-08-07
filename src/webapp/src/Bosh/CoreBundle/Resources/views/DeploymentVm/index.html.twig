@@ -1,0 +1,18 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title data.result.applySpecJsonAsArray.job.name|default('unknown') ~ '/' ~ data.result.applySpecJsonAsArray.index|default('unknown') %}
+
+{% block frag_content %}  
+  {{ render(links.templates|bosh_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(links.networkALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>Agent</dt>
+    <dd><small><samp>{{ data.result.agentId }}</samp></small></dd>
+    
+    <dt>CID</dt>
+    <dd>{{ data.result.cid }}</dd>
+  </dl>
+{% endblock %}

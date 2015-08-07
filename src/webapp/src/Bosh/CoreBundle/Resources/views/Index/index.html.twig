@@ -1,0 +1,21 @@
+{% extends 'BoshCoreBundle:Common:layout.html.twig' %}
+
+{% block def_title 'BOSH Director' %}
+
+{% block def_description %}
+  The main BOSH component that coordinates the Agents and responds to user requests and system events. The Director is the orchestrator of deployments.
+{% endblock %}
+
+{% block frag_content %}
+  {{ render(path('bosh_core_deploymentALL_index', { '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>Name</dt>
+    <dd>{{ data.name }}</dd>
+    
+    <dt>UUID</dt>
+    <dd><small><samp>{{ data.attributes.uuid }}</samp></small></dd>
+  </dl>
+{% endblock %}

@@ -1,0 +1,3 @@
+dpb_boshweb:
+    resource: "@BoshCoreBundle/Resources/config/routing/default.xml"
+    prefix: /bosh

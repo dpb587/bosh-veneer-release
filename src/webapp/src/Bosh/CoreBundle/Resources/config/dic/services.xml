@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="bosh_core.database_helper" class="Bosh\CoreBundle\Service\DatabaseHelper">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        </service>
+
+        <service id="bosh_core.event_listener.json_response" class="Bosh\CoreBundle\EventListener\JsonResponseListener">
+            <argument>%kernel.debug%</argument>
+
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="256" />
+        </service>
+
+        <service id="bosh_core.logsearch.elasticsearch" class="Elastica\Client">
+            <argument type="collection">
+                <argument key="host">%dpb_bosh_web_logsearch_elasticsearch_host%</argument>
+                <argument key="port">%dpb_bosh_web_logsearch_elasticsearch_port%</argument>
+            </argument>
+        </service>
+    </services>
+</container>

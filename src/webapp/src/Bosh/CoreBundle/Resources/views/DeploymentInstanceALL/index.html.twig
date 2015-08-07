@@ -1,0 +1,22 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title 'Instances' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Instance</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in data.results %}
+        <tr>
+          <td><a href="{{ path('bosh_core_deployment_instance_index', { 'deployment' : context.deployment.name, 'job_name' : result.job, 'job_index' : result.index }) }}">{{ result.job }}/{{ result.index }}</a></td>
+          <td>{{ result.state }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

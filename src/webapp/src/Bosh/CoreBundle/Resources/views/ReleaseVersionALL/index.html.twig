@@ -1,0 +1,22 @@
+{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+
+{% block def_title 'Versions' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Version</th>
+        <th>Commit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in data.results %}
+        <tr>
+          <td><a href="{{ path('bosh_core_release_version_index', { 'release' : result.release.name, 'version' : result.version }) }}">{{ result.version }}</a></td>
+          <td><code>{{ result.commitHash }}{% if result.uncommittedChanges %}+{% endif %}</code></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
