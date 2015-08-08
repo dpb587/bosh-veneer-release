@@ -1,0 +1,16 @@
+{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+
+{% block def_title _bosh_core_context.template.name ~ '/' ~ _bosh_core_context.template.version %}
+
+{% block frag_content %}  
+  {{ render(endpoints.properties|bosh_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>Packages</dt>
+    {% for package in data.packageNamesJsonAsArray %}
+        <dd>{{ package }}</dd>
+    {% endfor %}
+  </dl>
+{% endblock %}

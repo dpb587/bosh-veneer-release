@@ -14,14 +14,14 @@ class ReleaseTemplateALLController extends AbstractController
     public function indexAction($_context)
     {
         return $this->renderApi(
-            'BoshCoreBundle:ReleasePackageALL:index.html.twig',
+            'BoshCoreBundle:ReleaseTemplateALL:index.html.twig',
             [
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
-                    ->getRepository('BoshCoreBundle:Packages')
-                    ->createQueryBuilder('p')
-                    ->andWhere(new Expr\Comparison('p.release', '=', ':release'))->setParameter('release', $_context['release'])
-                    ->addOrderBy('p.name')
-                    ->addOrderBy('p.version')
+                    ->getRepository('BoshCoreBundle:Templates')
+                    ->createQueryBuilder('t')
+                    ->andWhere(new Expr\Comparison('t.release', '=', ':release'))->setParameter('release', $_context['release'])
+                    ->addOrderBy('t.name')
+                    ->addOrderBy('t.version')
                     ->getQuery()
                     ->getResult(),
             ]

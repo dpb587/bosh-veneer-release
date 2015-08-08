@@ -2,8 +2,8 @@
 
 {% block def_title 'Stemcells' %}
 
-{% block def_description %}
-  A generic VM image that BOSH clones and configures to during deployment. A stemcell is a template from which BOSH creates whatever VMs are needed for a wide variety of components and products.
+{% block primary_nav %}
+    <a href="{{ path('bosh_core_stemcellALL_index') }}"><span class="glyphicon glyphicon-compressed"></span> stemcells</a>
 {% endblock %}
 
 {% block frag_content %}

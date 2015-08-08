@@ -1,12 +1,5 @@
 {% extends _layout %}
 
-{% block navbar %}
-    <ul class="nav navbar-nav">
-        <li{% if 'builtin' == block('def_topic') %} class="active"{% endif %}><a href="{{ path('bosh_core_release_summary', { 'release' : _bosh_core_context.release.name }) }}"><span class="glyphicon glyphicon-tree-deciduous"></span> {{ _bosh_core_context.release.name }}</a></li>
-        <li><a href="#">charts</a></li>
-        <li><a href="#">logs</a></li>
-        <li><a href="#">health</a></li>
-        <li><a href="#">cloque</a></li>
-        <li><a href="#">docs</a></li>
-    </ul>
+{% block primary_nav %}
+    <a href="{{ path('bosh_core_release_summary', { 'release' : _bosh_core_context.release.name }) }}"><span class="glyphicon glyphicon-tree-deciduous"></span> {{ _bosh_core_context.release.name }}</a>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+{% extends 'BoshCoreBundle:ReleaseVersion:layout.html.twig' %}
 
 {% block def_title 'Templates' %}
 
@@ -12,7 +12,7 @@
     <tbody>
       {% for result in results %}
         <tr>
-          <td><a href="#">{{ result.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
+            <td><a href="{{ path('bosh_core_release_template_summary', { 'release' : _bosh_core_context.release.name, 'template' : result.name, 'version' : result.version }) }}">{{ result.name }}/<span class="text-muted">{{ result.version }}</span></a></td>
         </tr>
       {% endfor %}
     </tbody>

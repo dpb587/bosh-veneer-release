@@ -24,11 +24,17 @@ abstract class AbstractController extends Controller
         if ('json' == $_format) {
             return new JsonResponse($this->normalizeApiResult($params));
         } elseif ('html' == $_format) {
+            $context = $request->attributes->get('_context', []);
+
             return $this->render(
                 $view,
                 array_merge(
                     [
-                        '_bosh_core_context' => $request->attributes->get('_context'),
+                        '_user_links_primary' => $this->container->get('bosh_core.plugin_factory')->getUserPrimaryLinks(
+                            $request->attributes->get('_bosh_web_object_context'),
+                            $context
+                        ),
+                        '_bosh_core_context' => $context,
                     ],
                     $params
                 )

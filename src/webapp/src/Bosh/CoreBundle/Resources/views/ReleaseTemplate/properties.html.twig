@@ -1,0 +1,68 @@
+{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+
+{% block def_title 'Properties' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th colspan="2">Property</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for property_key, property in properties %}
+        <tr id="property-{{ property_key }}">
+          <td style="width:20px;">
+            {% if 'default' in property|keys %}
+              {% if none == property.default %}
+                <span class="js-tooltip glyphicon glyphicon-unchecked" title="No Value Required" style="color:#31708f;" data-toggle="tooltip" data-placement="bottom"></span>
+              {% else %}
+                <span class="js-tooltip glyphicon glyphicon-check" title="Has Default Value" style="color:#3c763d;" data-toggle="tooltip" data-placement="bottom"></span>
+              {% endif %}
+            {% else %}
+              <span class="js-tooltip glyphicon glyphicon-edit" title="Needs User Value" style="color:#a94442;" data-toggle="tooltip" data-placement="bottom"></span>
+            {% endif %}
+          </td>
+          <td style="width:40%;word-wrap:break-word;">
+            <code>{{ property_key }}</code>
+            {% if property.type|default %}<br />
+              <small><samp>{{ property.type|join('|') }}</samp></small>
+            {% endif %}
+          </td>
+          <td style="width:60%;">
+            {% if property.description|default %}
+              {#<strong>{{ property.description|markdown }}</strong>#}
+              <strong>{{ property.description }}</strong>
+            {% else %}
+              <span style="color:#999999;">&mdash;</span>
+            {% endif %}
+
+            {% if property.help|default %}
+              <div>
+                {#{{ property.help|markdown }}#}
+                {{ property.help }}
+              </div>
+            {% endif %}
+
+            {% if property.example|default %}
+              <div>
+                <hr style="margin:4px -2px;" />
+                <div style="padding:0 3px 1px;">Example</div>
+                <div style="overflow:auto;"><pre style="word-wrap:inherit;"><code style="white-space:inherit;">{{ property.example|yaml_encode }}</code></pre></div>
+              </div>
+            {% endif %}
+
+            {% if 'default' in property|keys and none != property.default %}
+              <div>
+                <hr style="margin:4px -2px;" />
+                <div style="padding:0 3px 1px;">Default Value</div>
+                <div style="overflow:auto;"><pre style="word-wrap:inherit;"><code style="white-space:inherit;">{{ property.default|yaml_encode }}</code></pre></div>
+              </div>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

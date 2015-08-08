@@ -1,10 +1,10 @@
 {% extends 'BoshCoreBundle:Task:layout.html.twig' %}
 
-{% block def_title 'Tasks' %}
-
-{% block def_description %}
-  The basic unit of work performed by the Director. You can monitor the task throughout its lifecycle, which progresses through states like started, running, done, and error.
+{% block primary_nav %}
+    <a href="{{ path('bosh_core_taskALL_index') }}"><span class="glyphicon glyphicon-tasks"></span> tasks</a>
 {% endblock %}
+
+{% block def_title 'Tasks' %}
 
 {% block frag_content %}
   <table class="table table-condensed">

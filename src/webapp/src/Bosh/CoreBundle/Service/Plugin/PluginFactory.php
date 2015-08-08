@@ -89,9 +89,48 @@ class PluginFactory implements PluginFactoryInterface
         );
     }
 
-    public function getUserPrimaryLinks($scope, array $context = [])
+    public function getUserPrimaryLinks($contextName, array $context = [])
     {
+        $links = [];
 
+        foreach ($this->map as $serviceId => $objectContexts) {
+            if (!in_array($contextName, $objectContexts)) {
+                continue;
+            }
+
+            foreach ($this->container->get($serviceId)->getUserPrimaryLinks($contextName, $context) as $k => $v) {
+                $links[$k][] = $v;
+            }
+        }
+
+        $links = array_map(
+            function (array $v) {
+                return $v[count($v) - 1];
+            },
+            $links
+        );
+
+        usort(
+            $links,
+            function (array $a, array $b) {
+                if ($a['priority'] == $b['priority']) {
+                    return 0;
+                }
+
+                return $a['priority'] < $b['priority'] ? -1 : 1;
+            }
+        );
+
+        $router = $this->container->get('router');
+
+        return array_values(
+            array_map(
+                function (array $v) use ($router) {
+                    $v['url'] = $router->generate($v['route'][0], $v['route'][1]);
+                },
+                $links
+            )
+        );
     }
 
     public function getUserReferenceLinks($scope, array $context = [])

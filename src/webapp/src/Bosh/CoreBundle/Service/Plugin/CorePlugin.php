@@ -123,6 +123,17 @@ class CorePlugin implements PluginInterface
                         ],
                     ],
                 ];
+            case 'bosh/release/template':
+                return [
+                    'properties' => [
+                        'bosh_core_release_template_properties',
+                        [
+                            'release' => $context['release']['name'],
+                            'template' => $context['template']['name'],
+                            'version' => $context['template']['version'],
+                        ],
+                    ],
+                ];
             case 'bosh/release/version':
                 return [
                     'deployments' => [
@@ -152,6 +163,10 @@ class CorePlugin implements PluginInterface
         }
     }
 
+    public function getUserPrimaryLinks($contextName, array $context = [])
+    {
+        return [];
+    }
 
     public function getContext(Request $request, $contextName)
     {
@@ -196,6 +211,18 @@ class CorePlugin implements PluginInterface
                 if ('version' == $contextNameSplit[2]) {
                     $context['version'] = $this->loadReleaseVersion(
                         $context['release'],
+                        $request->attributes->get('version')
+                    );
+                } elseif ('template' == $contextNameSplit[2]) {
+                    $context['template'] = $this->loadReleaseTemplate(
+                        $context['release'],
+                        $request->attributes->get('template'),
+                        $request->attributes->get('version')
+                    );
+                } elseif ('package' == $contextNameSplit[2]) {
+                    $context['package'] = $this->loadReleasePackage(
+                        $context['release'],
+                        $request->attributes->get('package'),
                         $request->attributes->get('version')
                     );
                 }
@@ -274,7 +301,7 @@ class CorePlugin implements PluginInterface
         
         return $loaded;
     }
-    
+
     protected function loadReleaseVersion(Releases $release, $version)
     {
         $loaded = $this->em->getRepository('BoshCoreBundle:ReleaseVersions')
@@ -287,8 +314,41 @@ class CorePlugin implements PluginInterface
         if (!$loaded) {
             throw new NotFoundHttpException('Failed to find release version');
         }
-        
+
         return $loaded;
     }
 
+    protected function loadReleaseTemplate(Releases $release, $template, $version)
+    {
+        $loaded = $this->em->getRepository('BoshCoreBundle:Templates')
+            ->createQueryBuilder('t')
+            ->andWhere(new Expr\Comparison('t.release', '=', ':release'))->setParameter('release', $release)
+            ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template)
+            ->andWhere(new Expr\Comparison('t.version', '=', ':version'))->setParameter('version', $version)
+            ->getQuery()
+            ->getSingleResult();
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find release package');
+        }
+
+        return $loaded;
+    }
+
+    protected function loadReleasePackage(Releases $release, $package, $version)
+    {
+        $loaded = $this->em->getRepository('BoshCoreBundle:Packages')
+            ->createQueryBuilder('p')
+            ->andWhere(new Expr\Comparison('p.release', '=', ':release'))->setParameter('release', $release)
+            ->andWhere(new Expr\Comparison('p.name', '=', ':name'))->setParameter('name', $package)
+            ->andWhere(new Expr\Comparison('p.version', '=', ':version'))->setParameter('version', $version)
+            ->getQuery()
+            ->getSingleResult();
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find release package');
+        }
+
+        return $loaded;
+    }
 }
