@@ -126,15 +126,75 @@ class PluginFactory implements PluginFactoryInterface
         return array_values(
             array_map(
                 function (array $v) use ($router) {
-                    $v['url'] = $router->generate($v['route'][0], $v['route'][1]);
+                    if (isset($v['route'])) {
+                        $v['url'] = $router->generate($v['route'][0], $v['route'][1]);
+                    }
                 },
                 $links
             )
         );
     }
 
-    public function getUserReferenceLinks($scope, array $context = [])
+    public function getUserReferenceLinks($contextName, array $context = [])
     {
+        $topicLinks = [
+            PluginInterface::USER_SECONDARY_TOPIC_PERFORMANCE => [],
+            PluginInterface::USER_SECONDARY_TOPIC_CPI => [],
+            PluginInterface::USER_SECONDARY_TOPIC_DOCUMENTATION => [],
+            PluginInterface::USER_SECONDARY_TOPIC_OTHER => [],
+        ];
 
+        foreach ($this->map as $serviceId => $objectContexts) {
+            if (!in_array($contextName, $objectContexts)) {
+                continue;
+            }
+
+            foreach ($this->container->get($serviceId)->getUserReferenceLinks($contextName, $context) as $k => $v) {
+                $topicLinks[$v['topic']][$k][] = $v;
+            }
+        }
+
+        $router = $this->container->get('router');
+
+        foreach ($topicLinks as &$links) {
+            $links = array_map(
+                function (array $v) {
+                    return $v[count($v) - 1];
+                },
+                $links
+            );
+
+            usort(
+                $links,
+                function (array $a, array $b) {
+                    if ($a['priority'] == $b['priority']) {
+                        return 0;
+                    }
+
+                    return $a['priority'] < $b['priority'] ? -1 : 1;
+                }
+            );
+
+            $links = array_map(
+                function (array $v) use ($router) {
+                    if (isset($v['route'])) {
+                        $v['url'] = $router->generate($v['route'][0], $v['route'][1]);
+                    }
+
+                    unset($v['route']);
+                    unset($v['priority']);
+
+                    return $v;
+                },
+                $links
+            );
+        }
+
+        return array_filter(
+            $topicLinks,
+            function (array $v) {
+                return 0 < count($v);
+            }
+        );
     }
 }

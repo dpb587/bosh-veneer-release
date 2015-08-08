@@ -1,6 +1,6 @@
 <?php
 
-namespace Bosh\AwsCpiBundle\DependencyInjection;
+namespace Bosh\LogsearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Definition\Processor;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class BoshAwsCpiExtension extends Extension
+class BoshLogsearchExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {

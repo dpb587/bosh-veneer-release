@@ -9,8 +9,14 @@
     <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
     {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
 
+    {% stylesheets '@BoshWebBundle/Resources/private/css/custom.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <script>var _postload=[]</script>
   </head>
 
   <body>
@@ -56,11 +62,13 @@
       </div>
     {% endblock %}
 
-    <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
     <script src="{{ asset('js/jquery.js') }}"></script>
-    <!-- Include all JavaScripts, compiled by Assetic -->
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    {% javascripts '@highcharts' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
-    {% block javascripts %}{% endblock %}
+    {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}
+    <script>_postload.forEach(function (a){a.apply(window)})</script>
   </body>
 </html>

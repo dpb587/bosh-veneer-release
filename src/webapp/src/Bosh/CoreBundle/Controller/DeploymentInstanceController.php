@@ -18,6 +18,7 @@ class DeploymentInstanceController extends AbstractController
             [
                 'data' => $_context['instance'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/instance', $_context),
+                'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/deployment/instance', $_context),
             ]
         );
     }

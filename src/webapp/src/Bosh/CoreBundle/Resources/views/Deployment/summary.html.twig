@@ -13,4 +13,6 @@
   <ul class="list-unstyled">
     <li><a href="{{ endpoints.manifest }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-screenshot"></span></small>Manifest</a></li>
   </ul>
+    
+  {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

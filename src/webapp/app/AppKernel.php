@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Bosh\WebBundle\BoshWebBundle(),
             new Bosh\CoreBundle\BoshCoreBundle(),
             new Bosh\AwsCpiBundle\BoshAwsCpiBundle(),
+            new Bosh\LogsearchBundle\BoshLogsearchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

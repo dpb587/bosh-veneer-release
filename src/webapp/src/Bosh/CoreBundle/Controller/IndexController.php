@@ -24,7 +24,7 @@ class IndexController extends AbstractController
             'BoshCoreBundle:Index:summary.html.twig',
             [
                 'data' => [
-                    'name' => $this->container->getParameter('bosh_core_director_name'),
+                    'name' => $this->container->getParameter('bosh_core.director_name'),
                     'attributes' => $attributes,
                 ],
             ]

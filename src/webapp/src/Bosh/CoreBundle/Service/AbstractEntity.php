@@ -25,6 +25,8 @@ abstract class AbstractEntity implements \ArrayAccess
                 throw new \LogicException('Failed to detect data type');
             }
         }
+
+        throw new \InvalidArgumentException(sprintf('Invalid property "%s" on "%s".', $offset, get_class($this)));
     }
     
     public function offsetSet($offset, $value)

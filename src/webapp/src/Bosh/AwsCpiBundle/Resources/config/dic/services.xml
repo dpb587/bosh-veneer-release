@@ -4,15 +4,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="bosh_aws_cpi.region">us-east-1</parameter>
+    </parameters>
+
     <services>
-        <service id="bosh_core.event_listener.object_context_request" class="Bosh\CoreBundle\EventListener\ObjectContextRequestListener">
-            <argument type="service" id="bosh_core.plugin_factory" />
-
-            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
-        </service>
-
-        <service id="bosh_core.plugin.default" class="Bosh\CoreBundle\Service\Plugin\DefaultPlugin">
-            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        <service id="bosh_aws_cpi.plugin.default" class="Bosh\AwsCpiBundle\Service\Plugin\DefaultPlugin">
+            <argument>%bosh_core.director_name%</argument>
+            <argument>%bosh_aws_cpi.region%</argument>
 
             <tag name="bosh_core.plugin" context="bosh/deployment" />
             <tag name="bosh_core.plugin" context="bosh/deployment:all" />
@@ -38,9 +37,6 @@
             <tag name="bosh_core.plugin" context="bosh/stemcell:all" />
         </service>
 
-        <service id="bosh_core.plugin_factory" class="Bosh\CoreBundle\Service\Plugin\PluginFactory">
-            <argument type="service" id="service_container" />
-            <argument type="collection" />
-        </service>
+        <service id="bosh_cpi.plugin.default" alias="bosh_aws_cpi.plugin.default" />
     </services>
 </container>

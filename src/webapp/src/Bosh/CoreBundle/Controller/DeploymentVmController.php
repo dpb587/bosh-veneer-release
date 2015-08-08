@@ -18,6 +18,7 @@ class DeploymentVmController extends AbstractController
             [
                 'data' => $_context['vm'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/vm', $_context),
+                'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/deployment/vm', $_context),
             ]
         );
     }

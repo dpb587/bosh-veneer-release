@@ -18,8 +18,9 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    bosh_core_director_name: ~
-    bosh_aws_cpi_region: ~
+    bosh_core.director_name: ~
 
-    dpb_bosh_web_logsearch_elasticsearch_host: ~
-    dpb_bosh_web_logsearch_elasticsearch_port: 9200
+    bosh_aws_cpi.region: ~
+
+    bosh_logsearch.elasticsearch.host: ~
+    bosh_logsearch.elasticsearch.port: 9200

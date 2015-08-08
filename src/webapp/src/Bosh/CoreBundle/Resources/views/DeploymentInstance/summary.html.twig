@@ -16,6 +16,8 @@
   </dl>
 
   <ul class="list-unstyled">
-    <li><a href="{{ endpoints.vm }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-cloud"></span></small>Virtual Machine</a></li>
+    <li><a href="{{ endpoints.vm }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>Virtual Machine</a></li>
   </ul>
+
+  {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

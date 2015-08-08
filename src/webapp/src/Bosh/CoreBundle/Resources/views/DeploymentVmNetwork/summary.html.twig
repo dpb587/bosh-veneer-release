@@ -4,12 +4,15 @@
 
 {% block frag_content %}  
   {{ render(endpoints.cpi|bosh_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.hoststats|bosh_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
   <dl>
-    <dt>Type</dt>
-    <dd>{{ data.type }}</dd>
+    {% if data.type is defined %}
+        <dt>Type</dt>
+        <dd>{{ data.type }}</dd>
+    {% endif %}
     
     <dt>IP</dt>
     <dd>{{ data.ip }}</dd>
@@ -41,4 +44,6 @@
     <dt>DNS Record Name</dt>
     <dd>{{ data.dns_record_name }}</dd>
   </dl>
+
+  {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

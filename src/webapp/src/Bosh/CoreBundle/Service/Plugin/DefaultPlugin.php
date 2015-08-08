@@ -10,7 +10,7 @@ use Bosh\CoreBundle\Entity\Vms;
 use Bosh\CoreBundle\Entity\Releases;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class CorePlugin implements PluginInterface
+class DefaultPlugin implements PluginInterface
 {
     protected $em;
 
@@ -164,6 +164,11 @@ class CorePlugin implements PluginInterface
     }
 
     public function getUserPrimaryLinks($contextName, array $context = [])
+    {
+        return [];
+    }
+
+    public function getUserReferenceLinks($contextName, array $context = [])
     {
         return [];
     }

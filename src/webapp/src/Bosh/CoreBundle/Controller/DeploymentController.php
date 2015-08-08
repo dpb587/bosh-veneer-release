@@ -19,6 +19,7 @@ class DeploymentController extends AbstractController
             [
                 'data' => $_context['deployment'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment', $_context),
+                'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/deployment', $_context),
             ]
         );
     }

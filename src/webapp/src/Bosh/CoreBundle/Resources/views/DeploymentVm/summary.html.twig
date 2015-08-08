@@ -10,9 +10,11 @@
 {% block frag_sidebar %}
   <dl>
     <dt>Agent</dt>
-    <dd><small><samp>{{ data.agentId }}</samp></small></dd>
+    <dd>{{ data.agentId }}</dd>
     
     <dt>CID</dt>
     <dd>{{ data.cid }}</dd>
   </dl>
+
+  {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4d6618dc03f605db1437340b4625d8e5",
+    "hash": "65135a705f2c68fb7f63a8f1a7fe6ae9",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -761,6 +761,17 @@
                 "orm"
             ],
             "time": "2014-12-16 13:45:01"
+        },
+        {
+            "name": "highslide-software/highcharts.com",
+            "version": "3.0.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/highslide-software/highcharts.com/archive/57d15b2324567ee32fe8fd543b518a20de0fb4da.zip",
+                "reference": "57d15b2324567ee32fe8fd543b518a20de0fb4da",
+                "shasum": null
+            },
+            "type": "library"
         },
         {
             "name": "incenteev/composer-parameter-handler",

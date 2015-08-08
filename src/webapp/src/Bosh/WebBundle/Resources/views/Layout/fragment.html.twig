@@ -9,3 +9,4 @@
     {{ block('frag_' ~ _frag) }}
   </div>
 </div>
+{% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}

@@ -36,13 +36,19 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-      bosh_core_director_name: "%bosh_core_director_name%"
+      bosh_core_director_name: "%bosh_core.director_name%"
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    #bundles:        [ ]
+    bundles:
+        - BoshWebBundle
+    assets:
+        highcharts:
+            inputs:
+                - "%kernel.root_dir%/../vendor/highslide-software/highcharts.com/js/highcharts.src.js"
     #java: /usr/bin/java
     filters:
         less:

@@ -4,15 +4,27 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <services>
-        <service id="bosh_core.event_listener.object_context_request" class="Bosh\CoreBundle\EventListener\ObjectContextRequestListener">
-            <argument type="service" id="bosh_core.plugin_factory" />
+    <parameters>
+        <parameter key="bosh_logsearch.elasticsearch.host">localhost</parameter>
+        <parameter key="bosh_logsearch.elasticsearch.port">9200</parameter>
+        <parameter key="bosh_logsearch.elasticsearch_index">logstash-[Y.m.d]</parameter>
+    </parameters>
 
-            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+    <services>
+        <service id="bosh_logsearch.elasticsearch" class="Elastica\Client">
+            <argument type="collection">
+                <argument key="host">%bosh_logsearch.elasticsearch.host%</argument>
+                <argument key="port">%bosh_logsearch.elasticsearch.port%</argument>
+            </argument>
         </service>
 
-        <service id="bosh_core.plugin.default" class="Bosh\CoreBundle\Service\Plugin\DefaultPlugin">
-            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        <service id="bosh_logsearch.elasticsearch_helper" class="Bosh\LogsearchBundle\Service\ElasticsearchHelper">
+            <argument type="service" id="bosh_logsearch.elasticsearch" />
+            <argument>%bosh_logsearch.elasticsearch_index%</argument>
+        </service>
+
+        <service id="bosh_logsearch.plugin.default" class="Bosh\LogsearchBundle\Service\Plugin\DefaultPlugin">
+            <argument type="service" id="bosh_logsearch.elasticsearch" />
 
             <tag name="bosh_core.plugin" context="bosh/deployment" />
             <tag name="bosh_core.plugin" context="bosh/deployment:all" />
@@ -36,11 +48,6 @@
             <tag name="bosh_core.plugin" context="bosh/release/version:all" />
             <tag name="bosh_core.plugin" context="bosh/stemcell" />
             <tag name="bosh_core.plugin" context="bosh/stemcell:all" />
-        </service>
-
-        <service id="bosh_core.plugin_factory" class="Bosh\CoreBundle\Service\Plugin\PluginFactory">
-            <argument type="service" id="service_container" />
-            <argument type="collection" />
         </service>
     </services>
 </container>

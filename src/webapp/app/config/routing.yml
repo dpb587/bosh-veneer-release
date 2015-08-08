@@ -2,3 +2,5 @@ bosh_web:
     resource: "@BoshWebBundle/Resources/config/routing/default.xml"
 bosh_core:
     resource: "@BoshCoreBundle/Resources/config/routing/default.xml"
+bosh_logsearch:
+    resource: "@BoshLogsearchBundle/Resources/config/routing/default.xml"

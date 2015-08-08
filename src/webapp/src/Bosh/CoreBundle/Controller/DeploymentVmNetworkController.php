@@ -18,6 +18,7 @@ class DeploymentVmNetworkController extends AbstractController
             [
                 'data' => $_context['network'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/vm/network', $_context),
+                'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/deployment/vm/network', $_context),
             ]
         );
     }

@@ -21,7 +21,8 @@
         "braincrafted/bootstrap-bundle": "~2.0",
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.11.*",
-        "ruflin/elastica":  "2.2.*"
+        "ruflin/elastica":  "2.2.*",
+        "highslide-software/highcharts.com" : "3.0.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -35,6 +36,18 @@
                 "dist": {
                     "url": "http://code.jquery.com/jquery-1.11.1.js",
                     "type": "file"
+                }
+            }
+        },
+        {
+            "type" : "package",
+            "package" : {
+                "name" : "highslide-software/highcharts.com",
+                "version" : "3.0.7",
+                "dist" : {
+                    "url" : "https://github.com/highslide-software/highcharts.com/archive/57d15b2324567ee32fe8fd543b518a20de0fb4da.zip",
+                    "type" : "zip",
+                    "reference" : "57d15b2324567ee32fe8fd543b518a20de0fb4da"
                 }
             }
         }
