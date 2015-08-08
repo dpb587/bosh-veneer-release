@@ -7,68 +7,61 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class DeploymentVmController extends AbstractDeploymentVmController
+class DeploymentVmController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function summaryAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
-            'BoshCoreBundle:DeploymentVm:index.html.twig',
-            $context,
+            'BoshCoreBundle:DeploymentVm:summary.html.twig',
             [
-                'result' => $context['vm'],
+                'result' => $_context['vm'],
             ],
             [
                 'applyspec' => $this->generateUrl(
                     'bosh_core_deployment_vm_applyspec',
                     [
-                        'deployment' => $context['deployment']['name'],
-                        'agent' => $context['vm']['agentId'],
+                        'deployment' => $_context['deployment']['name'],
+                        'agent' => $_context['vm']['agentId'],
                     ]
                 ),
                 'packages' => $this->generateUrl(
                     'bosh_core_deployment_vm_packages',
                     [
-                        'deployment' => $context['deployment']['name'],
-                        'agent' => $context['vm']['agentId'],
+                        'deployment' => $_context['deployment']['name'],
+                        'agent' => $_context['vm']['agentId'],
                     ]
                 ),
                 'templates' => $this->generateUrl(
                     'bosh_core_deployment_vm_templates',
                     [
-                        'deployment' => $context['deployment']['name'],
-                        'agent' => $context['vm']['agentId'],
+                        'deployment' => $_context['deployment']['name'],
+                        'agent' => $_context['vm']['agentId'],
                     ]
                 ),
                 'networkALL' => $this->generateUrl(
                     'bosh_core_deployment_vm_networkALL_index',
                     [
-                        'deployment' => $context['deployment']['name'],
-                        'agent' => $context['vm']['agentId'],
+                        'deployment' => $_context['deployment']['name'],
+                        'agent' => $_context['vm']['agentId'],
                     ]
                 ),
             ]
         );
     }
     
-    public function applyspecAction(Request $request)
+    public function applyspecAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVm:applyspec.html.twig',
-            $context,
-            $context['vm']['applySpecJsonAsArray']
+            $_context['vm']['applySpecJsonAsArray']
         );
     }
     
-    public function packagesAction(Request $request)
-    {
-        $context = $this->validateRequest($request);
-        
-        $results = $context['vm']['applySpecJsonAsArray']['packages'];
+    public function packagesAction($_context)
+    {        
+        $results = $_context['vm']['applySpecJsonAsArray']['packages'];
         
         usort(
             $results,
@@ -79,18 +72,15 @@ class DeploymentVmController extends AbstractDeploymentVmController
 
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVm:packages.html.twig',
-            $context,
             [
                 'results' => $results,
             ]
         );
     }
     
-    public function templatesAction(Request $request)
+    public function templatesAction($_context)
     {
-        $context = $this->validateRequest($request);
-
-        $results = $context['vm']['applySpecJsonAsArray']['job']['templates'];
+        $results = $_context['vm']['applySpecJsonAsArray']['job']['templates'];
         
         usort(
             $results,
@@ -101,7 +91,6 @@ class DeploymentVmController extends AbstractDeploymentVmController
 
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVm:templates.html.twig',
-            $context,
             [
                 'results' => $results,
             ]

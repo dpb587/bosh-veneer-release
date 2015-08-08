@@ -7,14 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class DeploymentVmNetworkALLController extends AbstractDeploymentVmController
+class DeploymentVmNetworkALLController extends AbstractController
 {
-    public function indexAction(Request $request, $_format)
+    public function indexAction($_context)
     {
-        $context = $this->validateRequest($request);
-
-        $results = $context['vm']['applySpecJsonAsArray']['networks'];
+        $results = $_context['vm']['applySpecJsonAsArray']['networks'];
         
         foreach ($results as $k => $v) {
             $results[$k]['name'] = $k;
@@ -22,7 +21,6 @@ class DeploymentVmNetworkALLController extends AbstractDeploymentVmController
 
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVmNetworkALL:index.html.twig',
-            $context,
             [
                 'results' => array_values($results),
             ]

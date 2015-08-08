@@ -7,17 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Bosh\CoreBundle\Controller\AbstractController;
+use Bosh\WebBundle\Controller\AbstractController;
 
 class CoreDeploymentVmNetworkController extends AbstractController
 {
-    public function cpiAction(Request $request, array $context)
+    public function cpiAction(array $_context)
     {
         return $this->renderApi(
             'BoshAwsCpiBundle:CoreDeploymentVmNetworkController:cpi.html.twig',
-            $context,
             [
-                'result' => $context['network']['cloud_properties'],
+                'result' => $_context['network']['cloud_properties'],
             ]
         );
     }

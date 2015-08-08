@@ -7,22 +7,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class DeploymentVmALLController extends AbstractDeploymentController
+class DeploymentVmALLController extends AbstractController
 {
-    public function indexAction(Request $request, $_format)
+    public function indexAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVmALL:index.html.twig',
-            $context,
             [
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('BoshCoreBundle:Vms')
                     ->findBy(
                         [
-                            'deployment' => $context['deployment'],
+                            'deployment' => $_context['deployment'],
                         ],
                         [
                             'agentId' => 'ASC',

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bosh\CoreBundle\Controller;
+namespace Bosh\WebBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,21 +16,18 @@ abstract class AbstractController extends Controller
         return [];
     }
 
-    public function renderApi($view, array $context = [], array $params = [], array $links = [])
+    public function renderApi($view, array $params = [], array $links = [])
     {
         $request = $this->container->get('request');
         $_format = $request->attributes->get('_format', 'html');
 
         if ('json' == $_format) {
-            return new JsonResponse([
-                'data' => $this->normalizeApiResult($params),
-                'links' => $links,
-            ]);
+            return new JsonResponse($this->normalizeApiResult($params));
         } elseif ('html' == $_format) {
             return $this->render(
                 $view,
                 [
-                    'context' => $context,
+                    'context' => $request->attributes->get('_context'),
                     'links' => $links,
                     'data' => $params,
                 ]
@@ -73,8 +70,8 @@ abstract class AbstractController extends Controller
         $request = $this->container->get('request');
 
         $layouts = [
-            'default' => 'BoshCoreBundle:Common:layout.html.twig',
-            'fragment' => 'BoshCoreBundle:Common:fragment.html.twig',
+            'default' => 'BoshWebBundle:Layout:default.html.twig',
+            'fragment' => 'BoshWebBundle:Layout:fragment.html.twig',
         ];
 
         return array_merge(

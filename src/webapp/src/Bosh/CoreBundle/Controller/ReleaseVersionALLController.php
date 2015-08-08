@@ -7,17 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class ReleaseVersionALLController extends AbstractReleaseController
+class ReleaseVersionALLController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function indexAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         $results = $this->container->get('doctrine.orm.bosh_entity_manager')
             ->getRepository('BoshCoreBundle:ReleaseVersions')
             ->createQueryBuilder('v')
-            ->andWhere(new Expr\Comparison('v.release', '=', ':release'))->setParameter('release', $context['release'])
+            ->andWhere(new Expr\Comparison('v.release', '=', ':release'))->setParameter('release', $_context['release'])
             ->addOrderBy('v.version')
             ->getQuery()
             ->getResult();
@@ -31,7 +30,6 @@ class ReleaseVersionALLController extends AbstractReleaseController
 
         return $this->renderApi(
             'BoshCoreBundle:ReleaseVersionALL:index.html.twig',
-            $context,
             [
                 'results' => $results,
             ]

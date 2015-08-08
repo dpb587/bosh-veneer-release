@@ -8,52 +8,47 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class ReleaseVersionController extends AbstractReleaseVersionController
+class ReleaseVersionController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function summaryAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
-            'BoshCoreBundle:ReleaseVersion:index.html.twig',
-            $context,
+            'BoshCoreBundle:ReleaseVersion:summary.html.twig',
             [
-                'version' => $context['version'],
+                'version' => $_context['version'],
             ],
             [
                 'deployments' => $this->generateUrl(
                     'bosh_core_release_version_deployments',
                     [
-                        'release' => $context['release']['name'],
-                        'version' => $context['version']['version'],
+                        'release' => $_context['release']['name'],
+                        'version' => $_context['version']['version'],
                     ]
                 ),
                 'packages' => $this->generateUrl(
                     'bosh_core_release_version_packages',
                     [
-                        'release' => $context['release']['name'],
-                        'version' => $context['version']['version'],
+                        'release' => $_context['release']['name'],
+                        'version' => $_context['version']['version'],
                     ]
                 ),
                 'templates' => $this->generateUrl(
                     'bosh_core_release_version_templates',
                     [
-                        'release' => $context['release']['name'],
-                        'version' => $context['version']['version'],
+                        'release' => $_context['release']['name'],
+                        'version' => $_context['version']['version'],
                     ]
                 ),
             ]
         );
     }
     
-    public function packagesAction(Request $request)
+    public function packagesAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:ReleaseVersion:packages.html.twig',
-            $context,
             [
                 'results' => array_map(
                     function ($v) {
@@ -63,7 +58,7 @@ class ReleaseVersionController extends AbstractReleaseVersionController
                         ->getRepository('BoshCoreBundle:PackagesReleaseVersions')
                         ->createQueryBuilder('prv')
                         ->join('prv.package', 'p')->addSelect('p')
-                        ->where(new Expr\Comparison('prv.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $context['version'])
+                        ->where(new Expr\Comparison('prv.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $_context['version'])
                         ->orderBy('p.name')
                         ->getQuery()
                         ->getResult()
@@ -72,13 +67,10 @@ class ReleaseVersionController extends AbstractReleaseVersionController
         );
     }
     
-    public function deploymentsAction(Request $request)
+    public function deploymentsAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:ReleaseVersion:deployments.html.twig',
-            $context,
             [
                 'results' => array_map(
                     function ($v) {
@@ -88,7 +80,7 @@ class ReleaseVersionController extends AbstractReleaseVersionController
                         ->getRepository('BoshCoreBundle:DeploymentsReleaseVersions')
                         ->createQueryBuilder('drv')
                         ->join('drv.deployment', 'd')->addSelect('d')
-                        ->where(new Expr\Comparison('drv.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $context['version'])
+                        ->where(new Expr\Comparison('drv.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $_context['version'])
                         ->orderBy('d.name')
                         ->getQuery()
                         ->getResult()
@@ -97,13 +89,10 @@ class ReleaseVersionController extends AbstractReleaseVersionController
         );
     }
     
-    public function templatesAction(Request $request)
+    public function templatesAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:ReleaseVersion:templates.html.twig',
-            $context,
             [
                 'results' => array_map(
                     function ($v) {
@@ -113,7 +102,7 @@ class ReleaseVersionController extends AbstractReleaseVersionController
                         ->getRepository('BoshCoreBundle:ReleaseVersionsTemplates')
                         ->createQueryBuilder('rvt')
                         ->join('rvt.template', 't')->addSelect('t')
-                        ->where(new Expr\Comparison('rvt.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $context['version'])
+                        ->where(new Expr\Comparison('rvt.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $_context['version'])
                         ->orderBy('t.name')
                         ->getQuery()
                         ->getResult()

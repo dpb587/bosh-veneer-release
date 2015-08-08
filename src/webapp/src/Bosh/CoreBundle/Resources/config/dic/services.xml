@@ -5,21 +5,42 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="bosh_core.database_helper" class="Bosh\CoreBundle\Service\DatabaseHelper">
+        <service id="bosh_core.event_listener.object_context_request" class="Bosh\CoreBundle\EventListener\ObjectContextRequestListener">
+            <argument type="service" id="bosh_core.plugin_factory" />
+
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+        </service>
+
+        <service id="bosh_core.plugin.core" class="Bosh\CoreBundle\Service\Plugin\CorePlugin">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="bosh_core.plugin" context="bosh/deployment" />
+            <tag name="bosh_core.plugin" context="bosh/deployment:all" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/property:all" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/property" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/instance" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/instance:all" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/vm" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/vm:all" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/vm/network" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/vm/network:all" />
+            <tag name="bosh_core.plugin" context="bosh/task" />
+            <tag name="bosh_core.plugin" context="bosh/task:all" />
+            <tag name="bosh_core.plugin" context="bosh/release" />
+            <tag name="bosh_core.plugin" context="bosh/release:all" />
+            <tag name="bosh_core.plugin" context="bosh/release/package" />
+            <tag name="bosh_core.plugin" context="bosh/release/package:all" />
+            <tag name="bosh_core.plugin" context="bosh/release/template" />
+            <tag name="bosh_core.plugin" context="bosh/release/template:all" />
+            <tag name="bosh_core.plugin" context="bosh/release/version" />
+            <tag name="bosh_core.plugin" context="bosh/release/version:all" />
+            <tag name="bosh_core.plugin" context="bosh/stemcell" />
+            <tag name="bosh_core.plugin" context="bosh/stemcell:all" />
         </service>
 
-        <service id="bosh_core.event_listener.json_response" class="Bosh\CoreBundle\EventListener\JsonResponseListener">
-            <argument>%kernel.debug%</argument>
-
-            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" priority="256" />
-        </service>
-
-        <service id="bosh_core.logsearch.elasticsearch" class="Elastica\Client">
-            <argument type="collection">
-                <argument key="host">%dpb_bosh_web_logsearch_elasticsearch_host%</argument>
-                <argument key="port">%dpb_bosh_web_logsearch_elasticsearch_port%</argument>
-            </argument>
+        <service id="bosh_core.plugin_factory" class="Bosh\CoreBundle\Service\Plugin\PluginFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" />
         </service>
     </services>
 </container>

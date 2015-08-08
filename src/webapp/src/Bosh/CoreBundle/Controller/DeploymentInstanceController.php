@@ -7,46 +7,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class DeploymentInstanceController extends AbstractDeploymentInstanceController
+class DeploymentInstanceController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function summaryAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
-            'BoshCoreBundle:DeploymentInstance:index.html.twig',
-            $context,
+            'BoshCoreBundle:DeploymentInstance:summary.html.twig',
             [
-                'result' => $context['instance'],
+                'result' => $_context['instance'],
             ],
             [
                 'vm' => $this->generateUrl(
                     'bosh_core_deployment_instance_vm',
                     [
-                        'deployment' => $context['deployment']['name'],
-                        'job_name' => $context['instance']['job'],
-                        'job_index' => $context['instance']['index'],
+                        'deployment' => $_context['deployment']['name'],
+                        'job_name' => $_context['instance']['job'],
+                        'job_index' => $_context['instance']['index'],
                     ]
                 ),
             ]
         );
     }
     
-    public function vmAction(Request $request)
+    public function vmAction($_context, $_format)
     {
-        $context = $this->validateRequest($request);
-        
-        if (!$context['instance']['vm']) {
+        if (!$_context['instance']['vm']) {
             throw new NotFoundHttpException();
         }
         
         return $this->redirectToRoute(
-            'bosh_core_deployment_vm_index',
+            'bosh_core_deployment_vm_summary',
             [
-                'deployment' => $context['deployment']['name'],
-                'agent' => $context['instance']['vm']['agentId'],
-                '_format' => $request->attributes->get('_format'),
+                'deployment' => $_context['deployment']['name'],
+                'agent' => $_context['instance']['vm']['agentId'],
+                '_format' => $_format,
             ]
         );
     }

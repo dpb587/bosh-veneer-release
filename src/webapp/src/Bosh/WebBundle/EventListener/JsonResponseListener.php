@@ -1,6 +1,6 @@
 <?php
 
-namespace Bosh\CoreBundle\EventListener;
+namespace Bosh\WebBundle\EventListener;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Response;

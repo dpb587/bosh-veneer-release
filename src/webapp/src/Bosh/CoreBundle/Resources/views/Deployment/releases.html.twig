@@ -12,7 +12,7 @@
     <tbody>
       {% for result in data.results %}
         <tr>
-          <td><a href="{{ path('bosh_core_release_version_index', { 'release' : result.release.name, 'version' : result.version }) }}">{{ result.release.name }}/{{ result.version }}</a></td>
+            <td><a href="{{ path('bosh_core_release_version_summary', { 'release' : result.release.name, 'version' : result.version }) }}">{{ result.release.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
         </tr>
       {% endfor %}
     </tbody>

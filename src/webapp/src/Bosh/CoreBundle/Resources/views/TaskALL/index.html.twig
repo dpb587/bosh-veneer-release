@@ -20,7 +20,7 @@
     <tbody>
       {% for result in data.results %}
         <tr>
-          <td class="text-right"><a href="{{ path('bosh_core_task_index', { 'task' : result.id, '_format' : 'html' }) }}">{{ result.id }}</a></td>
+          <td class="text-right"><a href="{{ path('bosh_core_task_summary', { 'task' : result.id, '_format' : 'html' }) }}">{{ result.id }}</a></td>
           <td>{{ result.username }}</td>
           <td>{{ result.description }}</td>
           <td class="text-center">{{ result.state }}</td>

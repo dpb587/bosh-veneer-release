@@ -1,10 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="pull-right">
-      <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'html' })) }}"><span class="glyphicon glyphicon-link"></span></a>
       <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><span class="glyphicon glyphicon-flash"></span></a>
     </div>
-    <h3 class="panel-title">{{ block('def_title') }}</h3>
+    <h3 class="panel-title"><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">{{ block('def_title') }}</a></h3>
   </div>
   <div class="panel-body">
     {{ block('frag_' ~ _frag) }}

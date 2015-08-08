@@ -12,7 +12,7 @@
     <tbody>
       {% for result in data.results %}
         <tr>
-          <td><a href="{{ path('bosh_core_stemcell_index', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}/{{ result.version }}</a></td>
+          <td><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}/{{ result.version }}</a></td>
         </tr>
       {% endfor %}
     </tbody>

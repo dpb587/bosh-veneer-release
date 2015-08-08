@@ -8,74 +8,66 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class DeploymentController extends AbstractDeploymentController
+class DeploymentController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function summaryAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
-            'BoshCoreBundle:Deployment:index.html.twig',
-            $context,
+            'BoshCoreBundle:Deployment:summary.html.twig',
             [
-                'result' => $context['deployment'],
+                'result' => $_context['deployment'],
             ],
             [
                 'manifest' => $this->generateUrl(
                     'bosh_core_deployment_manifest',
                     [
-                        'deployment' => $context['deployment']['name'],
+                        'deployment' => $_context['deployment']['name'],
                     ]
                 ),
                 'releases' => $this->generateUrl(
                     'bosh_core_deployment_releases',
                     [
-                        'deployment' => $context['deployment']['name'],
+                        'deployment' => $_context['deployment']['name'],
                     ]
                 ),
                 'stemcells' => $this->generateUrl(
                     'bosh_core_deployment_stemcells',
                     [
-                        'deployment' => $context['deployment']['name'],
+                        'deployment' => $_context['deployment']['name'],
                     ]
                 ),
                 'instanceALL' => $this->generateUrl(
                     'bosh_core_deployment_instanceALL_index',
                     [
-                        'deployment' => $context['deployment']['name'],
+                        'deployment' => $_context['deployment']['name'],
                     ]
                 ),
                 'vmALL' => $this->generateUrl(
                     'bosh_core_deployment_vmALL_index',
                     [
-                        'deployment' => $context['deployment']['name'],
+                        'deployment' => $_context['deployment']['name'],
                     ]
                 ),
             ]
         );
     }
 
-    public function manifestAction(Request $request)
+    public function manifestAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:Deployment:manifest.html.twig',
-            $context,
             [
-                'string' => $context['deployment']['manifest'],
+                'string' => $_context['deployment']['manifest'],
             ]
         );
     }
     
-    public function releasesAction(Request $request)
+    public function releasesAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:Deployment:releases.html.twig',
-            $context,
             [
                 'results' => array_map(
                     function ($v) {
@@ -88,7 +80,7 @@ class DeploymentController extends AbstractDeploymentController
                         ->createQueryBuilder('drv')
                         ->join('drv.releaseVersion', 'rv')->addSelect('rv')
                         ->join('rv.release', 'r')->addSelect('r')
-                        ->where(new Expr\Comparison('drv.deployment', '=', ':deployment'))->setParameter('deployment', $context['deployment'])
+                        ->where(new Expr\Comparison('drv.deployment', '=', ':deployment'))->setParameter('deployment', $_context['deployment'])
                         ->orderBy('r.name')
                         ->getQuery()
                         ->getResult()
@@ -97,13 +89,10 @@ class DeploymentController extends AbstractDeploymentController
         );
     }
     
-    public function stemcellsAction(Request $request)
+    public function stemcellsAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:Deployment:stemcells.html.twig',
-            $context,
             [
                 'results' => array_map(
                     function ($v) {
@@ -113,7 +102,7 @@ class DeploymentController extends AbstractDeploymentController
                         ->getRepository('BoshCoreBundle:DeploymentsStemcells')
                         ->createQueryBuilder('ds')
                         ->join('ds.stemcell', 's')->addSelect('s')
-                        ->where(new Expr\Comparison('ds.deployment', '=', ':deployment'))->setParameter('deployment', $context['deployment'])
+                        ->where(new Expr\Comparison('ds.deployment', '=', ':deployment'))->setParameter('deployment', $_context['deployment'])
                         ->orderBy('s.name')
                         ->addOrderBy('s.version')
                         ->getQuery()

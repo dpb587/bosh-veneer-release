@@ -7,30 +7,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bosh\WebBundle\Controller\AbstractController;
 
-class ReleaseController extends AbstractReleaseController
+class ReleaseController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function summaryAction($_context)
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
-            'BoshCoreBundle:Release:index.html.twig',
-            $context,
+            'BoshCoreBundle:Release:summary.html.twig',
             [
-                'result' => $context['release'],
+                'result' => $_context['release'],
             ],
             [
                 'packageALL' => $this->generateUrl(
                     'bosh_core_release_packageALL_index',
                     [
-                        'release' => $context['release']['name'],
+                        'release' => $_context['release']['name'],
                     ]
                 ),
                 'versionALL' => $this->generateUrl(
                     'bosh_core_release_versionALL_index',
                     [
-                        'release' => $context['release']['name'],
+                        'release' => $_context['release']['name'],
                     ]
                 ),
             ]

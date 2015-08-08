@@ -6,16 +6,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Bosh\WebBundle\Controller\AbstractController;
 
 class ReleaseALLController extends AbstractController
 {
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $context = $this->validateRequest($request);
-
         return $this->renderApi(
             'BoshCoreBundle:ReleaseALL:index.html.twig',
-            $context,
             [
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('BoshCoreBundle:Releases')

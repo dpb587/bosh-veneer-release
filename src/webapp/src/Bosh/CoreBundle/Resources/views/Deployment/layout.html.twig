@@ -1,3 +1,14 @@
 {% extends _layout %}
 
 {% block def_topic 'deployment' %}
+
+{% block navbar %}
+    <ul class="nav navbar-nav">
+        <li{% if 'builtin' == block('def_topic') %} class="active"{% endif %}><a href="{{ path('bosh_core_deployment_summary', { 'deployment' : context.deployment.name }) }}"><span class="glyphicon glyphicon-th"></span> {{ context.deployment.name }}</a></li>
+        <li><a href="#">charts</a></li>
+        <li><a href="#">logs</a></li>
+        <li><a href="#">health</a></li>
+        <li><a href="#">cloque</a></li>
+        <li><a href="#">docs</a></li>
+    </ul>
+{% endblock %}
