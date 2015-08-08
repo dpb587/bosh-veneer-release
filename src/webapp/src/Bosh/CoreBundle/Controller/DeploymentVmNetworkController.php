@@ -16,17 +16,8 @@ class DeploymentVmNetworkController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVmNetwork:summary.html.twig',
             [
-                'result' => $_context['network'],
-            ],
-            [
-                'cpi' => $this->generateUrl(
-                    'bosh_core_deployment_vm_network_cpi',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                        'agent' => $_context['vm']['agentId'],
-                        'network' => $_context['network']['name'],
-                    ]
-                ),
+                'data' => $_context['network'],
+                'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/vm/network', $_context),
             ]
         );
     }

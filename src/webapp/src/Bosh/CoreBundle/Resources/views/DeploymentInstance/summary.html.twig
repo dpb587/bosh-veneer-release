@@ -1,6 +1,6 @@
 {% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
 
-{% block def_title data.result.job ~ '/' ~ data.result.index %}
+{% block def_title data.job ~ '/' ~ data.index %}
 
 {% block frag_content %}  
   something
@@ -9,13 +9,13 @@
 {% block frag_sidebar %}
   <dl>
     <dt>State</dt>
-    <dd>{{ data.result.state }}</dd>
+    <dd>{{ data.state }}</dd>
     
     <dt>Resurrection Paused</dt>
-    <dd>{{ data.result.resurrectionPaused ? 'Yes' : 'No' }}</dd>
+    <dd>{{ data.resurrectionPaused ? 'Yes' : 'No' }}</dd>
   </dl>
 
   <ul class="list-unstyled">
-    <li><a href="{{ links.vm }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-cloud"></span></small>Virtual Machine</a></li>
+    <li><a href="{{ endpoints.vm }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-cloud"></span></small>Virtual Machine</a></li>
   </ul>
 {% endblock %}

@@ -16,17 +16,8 @@ class DeploymentInstanceController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:DeploymentInstance:summary.html.twig',
             [
-                'result' => $_context['instance'],
-            ],
-            [
-                'vm' => $this->generateUrl(
-                    'bosh_core_deployment_instance_vm',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                        'job_name' => $_context['instance']['job'],
-                        'job_index' => $_context['instance']['index'],
-                    ]
-                ),
+                'data' => $_context['instance'],
+                'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/instance', $_context),
             ]
         );
     }

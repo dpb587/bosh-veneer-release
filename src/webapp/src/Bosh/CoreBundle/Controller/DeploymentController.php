@@ -17,39 +17,8 @@ class DeploymentController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:Deployment:summary.html.twig',
             [
-                'result' => $_context['deployment'],
-            ],
-            [
-                'manifest' => $this->generateUrl(
-                    'bosh_core_deployment_manifest',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                    ]
-                ),
-                'releases' => $this->generateUrl(
-                    'bosh_core_deployment_releases',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                    ]
-                ),
-                'stemcells' => $this->generateUrl(
-                    'bosh_core_deployment_stemcells',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                    ]
-                ),
-                'instanceALL' => $this->generateUrl(
-                    'bosh_core_deployment_instanceALL_index',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                    ]
-                ),
-                'vmALL' => $this->generateUrl(
-                    'bosh_core_deployment_vmALL_index',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                    ]
-                ),
+                'data' => $_context['deployment'],
+                'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment', $_context),
             ]
         );
     }

@@ -6,17 +6,17 @@
   <table class="table table-condensed">
     <thead>
       <tr>
-        <th>Agent</th>
         <th>Instance</th>
+        <th>Agent</th>
         <th>IP</th>
         <th>CID</th>
       </tr>
     </thead>
     <tbody>
-      {% for result in data.results %}
+      {% for result in results %}
         <tr>
-            <td><a href="{{ path('bosh_core_deployment_instance_summary', { 'deployment' : context.deployment.name, 'job_name' : result.applySpecJsonAsArray.job.name, 'job_index' : result.applySpecJsonAsArray.index }) }}">{{ result.applySpecJsonAsArray.job.name }}<span class="text-muted">/{{ result.applySpecJsonAsArray.index }}</span></a></td>
-          <td><a href="{{ path('bosh_core_deployment_vm_summary', { 'deployment' : context.deployment.name, 'agent': result.agentId, '_format' : 'html' }) }}"><span title="{{ result.agentId }}">{{ result.agentId[0:8] }}</span></a></td>
+            <td><a href="{{ path('bosh_core_deployment_instance_summary', { 'deployment' : _bosh_core_context.deployment.name, 'job_name' : result.applySpecJsonAsArray.job.name, 'job_index' : result.applySpecJsonAsArray.index }) }}">{{ result.applySpecJsonAsArray.job.name }}<span class="text-muted">/{{ result.applySpecJsonAsArray.index }}</span></a></td>
+          <td><a href="{{ path('bosh_core_deployment_vm_summary', { 'deployment' : _bosh_core_context.deployment.name, 'agent': result.agentId, '_format' : 'html' }) }}"><span title="{{ result.agentId }}">{{ result.agentId[0:8] }}</span></a></td>
           <td>
             {% for network_name, network in result.applySpecJsonAsArray.networks %}
               <span class="text-warning" title="{{ network_name }}">{{ network.ip }}</span><br />

@@ -16,37 +16,8 @@ class DeploymentVmController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVm:summary.html.twig',
             [
-                'result' => $_context['vm'],
-            ],
-            [
-                'applyspec' => $this->generateUrl(
-                    'bosh_core_deployment_vm_applyspec',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                        'agent' => $_context['vm']['agentId'],
-                    ]
-                ),
-                'packages' => $this->generateUrl(
-                    'bosh_core_deployment_vm_packages',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                        'agent' => $_context['vm']['agentId'],
-                    ]
-                ),
-                'templates' => $this->generateUrl(
-                    'bosh_core_deployment_vm_templates',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                        'agent' => $_context['vm']['agentId'],
-                    ]
-                ),
-                'networkALL' => $this->generateUrl(
-                    'bosh_core_deployment_vm_networkALL_index',
-                    [
-                        'deployment' => $_context['deployment']['name'],
-                        'agent' => $_context['vm']['agentId'],
-                    ]
-                ),
+                'data' => $_context['vm'],
+                'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/vm', $_context),
             ]
         );
     }

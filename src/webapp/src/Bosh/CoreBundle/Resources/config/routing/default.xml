@@ -17,6 +17,12 @@
         <default key="_bosh_web_object_context">bosh/deployment:all</default>
     </route>
 
+    <route id="bosh_core_deployment_data" path="/bosh/deployment/{deployment}/data.{_format}">
+        <default key="_controller">Bosh\WebBundle\Controller\GenericObjectController::dataAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment</default>
+    </route>
+
     <route id="bosh_core_deployment_summary" path="/bosh/deployment/{deployment}/summary.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentController::summaryAction</default>
         <default key="_format">html</default>

@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for result in data.results %}
+      {% for result in results %}
         <tr>
           <td><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}/{{ result.version }}</a></td>
           <td><code>{{ result.cid }}</code></td>

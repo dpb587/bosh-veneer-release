@@ -17,30 +17,8 @@ class ReleaseVersionController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:ReleaseVersion:summary.html.twig',
             [
-                'version' => $_context['version'],
-            ],
-            [
-                'deployments' => $this->generateUrl(
-                    'bosh_core_release_version_deployments',
-                    [
-                        'release' => $_context['release']['name'],
-                        'version' => $_context['version']['version'],
-                    ]
-                ),
-                'packages' => $this->generateUrl(
-                    'bosh_core_release_version_packages',
-                    [
-                        'release' => $_context['release']['name'],
-                        'version' => $_context['version']['version'],
-                    ]
-                ),
-                'templates' => $this->generateUrl(
-                    'bosh_core_release_version_templates',
-                    [
-                        'release' => $_context['release']['name'],
-                        'version' => $_context['version']['version'],
-                    ]
-                ),
+                'data' => $_context['version'],
+                'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/release/version', $_context),
             ]
         );
     }

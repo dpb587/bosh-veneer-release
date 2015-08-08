@@ -16,7 +16,7 @@ class CoreDeploymentVmNetworkController extends AbstractController
         return $this->renderApi(
             'BoshAwsCpiBundle:CoreDeploymentVmNetworkController:cpi.html.twig',
             [
-                'result' => $_context['network']['cloud_properties'],
+                'properties' => $_context['network']['cloud_properties'],
             ]
         );
     }

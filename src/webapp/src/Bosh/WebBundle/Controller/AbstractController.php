@@ -26,11 +26,12 @@ abstract class AbstractController extends Controller
         } elseif ('html' == $_format) {
             return $this->render(
                 $view,
-                [
-                    'context' => $request->attributes->get('_context'),
-                    'links' => $links,
-                    'data' => $params,
-                ]
+                array_merge(
+                    [
+                        '_bosh_core_context' => $request->attributes->get('_context'),
+                    ],
+                    $params
+                )
             );
         }
     }

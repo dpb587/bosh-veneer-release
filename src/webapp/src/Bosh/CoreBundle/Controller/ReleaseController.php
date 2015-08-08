@@ -16,21 +16,8 @@ class ReleaseController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:Release:summary.html.twig',
             [
-                'result' => $_context['release'],
-            ],
-            [
-                'packageALL' => $this->generateUrl(
-                    'bosh_core_release_packageALL_index',
-                    [
-                        'release' => $_context['release']['name'],
-                    ]
-                ),
-                'versionALL' => $this->generateUrl(
-                    'bosh_core_release_versionALL_index',
-                    [
-                        'release' => $_context['release']['name'],
-                    ]
-                ),
+                'data' => $_context['release'],
+                'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/release', $_context),
             ]
         );
     }

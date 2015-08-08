@@ -3,16 +3,16 @@
 {% block def_title 'Cloud Properties' %}
 
 {% block frag_content %}
-  {% if 0 < data.result|length %}
+  {% if 0 < properties|length %}
     <dl class="dl-horizontal">
-      {% if data.result.subnet is defined %}
+      {% if properties.subnet is defined %}
         <dt>Subnet</dt>
-        <dd>{{ data.result.subnet }}</dd>
+        <dd>{{ properties.subnet }}</dd>
       {% endif %}
 
-      {% if data.result.security_groups is defined %}
+      {% if properties.security_groups is defined %}
         <dt>Security Groups</dt>
-        {% for security_group in data.result.security_groups %}
+        {% for security_group in properties.security_groups %}
           <dd>{{ security_group }}</dd>
         {% endfor %}
       {% endif %}

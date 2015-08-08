@@ -1,6 +1,6 @@
 {% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
 
-{% block def_title context.deployment.name %}
+{% block def_title _bosh_core_context.deployment.name %}
 
 {% block frag_content %}  
   {{ render(links.instanceALL|bosh_web_appendqs({ '_frag' : 'content' })) }}

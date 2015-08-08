@@ -19,6 +19,140 @@ class CorePlugin implements PluginInterface
         $this->em = $em;
     }
 
+    public function getEndpoints($contextName, array $context = [])
+    {
+        switch ($contextName) {
+            case 'bosh/deployment':
+                return [
+                    'manifest' => [
+                        'bosh_core_deployment_manifest',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                        ],
+                    ],
+                    'releases' => [
+                        'bosh_core_deployment_releases',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                        ],
+                    ],
+                    'stemcells' => [
+                        'bosh_core_deployment_stemcells',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                        ],
+                    ],
+                    'instanceALL' => [
+                        'bosh_core_deployment_instanceALL_index',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                        ],
+                    ],
+                    'vmALL' => [
+                        'bosh_core_deployment_vmALL_index',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                        ]
+                    ],
+                ];
+            case 'bosh/deployment/instance':
+                return [
+                    'vm' => [
+                        'bosh_core_deployment_instance_vm',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
+                        ],
+                    ],
+                ];
+            case 'bosh/deployment/vm':
+                return [
+                    'applyspec' => [
+                        'bosh_core_deployment_vm_applyspec',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                        ],
+                    ],
+                    'packages' => [
+                        'bosh_core_deployment_vm_packages',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                        ],
+                    ],
+                    'templates' => [
+                        'bosh_core_deployment_vm_templates',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                        ],
+                    ],
+                    'networkALL' => [
+                        'bosh_core_deployment_vm_networkALL_index',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                        ],
+                    ],
+                ];
+            case 'bosh/deployment/vm/network':
+                return [
+                    'cpi' => [
+                        'bosh_core_deployment_vm_network_cpi',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                            'network' => $context['network']['name'],
+                        ],
+                    ],
+                ];
+            case 'bosh/release':
+                return [
+                    'packageALL' => [
+                        'bosh_core_release_packageALL_index',
+                        [
+                            'release' => $context['release']['name'],
+                        ]
+                    ],
+                    'versionALL' => [
+                        'bosh_core_release_versionALL_index',
+                        [
+                            'release' => $context['release']['name'],
+                        ],
+                    ],
+                ];
+            case 'bosh/release/version':
+                return [
+                    'deployments' => [
+                        'bosh_core_release_version_deployments',
+                        [
+                            'release' => $context['release']['name'],
+                            'version' => $context['version']['version'],
+                        ],
+                    ],
+                    'packages' => [
+                        'bosh_core_release_version_packages',
+                        [
+                            'release' => $context['release']['name'],
+                            'version' => $context['version']['version'],
+                        ],
+                    ],
+                    'templates' => [
+                        'bosh_core_release_version_templates',
+                        [
+                            'release' => $context['release']['name'],
+                            'version' => $context['version']['version'],
+                        ],
+                    ],
+                ];
+            default:
+                return [];
+        }
+    }
+
+
     public function getContext(Request $request, $contextName)
     {
         $contextNameSplit = explode('/', $contextName);

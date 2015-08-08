@@ -59,9 +59,34 @@ class PluginFactory implements PluginFactoryInterface
         return $context;
     }
 
-    public function getEndpoints($scope, array $context = [])
+    public function getEndpoints($contextName, array $context = [])
     {
+        $endpoints = [];
 
+        foreach ($this->map as $serviceId => $objectContexts) {
+            if (!in_array($contextName, $objectContexts)) {
+                continue;
+            }
+
+            $endpoints = array_merge(
+                $endpoints,
+                $this->container->get($serviceId)->getEndpoints($contextName, $context)
+            );
+        }
+
+        $router = $this->container->get('router');
+
+        return array_map(
+            function ($v) use ($router) {
+                return $router->generate($v[0], $v[1]);
+            },
+            array_filter(
+                $endpoints,
+                function ($v) {
+                    return null !== $v;
+                }
+            )
+        );
     }
 
     public function getUserPrimaryLinks($scope, array $context = [])

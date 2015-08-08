@@ -4,13 +4,13 @@
 {% block def_topic 'builtin' %}
 
 {% block frag_content %}  
-  {{ render(links.releases|bosh_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(links.vmALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(links.instanceALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.releases|bosh_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.vmALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.instanceALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
   <ul class="list-unstyled">
-    <li><a href="{{ links.manifest }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-screenshot"></span></small>Manifest</a></li>
+    <li><a href="{{ endpoints.manifest }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-screenshot"></span></small>Manifest</a></li>
   </ul>
 {% endblock %}

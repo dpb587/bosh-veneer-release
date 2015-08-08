@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for result in data.results %}
+      {% for result in results %}
         <tr>
           <td><a href="{{ path('bosh_core_release_summary', { 'release' : result.name }) }}">{{ result.name }}</a></td>
         </tr>
