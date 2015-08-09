@@ -15,6 +15,9 @@
     <dt>CID</dt>
     <dd>{{ data.cid }}</dd>
 
+    <dt>Resource Pool</dt>
+    <dd>{{ data.applySpecJsonAsArray.resource_pool.name }}</dd>
+
     <dt>Stemcell</dt>
     <dd><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : data.applySpecJsonAsArray.resource_pool.stemcell.name, 'version' : data.applySpecJsonAsArray.resource_pool.stemcell.version }) }}">{{ data.applySpecJsonAsArray.resource_pool.stemcell.name }}<span class="text-muted">/{{ data.applySpecJsonAsArray.resource_pool.stemcell.version }}</span></a></dd>
   </dl>

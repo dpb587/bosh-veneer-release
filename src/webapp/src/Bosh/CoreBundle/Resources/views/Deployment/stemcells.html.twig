@@ -10,11 +10,17 @@
       </tr>
     </thead>
     <tbody>
-      {% for result in data.results %}
+      {% for result in results %}
         <tr>
-          <td><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}/{{ result.version }}</a></td>
+            <td><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p>
+        These stemcells are currently being used by this deployment.
+    </p>
 {% endblock %}

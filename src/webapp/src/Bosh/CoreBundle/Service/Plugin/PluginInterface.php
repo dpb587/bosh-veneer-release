@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface PluginInterface
 {
+    const USER_SECONDARY_TOPIC_CONFIG = 'config';
     const USER_SECONDARY_TOPIC_RESOURCES = 'resources';
     const USER_SECONDARY_TOPIC_PERFORMANCE = 'performance';
     const USER_SECONDARY_TOPIC_CPI = 'cpi';

@@ -5,21 +5,29 @@
 
     <dl>
         {% for topic_name, topic in {
+            'config': {
+                title: 'Configuration',
+                glyphicon: 'cog',
+            },
+            'resources': {
+                title: 'Resources',
+                glyphicon: 'hdd',
+            },
             'performance': {
                 title: 'Performance',
-                glyphicon: 'dashboard'
+                glyphicon: 'dashboard',
             },
             'cpi': {
                 title: 'CPI',
-                glyphicon: 'cloud'
+                glyphicon: 'cloud',
             },
             'documentation': {
                 title: 'Documentation',
-                glyphicon: 'pencil'
+                glyphicon: 'pencil',
             },
             'other': {
                 title: 'Miscellaneous',
-                glyphicon: 'link'
+                glyphicon: 'link',
             },
         } if references[topic_name] is defined %}
             <dt><span class="glyphicon glyphicon-{{ topic.glyphicon }}"></span> {{ topic.title }}</dt>

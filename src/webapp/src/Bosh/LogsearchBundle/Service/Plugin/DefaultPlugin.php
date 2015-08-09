@@ -14,10 +14,14 @@ use Bosh\CoreBundle\Service\Plugin\PluginInterface;
 class DefaultPlugin implements PluginInterface
 {
     protected $elasticsearch;
+    protected $kibanaUrl;
+    protected $directorName;
 
-    public function __construct(Client $elasticsearch)
+    public function __construct(Client $elasticsearch, $kibanaUrl, $directorName)
     {
         $this->elasticsearch = $elasticsearch;
+        $this->kibanaUrl = $kibanaUrl;
+        $this->directorName = $directorName;
     }
 
     public function getEndpoints($contextName, array $context = [])
@@ -82,7 +86,25 @@ class DefaultPlugin implements PluginInterface
 
     public function getUserReferenceLinks($contextName, array $context = [])
     {
-        return [];
+        switch ($contextName) {
+            case 'bosh/deployment/instance':
+                return [
+                    'kibanametricsjob' => [
+                        'topic' => 'performance',
+                        'title' => 'Host Stats',
+                        'note' => 'Kibana',
+                        'url' => sprintf(
+                            '%s#/dashboard/elasticsearch/job-metrics?director=%s&deployment=%s&job=%s',
+                            $this->kibanaUrl,
+                            rawurlencode($this->directorName),
+                            rawurlencode($context['deployment']['name']),
+                            rawurlencode($context['instance']['job'] . '/' . $context['instance']['index'])
+                        ),
+                    ],
+                ];
+            default:
+                return [];
+        }
     }
 
     public function getContext(Request $request, $contextName)

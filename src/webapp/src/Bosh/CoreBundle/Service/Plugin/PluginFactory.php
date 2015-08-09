@@ -141,6 +141,7 @@ class PluginFactory implements PluginFactoryInterface
     public function getUserReferenceLinks($contextName, array $context = [])
     {
         $topicLinks = [
+            PluginInterface::USER_SECONDARY_TOPIC_CONFIG => [],
             PluginInterface::USER_SECONDARY_TOPIC_RESOURCES => [],
             PluginInterface::USER_SECONDARY_TOPIC_PERFORMANCE => [],
             PluginInterface::USER_SECONDARY_TOPIC_CPI => [],

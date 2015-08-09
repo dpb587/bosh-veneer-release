@@ -8,6 +8,7 @@
         <parameter key="bosh_logsearch.elasticsearch.host">localhost</parameter>
         <parameter key="bosh_logsearch.elasticsearch.port">9200</parameter>
         <parameter key="bosh_logsearch.elasticsearch_index">logstash-[Y.m.d]</parameter>
+        <parameter key="bosh_logsearch.kibana_url">http://%bosh_logsearch.elasticsearch.host%:%bosh_logsearch.elasticsearch.port%/_plugin/kibana/index.html</parameter>
     </parameters>
 
     <services>
@@ -25,6 +26,8 @@
 
         <service id="bosh_logsearch.plugin.default" class="Bosh\LogsearchBundle\Service\Plugin\DefaultPlugin">
             <argument type="service" id="bosh_logsearch.elasticsearch" />
+            <argument>%bosh_logsearch.kibana_url%</argument>
+            <argument>%bosh_core.director_name%</argument>
 
             <tag name="bosh_core.plugin" context="bosh/deployment" />
             <tag name="bosh_core.plugin" context="bosh/deployment:all" />

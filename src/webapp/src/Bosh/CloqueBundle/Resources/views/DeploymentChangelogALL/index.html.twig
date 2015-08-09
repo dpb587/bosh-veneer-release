@@ -34,7 +34,11 @@
 {% endblock %}
 
 {% block frag_sidebar %}
-  <ul class="list-unstyled">
-    <li><a href="{{ ws_link }}" target="_blank"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>GitHub</a></li>
-  </ul>
+    <p>
+        The list of all recent commits to the manifest for this deployment.
+    </p>
+
+    <ul class="list-unstyled">
+        <li><a href="{{ ws_link }}" target="_blank"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>GitHub Repository</a></li>
+    </ul>
 {% endblock %}
