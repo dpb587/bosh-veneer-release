@@ -22,3 +22,16 @@
         </tbody>
     </table>
 {% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        An encapsulation of software and configuration that BOSH can deploy to the cloud. You can think of a
+        deployment as the state of a collection of VMs: what software is on them, what resources they use, and how
+        these are orchestrated. Even though BOSH creates the deployment using ephemeral resources, the deployment is
+        stable in that BOSH re-creates VMs that fail and otherwise works to keep your software running. BOSH also
+        manages persistent disks so that state (for example, database data files) can survive when BOSH re-creates a
+        VM. A particular combination of manifest, stemcell, and release is portable across different kinds of cloud
+        infrastructure (that is, across different CPIs) with minimal changes to the manifest.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#deployment">bosh.io</a>
+    </p>
+{% endblock %}

@@ -1,8 +1,7 @@
 {% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
 
 {% block def_title 'Manifest' %}
-{% block def_subtitle _bosh_core_context.deployment.name %}
 
 {% block frag_content %}
-  <pre>{{ data.string }}</pre>
+  <pre>{{ string }}</pre>
 {% endblock %}

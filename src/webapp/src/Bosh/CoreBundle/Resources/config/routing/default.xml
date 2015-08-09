@@ -11,7 +11,7 @@
 
     <!-- deployment -->
 
-    <route id="bosh_core_deploymentALL_index" path="/bosh/deployment:all/index.{_format}">
+    <route id="bosh_core_deploymentALL_index" path="/bosh/deployment/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment:all</default>
@@ -47,7 +47,7 @@
         <default key="_bosh_web_object_context">bosh/deployment</default>
     </route>
 
-    <route id="bosh_core_deployment_instanceALL_index" path="/bosh/deployment/{deployment}/instance:all/index.{_format}">
+    <route id="bosh_core_deployment_instanceALL_index" path="/bosh/deployment/{deployment}/instance/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstanceALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment/instance:all</default>
@@ -65,7 +65,7 @@
         <default key="_bosh_web_object_context">bosh/deployment/instance</default>
     </route>
 
-    <route id="bosh_core_deployment_vmALL_index" path="/bosh/deployment/{deployment}/vm:all/index.{_format}">
+    <route id="bosh_core_deployment_vmALL_index" path="/bosh/deployment/{deployment}/vm/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment/vm:all</default>
@@ -73,6 +73,12 @@
 
     <route id="bosh_core_deployment_vm_summary" path="/bosh/deployment/{deployment}/vm/{agent}/summary.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/vm</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_instance" path="/bosh/deployment/{deployment}/vm/{agent}/instance.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmController::instanceAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment/vm</default>
     </route>
@@ -95,7 +101,7 @@
         <default key="_bosh_web_object_context">bosh/deployment/vm</default>
     </route>
 
-    <route id="bosh_core_deployment_vm_networkALL_index" path="/bosh/deployment/{deployment}/vm/{agent}/network:all/index.{_format}">
+    <route id="bosh_core_deployment_vm_networkALL_index" path="/bosh/deployment/{deployment}/vm/{agent}/network/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmNetworkALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment/vm/network:all</default>
@@ -115,7 +121,7 @@
 
     <!-- task -->
 
-    <route id="bosh_core_taskALL_index" path="/bosh/task:all/index.{_format}">
+    <route id="bosh_core_taskALL_index" path="/bosh/task/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\TaskALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/task:all</default>
@@ -129,7 +135,7 @@
 
     <!-- release -->
 
-    <route id="bosh_core_releaseALL_index" path="/bosh/release:all/index.{_format}">
+    <route id="bosh_core_releaseALL_index" path="/bosh/release/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\ReleaseALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/release:all</default>
@@ -141,7 +147,7 @@
         <default key="_bosh_web_object_context">bosh/release</default>
     </route>
 
-    <route id="bosh_core_release_versionALL_index" path="/bosh/release/{release}/version:all/index.{_format}">
+    <route id="bosh_core_release_versionALL_index" path="/bosh/release/{release}/version/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\ReleaseVersionALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/release/version:all</default>
@@ -171,7 +177,7 @@
         <default key="_bosh_web_object_context">bosh/release/version</default>
     </route>
 
-    <route id="bosh_core_release_packageALL_index" path="/bosh/release/{release}/package:all/index.{_format}">
+    <route id="bosh_core_release_packageALL_index" path="/bosh/release/{release}/package/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\ReleasePackageALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/release/package:all</default>
@@ -183,7 +189,7 @@
         <default key="_bosh_web_object_context">bosh/release/package</default>
     </route>
 
-    <route id="bosh_core_release_templateALL_index" path="/bosh/release/{release}/template:all/index.{_format}">
+    <route id="bosh_core_release_templateALL_index" path="/bosh/release/{release}/template/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\ReleaseTemplateALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/release/template:all</default>
@@ -203,7 +209,7 @@
 
     <!-- stemcell -->
 
-    <route id="bosh_core_stemcellALL_index" path="/bosh/stemcell:all/index.{_format}">
+    <route id="bosh_core_stemcellALL_index" path="/bosh/stemcell/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\StemcellALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/stemcell:all</default>

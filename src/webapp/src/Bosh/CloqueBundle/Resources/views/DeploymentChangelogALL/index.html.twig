@@ -1,0 +1,40 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title 'Changelog' %}
+{% block primary_link 'cloque_changelog' %}
+
+{% block frag_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commit in commits %}
+                <tr>
+                    <td width="180">
+                        {{ commit.committed_at|date('D, M j, Y') }}<br />
+                        <small>{{ commit.committed_at|date('g:i a') }}</small>
+                    </td>
+                    <td>
+                        <div>
+                            {{ commit.message|replace({ "\n" : "<br />" }) }}
+                        </div>
+                        <small class="text-muted">
+                            from {{ commit.committed_by }},
+                            via <a href="{{ commit._ws_link }}" target="_blank">{{ commit.commit[0:7] }}</a>
+                        </small>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+  <ul class="list-unstyled">
+    <li><a href="{{ ws_link }}" target="_blank"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>GitHub</a></li>
+  </ul>
+{% endblock %}

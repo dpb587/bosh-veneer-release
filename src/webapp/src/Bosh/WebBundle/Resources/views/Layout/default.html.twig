@@ -31,7 +31,7 @@
         </ul>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li{% if 'builtin' == block('primary_link') %} class="active"{% endif %}>{{ block('primary_nav') }}</li>
+              <li{% if 'builtin' == block('primary_link')|default('builtin') %} class="active"{% endif %}>{{ block('primary_nav') }}</li>
               {% for name, link in _user_links_primary %}
                 <li{% if block('primary_link') == name %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
               {% endfor %}

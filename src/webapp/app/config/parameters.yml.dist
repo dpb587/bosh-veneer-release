@@ -19,8 +19,10 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     bosh_core.director_name: ~
-
     bosh_aws_cpi.region: ~
-
     bosh_logsearch.elasticsearch.host: ~
     bosh_logsearch.elasticsearch.port: 9200
+    bosh_cloque.versioning.repository.workspace: ~
+    bosh_cloque.versioning.repository.path_prefix: ~
+    bosh_cloque.versioning.web_service.org_name: ~
+    bosh_cloque.versioning.web_service.repo_name: ~

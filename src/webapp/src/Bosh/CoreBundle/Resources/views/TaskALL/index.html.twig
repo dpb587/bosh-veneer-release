@@ -30,3 +30,11 @@
     </tbody>
   </table>
 {% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        The basic unit of work performed by the Director. You can get the status and logs for any task. You can monitor
+        the task throughout its lifecycle, which progresses through states like started, running, done, and error.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#director-task">bosh.io</a>
+    </p>
+{% endblock %}

@@ -110,7 +110,7 @@ class PluginFactory implements PluginFactoryInterface
             $links
         );
 
-        usort(
+        uasort(
             $links,
             function (array $a, array $b) {
                 if ($a['priority'] == $b['priority']) {
@@ -123,15 +123,18 @@ class PluginFactory implements PluginFactoryInterface
 
         $router = $this->container->get('router');
 
-        return array_values(
-            array_map(
-                function (array $v) use ($router) {
-                    if (isset($v['route'])) {
-                        $v['url'] = $router->generate($v['route'][0], $v['route'][1]);
-                    }
-                },
-                $links
-            )
+        return array_map(
+            function (array $v) use ($router) {
+                unset($v['priority']);
+
+                if (isset($v['route'])) {
+                    $v['url'] = $router->generate($v['route'][0], $v['route'][1]);
+                    unset($v['route']);
+                }
+
+                return $v;
+            },
+            $links
         );
     }
 

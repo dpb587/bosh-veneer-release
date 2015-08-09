@@ -100,7 +100,11 @@ class DeploymentInstanceController extends AbstractController
         );
 
         foreach ($systemFree as $i => $step) {
-            $systemUsed[$i]['y'] = ceil($systemUsed[$i]['y'] / ($systemUsed[$i]['y'] + $step['y']) * 100);
+            if (isset($systemUsed[$i]['y'], $step['y'])) {
+                $systemUsed[$i]['y'] = ceil($systemUsed[$i]['y'] / ($systemUsed[$i]['y'] + $step['y']) * 100);
+            } else {
+                $systemUsed[$i]['y'] = null;
+            }
         }
 
 
@@ -118,7 +122,11 @@ class DeploymentInstanceController extends AbstractController
         );
 
         foreach ($ephemeralFree as $i => $step) {
-            $ephemeralUsed[$i]['y'] = ceil($ephemeralUsed[$i]['y'] / ($ephemeralUsed[$i]['y'] + $step['y']) * 100);
+            if (isset($ephemeralUsed[$i]['y'], $step['y'])) {
+                $ephemeralUsed[$i]['y'] = ceil($ephemeralUsed[$i]['y'] / ($ephemeralUsed[$i]['y'] + $step['y']) * 100);
+            } else {
+                $ephemeralUsed[$i]['y'] = null;
+            }
         }
 
         $persistentUsed = $es->reduceDateHistogram(
@@ -135,7 +143,11 @@ class DeploymentInstanceController extends AbstractController
         );
 
         foreach ($persistentFree as $i => $step) {
-            $persistentUsed[$i]['y'] = ceil($persistentUsed[$i]['y'] / ($persistentUsed[$i]['y'] + $step['y']) * 100);
+            if (isset($persistentUsed[$i]['y'], $step['y'])) {
+                $persistentUsed[$i]['y'] = ceil($persistentUsed[$i]['y'] / ($persistentUsed[$i]['y'] + $step['y']) * 100);
+            } else {
+                $persistentUsed[$i]['y'] = null;
+            }
         }
 
         return $this->renderApi(
@@ -192,7 +204,7 @@ class DeploymentInstanceController extends AbstractController
                                         ],
                                         'aggregations' => [
                                             'value' => [
-                                                'sum' => [
+                                                'avg' => [
                                                     'field' => 'value',
                                                 ],
                                             ],

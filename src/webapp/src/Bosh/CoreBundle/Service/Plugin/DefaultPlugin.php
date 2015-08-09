@@ -75,6 +75,13 @@ class DefaultPlugin implements PluginInterface
                             'agent' => $context['vm']['agentId'],
                         ],
                     ],
+                    'instance' => [
+                        'bosh_core_deployment_vm_instance',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                        ],
+                    ],
                     'packages' => [
                         'bosh_core_deployment_vm_packages',
                         [

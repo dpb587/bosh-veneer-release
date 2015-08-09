@@ -1,12 +1,11 @@
 {% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
 
 {% block def_title 'Deployment Summary' %}
-{% block def_topic 'builtin' %}
 
-{% block frag_content %}  
+{% block frag_content %}
+  {{ render(endpoints.instanceALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
   {{ render(endpoints.releases|bosh_web_appendqs({ '_frag' : 'content' })) }}
   {{ render(endpoints.vmALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.instanceALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

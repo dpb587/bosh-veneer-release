@@ -22,6 +22,29 @@ class DeploymentVmController extends AbstractController
             ]
         );
     }
+
+    public function instanceAction($_context, $_format)
+    {
+        $instance = $this->container->get('doctrine.orm.bosh_entity_manager')
+            ->getRepository('BoshCoreBundle:Instances')
+            ->findOneBy([
+                'vm' => $_context['vm'],
+            ]);
+
+        if (!$instance) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->redirectToRoute(
+            'bosh_core_deployment_instance_summary',
+            [
+                'deployment' => $_context['deployment']['name'],
+                'job_name' => $instance['job'],
+                'job_index' => $instance['index'],
+                '_format' => $_format,
+            ]
+        );
+    }
     
     public function applyspecAction($_context)
     {

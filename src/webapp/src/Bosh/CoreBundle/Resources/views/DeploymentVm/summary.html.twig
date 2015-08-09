@@ -1,6 +1,6 @@
 {% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
 
-{% block def_title data.applySpecJsonAsArray.job.name|default('unknown') ~ '/' ~ data.applySpecJsonAsArray.index|default('unknown') %}
+{% block def_title data.agentId %}
 
 {% block frag_content %}  
   {{ render(endpoints.templates|bosh_web_appendqs({ '_frag' : 'content' })) }}
@@ -18,6 +18,10 @@
     <dt>Stemcell</dt>
     <dd><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : data.applySpecJsonAsArray.resource_pool.stemcell.name, 'version' : data.applySpecJsonAsArray.resource_pool.stemcell.version }) }}">{{ data.applySpecJsonAsArray.resource_pool.stemcell.name }}<span class="text-muted">/{{ data.applySpecJsonAsArray.resource_pool.stemcell.version }}</span></a></dd>
   </dl>
+
+  <ul class="list-unstyled">
+    <li><a href="{{ endpoints.instance|default }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>Instance</a></li>
+  </ul>
 
   {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

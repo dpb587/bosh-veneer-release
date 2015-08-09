@@ -24,7 +24,14 @@
 {% endblock %}
 
 {% block frag_sidebar %}
-  <ul class="list-unstyled">
-    <li><a href="https://bosh.io/releases"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-info-sign"></span></small>bosh.io/releases</a></li>
-  </ul>
+    <p class="text-muted">
+        A collection of configuration files, job definitions, source code, package definitions and accompanying
+        information needed to make a software component deployable by BOSH. A self-contained release should have no
+        dependencies that need to be fetched from the internet.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#release">bosh.io</a>
+    </p>
+
+    <ul class="list-unstyled">
+        <li><a href="https://bosh.io/releases"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-info-sign"></span></small>bosh.io/releases</a></li>
+    </ul>
 {% endblock %}
