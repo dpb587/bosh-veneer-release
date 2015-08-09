@@ -11,9 +11,12 @@
   <dl>
     <dt>Agent</dt>
     <dd>{{ data.agentId }}</dd>
-    
+
     <dt>CID</dt>
     <dd>{{ data.cid }}</dd>
+
+    <dt>Stemcell</dt>
+    <dd><a href="{{ path('bosh_core_stemcell_summary', { 'stemcell' : data.applySpecJsonAsArray.resource_pool.stemcell.name, 'version' : data.applySpecJsonAsArray.resource_pool.stemcell.version }) }}">{{ data.applySpecJsonAsArray.resource_pool.stemcell.name }}<span class="text-muted">/{{ data.applySpecJsonAsArray.resource_pool.stemcell.version }}</span></a></dd>
   </dl>
 
   {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}

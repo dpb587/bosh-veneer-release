@@ -40,7 +40,17 @@ class DefaultPlugin implements PluginInterface
                     'awsconsole' => [
                         'topic' => PluginInterface::USER_SECONDARY_TOPIC_CPI,
                         'title' => 'AWS Console',
+                        'note' => 'all deployment instances',
                         'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#Instances:tag:director=' . $this->directorName . ';tag:deployment=' . $context['deployment']['name'],
+                    ],
+                ];
+            case 'bosh/deployment/instance':
+                return [
+                    'awsconsole' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_CPI,
+                        'title' => 'AWS Console',
+                        'note' => 'instance detail',
+                        'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#Instances:tag:director=' . $this->directorName . ';tag:deployment=' . $context['deployment']['name'] . ';tag:Name=' . $context['instance']['job'] . '/' . $context['instance']['index'],
                     ],
                 ];
             case 'bosh/deployment/vm':
@@ -48,6 +58,7 @@ class DefaultPlugin implements PluginInterface
                     'awsconsole' => [
                         'topic' => PluginInterface::USER_SECONDARY_TOPIC_CPI,
                         'title' => 'AWS Console',
+                        'note' => 'instance detail',
                         'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#Instances:instanceId=' . $context['vm']['cid'],
                     ],
                 ];
@@ -56,6 +67,7 @@ class DefaultPlugin implements PluginInterface
                     'awsconsole' => [
                         'topic' => PluginInterface::USER_SECONDARY_TOPIC_CPI,
                         'title' => 'AWS Console',
+                        'note' => 'network interface detail',
                         'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#NIC:search=' . $context['network']['ip'],
                     ],
                 ];

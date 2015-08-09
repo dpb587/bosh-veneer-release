@@ -17,10 +17,22 @@
         <default key="_bosh_web_object_context">bosh/deployment</default>
     </route>
 
-    <route id="bosh_logsearch_deployment_vm_hoststats" path="/logsearch/deployment/{deployment}/vm/{agent}/hoststats.{_format}">
-        <default key="_controller">Bosh\LogsearchBundle\Controller\DeploymentVmController::hoststatsAction</default>
+    <route id="bosh_logsearch_deployment_instance_diskstats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/diskstats.{_format}">
+        <default key="_controller">Bosh\LogsearchBundle\Controller\DeploymentInstanceController::diskstatsAction</default>
         <default key="_format">html</default>
-        <default key="_bosh_web_object_context">bosh/deployment/vm</default>
+        <default key="_bosh_web_object_context">bosh/deployment/instance</default>
+    </route>
+
+    <route id="bosh_logsearch_deployment_instance_memstats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/memstats.{_format}">
+        <default key="_controller">Bosh\LogsearchBundle\Controller\DeploymentInstanceController::memstatsAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/instance</default>
+    </route>
+
+    <route id="bosh_logsearch_deployment_instance_loadstats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/loadstats.{_format}">
+        <default key="_controller">Bosh\LogsearchBundle\Controller\DeploymentInstanceController::loadstatsAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/instance</default>
     </route>
 
     <route id="bosh_logsearch_deployment_vm_network_hoststats" path="/logsearch/deployment/{deployment}/vm/{agent}/network/{network}/hoststats.{_format}">

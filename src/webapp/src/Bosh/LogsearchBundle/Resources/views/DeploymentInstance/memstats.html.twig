@@ -1,6 +1,6 @@
 {% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
 
-{% block def_title 'Network Activity' %}
+{% block def_title 'Memory Usage' %}
 
 {% block frag_content %}  
     <div id="highcharts-{{ _uuid }}" style="height:180px;"></div>
@@ -63,20 +63,32 @@
         },
         series: [
             {
-                color: '#3D6CAD',
-                data: {{ series.octets_rx|json_encode|raw }},
+                color: '#CA272E',
+                data: {{ series.used|json_encode|raw }},
                 fillOpacity: 0.4,
-                name: 'RX'
+                name: 'Used',
+                stacking: 'normal'
             },
             {
                 color: '#D67E41',
-                data: {{ series.octets_tx|json_encode|raw }}.map(function (v) {
-                    v['y'] *= -1;
-
-                    return v;
-                }),
+                data: {{ series.buffered|json_encode|raw }},
                 fillOpacity: 0.4,
-                name: 'TX'
+                name: 'Buffered',
+                stacking: 'normal'
+            },
+            {
+                color: '#958A48',
+                data: {{ series.cached|json_encode|raw }},
+                fillOpacity: 0.4,
+                name: 'Cached',
+                stacking: 'normal'
+            },
+            {
+                color: '#439755',
+                data: {{ series.free|json_encode|raw }},
+                fillOpacity: 0.4,
+                name: 'Free',
+                stacking: 'normal'
             }
         ],
         title: {
@@ -95,7 +107,7 @@
                 }
             },
             title: {
-                text: 'TX / RX'
+                text: null
             }
         }
     });

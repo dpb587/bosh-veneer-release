@@ -1,0 +1,70 @@
+{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+
+{% block def_title 'Disk Usage' %}
+
+{% block frag_content %}  
+    <div id="highcharts-{{ _uuid }}" style="height:180px;"></div>
+{% endblock %}
+
+{% block javascripts %}
+    $('#highcharts-{{ _uuid }}').highcharts({
+        chart: {
+            spacingBottom: 4,
+            spacingLeft: 4,
+            spacingRight: 4,
+            spacingTop: 4,
+            type: 'spline'
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            spline: {
+                animation: false,
+                marker: {
+                    radius: 2,
+                    symbol: 'circle'
+                }
+            }
+        },
+        series: [
+            {
+                color: '#535055',
+                data: {{ series.system_pct|json_encode|raw }},
+                name: 'System'
+            },
+            {
+                color: '#8E262C',
+                data: {{ series.ephemeral_pct|json_encode|raw }},
+                name: 'Ephemeral'
+            },
+            {
+                color: '#3D6CAD',
+                data: {{ series.persistent_pct|json_encode|raw }},
+                name: 'Persistent'
+            }
+        ],
+        title: {
+            text: null
+        },
+        tooltip: {
+            shared: true
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            labels: {
+                format: '{value}%'
+            },
+            max: 100,
+            min: 0,
+            title: {
+                text: null
+            }
+        }
+    });
+{% endblock %}

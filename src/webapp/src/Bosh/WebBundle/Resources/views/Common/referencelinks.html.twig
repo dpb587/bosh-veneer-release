@@ -24,7 +24,12 @@
         } if references[topic_name] is defined %}
             <dt><span class="glyphicon glyphicon-{{ topic.glyphicon }}"></span> {{ topic.title }}</dt>
             {% for link in references[topic_name] %}
-                <dd><a href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}>{{ link.title }}</a></dd>
+                <dd>
+                    <a href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}>{{ link.title }}</a>
+                    {% if link.note|default %}
+                        <span class="text-muted">&ndash; {{ link.note }}</span>
+                    {% endif %}
+                </dd>
             {% endfor %}
         {% endfor %}
     </dl>

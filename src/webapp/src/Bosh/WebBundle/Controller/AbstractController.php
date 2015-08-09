@@ -30,6 +30,7 @@ abstract class AbstractController extends Controller
                 $view,
                 array_merge(
                     [
+                        '_uuid' => md5(microtime(true)),
                         '_user_links_primary' => $this->container->get('bosh_core.plugin_factory')->getUserPrimaryLinks(
                             $request->attributes->get('_bosh_web_object_context'),
                             $context

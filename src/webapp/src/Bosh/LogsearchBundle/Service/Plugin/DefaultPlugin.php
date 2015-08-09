@@ -32,13 +32,30 @@ class DefaultPlugin implements PluginInterface
                         ],
                     ],
                 ];
-            case 'bosh/deployment/vm':
+            case 'bosh/deployment/instance':
                 return [
-                    'hoststats' => [
-                        'bosh_logsearch_deployment_vm_hoststats',
+                    'diskstats' => [
+                        'bosh_logsearch_deployment_instance_diskstats',
                         [
                             'deployment' => $context['deployment']['name'],
-                            'agent' => $context['vm']['agentId'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
+                        ],
+                    ],
+                    'loadstats' => [
+                        'bosh_logsearch_deployment_instance_loadstats',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
+                        ],
+                    ],
+                    'memstats' => [
+                        'bosh_logsearch_deployment_instance_memstats',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
                         ],
                     ],
                 ];
