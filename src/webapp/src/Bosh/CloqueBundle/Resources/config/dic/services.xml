@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="bosh_cloque.director_name" />
         <parameter key="bosh_cloque.versioning.repository.workspace" />
         <parameter key="bosh_cloque.versioning.repository.path_prefix" />
         <parameter key="bosh_cloque.versioning.web_service.org_name" />
@@ -16,6 +17,7 @@
         <service id="bosh_cloque.plugin.default" class="Bosh\CloqueBundle\Service\Plugin\DefaultPlugin">
             <argument type="service" id="bosh_cloque.versioning.repository" />
             <argument type="service" id="bosh_cloque.versioning.web_service" />
+            <argument>%bosh_cloque.director_name%</argument>
 
             <tag name="bosh_core.plugin" context="bosh/deployment" />
             <tag name="bosh_core.plugin" context="bosh/deployment:all" />

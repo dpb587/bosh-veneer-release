@@ -1,0 +1,21 @@
+#!/bin/bash
+
+exec 2>&1
+
+set -e
+set -u
+
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+
+( cd directorweb-zlib-blobs/zlib
+
+  tar -xzf zlib.tar.gz
+  cp -r zlib-* "${BOSH_INSTALL_TARGET}/src"
+  cd zlib-*
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}
+
+  make -j${CPUS}
+  make install
+)

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O icu4c.tgz \
+  http://download.icu-project.org/files/icu4c/${VERSION}/icu4c-$( echo $VERSION | tr '.' '_' )-src.tgz

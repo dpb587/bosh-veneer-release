@@ -1,0 +1,4 @@
+---
+name: "directorweb-webapp-build"
+files:
+  - "directorweb-webapp-build-blobs/**/*"

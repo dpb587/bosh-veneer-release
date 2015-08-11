@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+curl -s -l \
+  ftp://ftp.gnu.org/gnu/automake/ \
+  | grep -E '^automake-.+.tar.gz$' \
+  | sed -E 's/^automake-(.+)\.tar.gz$/\1/' \
+  | grep -E '^\d+\.\d+\.\d+\w*$' \
+  | gsort -rV \
+  | head -n1

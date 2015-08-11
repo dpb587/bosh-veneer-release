@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+git ls-remote --tags https://github.com/git/git.git \
+  | cut -f2 \
+  | grep -Ev '\^{}' \
+  | grep -E '^refs/tags/v.+$' \
+  | sed -E 's/^refs\/tags\/v(.+)$/\1/' \
+  | grep -v -- - \
+  | gsort -rV \
+  | head -n1

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+git ls-remote --tags git://anongit.freedesktop.org/pkg-config \
+  | cut -f2 \
+  | grep -Ev '\^{}' \
+  | grep -E '^refs/tags/pkg-config-.+$' \
+  | sed -E 's/^refs\/tags\/pkg-config-(.+)$/\1/' \
+  | gsort -rV \
+  | head -n1

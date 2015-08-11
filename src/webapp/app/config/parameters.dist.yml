@@ -1,0 +1,23 @@
+parameters:
+    database_host: 127.0.0.1
+    database_port: ~
+    database_name: symfony
+    database_user: root
+    database_password: password
+    database_adapter: pdo_pgsql
+
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: ~
+    mailer_password: ~
+
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    bosh_core.director_name: example-aws-us-east-1
+    bosh_aws_cpi.region: us-east-1
+    bosh_logsearch.elasticsearch.host: 127.0.0.1
+    bosh_logsearch.elasticsearch.port: 9200
+    bosh_cloque.director_name: example-aws
+    bosh_cloque.versioning.repository.path_prefix: example
+    bosh_cloque.versioning.web_service.org_name: example
+    bosh_cloque.versioning.web_service.repo_name: cloque-config

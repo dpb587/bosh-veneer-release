@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O- \
+  http://source.icu-project.org/repos/icu/icu/tags/ \
+  | sed -E 's/.+ name="([^"]+)".+/\1/' \
+  | grep -E "^release-" \
+  | sed -E 's/^release-(.+)$/\1/' \
+  | tr '-' '.' \
+  | grep -E '^\d+\.\d+(\.\d+)?$' \
+  | gsort -rV \
+  | head -n1

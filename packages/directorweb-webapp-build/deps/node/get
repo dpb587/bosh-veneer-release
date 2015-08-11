@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O node.tar.gz \
+  https://nodejs.org/dist/v${VERSION}/node-v${VERSION}-linux-x64.tar.gz

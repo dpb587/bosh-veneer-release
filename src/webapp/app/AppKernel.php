@@ -39,9 +39,25 @@ class AppKernel extends Kernel
 
         return $bundles;
     }
+    
+    public function getCacheDir()
+    {
+        return getenv('CACHEDIR') ?: parent::getCacheDir();
+    }
+
+    public function getLogDir()
+    {
+        return getenv('LOGDIR') ?: parent::getLogDir();
+    }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
+        $params = getenv('SYMFONY_PARAMS');
+
+        if (!empty($params)) {
+            $loader->load($params);
+        }
+
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

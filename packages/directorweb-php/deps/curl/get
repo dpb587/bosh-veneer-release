@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O curl.tar.gz \
+  https://github.com/bagder/curl/releases/download/curl-$( echo "${VERSION}" | tr '.' '_' )/curl-${VERSION}.tar.gz

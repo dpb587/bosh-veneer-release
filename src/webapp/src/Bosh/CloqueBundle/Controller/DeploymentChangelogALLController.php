@@ -14,15 +14,19 @@ class DeploymentChangelogALLController extends AbstractController
 {
     public function indexAction($_context)
     {
-        $commits = $this->container->get('bosh_cloque.versioning.repository')->getFileLog([
-            $_context['deployment']['name'] . '/bosh.yml',
-            $_context['deployment']['name'] . '/infrastructure.json',
-        ]);
+        $uncompiledPath = $this->container->getParameter('bosh_cloque.director_name') . '/' . $_context['deployment']['name'] . '/bosh.yml';
+
+        $repo = $this->container->get('bosh_cloque.versioning.repository');
+
+        $commits = $repo->getFileLog('compiled/' . $uncompiledPath);
 
         $ws = $this->container->get('bosh_cloque.versioning.web_service');
 
         foreach ($commits as $i => $commit) {
-            $commits[$i]['_ws_link'] = $ws->getCommitLink($commit['commit']);
+            $commits[$i]['_ws_link'] = $ws->getCommitLink(
+                $commit['commit'],
+                $repo->getFullPath($uncompiledPath)
+            );
         }
 
         return $this->renderApi(

@@ -1,0 +1,27 @@
+#!/bin/bash
+
+exec 2>&1
+
+set -e
+set -u
+
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+
+( cd directorweb-git-blobs/git
+
+  tar -xzf git.tar.gz
+  cd git-2*
+
+  export PATH="/var/vcap/packages/directorweb-autoconf/bin:$PATH"
+  export CPPFLAGS="-I/var/vcap/packages/directorweb-zlib/include"
+  export LDFLAGS="-L/var/vcap/packages/directorweb-zlib/lib"
+
+  make configure
+
+  ./configure \
+    --prefix="${BOSH_INSTALL_TARGET}" \
+    --without-tcltk
+
+  make -j${CPUS} NO_GETTEXT=1
+  make install NO_GETTEXT=1
+)

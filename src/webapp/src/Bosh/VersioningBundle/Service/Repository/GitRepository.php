@@ -17,9 +17,14 @@ class GitRepository implements RepositoryInterface
         $this->executable = $executable;
     }
 
+    public function getFullPath($path)
+    {
+        return ((null !== $this->pathPrefix) ? ($this->pathPrefix . '/') : '') . $path;
+    }
+
     public function getFileLog($path)
     {
-        $pathPrefix = $this->pathPrefix;
+        $that = $this;
 
         $p = new Process(
             sprintf(
@@ -29,8 +34,8 @@ class GitRepository implements RepositoryInterface
                 implode(
                     ' ',
                     array_map(
-                        function ($v) use ($pathPrefix) {
-                            return escapeshellarg(($pathPrefix ? ($pathPrefix . '/') : '') . $v);
+                        function ($v) use ($that) {
+                            return escapeshellarg($that->getFullPath($v));
                         },
                         (array) $path
                     )

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O "autoconf.tar.gz" \
+  "http://ftp.gnu.org/gnu/autoconf/autoconf-${VERSION}.tar.gz"

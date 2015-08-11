@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+git ls-remote --tags https://github.com/joyent/node.git \
+  | cut -f2 \
+  | grep -Ev '\^{}' \
+  | grep -E '^refs/tags/v.+$' \
+  | sed -E 's/^refs\/tags\/v(.+)$/\1/' \
+  | grep -E '^\d+\.\d+\.\d+$' \
+  | gsort -rV \
+  | head -n1

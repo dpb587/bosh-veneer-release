@@ -1,5 +1,4 @@
 imports:
-    - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
 
@@ -52,8 +51,9 @@ assetic:
     #java: /usr/bin/java
     filters:
         less:
-            node: /usr/local/bin/node
-            node_paths: [/usr/local/lib/node_modules]
+            node: /var/vcap/packages/directorweb-webapp-build/node/bin/node
+            node_paths:
+                - %kernel.root_dir%/../vendor/less/less.js/lib
             apply_to: "\.less$"
         cssrewrite: ~
         #closure:
@@ -67,7 +67,7 @@ doctrine:
         default_connection: bosh
         connections:
             bosh:
-                driver:   pdo_pgsql
+                driver:   "%database_adapter%"
                 host:     "%database_host%"
                 port:     "%database_port%"
                 dbname:   "%database_name%"

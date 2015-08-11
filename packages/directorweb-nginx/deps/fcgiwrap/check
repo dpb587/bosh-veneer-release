@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+git ls-remote --heads https://github.com/gnosek/fcgiwrap.git \
+  | grep -E '\s+refs/heads/master$' \
+  | cut -f1 \
+  | head -n1

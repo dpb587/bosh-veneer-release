@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+git ls-remote --tags https://github.com/composer/composer.git \
+  | cut -f2 \
+  | grep -Ev '\^{}' \
+  | sed -E 's/^refs\/tags\/(.+)$/\1/' \
+  | grep -E '^\d+\.\d+\.\d+(\-.+)$' \
+  | gsort -rV \
+  | head -n1

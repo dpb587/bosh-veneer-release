@@ -5,6 +5,7 @@ set -u
 
 PIDFILE=/var/vcap/sys/run/directorweb/nginx.pid
 LOGDIR=/var/vcap/sys/log/directorweb
+NGINX_PROXY_TMP=/var/vcap/data/directorweb/nginx-proxy
 
 mkdir -p $LOGDIR
 chown vcap:vcap $LOGDIR
@@ -12,10 +13,10 @@ chown vcap:vcap $LOGDIR
 exec >> $LOGDIR/nginx-control.log
 exec 2>&1
 
-mkdir -p $( dirname $PIDFILE )
+mkdir -p $NGINX_PROXY_TMP
+chown vcap:vcap $NGINX_PROXY_TMP
 
-mkdir -p $TMPDIR/nginxproxy
-chown vcap:vcap $TMPDIR/nginxproxy
+mkdir -p $( dirname $PIDFILE )
 
 case $1 in
 

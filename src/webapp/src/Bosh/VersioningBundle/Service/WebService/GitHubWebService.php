@@ -30,7 +30,7 @@ class GitHubWebService implements WebServiceInterface
         return $this->getUrl();
     }
 
-    public function getPathLink($path, $tree = null)
+    public function getBlobLink($path, $tree = null)
     {
         return $this->getUrl(
             sprintf(

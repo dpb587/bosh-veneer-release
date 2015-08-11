@@ -1,7 +1,10 @@
 ---
 name: "directorweb-webapp"
 dependencies:
+  - "directorweb-git"
   - "directorweb-php"
+  - "directorweb-openssl"
+  - "directorweb-webapp-build"
 files:
   - "webapp/*"
   - "webapp/**/*"

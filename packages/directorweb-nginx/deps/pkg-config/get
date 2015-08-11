@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O "pkg-config.tar.gz" \
+  "http://pkgconfig.freedesktop.org/releases/pkg-config-${VERSION}.tar.gz"

@@ -17,4 +17,10 @@
         <default key="_bosh_web_object_context">bosh/deployment</default>
     </route>
 
+    <route id="bosh_cloque_deployment_infra_index" path="/cloque/deployment/{deployment}/infra/summary.{_format}">
+        <default key="_controller">Bosh\CloqueBundle\Controller\DeploymentInfraController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment</default>
+    </route>
+
 </routes>

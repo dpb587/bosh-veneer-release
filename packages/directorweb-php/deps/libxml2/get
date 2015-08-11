@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O libxml2.tar.gz \
+  ftp://xmlsoft.org/libxml2/libxml2-${VERSION}.tar.gz

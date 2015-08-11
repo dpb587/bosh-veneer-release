@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+curl -s -l \
+  ftp://ftp.gnu.org/gnu/autoconf/ \
+  | grep -E '^autoconf-.+.tar.gz$' \
+  | sed -E 's/^autoconf-(.+)\.tar.gz$/\1/' \
+  | grep -E '^\d+\.\d+$' \
+  | gsort -rV \
+  | head -n1

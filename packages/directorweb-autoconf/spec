@@ -1,0 +1,4 @@
+---
+name: "directorweb-autoconf"
+files:
+  - "directorweb-autoconf-blobs/**/*"

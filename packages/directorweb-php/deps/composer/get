@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O composer.phar \
+  "https://getcomposer.org/download/${VERSION}/composer.phar"

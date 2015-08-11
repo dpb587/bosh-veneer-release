@@ -47,6 +47,12 @@ class ElasticsearchHelper
                         '@source.bosh_job' => $context['vm']['applySpecJsonAsArray']['job']['name'] . '/' . $context['vm']['applySpecJsonAsArray']['index'],
                     ],
                 ];
+            } elseif (isset($context['instance'])) {
+                $filters[] = [
+                    'term' => [
+                        '@source.bosh_job' => $context['instance']['job'] . '/' . $context['instance']['index'],
+                    ],
+                ];
             }
         }
 

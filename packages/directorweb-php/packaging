@@ -7,24 +7,112 @@ set -u
 
 CPUS=$(grep -c ^processor /proc/cpuinfo)
 
+( cd directorweb-php-blobs/postgresql
+
+  tar -xzf postgresql.tar.gz
+  cd postgresql-*
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}/external/postgresql \
+    --without-readline \
+    --without-zlib
+
+  make -j${CPUS}
+  make install
+)
+
+( cd directorweb-php-blobs/curl
+
+  tar -xzf curl.tar.gz
+  cd curl-*
+
+  export CPPFLAGS="-I/var/vcap/packages/directorweb-openssl/include/openssl"
+  export LDFLAGS="-L/var/vcap/packages/directorweb-openssl/lib"
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}/external/curl \
+    --with-ssl=/var/vcap/packages/directorweb-openssl \
+    --enable-shared=no \
+    --enable-static=yes \
+    --enable-http \
+    --enable-ftp \
+    --disable-file \
+    --disable-ldap \
+    --disable-ldaps \
+    --disable-rtsp \
+    --enable-proxy \
+    --disable-dict \
+    --disable-telnet \
+    --disable-tftp \
+    --disable-pop3 \
+    --disable-imap \
+    --disable-smtp \
+    --disable-gopher
+
+  make -j${CPUS}
+  make install
+)
+
+( cd directorweb-php-blobs/libxml2
+
+  tar -xzf libxml2.tar.gz
+  cd libxml2-*
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}/external/libxml2
+
+  make -j${CPUS}
+  make install
+)
+
+( cd directorweb-php-blobs/icu4c
+
+  tar -xzf icu4c.tgz
+  cd icu/source
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}/external/icu
+
+  make -j${CPUS}
+  make install
+)
 
 ( cd directorweb-php-blobs/php
 
   tar -xzf php.tar.gz
   cd php-*
 
+  export PHP_RPATHS="${BOSH_INSTALL_TARGET}/external/postgresql/lib"
+  #export CPPFLAGS="-L${BOSH_INSTALL_TARGET}/external/postgresql/include"
+  #export LDFLAGS="-L${BOSH_INSTALL_TARGET}/external/postgresql/lib"
+
   ./configure \
     --prefix=${BOSH_INSTALL_TARGET} \
     --enable-fpm \
     --enable-intl \
+    --with-icu-dir=${BOSH_INSTALL_TARGET}/external/icu \
+    --with-openssl=/var/vcap/packages/directorweb-openssl \
+    --with-curl=${BOSH_INSTALL_TARGET}/external/curl \
     --enable-mbstring \
-    --with-mysql \
+    --with-curlwrappers \
     --enable-opcache \
+    --with-libxml-dir=${BOSH_INSTALL_TARGET}/external/libxml2 \
+    --with-pdo-pgsql=${BOSH_INSTALL_TARGET}/external/postgresql \
+    --without-pear
 
   make -j${CPUS}
   make install
 )
 
+rm -fr ${BOSH_INSTALL_TARGET}/external/postgresql/{share,bin}
+
+cp /var/vcap/packages/directorweb-openssl/openssldir/certs/ca-bundle.crt ${BOSH_INSTALL_TARGET}/lib/ca-bundle.crt
+
 cat > "${BOSH_INSTALL_TARGET}/lib/php.ini" <<EOF
 zend_extension = "${BOSH_INSTALL_TARGET}/lib/php/extensions/no-debug-non-zts-20131226/opcache.so"
+openssl.cafile = ${BOSH_INSTALL_TARGET}/lib/ca-bundle.crt
+date.timezone = UTC
 EOF
+
+cp "${BOSH_COMPILE_TARGET}/directorweb-php-blobs/composer/composer.phar" "${BOSH_INSTALL_TARGET}/bin/composer.phar"
+chmod +x "${BOSH_INSTALL_TARGET}/bin/composer.phar"

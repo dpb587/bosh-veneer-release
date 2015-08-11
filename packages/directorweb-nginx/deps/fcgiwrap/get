@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O "fcgiwrap.tar.gz" \
+  "https://github.com/gnosek/fcgiwrap/archive/${VERSION}.tar.gz"

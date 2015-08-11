@@ -1,0 +1,5 @@
+#!/bin/bash
+
+wget \
+  -O "ca-bundle.crt" \
+  "https://raw.githubusercontent.com/bagder/ca-bundle/${VERSION}/ca-bundle.crt"

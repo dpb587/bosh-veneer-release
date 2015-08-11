@@ -6,5 +6,5 @@ check process directorweb-nginx with pidfile /var/vcap/sys/run/directorweb/nginx
 
 check process directorweb-phpfpm with pidfile /var/vcap/sys/run/directorweb/phpfpm.pid
   group vcap
-  start program = "/var/vcap/jobs/webapp/bin/control-phpfpm start"
-  stop program = "/var/vcap/jobs/webapp/bin/control-phpfpm stop"
+  start program = "/var/vcap/jobs/directorweb/bin/control-phpfpm start"
+  stop program = "/var/vcap/jobs/directorweb/bin/control-phpfpm stop"

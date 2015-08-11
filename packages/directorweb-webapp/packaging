@@ -5,30 +5,40 @@ exec 2>&1
 set -e
 set -u
 
-CPUS=$(grep -c ^processor /proc/cpuinfo)
+mv webapp/* "${BOSH_INSTALL_TARGET}"
 
+cd "${BOSH_INSTALL_TARGET}"
 
-( cd php-blobs/php
+export PATH="/var/vcap/packages/directorweb-git/bin:${PATH}"
 
-  tar -xzf php.tar.gz
-  cd php-*
-
-  ./configure \
-    --prefix=${BOSH_INSTALL_TARGET} \
-    --enable-fpm \
-    --enable-intl \
-    --enable-mbstring \
-    --with-mysql \
-    --enable-opcache \
-
-  make -j${CPUS}
-  make install
-)
-
-cat > "${BOSH_INSTALL_TARGET}/lib/php.ini" <<EOF
-zend_extension = "${BOSH_INSTALL_TARGET}/lib/php/extensions/no-debug-non-zts-20131226/opcache.so"
-
-date.timezone = UTC
-expose_php = Off
-memory_limit = 128M
+export COMPOSER_HOME="${BOSH_COMPILE_TARGET}/.composer"
+mkdir "${COMPOSER_HOME}"
+cat > "${COMPOSER_HOME}/config.json" <<EOF
+{
+  "config" : {
+    "github-oauth" : {
+      "github.com" : "6b93a3aa5280b80700da5b3e98606cd51c6def6b"
+    }
+  }
+}
 EOF
+
+export SYMFONY_ENV=prod
+export SYMFONY_DEBUG=0
+export SYMFONY_PARAMS=$PWD/app/config/parameters.dist.yml
+
+# mitm :(
+mkdir -p ~/.ssh
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+
+/var/vcap/packages/directorweb-php/bin/php /var/vcap/packages/directorweb-php/bin/composer.phar \
+  install \
+  --optimize-autoloader
+
+find vendor -type d -name .git | xargs -I {} rm -fr {}
+
+
+/var/vcap/packages/directorweb-php/bin/php app/console assetic:dump
+
+rm -fr app/cache/*
+rm -fr app/logs/*

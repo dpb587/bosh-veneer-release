@@ -1,4 +1,8 @@
 ---
 name: "directorweb-nginx"
+dependencies:
+  - "directorweb-autoconf"
+  - "directorweb-zlib"
 files:
   - "directorweb-nginx-blobs/**/*"
+  - "directorweb-openssl-blobs/**/*"
