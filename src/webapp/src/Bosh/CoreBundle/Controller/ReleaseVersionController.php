@@ -9,9 +9,28 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Bosh\WebBundle\Controller\AbstractController;
+use Bosh\WebBundle\Service\Breadcrumbs;
 
 class ReleaseVersionController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_context)
+    {
+        return ReleaseController::defNav($nav, $_context)
+            ->add(
+                $_context['version']['version'],
+                [
+                    'bosh_core_release_version_summary' => [
+                        'release' => $_context['release']['name'],
+                        'version' => $_context['version']['version'],
+                    ],
+                ],
+                [
+                    'glyphicon' => 'record',
+                    'expanded' => true,
+                ]
+            );
+    }
+
     public function summaryAction($_context)
     {
         return $this->renderApi(
@@ -19,6 +38,10 @@ class ReleaseVersionController extends AbstractController
             [
                 'data' => $_context['version'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/release/version', $_context),
+                'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/release/version', $_context),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -41,6 +64,9 @@ class ReleaseVersionController extends AbstractController
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -63,6 +89,9 @@ class ReleaseVersionController extends AbstractController
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -85,6 +114,9 @@ class ReleaseVersionController extends AbstractController
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }

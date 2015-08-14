@@ -9,9 +9,26 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Bosh\WebBundle\Controller\AbstractController;
+use Bosh\WebBundle\Service\Breadcrumbs;
 
 class DeploymentController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_context)
+    {
+        return $nav->add(
+            $_context['deployment']['name'],
+            [
+                'bosh_core_deployment_summary' => [
+                    'deployment' => $_context['deployment']['name'],
+                ],
+            ],
+            [
+                'glyphicon' => 'th',
+                'expanded' => true,
+            ]
+        );
+    }
+
     public function summaryAction($_context)
     {
         return $this->renderApi(
@@ -20,6 +37,9 @@ class DeploymentController extends AbstractController
                 'data' => $_context['deployment'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment', $_context),
                 'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/deployment', $_context),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -30,6 +50,9 @@ class DeploymentController extends AbstractController
             'BoshCoreBundle:Deployment:manifest.html.twig',
             [
                 'string' => $_context['deployment']['manifest'],
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -55,6 +78,9 @@ class DeploymentController extends AbstractController
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -78,6 +104,9 @@ class DeploymentController extends AbstractController
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }

@@ -13,6 +13,16 @@
 
         <service id="bosh_web.breadcrumbs" class="Bosh\WebBundle\Service\Breadcrumbs" scope="prototype">
             <argument type="service" id="router" />
+
+            <call method="add">
+                <argument>directorweb</argument>
+                <argument type="collection">
+                    <argument key="bosh_web_summary" type="collection"></argument>
+                </argument>
+                <argument type="collection">
+                    <argument key="glyphicon">home</argument>
+                </argument>
+            </call>
         </service>
     </services>
 </container>

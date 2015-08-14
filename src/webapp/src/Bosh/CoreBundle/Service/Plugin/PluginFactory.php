@@ -99,6 +99,8 @@ class PluginFactory implements PluginFactoryInterface
             }
 
             foreach ($this->container->get($serviceId)->getUserPrimaryLinks($contextName, $context) as $k => $v) {
+                $v['priority'] = isset($v['priority']) ? $v['priority'] : 1024;
+
                 $links[$k][] = $v;
             }
         }
@@ -155,6 +157,8 @@ class PluginFactory implements PluginFactoryInterface
             }
 
             foreach ($this->container->get($serviceId)->getUserReferenceLinks($contextName, $context) as $k => $v) {
+                $v['priority'] = isset($v['priority']) ? $v['priority'] : 1024;
+
                 $topicLinks[$v['topic']][$k][] = $v;
             }
         }

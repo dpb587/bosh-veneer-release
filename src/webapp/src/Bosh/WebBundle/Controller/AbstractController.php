@@ -16,13 +16,13 @@ abstract class AbstractController extends Controller
         return [];
     }
 
-    public function renderApi($view, array $params = [], array $links = [])
+    public function renderApi($view, array $data = [], array $nondata = [])
     {
         $request = $this->container->get('request');
         $_format = $request->attributes->get('_format', 'html');
 
         if ('json' == $_format) {
-            return new JsonResponse($this->normalizeApiResult($params));
+            return new JsonResponse($this->normalizeApiResult($data));
         } elseif ('html' == $_format) {
             $context = $request->attributes->get('_context', []);
 
@@ -37,7 +37,8 @@ abstract class AbstractController extends Controller
                         ),
                         '_bosh_core_context' => $context,
                     ],
-                    $params
+                    $data,
+                    $nondata
                 )
             );
         }

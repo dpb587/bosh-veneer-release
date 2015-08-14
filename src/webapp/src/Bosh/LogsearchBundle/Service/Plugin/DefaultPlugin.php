@@ -29,8 +29,8 @@ class DefaultPlugin implements PluginInterface
         switch ($contextName) {
             case 'bosh/deployment':
                 return [
-                    'summarystats' => [
-                        'bosh_logsearch_deployment_hoststats',
+                    'logsearch_monitstatus' => [
+                        'bosh_logsearch_deployment_monitstatus',
                         [
                             'deployment' => $context['deployment']['name'],
                         ],

@@ -27,6 +27,9 @@ class IndexController extends AbstractController
                     'name' => $this->container->getParameter('bosh_core.director_name'),
                     'attributes' => $attributes,
                 ],
+            ],
+            [
+                'def_nav' => $this->container->get('bosh_core.breadcrumbs'),
             ]
         );
     }

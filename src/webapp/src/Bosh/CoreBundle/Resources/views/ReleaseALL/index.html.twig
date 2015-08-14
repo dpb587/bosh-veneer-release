@@ -1,10 +1,6 @@
-{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+{% extends _layout %}
 
 {% block def_title 'Releases' %}
-
-{% block primary_nav %}
-    <a href="{{ path('bosh_core_releaseALL_index') }}"><span class="glyphicon glyphicon-tree-deciduous"></span> releases</a>
-{% endblock %}
 
 {% block frag_content %}
   <table class="table table-condensed">
@@ -31,7 +27,5 @@
         &mdash; <a href="http://bosh.io/docs/terminology.html#release">bosh.io</a>
     </p>
 
-    <ul class="list-unstyled">
-        <li><a href="https://bosh.io/releases"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-info-sign"></span></small>bosh.io/releases</a></li>
-    </ul>
+    {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

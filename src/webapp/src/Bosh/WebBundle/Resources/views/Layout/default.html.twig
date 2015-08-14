@@ -22,22 +22,31 @@
   <body>
     {% block html_body %}
       <nav class="navbar navbar-default">
-        <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="{{ path('bosh_core_summary') }}">{{ bosh_core_director_name }}</a>
+              <ul class="nav navbar-nav">
+                    {% for nav in def_nav|default([]) %}
+                        {% if loop.last or nav.options.expanded|default %}
+                            <li><a href="{{ nav.url }}">{% if nav.options.glyphicon %}<span class="glyphicon glyphicon-{{ nav.options.glyphicon }}" aria-hidden="true"></span> {% endif %}{{ nav.title }}</a></li>
+                        {% elseif nav.options.glyphicon %}
+                            <li><a href="{{ nav.url }}" title="{{ nav.title }}"><span class="glyphicon glyphicon-{{ nav.options.glyphicon }}" aria-hidden="true"></span></a></li>
+                        {% endif %}
+                    {% endfor %}
+              </ul>
           </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="{{ path('bosh_web_summary') }}"><span class="glyphicon glyphicon-road" aria-hidden="true"></span></a></li>
-        </ul>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li{% if 'builtin' == block('primary_link')|default('builtin') %} class="active"{% endif %}>{{ block('primary_nav') }}</li>
-              {% for name, link in _user_links_primary %}
-                <li{% if block('primary_link') == name %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
-              {% endfor %}
+            {#
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{{ path('bosh_web_summary') }}"><span class="glyphicon glyphicon-tower" aria-hidden="true"></span></a></li>
             </ul>
-          </div>
-        </div>
+            #}
+            {% if 1 < _user_links_primary|length or (0 < _user_links_primary|length and _user_links_primary[block('primary_link')] is not defined) %}
+              <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                  {% for name, link in _user_links_primary %}
+                    <li{% if block('primary_link') == name %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
       </nav>
 
       <div class="container">

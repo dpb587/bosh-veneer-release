@@ -19,12 +19,13 @@ class Breadcrumbs implements ArrayAccess, Countable, IteratorAggregate
         $this->router = $router;
     }
 
-    public function add($title, $primary = null)
+    public function add($title, $primary = null, array $options = [])
     {
         $this->compiled = false;
         $this->trail[] = array(
             'title' => $title,
             'primary' => $primary,
+            'options' => $options,
         );
 
         return $this;
@@ -46,7 +47,7 @@ class Breadcrumbs implements ArrayAccess, Countable, IteratorAggregate
             } elseif (is_string($crumb['primary'])) {
                 $crumb['url'] = $crumb['primary'];
             } else {
-                $crumb['url'] = $this->router->generate($crumb['primary'][0], isset($crumb['primary'][1]) ? $crumb['primary'][1] : []);
+                $crumb['url'] = $this->router->generate(key($crumb['primary']), current($crumb['primary']));
             }
         }
 

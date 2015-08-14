@@ -1,10 +1,10 @@
 {% extends _layout %}
 
-{% block def_title 'BOSH Director' %}
-
-{% block def_description %}
-  The main BOSH component that coordinates the Agents and responds to user requests and system events. The Director is the orchestrator of deployments.
+{% block primary_nav %}
+    <a href="{{ path('bosh_core_summary') }}">{{ bosh_core_director_name }}</a>
 {% endblock %}
+
+{% block def_title 'BOSH Director' %}
 
 {% block frag_content %}
 
@@ -79,11 +79,19 @@
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>Name</dt>
-    <dd>{{ data.name }}</dd>
+    <p class="text-muted">
+        The main BOSH component that coordinates the Agents and responds to user requests and system events. The
+        Director is the orchestrator of deployments.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#director">bosh.io</a>
+    </p>
+
+    <hr />
+
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ data.name }}</dd>
     
-    <dt>UUID</dt>
-    <dd>{{ data.attributes.uuid }}</dd>
-  </dl>
+        <dt>UUID</dt>
+        <dd>{{ data.attributes.uuid }}</dd>
+    </dl>
 {% endblock %}

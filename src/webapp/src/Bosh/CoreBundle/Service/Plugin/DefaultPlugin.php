@@ -172,12 +172,82 @@ class DefaultPlugin implements PluginInterface
 
     public function getUserPrimaryLinks($contextName, array $context = [])
     {
+        if (preg_match('#^bosh/deployment(/|$)#', $contextName)) {
+            return [
+                'core_bosh' => [
+                    'title' => 'bosh',
+                    'priority' => 0,
+                    'route' => [
+                        'bosh_core_deployment_summary',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                        ],
+                    ],
+                ],
+            ];
+        } elseif (preg_match('#^bosh/release(/|$)#', $contextName)) {
+            return [
+                'core_bosh' => [
+                    'title' => 'bosh',
+                    'priority' => 0,
+                    'route' => [
+                        'bosh_core_release_summary',
+                        [
+                            'release' => $context['release']['name'],
+                        ],
+                    ],
+                ],
+            ];
+        }
+
         return [];
     }
 
     public function getUserReferenceLinks($contextName, array $context = [])
     {
-        return [];
+        switch ($contextName) {
+            case 'bosh/deployment:all':
+                return [
+                    'boshio_deploymentmanifestdoc' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_DOCUMENTATION,
+                        'title' => 'bosh.io',
+                        'note' => 'creating manifests',
+                        'url' => 'http://bosh.io/docs/deployment-manifest.html',
+                    ],
+                ];
+            case 'bosh/release:all':
+                return [
+                    'boshio_createreleasedoc' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_DOCUMENTATION,
+                        'title' => 'bosh.io',
+                        'note' => 'creating a release',
+                        'url' => 'https://bosh.io/docs/create-release.html',
+                    ],
+                    'boshio_releases' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_OTHER,
+                        'title' => 'bosh.io',
+                        'note' => 'public releases',
+                        'url' => 'https://bosh.io/releases',
+                    ],
+                ];
+            case 'bosh/stemcell:all':
+                return [
+                    'boshio_aboutstemcellsdoc' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_DOCUMENTATION,
+                        'title' => 'bosh.io',
+                        'note' => 'about stemcells',
+                        'url' => 'https://bosh.io/docs/stemcell.html',
+                    ],
+                    'boshio_stemcells' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_OTHER,
+                        'title' => 'bosh.io',
+                        'note' => 'public stemcells',
+                        'url' => 'https://bosh.io/stemcells',
+                    ],
+                ];
+            default:
+                return [];
+        }
     }
 
     public function getContext(Request $request, $contextName)

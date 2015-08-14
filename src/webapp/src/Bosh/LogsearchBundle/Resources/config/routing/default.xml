@@ -11,8 +11,8 @@
 
     <!-- deployment -->
 
-    <route id="bosh_logsearch_deployment_hoststats" path="/logsearch/deployment/{deployment}/hoststats.{_format}">
-        <default key="_controller">Bosh\LogsearchBundle\Controller\DeploymentController::hoststatsAction</default>
+    <route id="bosh_logsearch_deployment_monitstatus" path="/logsearch/deployment/{deployment}/monit-status.{_format}">
+        <default key="_controller">Bosh\LogsearchBundle\Controller\DeploymentController::monitstatusAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment</default>
     </route>

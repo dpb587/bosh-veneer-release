@@ -12,7 +12,11 @@ class IndexController extends AbstractController
     public function summaryAction(Request $request)
     {
         return $this->renderApi(
-            'BoshWebBundle:Index:summary.html.twig'
+            'BoshWebBundle:Index:summary.html.twig',
+            [],
+            [
+                'def_nav' => $this->container->get('bosh_web.breadcrumbs'),
+            ]
         );
     }
 }

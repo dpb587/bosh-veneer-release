@@ -10,7 +10,7 @@
         <parameter key="bosh_cloque.versioning.repository.path_prefix" />
         <parameter key="bosh_cloque.versioning.web_service.org_name" />
         <parameter key="bosh_cloque.versioning.web_service.repo_name" />
-        <parameter key="bosh_cloque.executable.git">git</parameter>
+        <parameter key="bosh_cloque.executable.git">/var/vcap/packages/directorweb-git/bin/git</parameter>
     </parameters>
 
     <services>

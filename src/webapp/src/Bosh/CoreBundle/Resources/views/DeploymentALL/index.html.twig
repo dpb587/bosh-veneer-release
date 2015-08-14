@@ -1,9 +1,5 @@
 {% extends _layout %}
 
-{% block primary_nav %}
-    <a href="{{ path('bosh_core_deploymentALL_index') }}"><span class="glyphicon glyphicon-th"></span> deployments</a>
-{% endblock %}
-
 {% block def_title 'Deployments' %}
 
 {% block frag_content %}
@@ -34,4 +30,6 @@
         infrastructure (that is, across different CPIs) with minimal changes to the manifest.
         &mdash; <a href="http://bosh.io/docs/terminology.html#deployment">bosh.io</a>
     </p>
+
+    {% include 'BoshWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
 {% endblock %}

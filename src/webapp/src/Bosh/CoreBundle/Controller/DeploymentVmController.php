@@ -8,9 +8,27 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Bosh\WebBundle\Controller\AbstractController;
+use Bosh\WebBundle\Service\Breadcrumbs;
 
 class DeploymentVmController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_context)
+    {
+        return DeploymentController::defNav($nav, $_context)
+            ->add(
+                'VM (' . (isset($_context['vm']['applySpecJsonAsArray']['job']['name']) ? ($_context['vm']['applySpecJsonAsArray']['job']['name'] . '/' . $_context['vm']['applySpecJsonAsArray']['index']) : substr($_context['vm']['agentId'], 0, 7)) . ')',
+                [
+                    'bosh_core_deployment_vm_summary' => [
+                        'deployment' => $_context['deployment']['name'],
+                        'agent' => $_context['vm']['agentId'],
+                    ],
+                ],
+                [
+                    'glyphicon' => 'screenshot', // changeme
+                ]
+            );
+    }
+
     public function summaryAction($_context)
     {
         return $this->renderApi(
@@ -19,6 +37,9 @@ class DeploymentVmController extends AbstractController
                 'data' => $_context['vm'],
                 'endpoints' => $this->container->get('bosh_core.plugin_factory')->getEndpoints('bosh/deployment/vm', $_context),
                 'references' => $this->container->get('bosh_core.plugin_factory')->getUserReferenceLinks('bosh/deployment/vm', $_context),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -42,6 +63,9 @@ class DeploymentVmController extends AbstractController
                 'job_name' => $instance['job'],
                 'job_index' => $instance['index'],
                 '_format' => $_format,
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -50,7 +74,10 @@ class DeploymentVmController extends AbstractController
     {
         return $this->renderApi(
             'BoshCoreBundle:DeploymentVm:applyspec.html.twig',
-            $_context['vm']['applySpecJsonAsArray']
+            $_context['vm']['applySpecJsonAsArray'],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
+            ]
         );
     }
     
@@ -69,6 +96,9 @@ class DeploymentVmController extends AbstractController
             'BoshCoreBundle:DeploymentVm:packages.html.twig',
             [
                 'results' => $results,
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }
@@ -88,6 +118,9 @@ class DeploymentVmController extends AbstractController
             'BoshCoreBundle:DeploymentVm:templates.html.twig',
             [
                 'results' => $results,
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }

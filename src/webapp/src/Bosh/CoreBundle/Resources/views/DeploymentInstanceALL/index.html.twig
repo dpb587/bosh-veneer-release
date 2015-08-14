@@ -14,7 +14,7 @@
       {% for result in results %}
         <tr>
             <td><a href="{{ path('bosh_core_deployment_instance_summary', { 'deployment' : _bosh_core_context.deployment.name, 'job_name' : result.job, 'job_index' : result.index }) }}">{{ result.job }}<span class="text-muted">/{{ result.index }}</span></a></td>
-          <td>{{ result.state }}</td>
+          <td>{{ result.state|capitalize }}</td>
         </tr>
       {% endfor %}
     </tbody>

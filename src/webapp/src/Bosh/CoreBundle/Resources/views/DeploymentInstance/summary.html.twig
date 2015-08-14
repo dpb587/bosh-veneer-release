@@ -11,7 +11,7 @@
 {% block frag_sidebar %}
   <dl>
     <dt>State</dt>
-    <dd>{{ data.state }}</dd>
+    <dd>{{ data.state|capitalize }}</dd>
     
     <dt>Resurrection Paused</dt>
     <dd>{{ data.resurrectionPaused ? 'Yes' : 'No' }}</dd>

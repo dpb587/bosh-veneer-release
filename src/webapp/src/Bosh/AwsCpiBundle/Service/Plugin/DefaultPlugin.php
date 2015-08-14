@@ -40,7 +40,7 @@ class DefaultPlugin implements PluginInterface
                     'awsconsole' => [
                         'topic' => PluginInterface::USER_SECONDARY_TOPIC_CPI,
                         'title' => 'AWS Console',
-                        'note' => 'all deployment instances',
+                        'note' => 'all instances',
                         'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#Instances:tag:director=' . $this->directorName . ';tag:deployment=' . $context['deployment']['name'],
                     ],
                 ];
