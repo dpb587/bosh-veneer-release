@@ -1,4 +1,4 @@
-{% extends 'BoshCoreBundle:Release:layout.html.twig' %}
+{% extends _layout %}
 
 {% block def_title _bosh_core_context.package.name ~ '/' ~ _bosh_core_context.package.version %}
 
@@ -7,10 +7,12 @@
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>Packages</dt>
-    {% for package in data.dependencySetJsonAsArray %}
-        <dd>{{ package }}</dd>
-    {% endfor %}
-  </dl>
+    <dl>
+        {% if data.dependencySetJsonAsArray %}
+            <dt>Packages</dt>
+            {% for package in data.dependencySetJsonAsArray %}
+                <dd>{{ package }}</dd>
+            {% endfor %}
+        {% endif %}
+    </dl>
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'BoshCoreBundle:ReleaseVersion:layout.html.twig' %}
+{% extends _layout %}
 
 {% block def_title _bosh_core_context.release.name ~ '/' ~ _bosh_core_context.version.version %}
 
@@ -16,4 +16,8 @@
     <dt>Uncommitted Changes</dt>
     <dd>{{ data.uncommittedChanges ? 'Yes' : 'No' }}</dd>
   </dl>
+
+  <ul class="list-unstyled">
+    <li><a href="{{ endpoints.properties }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-pencil"></span></small>Properties</a></li>
+  </ul>
 {% endblock %}

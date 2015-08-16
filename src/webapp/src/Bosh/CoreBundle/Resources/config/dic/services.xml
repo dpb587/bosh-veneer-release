@@ -11,6 +11,8 @@
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
+        <service id="bosh_core.property_helper" class="Bosh\CoreBundle\Service\PropertyHelper" />
+
         <service id="bosh_core.plugin.default" class="Bosh\CoreBundle\Service\Plugin\DefaultPlugin">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 

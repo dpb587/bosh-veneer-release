@@ -1,7 +1,0 @@
-{% extends _layout %}
-
-{% block primary_nav %}
-    <a href="{{ path('bosh_core_deployment_summary', { 'deployment' : _bosh_core_context.deployment.name }) }}"><span class="glyphicon glyphicon-th"></span> {{ _bosh_core_context.deployment.name }}</a>
-{% endblock %}
-
-{% block primary_link 'core_bosh' %}

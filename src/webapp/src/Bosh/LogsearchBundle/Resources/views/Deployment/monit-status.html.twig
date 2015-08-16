@@ -1,4 +1,4 @@
-{% extends 'BoshCoreBundle:Deployment:layout.html.twig' %}
+{% extends _layout %}
 
 {% block def_title 'Process Status' %}
 
@@ -7,14 +7,14 @@
         <thead>
             <tr>
                 <th>Process</th>
-                <th>Jobs</th>
+                <th width="60%">Jobs</th>
             </tr>
         </thead>
         <tbody>
             {% for process_name, jobs in processes %}
                 <tr{% if not jobs.healthy %} class="warning"{% endif %}>
                     <td>{{ process_name }}</td>
-                    <td>
+                    <td width="60%">
                         {% for job_name, job_check in jobs.jobs %}
                             {% spaceless %}
                                 <a href="{{ path('bosh_core_deployment_instance_summary', { 'deployment' : _bosh_core_context.deployment.name, 'job_name': job_name|split('/')[0], 'job_index': job_name|split('/')[1] }) }}" title="{{ job_name }} @ {{ job_check.timestamp }}">

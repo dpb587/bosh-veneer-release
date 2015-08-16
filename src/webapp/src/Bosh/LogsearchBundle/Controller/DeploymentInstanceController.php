@@ -80,6 +80,8 @@ class DeploymentInstanceController extends AbstractController
                             'host.df_xvdb2.df_complex_free',
                             'host.df_xvdf1.df_complex_used',
                             'host.df_xvdf1.df_complex_free',
+                            'host.df_xvdg1.df_complex_used',
+                            'host.df_xvdg1.df_complex_free',
                         ]
                     )
                 )
@@ -129,24 +131,39 @@ class DeploymentInstanceController extends AbstractController
             }
         }
 
-        $persistentUsed = $es->reduceDateHistogram(
+        $persistentUsedF = $es->reduceDateHistogram(
             $ds,
             $de,
             $di,
             $results['responses'][4]['aggregations']['interval']['buckets']
         );
-        $persistentFree = $es->reduceDateHistogram(
+        $persistentFreeF = $es->reduceDateHistogram(
             $ds,
             $de,
             $di,
             $results['responses'][5]['aggregations']['interval']['buckets']
         );
 
-        foreach ($persistentFree as $i => $step) {
-            if (isset($persistentUsed[$i]['y'], $step['y'])) {
-                $persistentUsed[$i]['y'] = ceil($persistentUsed[$i]['y'] / ($persistentUsed[$i]['y'] + $step['y']) * 100);
+        $persistentUsedG = $es->reduceDateHistogram(
+            $ds,
+            $de,
+            $di,
+            $results['responses'][6]['aggregations']['interval']['buckets']
+        );
+        $persistentFreeG = $es->reduceDateHistogram(
+            $ds,
+            $de,
+            $di,
+            $results['responses'][7]['aggregations']['interval']['buckets']
+        );
+
+        foreach ($persistentFreeF as $i => $step) {
+            if (isset($persistentUsedF[$i]['y'], $step['y'])) {
+                $persistentUsedF[$i]['y'] = ceil($persistentUsedF[$i]['y'] / ($persistentUsedF[$i]['y'] + $step['y']) * 100);
+            } elseif (isset($persistentUsedG[$i]['y'], $persistentFreeG[$i]['y'])) {
+                $persistentUsedF[$i]['y'] = ceil($persistentUsedG[$i]['y'] / ($persistentUsedG[$i]['y'] + $persistentFreeG[$i]['y']) * 100);
             } else {
-                $persistentUsed[$i]['y'] = null;
+                $persistentUsedF[$i]['y'] = null;
             }
         }
 
@@ -161,7 +178,7 @@ class DeploymentInstanceController extends AbstractController
                 'series' => [
                     'system_pct' => $systemUsed,
                     'ephemeral_pct' => $ephemeralUsed,
-                    'persistent_pct' => $persistentUsed,
+                    'persistent_pct' => $persistentUsedF,
                 ]
             ]
         );

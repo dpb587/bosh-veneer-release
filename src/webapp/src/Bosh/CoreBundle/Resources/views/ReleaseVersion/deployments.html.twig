@@ -1,4 +1,4 @@
-{% extends 'BoshCoreBundle:ReleaseVersion:layout.html.twig' %}
+{% extends _layout %}
 
 {% block def_title 'Deployments' %}
 
@@ -14,6 +14,10 @@
         <tr>
           <td><a href="{{ path('bosh_core_deployment_summary', { 'deployment' : result.name }) }}">{{ result.name }}</a></td>
         </tr>
+      {% else %}
+          <tr>
+              <td class="text-muted">No deployments are using this release version.</td>
+          </tr>
       {% endfor %}
     </tbody>
   </table>

@@ -1,5 +1,0 @@
-{% extends _layout %}
-
-{% block primary_nav %}
-    <a href="{{ path('bosh_core_release_version_summary', { 'release' : _bosh_core_context.release.name, 'version' : _bosh_core_context.version.version }) }}"><span class="glyphicon glyphicon-tree-deciduous"></span> {{ _bosh_core_context.release.name }}/{{ _bosh_core_context.version.version }}</a>
-{% endblock %}

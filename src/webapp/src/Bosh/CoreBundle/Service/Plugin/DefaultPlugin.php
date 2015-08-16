@@ -164,6 +164,13 @@ class DefaultPlugin implements PluginInterface
                             'version' => $context['version']['version'],
                         ],
                     ],
+                    'properties' => [
+                        'bosh_core_release_version_properties',
+                        [
+                            'release' => $context['release']['name'],
+                            'version' => $context['version']['version'],
+                        ],
+                    ],
                 ];
             default:
                 return [];

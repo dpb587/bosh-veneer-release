@@ -101,23 +101,56 @@ class ReleaseVersionController extends AbstractController
         return $this->renderApi(
             'BoshCoreBundle:ReleaseVersion:templates.html.twig',
             [
-                'results' => array_map(
-                    function ($v) {
-                        return $v['template'];
-                    },
-                    $this->container->get('doctrine.orm.bosh_entity_manager')
-                        ->getRepository('BoshCoreBundle:ReleaseVersionsTemplates')
-                        ->createQueryBuilder('rvt')
-                        ->join('rvt.template', 't')->addSelect('t')
-                        ->where(new Expr\Comparison('rvt.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $_context['version'])
-                        ->orderBy('t.name')
-                        ->getQuery()
-                        ->getResult()
-                ),
+                'results' => $this->loadTemplates($_context),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
+        );
+    }
+
+    public function propertiesAction($_context)
+    {
+        $allProperties = call_user_func_array(
+            'array_merge',
+            array_map(
+                function ($template) {
+                    return $template['propertiesJsonAsArray'];
+                },
+                $this->loadTemplates($_context)
+            )
+        );
+
+        $propertyHelper = $this->container->get('bosh_core.property_helper');
+
+        $properties = $propertyHelper->createPropertyTree($allProperties);
+
+        return $this->renderApi(
+            'BoshCoreBundle:ReleaseVersion:properties.html.twig',
+            [
+                'properties' => $properties,
+                'yaml' => $propertyHelper->createDocumentedYaml($properties),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
+            ]
+        );
+    }
+
+    protected function loadTemplates(array $_context)
+    {
+        return array_map(
+            function ($v) {
+                return $v['template'];
+            },
+            $this->container->get('doctrine.orm.bosh_entity_manager')
+                ->getRepository('BoshCoreBundle:ReleaseVersionsTemplates')
+                ->createQueryBuilder('rvt')
+                ->join('rvt.template', 't')->addSelect('t')
+                ->where(new Expr\Comparison('rvt.releaseVersion', '=', ':releaseVersion'))->setParameter('releaseVersion', $_context['version'])
+                ->orderBy('t.name')
+                ->getQuery()
+                ->getResult()
         );
     }
 }
