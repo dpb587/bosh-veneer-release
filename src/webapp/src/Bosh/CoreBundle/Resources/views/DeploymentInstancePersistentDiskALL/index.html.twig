@@ -1,0 +1,28 @@
+{% extends _layout %}
+
+{% block def_title 'Persistent Disks' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Size</th>
+        <th>Active</th>
+        <th>CID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+        <tr>
+            <td><a href="{{ path('bosh_core_deployment_instance_persistentdisk_summary', { 'deployment' : _bosh_core_context.deployment.name, 'job_name' : _bosh_core_context.instance.job, 'job_index' : _bosh_core_context.instance.index, 'persistent_disk' : result.id }) }}">{{ result.size }} MB</a></td>
+            <td>{{ result.active ? 'Yes' : 'No' }}</td>
+            <td>{{ result.diskCid }}</td>
+        </tr>
+      {% else %}
+          <tr>
+              <td colspan="3" class="text-muted">No persistent disks available</td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

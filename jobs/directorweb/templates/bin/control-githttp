@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+set -u
+
+PIDFILE=/var/vcap/sys/run/directorweb/githttp.pid
+LOGDIR=/var/vcap/sys/log/directorweb
+NGINX_PROXY_TMP=/var/vcap/data/directorweb/githttp-proxy
+
+mkdir -p $LOGDIR
+chown vcap:vcap $LOGDIR
+
+exec >> $LOGDIR/githttp-control.log
+exec 2>&1
+
+mkdir -p $( dirname $PIDFILE )
+
+case $1 in
+
+  start)
+    /sbin/start-stop-daemon \
+      --pidfile $PIDFILE \
+      --exec /bin/bash \
+      --start \
+      -- -c "LD_LIBRARY_PATH=/var/vcap/packages/directorweb-nginx/external/fcgi-devkit/lib \
+        /var/vcap/packages/directorweb-nginx/external/fcgiwrap/sbin/fcgiwrap \
+            -s tcp:127.0.0.1:9003 \
+            -p /var/vcap/packages/directorweb-git/libexec/git-core/git-http-backend \
+        >> $LOGDIR/githttp-stdout.log \
+        2>> $LOGDIR/githttp-stderr.log \
+      "
+
+    ;;
+
+  stop)
+    /sbin/start-stop-daemon \
+      --pidfile $PIDFILE \
+      --signal QUIT \
+      --oknodo \
+      --stop \
+      --retry 15
+
+    ;;
+
+  *)
+    echo "Usage: control {start|stop}" >&2
+
+    exit 1
+
+    ;;
+
+esac

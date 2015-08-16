@@ -25,7 +25,7 @@ class DeploymentInstanceController extends AbstractController
                     ],
                 ],
                 [
-                    'glyphicon' => 'hdd',
+                    'glyphicon' => 'stop',
                     'expanded' => true,
                 ]
             );

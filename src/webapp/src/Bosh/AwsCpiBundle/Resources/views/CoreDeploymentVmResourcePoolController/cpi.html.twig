@@ -1,0 +1,30 @@
+{% extends _layout %}
+
+{% block def_title 'Cloud Properties' %}
+
+{% block frag_content %}
+    <dl class="dl-horizontal">
+        <dt>Instance Type</dt>
+        <dd>{{ properties.instance_type }}</dd>
+
+        <dt>Availability Zone</dt>
+        <dd>{{ properties.availability_zone }}</dd>
+
+        {% if properties.key_name is defined %}
+            <dt>Key Pair Name</dt>
+            <dd>{{ properties.key_name }}</dd>
+        {% endif %}
+
+        {% if properties.ephemeral_disk is defined %}
+            <dt>Ephemeral Disk</dt>
+            <dd>{{ properties.ephemeral_disk.size }} MB{% if properties.ephemeral_disk.type is defined %}, {{ properties.ephemeral_disk.type }}{% endif %}</dd>
+        {% endif %}
+
+        {% if properties.elbs is defined %}
+            <dt>ELBs</dt>
+            {% for elb in properties.elbs %}
+                <dd>{{ elb }}</dd>
+            {% endfor %}
+        {% endif %}
+    </dl>
+{% endblock %}

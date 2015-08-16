@@ -3,6 +3,7 @@
 {% block def_title data.agentId %}
 
 {% block frag_content %}  
+  {{ render(endpoints.resourcepool_cpi|bosh_web_appendqs({ '_frag' : 'content' })) }}
   {{ render(endpoints.templates|bosh_web_appendqs({ '_frag' : 'content' })) }}
   {{ render(endpoints.networkALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}

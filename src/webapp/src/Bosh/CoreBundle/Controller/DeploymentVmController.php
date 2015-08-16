@@ -63,9 +63,6 @@ class DeploymentVmController extends AbstractController
                 'job_name' => $instance['job'],
                 'job_index' => $instance['index'],
                 '_format' => $_format,
-            ],
-            [
-                'def_nav' => static::defNav($this->container->get('bosh_core.breadcrumbs'), $_context),
             ]
         );
     }

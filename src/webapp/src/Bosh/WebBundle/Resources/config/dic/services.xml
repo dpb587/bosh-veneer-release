@@ -15,7 +15,7 @@
             <argument type="service" id="router" />
 
             <call method="add">
-                <argument>directorweb</argument>
+                <argument>mettle</argument>
                 <argument type="collection">
                     <argument key="bosh_web_summary" type="collection"></argument>
                 </argument>

@@ -21,8 +21,9 @@
         "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.11.*",
         "ruflin/elastica":  "2.2.*",
-        "highslide-software/highcharts.com" : "3.0.7",
-        "less/less.js" : "1.7.5"
+        "highslide-software/highcharts.com": "3.0.7",
+        "less/less.js": "1.7.5",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

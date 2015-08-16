@@ -65,6 +65,24 @@
         <default key="_bosh_web_object_context">bosh/deployment/instance</default>
     </route>
 
+    <route id="bosh_core_deployment_instance_persistentdiskALL_index" path="/bosh/deployment/{deployment}/instance/{job_name}/{job_index}/persistent-disk/:all/index.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstancePersistentDiskALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/instance/persistent_disk:all</default>
+    </route>
+
+    <route id="bosh_core_deployment_instance_persistentdisk_summary" path="/bosh/deployment/{deployment}/instance/{job_name}/{job_index}/persistent-disk/{persistent_disk}/summary.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstancePersistentDiskController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/instance/persistent_disk</default>
+    </route>
+
+    <route id="bosh_core_deployment_instance_persistentdisk_cpi" path="/bosh/deployment/{deployment}/instance/{job_name}/{job_index}/persistent-disk/{persistent_disk}/cpi.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentInstancePersistentDiskController::cpiAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/instance/persistent_disk</default>
+    </route>
+
     <route id="bosh_core_deployment_vmALL_index" path="/bosh/deployment/{deployment}/vm/:all/index.{_format}">
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmALLController::indexAction</default>
         <default key="_format">html</default>
@@ -117,6 +135,12 @@
         <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmNetworkController::cpiAction</default>
         <default key="_format">html</default>
         <default key="_bosh_web_object_context">bosh/deployment/vm/network</default>
+    </route>
+
+    <route id="bosh_core_deployment_vm_resourcepool_cpi" path="/bosh/deployment/{deployment}/vm/{agent}/resource-pool/cpi.{_format}">
+        <default key="_controller">Bosh\CoreBundle\Controller\DeploymentVmResourcePoolController::cpiAction</default>
+        <default key="_format">html</default>
+        <default key="_bosh_web_object_context">bosh/deployment/vm</default>
     </route>
 
     <!-- task -->

@@ -53,6 +53,15 @@ class DefaultPlugin implements PluginInterface
                         'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#Instances:tag:director=' . $this->directorName . ';tag:deployment=' . $context['deployment']['name'] . ';tag:Name=' . $context['instance']['job'] . '/' . $context['instance']['index'],
                     ],
                 ];
+            case 'bosh/deployment/instance/persistent_disk':
+                return [
+                    'awsconsole' => [
+                        'topic' => PluginInterface::USER_SECONDARY_TOPIC_CPI,
+                        'title' => 'AWS Console',
+                        'note' => 'disk detail',
+                        'url' => 'https://' . $this->region . '.console.aws.amazon.com/ec2/v2/home?region=' . $this->region . '#Volumes:volumeId=' . $context['persistent_disk']['diskCid'],
+                    ],
+                ];
             case 'bosh/deployment/vm':
                 return [
                     'awsconsole' => [

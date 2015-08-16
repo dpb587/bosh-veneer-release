@@ -19,6 +19,8 @@
             <tag name="bosh_core.plugin" context="bosh/deployment/property" />
             <tag name="bosh_core.plugin" context="bosh/deployment/instance" />
             <tag name="bosh_core.plugin" context="bosh/deployment/instance:all" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/instance/persistent_disk" />
+            <tag name="bosh_core.plugin" context="bosh/deployment/instance/persistent_disk:all" />
             <tag name="bosh_core.plugin" context="bosh/deployment/vm" />
             <tag name="bosh_core.plugin" context="bosh/deployment/vm:all" />
             <tag name="bosh_core.plugin" context="bosh/deployment/vm/network" />

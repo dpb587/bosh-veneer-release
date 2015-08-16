@@ -6,6 +6,7 @@
   {{ render(endpoints.loadstats|bosh_web_appendqs({ '_frag' : 'content' })) }}
   {{ render(endpoints.memstats|bosh_web_appendqs({ '_frag' : 'content' })) }}
   {{ render(endpoints.diskstats|bosh_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.persistentdiskALL|bosh_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

@@ -63,6 +63,18 @@ class DefaultPlugin implements PluginInterface
                         ],
                     ],
                 ];
+            case 'bosh/deployment/instance/persistent_disk':
+                return [
+                    'hoststats' => [
+                        'bosh_logsearch_deployment_instance_persistentdisk_hoststats',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
+                            'persistent_disk' => $context['persistent_disk']['id'],
+                        ],
+                    ],
+                ];
             case 'bosh/deployment/vm/network':
                 return [
                     'hoststats' => [

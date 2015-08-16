@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
 use Bosh\CoreBundle\Entity\Deployments;
+use Bosh\CoreBundle\Entity\Instances;
 use Bosh\CoreBundle\Entity\Vms;
 use Bosh\CoreBundle\Entity\Releases;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -65,6 +66,26 @@ class DefaultPlugin implements PluginInterface
                             'job_index' => $context['instance']['index'],
                         ],
                     ],
+                    'persistentdiskALL' => [
+                        'bosh_core_deployment_instance_persistentdiskALL_index',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
+                        ],
+                    ],
+                ];
+            case 'bosh/deployment/instance/persistent_disk':
+                return [
+                    'cpi' => [
+                        'bosh_core_deployment_instance_persistentdisk_cpi',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'job_name' => $context['instance']['job'],
+                            'job_index' => $context['instance']['index'],
+                            'persistent_disk' => $context['persistent_disk']['id'],
+                        ],
+                    ],
                 ];
             case 'bosh/deployment/vm':
                 return [
@@ -98,6 +119,13 @@ class DefaultPlugin implements PluginInterface
                     ],
                     'networkALL' => [
                         'bosh_core_deployment_vm_networkALL_index',
+                        [
+                            'deployment' => $context['deployment']['name'],
+                            'agent' => $context['vm']['agentId'],
+                        ],
+                    ],
+                    'resourcepool_cpi' => [
+                        'bosh_core_deployment_vm_resourcepool_cpi',
                         [
                             'deployment' => $context['deployment']['name'],
                             'agent' => $context['vm']['agentId'],
@@ -279,6 +307,14 @@ class DefaultPlugin implements PluginInterface
                         $request->attributes->get('job_name'),
                         $request->attributes->get('job_index')
                     );
+
+                    if ('persistent_disk' == $contextNameSplit[3]) {
+                        $context['persistent_disk'] = $this->loadDeploymentInstancePersistentDisk(
+                            $context['deployment'],
+                            $context['instance'],
+                            $request->attributes->get('persistent_disk')
+                        );
+                    }
                 } elseif ('vm' == $contextNameSplit[2]) {
                     $context['vm'] = $this->loadDeploymentVm(
                         $context['deployment'],
@@ -344,6 +380,21 @@ class DefaultPlugin implements PluginInterface
 
         if (!$loaded) {
             throw new NotFoundHttpException('Failed to find deployment instance');
+        }
+
+        return $loaded;
+    }
+
+    protected function loadDeploymentInstancePersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
+    {
+        $loaded = $this->em->getRepository('BoshCoreBundle:PersistentDisks')
+            ->findOneBy([
+                'instance' => $instance,
+                'id' => $persistentDisk,
+            ]);
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find deployment instance persistent disk');
         }
 
         return $loaded;

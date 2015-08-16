@@ -56,17 +56,40 @@
                 </div>
             </div>
 
-        <div class="row">
+            <div class="row">
+                {% block frag_container %}
 
-          <div class="col-sm-3">
-            {% block frag_sidebar %}{% endblock %}
+                      <div class="col-sm-3">
+                        {% block frag_sidebar %}{% endblock %}
+                      </div>
+
+                      <div class="col-sm-9">
+                        {% block frag_content %}{% endblock %}
+                      </div>
+
+                {% endblock %}
+
+            </div>
+
+          <div class="row">
+              <div class="col-12 text-center text-muted" style="padding:12px 0 6px;">
+                  <small>
+                      <a class="text-muted" href="{{ path('bosh_core_summary') }}">bosh</a>
+                      &middot;
+                      <a class="text-muted" href="#">aws-cpi</a>
+                      &middot;
+                      <a class="text-muted" href="#">logsearch</a>
+                      &middot;
+                      <a class="text-muted" href="#">cloque</a>
+                  </small>
+                  <br />
+                  <small>
+                      <a class="text-muted" href="https://github.com/dpb587/mettle-release">mettle</a>
+                      &ndash;
+                      created by <a class="text-muted" href="http://dpb587.me/">danny berger</a>
+                  </small>
+              </div>
           </div>
-
-          <div class="col-sm-9">
-            {% block frag_content %}{% endblock %}
-          </div>
-
-        </div>
 
       </div>
     {% endblock %}
