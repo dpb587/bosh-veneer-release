@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\RegistryInstances" table="registry_instances">
+    <unique-constraints>
+      <unique-constraint name="registry_instances_instance_id_key" columns="instance_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="instanceId" type="text" column="instance_id" nullable="false"/>
+    <field name="settings" type="text" column="settings" nullable="false"/>
+  </entity>
+</doctrine-mapping>

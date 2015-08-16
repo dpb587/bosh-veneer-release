@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\Records" table="records">
+    <indexes>
+      <index name="records_name_index" columns="name"/>
+      <index name="records_domain_id_index" columns="domain_id"/>
+      <index name="records_name_type_index" columns="name,type"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="name" type="string" column="name" length="255" nullable="true"/>
+    <field name="type" type="string" column="type" length="10" nullable="true"/>
+    <field name="content" type="string" column="content" length="4098" nullable="true"/>
+    <field name="ttl" type="integer" column="ttl" nullable="true"/>
+    <field name="prio" type="integer" column="prio" nullable="true"/>
+    <field name="changeDate" type="integer" column="change_date" nullable="true"/>
+    <many-to-one field="domain" target-entity="Domains">
+      <join-columns>
+        <join-column name="domain_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

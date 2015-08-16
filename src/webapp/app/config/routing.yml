@@ -1,8 +1,8 @@
-bosh_web:
-    resource: "@BoshWebBundle/Resources/config/routing/default.xml"
-bosh_core:
-    resource: "@BoshCoreBundle/Resources/config/routing/default.xml"
-bosh_logsearch:
-    resource: "@BoshLogsearchBundle/Resources/config/routing/default.xml"
-bosh_cloque:
-    resource: "@BoshCloqueBundle/Resources/config/routing/default.xml"
+veneer_web:
+    resource: "@VeneerWebBundle/Resources/config/routing/default.xml"
+veneer_bosh:
+    resource: "@VeneerBoshBundle/Resources/config/routing/default.xml"
+veneer_logsearch:
+    resource: "@VeneerLogsearchBundle/Resources/config/routing/default.xml"
+veneer_cloque:
+    resource: "@VeneerCloqueBundle/Resources/config/routing/default.xml"

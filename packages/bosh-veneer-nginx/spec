@@ -1,0 +1,8 @@
+---
+name: "bosh-veneer-nginx"
+dependencies:
+  - "bosh-veneer-autoconf"
+  - "bosh-veneer-zlib"
+files:
+  - "bosh-veneer-nginx-blobs/**/*"
+  - "bosh-veneer-openssl-blobs/**/*"

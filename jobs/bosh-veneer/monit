@@ -1,0 +1,15 @@
+check process bosh-veneer-nginx with pidfile /var/vcap/sys/run/bosh-veneer/nginx.pid
+  group vcap
+  start program = "/var/vcap/jobs/bosh-veneer/bin/control-nginx start"
+  stop program = "/var/vcap/jobs/bosh-veneer/bin/control-nginx stop"
+  depends on bosh-veneer-phpfpm, bosh-veneer-githttp
+
+check process bosh-veneer-phpfpm with pidfile /var/vcap/sys/run/bosh-veneer/phpfpm.pid
+  group vcap
+  start program = "/var/vcap/jobs/bosh-veneer/bin/control-phpfpm start"
+  stop program = "/var/vcap/jobs/bosh-veneer/bin/control-phpfpm stop"
+
+check process bosh-veneer-githttp with pidfile /var/vcap/sys/run/bosh-veneer/githttp.pid
+  group vcap
+  start program = "/var/vcap/jobs/bosh-veneer/bin/control-githttp start"
+  stop program = "/var/vcap/jobs/bosh-veneer/bin/control-githttp stop"

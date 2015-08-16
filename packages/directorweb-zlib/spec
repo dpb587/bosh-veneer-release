@@ -1,4 +1,0 @@
----
-name: "directorweb-zlib"
-files:
-  - "directorweb-zlib-blobs/**/*"

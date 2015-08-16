@@ -13,11 +13,11 @@ parameters:
 
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    bosh_core.director_name: example-aws-us-east-1
-    bosh_aws_cpi.region: us-east-1
-    bosh_logsearch.elasticsearch.host: 127.0.0.1
-    bosh_logsearch.elasticsearch.port: 9200
-    bosh_cloque.director_name: example-aws
-    bosh_cloque.versioning.repository.path_prefix: example
-    bosh_cloque.versioning.web_service.org_name: example
-    bosh_cloque.versioning.web_service.repo_name: cloque-config
+    veneer_bosh.director_name: example-aws-us-east-1
+    veneer_aws_cpi.region: us-east-1
+    veneer_logsearch.elasticsearch.host: 127.0.0.1
+    veneer_logsearch.elasticsearch.port: 9200
+    veneer_cloque.director_name: example-aws
+    veneer_cloque.versioning.repository.path_prefix: example
+    veneer_cloque.versioning.web_service.org_name: example
+    veneer_cloque.versioning.web_service.repo_name: cloque-config

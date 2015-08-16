@@ -1,0 +1,26 @@
+{% extends _layout %}
+
+{% block def_title data.job ~ '/' ~ data.index %}
+
+{% block frag_content %}  
+  {{ render(endpoints.loadstats|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.memstats|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.diskstats|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.persistentdiskALL|veneer_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>State</dt>
+    <dd>{{ data.state|capitalize }}</dd>
+    
+    <dt>Resurrection Paused</dt>
+    <dd>{{ data.resurrectionPaused ? 'Yes' : 'No' }}</dd>
+  </dl>
+
+  <ul class="list-unstyled">
+    <li><a href="{{ endpoints.vm }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>Virtual Machine</a></li>
+  </ul>
+
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+{% endblock %}

@@ -1,0 +1,4 @@
+---
+name: "bosh-veneer-zlib"
+files:
+  - "bosh-veneer-zlib-blobs/**/*"

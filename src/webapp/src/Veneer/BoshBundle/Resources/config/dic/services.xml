@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_bosh.event_listener.object_context_request" class="Veneer\BoshBundle\EventListener\ObjectContextRequestListener">
+            <argument type="service" id="veneer_bosh.plugin_factory" />
+
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+        </service>
+
+        <service id="veneer_bosh.property_helper" class="Veneer\BoshBundle\Service\PropertyHelper" />
+
+        <service id="veneer_bosh.plugin.default" class="Veneer\BoshBundle\Service\Plugin\DefaultPlugin">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_bosh.plugin" context="bosh/deployment" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/property:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/property" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance/persistent_disk" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance/persistent_disk:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/task" />
+            <tag name="veneer_bosh.plugin" context="bosh/task:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release" />
+            <tag name="veneer_bosh.plugin" context="bosh/release:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/package" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/package:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/template" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/template:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/version" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/version:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/stemcell" />
+            <tag name="veneer_bosh.plugin" context="bosh/stemcell:all" />
+        </service>
+
+        <service id="veneer_bosh.plugin_factory" class="Veneer\BoshBundle\Service\Plugin\PluginFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" />
+        </service>
+
+        <service id="veneer_bosh.breadcrumbs" class="Veneer\WebBundle\Service\Breadcrumbs">
+            <factory service="service_container" method="get" />
+            <argument>veneer_web.breadcrumbs</argument>
+
+            <call method="add">
+                <argument>%veneer_bosh.director_name%</argument>
+                <argument type="collection">
+                    <argument key="veneer_bosh_summary" type="collection"></argument>
+                </argument>
+                <argument type="collection">
+                    <argument key="glyphicon">tower</argument>
+                </argument>
+            </call>
+        </service>
+    </services>
+</container>

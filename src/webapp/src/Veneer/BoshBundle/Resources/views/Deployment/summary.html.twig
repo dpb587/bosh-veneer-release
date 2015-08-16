@@ -1,0 +1,18 @@
+{% extends _layout %}
+
+{% block def_title 'Deployment Summary' %}
+
+{% block frag_content %}
+  {{ render(endpoints.logsearch_monitstatus|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.instanceALL|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.releases|veneer_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <ul class="list-unstyled">
+    <li><a href="{{ endpoints.manifest }}">Manifest</a></li>
+    <li><a href="{{ endpoints.vmALL }}">Virtual Machines</a></li>
+  </ul>
+    
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+{% endblock %}

@@ -1,0 +1,114 @@
+---
+name: bosh-veneer
+packages:
+  - bosh-veneer-git
+  - bosh-veneer-nginx
+  - bosh-veneer-openssl
+  - bosh-veneer-php
+  - bosh-veneer-webapp
+templates:
+  bin/control-githttp: bin/control-githttp
+  bin/control-nginx: bin/control-nginx
+  bin/control-phpfpm: bin/control-phpfpm
+  etc/nginx.conf.erb: etc/nginx.conf
+  etc/https.crt.erb: etc/https.crt
+  etc/https.key.erb: etc/https.key
+  etc/phpfpm.ini.erb: etc/phpfpm.ini
+  etc/webapp.yml.erb: etc/webapp.yml
+properties:
+  bosh_veneer.webapp.environment:
+    default: dev
+  bosh_veneer.webapp.debug:
+    default: true
+
+  bosh_veneer.nginx.http_port:
+    default: 80
+  bosh_veneer.nginx.https_port:
+    default: 443
+  bosh_veneer.nginx.https_certificate:
+    default: |
+      -----BEGIN CERTIFICATE-----
+      MIIEWjCCA0KgAwIBAgIJANFLJiRlyrYEMA0GCSqGSIb3DQEBBQUAMHsxCzAJBgNV
+      BAYTAlVTMREwDwYDVQQIEwhDb2xvcmFkbzEVMBMGA1UEBxMMRm9ydCBDb2xsaW5z
+      MQ8wDQYDVQQKEwZkcGI1ODcxEjAQBgNVBAMTCWxvY2FsaG9zdDEdMBsGCSqGSIb3
+      DQEJARYOdmNhcEBsb2NhbGhvc3QwHhcNMTUwODEwMjAwMzM0WhcNMjUwODA3MjAw
+      MzM0WjB7MQswCQYDVQQGEwJVUzERMA8GA1UECBMIQ29sb3JhZG8xFTATBgNVBAcT
+      DEZvcnQgQ29sbGluczEPMA0GA1UEChMGZHBiNTg3MRIwEAYDVQQDEwlsb2NhbGhv
+      c3QxHTAbBgkqhkiG9w0BCQEWDnZjYXBAbG9jYWxob3N0MIIBIjANBgkqhkiG9w0B
+      AQEFAAOCAQ8AMIIBCgKCAQEAwEePTHj5Ntux4C6K/wtRitDMuKT+Y2v9/rLzW2Xu
+      JkSwim6MUy+gsHPiR/RuAgQz2BczEei5j9c4rOUWg/xxUNhrmtDcG0M3jn5KvbGO
+      Ur+PLjv+8nd4nPgkEiur7tWalLq4ptTFXX8KUydMihfkVd0ADCvmSjhZsHT8CEK/
+      5GzWDBXMudGep2pAUoWY2mj3KZfMRvJzChvnm10KjmfsMpgnwCrqDGYb/LZB/4zV
+      BSY+SsVug3X+aEnk81jZ+AqbLIuKzZgjifTTRPc5ReK0H+Bjf79hxvSsQrw3etIW
+      UqZSpoR+fIfyyFG3riy4Ts61Mn5gRiiEm5FSiW8G7GuUYwIDAQABo4HgMIHdMB0G
+      A1UdDgQWBBReMLIGeUmudEbwVGK0JNYxfJG15zCBrQYDVR0jBIGlMIGigBReMLIG
+      eUmudEbwVGK0JNYxfJG156F/pH0wezELMAkGA1UEBhMCVVMxETAPBgNVBAgTCENv
+      bG9yYWRvMRUwEwYDVQQHEwxGb3J0IENvbGxpbnMxDzANBgNVBAoTBmRwYjU4NzES
+      MBAGA1UEAxMJbG9jYWxob3N0MR0wGwYJKoZIhvcNAQkBFg52Y2FwQGxvY2FsaG9z
+      dIIJANFLJiRlyrYEMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADggEBAGnU
+      KZJ8TT4EDZPxQ5fCA2CV3DJ8meo8AItZ7s8EseZWkulvCy6c524zs9ZCKMWeJCoI
+      dyCi6cNoL2ch/SYTs0IapeRDXcHod5yX+lnKa03sM2XPLd490Vieec0Rbwgkh6oP
+      zF7XhRHH44FfoXTiwN+Jx1LxPAjHeIISxaxdAg39Gci/cTeujst1Ne6ZYa0Mj/0x
+      L3pANaGAz1S5N+rV+MDAIXQq3BrjFiEOpYJhSYtcpEbekvRf590O7+mD3LZeKmAZ
+      M7enEO62kViIbfEcnau/sLt3i4yX/JSvftJHwgWtHToCYtsQN5WERy1QqYtfwvtn
+      6zG9AZGBS5T/2/qiHPc=
+      -----END CERTIFICATE-----
+  bosh_veneer.nginx.https_key:
+    default: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEpAIBAAKCAQEAwEePTHj5Ntux4C6K/wtRitDMuKT+Y2v9/rLzW2XuJkSwim6M
+      Uy+gsHPiR/RuAgQz2BczEei5j9c4rOUWg/xxUNhrmtDcG0M3jn5KvbGOUr+PLjv+
+      8nd4nPgkEiur7tWalLq4ptTFXX8KUydMihfkVd0ADCvmSjhZsHT8CEK/5GzWDBXM
+      udGep2pAUoWY2mj3KZfMRvJzChvnm10KjmfsMpgnwCrqDGYb/LZB/4zVBSY+SsVu
+      g3X+aEnk81jZ+AqbLIuKzZgjifTTRPc5ReK0H+Bjf79hxvSsQrw3etIWUqZSpoR+
+      fIfyyFG3riy4Ts61Mn5gRiiEm5FSiW8G7GuUYwIDAQABAoIBAQChZ/CsuyhImqd4
+      jtlzOycaJiiUHzzEbNTsR3/ti2UcjrC7pAz7j5GOTdj3mgH2g1yZ2u+t6vRKANq8
+      mBoMdY8R1HqPnSAHaqdqYC2Ri0jzwYYJw6dCFnQTIGH3Nt2/QWPf0dZLhXSgBZK/
+      NtATY/by9O+jR/6q8x6m96zRqma28gWKGm5HCiumCjKE3G1bmF5MoymmZFaSr/jb
+      Klyd7vBQTKlPAGqg423+Ly3yZtNCY9txN7NWq54BgWjFt9yVJODg1W8geOGMBP0j
+      7BS8iwLg37dXpdP2x+bqFFK1izMR6Fgted+CsF0j0iga9oqLPCVRXHOPzxap3kxp
+      wuC3r3exAoGBAP+eenYR+lH/hcXDZoNLAKeAtIIWR+du54V7luHDBlGyLeAAyFwK
+      Vx3ImlW1Lb5n0daOZ2MGrApnbzy7H11JDzvlmY1qF2N4uJkxWdFNAJVhajC+vO8d
+      6pvJMqKa2tPV8PGeayWfh+QHbLslJtEqS6xHw9Z+0R+fjgTsZ3F4RyKdAoGBAMCQ
+      6qhtTLW361z1ccX/Ndwj12nAUyaWGhzPyVMcWhBdkPX4k3j6Y7oBdNke4KYXNJFU
+      9H6oCsV0h7R7CzsyXg+AUdvIVPiqp3G3nx2SRL8Bm2CqvhBcIRJt45LpaaCN6Pmg
+      H8OgnAefqde0DeiyqNYO1v5tjA8bWny7qU3ykGL/AoGBAI4aOvgCXIdTJrnfO9EH
+      VBDKUw7ydfypwdmJ8EIHWi72f9xEcx3/vZhYGbxF4W01aAj/12fMoL2T7Nn1KKWC
+      ZQ6mQCvGa8Qnq2+2aLkbNpTUt+TrVDsWBYOfYR/WOIqFJ9IagHRE8JWKrx6Gs8KZ
+      4cGfj7Zhf741xAzmo0cIV3tdAoGAWWuyHC5NPeE/QXaUs630c9qM8IWn1zZCv/hZ
+      c+ephwn8A8y/pqEXaEu+2Ag3p8kE1ywNMTeVcOXREqVErOORvD8JRDc+Bg8xHGR5
+      VgETPWNgpL4E7pHppaYz1IfhTfY4JpsNxQkzC3NAKnNpNhKoxmYzvghezrEUDvIS
+      B6lJFT8CgYBQMHlzFj5th8ow/mIlQL/0teL7qklNyAQEPnPUUkZ7CGKLf8F+8KbX
+      cnHiHk2bGx2Qj2BDX1z1URayTa0p79NGHUXxLQh2/uX2n67KG17ID9RSLpMGqylW
+      AQuVqRKGL3vEhzhq/FIUqneIweZfGWao8RM/yfoKXJyZCja++sYTrQ==
+      -----END RSA PRIVATE KEY-----
+  bosh_veneer.db.host:
+    default: "127.0.0.1"
+  bosh_veneer.db.user:
+    default: "postgres"
+  bosh_veneer.db.password:
+    default: "postgres"
+  bosh_veneer.db.database:
+    default: "bosh"
+  bosh_veneer.db.adapter:
+    default: "postgres"
+
+  director.name:
+    default: "bosh"
+
+  bosh_veneer.aws_cpi.region:
+    default: "us-east-1"
+
+  bosh_veneer.logsearch.elasticsearch.host:
+    default: "127.0.0.1"
+  bosh_veneer.logsearch.elasticsearch.port:
+    default: 9200
+
+  bosh_veneer.cloque.director_name:
+    default: ~
+  bosh_veneer.cloque.versioning.repository.path_prefix:
+    default: ~
+  bosh_veneer.cloque.versioning.web_service.org_name:
+    default: ~
+  bosh_veneer.cloque.versioning.web_service.repo_name:
+    default: ~

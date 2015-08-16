@@ -1,7 +1,0 @@
----
-name: "directorweb-git"
-dependencies:
-  - "directorweb-autoconf"
-  - "directorweb-zlib"
-files:
-  - "directorweb-git-blobs/**/*"

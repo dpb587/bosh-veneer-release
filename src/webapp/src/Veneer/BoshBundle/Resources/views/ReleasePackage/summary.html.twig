@@ -1,0 +1,18 @@
+{% extends _layout %}
+
+{% block def_title _veneer_bosh_context.package.name ~ '/' ~ _veneer_bosh_context.package.version %}
+
+{% block frag_content %}  
+  {#{{ render(endpoints.properties|veneer_web_appendqs({ '_frag' : 'content' })) }}#}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <dl>
+        {% if data.dependencySetJsonAsArray %}
+            <dt>Packages</dt>
+            {% for package in data.dependencySetJsonAsArray %}
+                <dd>{{ package }}</dd>
+            {% endfor %}
+        {% endif %}
+    </dl>
+{% endblock %}

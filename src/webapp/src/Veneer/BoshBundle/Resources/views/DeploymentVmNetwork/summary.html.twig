@@ -1,0 +1,49 @@
+{% extends _layout %}
+
+{% block def_title data.name %}
+
+{% block frag_content %}  
+  {{ render(endpoints.cpi|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.hoststats|veneer_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    {% if data.type is defined %}
+        <dt>Type</dt>
+        <dd>{{ data.type }}</dd>
+    {% endif %}
+    
+    <dt>IP</dt>
+    <dd>{{ data.ip }}</dd>
+    
+    {% if data.netmask is defined %}
+      <dt>Netmask</dt>
+      <dd>{{ data.netmask }}</dd>
+    {% endif %}
+    
+    {% if data.gateway is defined %}
+      <dt>Gateway</dt>
+      <dd>{{ data.gateway }}</dd>
+    {% endif %}
+    
+    {% if data.dns is defined %}
+      <dt>DNS</dt>
+      {% for v in data.dns %}
+        <dd>{{ v }}</dd>
+      {% endfor %}
+    {% endif %}
+    
+    {% if data.default is defined %}
+      <dt>Default</dt>
+      {% for v in data.default %}
+        <dd>{{ v }}</dd>
+      {% endfor %}
+    {% endif %}
+    
+    <dt>DNS Record Name</dt>
+    <dd>{{ data.dns_record_name }}</dd>
+  </dl>
+
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+{% endblock %}

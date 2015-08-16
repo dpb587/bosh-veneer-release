@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\Instances" table="instances">
+    <indexes>
+      <index name="IDX_7A2700699DF4CE98" columns="deployment_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="instances_vm_id_key" columns="vm_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="job" type="text" column="job" nullable="false"/>
+    <field name="index" type="integer" column="index" nullable="false"/>
+    <field name="state" type="text" column="state" nullable="false"/>
+    <field name="resurrectionPaused" type="boolean" column="resurrection_paused" nullable="true"/>
+    <many-to-one field="vm" target-entity="Vms">
+      <join-columns>
+        <join-column name="vm_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="deployment" target-entity="Deployments">
+      <join-columns>
+        <join-column name="deployment_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

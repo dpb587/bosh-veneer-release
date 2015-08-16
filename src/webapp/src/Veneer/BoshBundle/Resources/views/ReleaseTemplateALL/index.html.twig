@@ -1,0 +1,20 @@
+{% extends _layout %}
+
+{% block def_title 'Templates' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Template</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+        <tr>
+            <td><a href="{{ path('veneer_bosh_release_template_summary', { 'release' : _veneer_bosh_context.release.name, 'template' : result.name, 'version' : result.version }) }}">{{ result.name }}/<span class="text-muted">{{ result.version }}</span></a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

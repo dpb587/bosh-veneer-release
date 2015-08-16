@@ -1,0 +1,8 @@
+{% extends _layout %}
+
+{% block def_title _veneer_bosh_context.deployment.name %}
+
+{% block frag_content %}  
+  {{ render(links.instanceALL|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(links.vmALL|veneer_web_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}

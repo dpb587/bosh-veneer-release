@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\LogBundles" table="log_bundles">
+    <indexes>
+      <index name="log_bundles_timestamp_index" columns="timestamp"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="log_bundles_blobstore_id_key" columns="blobstore_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="blobstoreId" type="text" column="blobstore_id" nullable="false"/>
+    <field name="timestamp" type="datetime" column="timestamp" nullable="false"/>
+  </entity>
+</doctrine-mapping>

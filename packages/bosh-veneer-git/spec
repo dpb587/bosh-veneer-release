@@ -1,0 +1,7 @@
+---
+name: "bosh-veneer-git"
+dependencies:
+  - "bosh-veneer-autoconf"
+  - "bosh-veneer-zlib"
+files:
+  - "bosh-veneer-git-blobs/**/*"

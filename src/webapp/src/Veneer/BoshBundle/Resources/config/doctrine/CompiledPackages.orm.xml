@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\CompiledPackages" table="compiled_packages">
+    <indexes>
+      <index name="IDX_4A96D06F44CABFF" columns="package_id"/>
+      <index name="IDX_4A96D06F8AAD739" columns="stemcell_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="compiled_packages_package_id_stemcell_id_build_key" columns="package_id,stemcell_id,build"/>
+      <unique-constraint name="package_stemcell_dependency_key_sha1_idx" columns="package_id,stemcell_id,dependency_key_sha1"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="blobstoreId" type="text" column="blobstore_id" nullable="false"/>
+    <field name="sha1" type="text" column="sha1" nullable="false"/>
+    <field name="dependencyKey" type="text" column="dependency_key" nullable="false"/>
+    <field name="build" type="integer" column="build" nullable="false"/>
+    <field name="dependencyKeySha1" type="text" column="dependency_key_sha1" nullable="false"/>
+    <many-to-one field="stemcell" target-entity="Stemcells">
+      <join-columns>
+        <join-column name="stemcell_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="package" target-entity="Packages">
+      <join-columns>
+        <join-column name="package_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

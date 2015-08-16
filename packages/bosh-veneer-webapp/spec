@@ -1,0 +1,10 @@
+---
+name: "bosh-veneer-webapp"
+dependencies:
+  - "bosh-veneer-git"
+  - "bosh-veneer-php"
+  - "bosh-veneer-openssl"
+  - "bosh-veneer-webapp-build"
+files:
+  - "webapp/*"
+  - "webapp/**/*"

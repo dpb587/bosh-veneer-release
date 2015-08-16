@@ -23,11 +23,11 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
 
-            new Bosh\WebBundle\BoshWebBundle(),
-            new Bosh\CoreBundle\BoshCoreBundle(),
-            new Bosh\AwsCpiBundle\BoshAwsCpiBundle(),
-            new Bosh\LogsearchBundle\BoshLogsearchBundle(),
-            new Bosh\CloqueBundle\BoshCloqueBundle(),
+            new Veneer\WebBundle\VeneerWebBundle(),
+            new Veneer\BoshBundle\VeneerBoshBundle(),
+            new Veneer\AwsCpiBundle\VeneerAwsCpiBundle(),
+            new Veneer\LogsearchBundle\VeneerLogsearchBundle(),
+            new Veneer\CloqueBundle\VeneerCloqueBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

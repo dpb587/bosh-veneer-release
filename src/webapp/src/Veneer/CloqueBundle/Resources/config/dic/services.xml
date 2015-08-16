@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="veneer_cloque.director_name" />
+        <parameter key="veneer_cloque.versioning.repository.workspace" />
+        <parameter key="veneer_cloque.versioning.repository.path_prefix" />
+        <parameter key="veneer_cloque.versioning.web_service.org_name" />
+        <parameter key="veneer_cloque.versioning.web_service.repo_name" />
+        <parameter key="veneer_cloque.executable.git">/var/vcap/packages/bosh-veneer-git/bin/git</parameter>
+    </parameters>
+
+    <services>
+        <service id="veneer_cloque.plugin.default" class="Veneer\CloqueBundle\Service\Plugin\DefaultPlugin">
+            <argument type="service" id="veneer_cloque.versioning.repository" />
+            <argument type="service" id="veneer_cloque.versioning.web_service" />
+            <argument>%veneer_cloque.director_name%</argument>
+
+            <tag name="veneer_bosh.plugin" context="bosh/deployment" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/property:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/property" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/task" />
+            <tag name="veneer_bosh.plugin" context="bosh/task:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release" />
+            <tag name="veneer_bosh.plugin" context="bosh/release:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/package" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/package:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/template" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/template:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/version" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/version:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/stemcell" />
+            <tag name="veneer_bosh.plugin" context="bosh/stemcell:all" />
+        </service>
+
+        <service id="veneer_cloque.versioning.repository" class="Veneer\Component\Versioning\Repository\GitRepository">
+            <argument>%veneer_cloque.versioning.repository.workspace%</argument>
+            <argument>%veneer_cloque.versioning.repository.path_prefix%</argument>
+            <argument>%veneer_cloque.executable.git%</argument>
+        </service>
+
+        <service id="veneer_cloque.versioning.web_service" class="Veneer\Component\Versioning\WebService\GitHubWebService">
+            <argument>%veneer_cloque.versioning.web_service.org_name%</argument>
+            <argument>%veneer_cloque.versioning.web_service.repo_name%</argument>
+        </service>
+    </services>
+</container>

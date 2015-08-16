@@ -1,0 +1,7 @@
+---
+name: "bosh-veneer-php"
+dependencies:
+  - "bosh-veneer-autoconf"
+  - "bosh-veneer-openssl"
+files:
+  - "bosh-veneer-php-blobs/**/*"

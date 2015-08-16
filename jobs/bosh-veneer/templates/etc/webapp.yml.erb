@@ -1,0 +1,25 @@
+parameters:
+    database_host: "<%= p('bosh_veneer.db.host') %>"
+    database_port: null
+    database_name: "<%= p('bosh_veneer.db.database') %>"
+    database_user: "<%= p('bosh_veneer.db.user') %>"
+    database_password: "<%= p('bosh_veneer.db.password') %>"
+    database_adapter: "pdo_<%= p('bosh_veneer.db.adapter').gsub('postgres', 'pgsql') %>"
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    veneer_bosh.director_name: <%= p('director.name') %>
+
+    veneer_aws_cpi.region: <%= p('bosh_veneer.aws_cpi.region') %>
+
+    veneer_logsearch.elasticsearch.host: <%= p('bosh_veneer.logsearch.elasticsearch.host') %>
+    veneer_logsearch.elasticsearch.port: <%= p('bosh_veneer.logsearch.elasticsearch.port') %>
+
+    veneer_cloque.director_name: "<%= p('bosh_veneer.cloque.director_name') %>"
+    veneer_cloque.versioning.repository.workspace: "/var/vcap/store/bosh-veneer/repository/git-root"
+    veneer_cloque.versioning.repository.path_prefix: "<%= p('bosh_veneer.cloque.versioning.repository.path_prefix') %>"
+    veneer_cloque.versioning.web_service.org_name: "<%= p('bosh_veneer.cloque.versioning.web_service.org_name') %>"
+    veneer_cloque.versioning.web_service.repo_name: "<%= p('bosh_veneer.cloque.versioning.web_service.repo_name') %>"

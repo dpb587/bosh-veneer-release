@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_cloque_summary" path="/cloque/summary.{_format}">
+        <default key="_controller">Veneer\CloqueBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- deployment -->
+
+    <route id="veneer_cloque_deployment_changelogALL_index" path="/cloque/deployment/{deployment}/changelog/:all/index.{_format}">
+        <default key="_controller">Veneer\CloqueBundle\Controller\DeploymentChangelogALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment</default>
+    </route>
+
+    <route id="veneer_cloque_deployment_infra_index" path="/cloque/deployment/{deployment}/infra/summary.{_format}">
+        <default key="_controller">Veneer\CloqueBundle\Controller\DeploymentInfraController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment</default>
+    </route>
+
+</routes>

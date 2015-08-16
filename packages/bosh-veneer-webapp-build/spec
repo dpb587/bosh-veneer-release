@@ -1,0 +1,4 @@
+---
+name: "bosh-veneer-webapp-build"
+files:
+  - "bosh-veneer-webapp-build-blobs/**/*"

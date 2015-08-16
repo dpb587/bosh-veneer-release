@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\Vms" table="vms">
+    <indexes>
+      <index name="IDX_B662F89C9DF4CE98" columns="deployment_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="vms_agent_id_key" columns="agent_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="agentId" type="text" column="agent_id" nullable="false"/>
+    <field name="cid" type="text" column="cid" nullable="true"/>
+    <field name="applySpecJson" type="text" column="apply_spec_json" nullable="true"/>
+    <field name="credentialsJson" type="text" column="credentials_json" nullable="true"/>
+    <field name="envJson" type="text" column="env_json" nullable="true"/>
+    <many-to-one field="deployment" target-entity="Deployments">
+      <join-columns>
+        <join-column name="deployment_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,32 @@
+{% extends _layout %}
+
+{% block def_title 'Stemcells' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Stemcell</th>
+        <th>CID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+        <tr>
+          <td><a href="{{ path('veneer_bosh_stemcell_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}/{{ result.version }}</a></td>
+          <td><code>{{ result.cid }}</code></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        A generic VM image that BOSH clones and configures to during deployment. A stemcell is a template from which
+        BOSH creates whatever VMs are needed for a wide variety of components and products.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#stemcell">bosh.io</a>
+    </p>
+
+    {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+{% endblock %}

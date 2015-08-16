@@ -1,7 +1,0 @@
----
-name: "directorweb-php"
-dependencies:
-  - "directorweb-autoconf"
-  - "directorweb-openssl"
-files:
-  - "directorweb-php-blobs/**/*"

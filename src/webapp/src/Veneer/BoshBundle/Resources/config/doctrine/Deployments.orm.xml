@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\Deployments" table="deployments">
+    <indexes>
+      <index name="IDX_373C43D5DD12E1A4" columns="cloud_config_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="deployments_name_key" columns="name"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="name" type="text" column="name" nullable="false"/>
+    <field name="manifest" type="text" column="manifest" nullable="true"/>
+    <many-to-one field="cloudConfig" target-entity="CloudConfigs">
+      <join-columns>
+        <join-column name="cloud_config_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

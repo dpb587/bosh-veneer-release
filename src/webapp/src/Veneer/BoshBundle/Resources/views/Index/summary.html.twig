@@ -1,0 +1,97 @@
+{% extends _layout %}
+
+{% block primary_nav %}
+    <a href="{{ path('veneer_bosh_summary') }}">{{ veneer_bosh_director_name }}</a>
+{% endblock %}
+
+{% block def_title 'BOSH Director' %}
+
+{% block frag_content %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="{{ path('veneer_bosh_deploymentALL_index') }}">
+                    <span class="text-muted" style="margin-right:6px;"><span class="glyphicon glyphicon-th"></span></span>{#
+                    #}<span class="text-primary">Deployments</span>
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                An encapsulation of software and configuration that BOSH can deploy to the cloud. You can think of a
+                deployment as the state of a collection of VMs: what software is on them, what resources they use, and how
+                these are orchestrated.
+            </p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="{{ path('veneer_bosh_taskALL_index') }}">
+                    <span class="text-muted" style="margin-right:6px;"><span class="glyphicon glyphicon-tasks"></span></span>{#
+                    #}<span class="text-primary">Tasks</span>
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                The basic unit of work performed by the Director. You can monitor the task throughout its lifecycle,
+                which progresses through states like started, running, done, and error.
+            </p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="{{ path('veneer_bosh_releaseALL_index') }}">
+                    <span class="text-muted" style="margin-right:6px;"><span class="glyphicon glyphicon-tree-deciduous"></span></span>{#
+                    #}<span class="text-primary">Releases</span>
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                A collection of configuration files, job definitions, source code, package definitions and accompanying
+                information needed to make a software component deployable by BOSH.
+            </p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <a href="{{ path('veneer_bosh_stemcellALL_index') }}">
+                    <span class="text-muted" style="margin-right:6px;"><span class="glyphicon glyphicon-compressed"></span></span>{#
+                    #}<span class="text-primary">Stemcells</span>
+                </a>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                A generic VM image that BOSH clones and configures to during deployment. A stemcell is a template from
+                which BOSH creates whatever VMs are needed for a wide variety of components and products.
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        The main BOSH component that coordinates the Agents and responds to user requests and system events. The
+        Director is the orchestrator of deployments.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#director">bosh.io</a>
+    </p>
+
+    <hr />
+
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ data.name }}</dd>
+    
+        <dt>UUID</dt>
+        <dd>{{ data.attributes.uuid }}</dd>
+    </dl>
+{% endblock %}

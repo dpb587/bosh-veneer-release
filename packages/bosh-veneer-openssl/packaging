@@ -1,0 +1,25 @@
+#!/bin/bash
+
+exec 2>&1
+
+set -e
+set -u
+
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+
+( cd bosh-veneer-openssl-blobs/openssl
+
+  tar -xzf openssl.tar.gz
+  cd openssl-*
+
+  ./config \
+    -DSSL_ALLOW_ADH \
+    --shared \
+    --prefix=${BOSH_INSTALL_TARGET} \
+    --openssldir=${BOSH_INSTALL_TARGET}/openssldir
+
+  make
+  make install
+
+  cp ../../ca-bundle/ca-bundle.crt ${BOSH_INSTALL_TARGET}/openssldir/certs/ca-bundle.crt
+)

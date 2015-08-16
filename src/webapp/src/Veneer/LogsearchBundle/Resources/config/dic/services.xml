@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="veneer_logsearch.elasticsearch.host">localhost</parameter>
+        <parameter key="veneer_logsearch.elasticsearch.port">9200</parameter>
+        <parameter key="veneer_logsearch.elasticsearch_index">logstash-[Y.m.d]</parameter>
+        <parameter key="veneer_logsearch.kibana_url">http://%veneer_logsearch.elasticsearch.host%:%veneer_logsearch.elasticsearch.port%/_plugin/kibana/index.html</parameter>
+    </parameters>
+
+    <services>
+        <service id="veneer_logsearch.elasticsearch" class="Elastica\Client">
+            <argument type="collection">
+                <argument key="host">%veneer_logsearch.elasticsearch.host%</argument>
+                <argument key="port">%veneer_logsearch.elasticsearch.port%</argument>
+            </argument>
+        </service>
+
+        <service id="veneer_logsearch.elasticsearch_helper" class="Veneer\LogsearchBundle\Service\ElasticsearchHelper">
+            <argument type="service" id="veneer_logsearch.elasticsearch" />
+            <argument>%veneer_logsearch.elasticsearch_index%</argument>
+        </service>
+
+        <service id="veneer_logsearch.plugin.default" class="Veneer\LogsearchBundle\Service\Plugin\DefaultPlugin">
+            <argument type="service" id="veneer_logsearch.elasticsearch" />
+            <argument>%veneer_logsearch.kibana_url%</argument>
+            <argument>%veneer_bosh.director_name%</argument>
+
+            <tag name="veneer_bosh.plugin" context="bosh/deployment" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/property:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/property" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance/persistent_disk" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance/persistent_disk:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/task" />
+            <tag name="veneer_bosh.plugin" context="bosh/task:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release" />
+            <tag name="veneer_bosh.plugin" context="bosh/release:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/package" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/package:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/template" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/template:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/version" />
+            <tag name="veneer_bosh.plugin" context="bosh/release/version:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/stemcell" />
+            <tag name="veneer_bosh.plugin" context="bosh/stemcell:all" />
+        </service>
+    </services>
+</container>

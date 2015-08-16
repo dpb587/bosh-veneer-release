@@ -1,0 +1,4 @@
+---
+name: "bosh-veneer-openssl"
+files:
+  - "bosh-veneer-openssl-blobs/**/*"

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_logsearch_summary" path="/logsearch/summary.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- deployment -->
+
+    <route id="veneer_logsearch_deployment_monitstatus" path="/logsearch/deployment/{deployment}/monit-status.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentController::monitstatusAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment</default>
+    </route>
+
+    <route id="veneer_logsearch_deployment_instance_diskstats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/diskstats.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceController::diskstatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment/instance</default>
+    </route>
+
+    <route id="veneer_logsearch_deployment_instance_memstats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/memstats.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceController::memstatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment/instance</default>
+    </route>
+
+    <route id="veneer_logsearch_deployment_instance_loadstats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/loadstats.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceController::loadstatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment/instance</default>
+    </route>
+
+    <route id="veneer_logsearch_deployment_instance_persistentdisk_hoststats" path="/logsearch/deployment/{deployment}/instance/{job_name}/{job_index}/persistent-disk/{persistent_disk}/hoststats.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstancePersistentDiskController::hoststatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment/instance/persistent_disk</default>
+    </route>
+
+    <route id="veneer_logsearch_deployment_vm_network_hoststats" path="/logsearch/deployment/{deployment}/vm/{agent}/network/{network}/hoststats.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentVmNetworkController::hoststatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_object_context">bosh/deployment/vm/network</default>
+    </route>
+
+</routes>

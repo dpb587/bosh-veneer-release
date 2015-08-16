@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\Templates" table="templates">
+    <indexes>
+      <index name="templates_fingerprint_index" columns="fingerprint"/>
+      <index name="templates_sha1_index" columns="sha1"/>
+      <index name="IDX_6F287D8EB12A727D" columns="release_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="templates_release_id_name_version_key" columns="release_id,name,version"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="name" type="text" column="name" nullable="false"/>
+    <field name="version" type="text" column="version" nullable="false"/>
+    <field name="blobstoreId" type="text" column="blobstore_id" nullable="false"/>
+    <field name="sha1" type="text" column="sha1" nullable="false"/>
+    <field name="packageNamesJson" type="text" column="package_names_json" nullable="false"/>
+    <field name="logsJson" type="text" column="logs_json" nullable="true"/>
+    <field name="fingerprint" type="text" column="fingerprint" nullable="true"/>
+    <field name="propertiesJson" type="text" column="properties_json" nullable="true"/>
+    <many-to-one field="release" target-entity="Releases">
+      <join-columns>
+        <join-column name="release_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

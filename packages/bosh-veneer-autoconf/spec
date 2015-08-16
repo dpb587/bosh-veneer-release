@@ -1,0 +1,4 @@
+---
+name: "bosh-veneer-autoconf"
+files:
+  - "bosh-veneer-autoconf-blobs/**/*"

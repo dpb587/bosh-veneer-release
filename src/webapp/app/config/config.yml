@@ -35,7 +35,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-      bosh_core_director_name: "%bosh_core.director_name%"
+      veneer_bosh_director_name: "%veneer_bosh.director_name%"
 
 # Assetic Configuration
 assetic:
@@ -43,7 +43,7 @@ assetic:
     use_controller: false
     #bundles:        [ ]
     bundles:
-        - BoshWebBundle
+        - VeneerWebBundle
     assets:
         highcharts:
             inputs:
@@ -51,7 +51,7 @@ assetic:
     #java: /usr/bin/java
     filters:
         less:
-            node: /var/vcap/packages/directorweb-webapp-build/node/bin/node
+            node: /var/vcap/packages/bosh-veneer-webapp-build/node/bin/node
             node_paths:
                 - %kernel.root_dir%/../vendor/less/less.js/lib
             apply_to: "\.less$"

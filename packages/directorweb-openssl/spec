@@ -1,4 +1,0 @@
----
-name: "directorweb-openssl"
-files:
-  - "directorweb-openssl-blobs/**/*"

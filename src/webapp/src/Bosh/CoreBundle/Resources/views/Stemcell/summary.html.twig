@@ -1,7 +1,0 @@
-{% extends _layout %}
-
-{% block def_title _bosh_core_context.release.name %}
-
-{% block frag_content %}  
-  {#}{{ render(links.versionALL|bosh_web_appendqs({ '_frag' : 'content' })) }}}#}
-{% endblock %}
