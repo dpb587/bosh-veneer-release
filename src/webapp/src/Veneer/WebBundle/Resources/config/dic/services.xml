@@ -24,5 +24,11 @@
                 </argument>
             </call>
         </service>
+
+        <service id="veneer_web.encryption" class="Veneer\Component\Security\EncryptionService">
+            <argument type="collection">
+                <argument key="salt">%secret%</argument>
+            </argument>
+        </service>
     </services>
 </container>

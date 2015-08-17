@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{% block html_title %}{% endblock %}</title>
+    <title>{% block html_title %}{% if block('def_title') %}{{ block('def_title') }} ~ {% endif %}{{ veneer_bosh_director_name }}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
@@ -84,7 +84,7 @@
                   </small>
                   <br />
                   <small>
-                      <a class="text-muted" href="https://github.com/dpb587/veneer-release">veneer</a>
+                      <a class="text-muted" href="https://github.com/dpb587/bosh-veneer-release">bosh-veneer</a>
                       &ndash;
                       created by <a class="text-muted" href="http://dpb587.me/">danny berger</a>
                   </small>

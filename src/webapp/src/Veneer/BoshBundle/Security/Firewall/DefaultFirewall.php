@@ -5,54 +5,70 @@ namespace Veneer\BoshBundle\Security\Firewall;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Http\Firewall\AbstractAuthenticationListener;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
+use Veneer\BoshBundle\Security\Core\Authentication\Token\BasicToken;
+use Veneer\BoshBundle\Security\Core\Authentication\Token\UaaToken;
 
 class DefaultFirewall extends AbstractAuthenticationListener
 {
+    const RESPONSE_LISTENER_ATTRIBUTE = '_veneer_bosh_default_firewall';
+
     protected function requiresAuthentication(Request $request)
     {
-        return preg_match('#^/auth/via/builtin$#', $request->getPathInfo())
+        return ('POST' == $request->getMethod()) && (preg_match('#^/auth/via/(basic|uaa)$#', $request->getPathInfo()))
             || $request->headers->has('authorization');
     }
 
     protected function attemptAuthentication(Request $request)
     {
-        if (preg_match('#^/auth/via/simple$#', $request->getPathInfo())) {
-            if ($request->request->has('simple')) {
-                $simple = $request->request->get('simple');
+        if (preg_match('#^/auth/via/(basic|uaa)$#', $request->getPathInfo(), $method)) {
+            if ('basic' == $method[1]) {
+                $basic = $request->request->get('basic');
+
+                if ($request->request->has('basic')) {
+                } else {
+                    throw new HttpException(400);
+                }
+
+                $token = new BasicToken(
+                    (isset($basic['username']) ? $basic['username'] : ''),
+                    (isset($basic['password']) ? $basic['password'] : null),
+                    $this->providerKey
+                );
             } else {
-                throw new HttpException(400);
+                throw new \LogicException('Not really sure what UAA looks like...');
             }
 
-            $token = new UsernamePasswordToken(
-                (isset($simple['username']) ? $simple['username'] : ''),
-                (isset($simple['password']) ? $simple['password'] : null),
-                $this->providerKey
-            );
-
-            $token->setAttribute('auth.source', 'form');
+            $token->setAttribute('auth.method', 'form');
         } elseif ($request->headers->has('authorization')) {
             if (null !== $request->getUser()) {
-                $token = new UsernamePasswordToken(
+                // basic authentication used
+                $token = new SimpleToken(
                     $request->getUser(),
                     $request->getPassword(),
                     $this->providerKey
                 );
-
-                $token->setAttribute('auth.source', 'header');
             } else {
-                // @todo
-                $token = new PreAuthenticatedToken(
-                    'unknown',
+                $token = new UaaToken(
+                    'uaa',
                     $request->headers->get('authorization'),
                     $this->providerKey
                 );
             }
+
+            $token->setAttribute('auth.method', 'header');
         } else {
             throw new \LogicException();
         }
 
-        return $this->authenticationManager->authenticate($token);
+        $authenticatedToken = $this->authenticationManager->authenticate($token);
+
+        if (($authenticatedToken instanceof BasicToken) && ('form' == $token->getAttribute('auth.method'))) {
+            // they logged in via web form
+            // we still might need to use their password, so set an attribute
+            // that we can check for in UserPasswordListener
+            $request->attributes->set(static::RESPONSE_LISTENER_ATTRIBUTE, 'set');
+        }
+
+        return $authenticatedToken;
     }
 }

@@ -5,19 +5,30 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="veneer_bosh.api.scheme">https</parameter>
-        <parameter key="veneer_bosh.api.host">127.0.0.1</parameter>
-        <parameter key="veneer_bosh.api.port">25555</parameter>
+        <parameter key="veneer_bosh.director_address">127.0.0.1</parameter>
+        <parameter key="veneer_bosh.api.options.verify">false</parameter>
+        <parameter key="veneer_bosh.api.options" type="collection">
+            <parameter key="base_uri">https://%veneer_bosh.director_address%:25555/</parameter>
+            <parameter key="verify">%veneer_bosh.api.options.verify%</parameter>
+        </parameter>
     </parameters>
 
     <services>
+        <service id="veneer_bosh.security.authentication.bosh_director_provider" class="Veneer\BoshBundle\Security\Core\Authentication\Provider\BoshDirectorProvider" public="false">
+            <argument /><!-- provider key -->
+            <argument>%veneer_bosh.api.options%</argument>
+            <argument>300</argument>
+        </service>
+
+        <service id="veneer_bosh.security.authentication.default_listener" class="Veneer\BoshBundle\Security\Firewall\DefaultFirewall" public="false" parent="security.authentication.listener.abstract" abstract="true" />
+
+        <service id="veneer_bosh.security.user.user_provider" class="Veneer\BoshBundle\Security\User\UserProvider" />
+
         <service id="veneer_bosh.api" class="Veneer\Component\BoshApi\Client">
-            <argument type="collection">
-                <argument key="base_uri">%veneer_bosh.api.scheme%://%veneer_bosh.api.host%:%veneer_bosh.api.port%/</argument>
-                <argument key="verify">false</argument>
-            </argument>
+            <argument>%veneer_bosh.api.options%</argument>
             <argument type="service">
-                <service class="Veneer\Component\BoshApi\Authentication\BasicAuthentication">
+                <service class="Veneer\BoshBundle\Security\Core\Authentication\Token\AbstractToken">
+                    <factory service="security.context" method="getToken" />
                 </service>
             </argument>
         </service>
@@ -26,6 +37,14 @@
             <argument type="service" id="veneer_bosh.plugin_factory" />
 
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+        </service>
+
+        <service id="veneer_bosh.security.firewall.user_password_listener" class="Veneer\BoshBundle\Security\Firewall\UserPasswordListener">
+            <argument type="service" id="security.context" />
+            <!--<argument type="service" id="veneer_web.encryption" />-->
+
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
         </service>
 
         <service id="veneer_bosh.property_helper" class="Veneer\BoshBundle\Service\PropertyHelper" />

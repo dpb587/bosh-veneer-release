@@ -44,14 +44,14 @@ class TaskController extends AbstractController
         );
     }
 
-    public function trackerAction($_context)
+    public function eventsAction($_context)
     {
         $events = $this->container->get('veneer_bosh.api')->getTaskOutput($_context['task']['id'], 0, 'event');
 
         $tracker = new TaskTracker($events['data']);
 
         return $this->renderApi(
-            'VeneerBoshBundle:Task:tracker.html.twig',
+            'VeneerBoshBundle:Task:events.html.twig',
             [
                 'tracker_state' => $tracker->getState(),
                 'tracker_errors' => $tracker->getErrors(),

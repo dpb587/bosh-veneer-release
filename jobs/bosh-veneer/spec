@@ -16,10 +16,12 @@ templates:
   etc/phpfpm.ini.erb: etc/phpfpm.ini
   etc/webapp.yml.erb: etc/webapp.yml
 properties:
-  bosh_veneer.webapp.environment:
+  bosh_veneer.app.environment:
     default: dev
-  bosh_veneer.webapp.debug:
+  bosh_veneer.app.debug:
     default: true
+  bosh_veneer.app.secret:
+    default: "ThisTokenIsNotSoSecretChangeIt"
 
   bosh_veneer.nginx.http_port:
     default: 80
@@ -95,6 +97,8 @@ properties:
 
   director.name:
     default: "bosh"
+  director.address:
+    default: "127.0.0.1"
 
   bosh_veneer.aws_cpi.region:
     default: "us-east-1"

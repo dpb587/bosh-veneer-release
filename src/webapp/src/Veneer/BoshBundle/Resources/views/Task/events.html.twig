@@ -1,6 +1,6 @@
 {% extends _layout %}
 
-{% block def_title 'Tracker' %}
+{% block def_title 'Events' %}
 
 {% block frag_content %}
     {% if not tracker_state and not tracker_errors %}
@@ -12,7 +12,7 @@
             <tbody>
                 {% for stage in tracker_state %}
                     {% if 'unknown' != stage.name %}
-                        <tr{% if 'failed' == stage.state %} class="danger"{% elseif 'in_progress' == stage.state %} class="info"{% endif %}>
+                        <tr{% if 'failed' == stage.state %} class="danger"{% endif %}>
                             <td class="text-center" width="4">
                                 {% if 'finished' == stage.state %}
                                     <span class="glyphicon glyphicon-ok"></span>
@@ -23,11 +23,17 @@
                                 {% endif %}
                             </td>
                             <td><strong>{{ stage.name }}</strong></td>
-                            <td class="text-right">{{ stage.time_end - stage.time_begin }}s</td>
+                            <td class="text-right">
+                                {% if stage.time_end %}
+                                    {{ stage.time_end - stage.time_begin }}s
+                                {% else %}
+                                    <span class="text-muted">&mdash;</span>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endif %}
                     {% for task_idx, task in stage.tasks %}
-                        <tr id="{{ stage.id }}-{{ task_idx }}" {% if 'failed' == task.state %} class="danger"{% elseif 'in_progress' == task.state %} class="info"{% endif %}{% if 'finished' == stage.state %} style="display:none;"{% endif %}>
+                        <tr id="{{ stage.id }}-{{ task_idx }}" {% if 'failed' == task.state %} class="danger"{% elseif 'finished' != task.state %} class="warning"{% endif %}{% if 'finished' == stage.state %} style="display:none;"{% endif %}>
                             <td class="{% if 'unknown' != stage.name %}text-muted {% endif %}text-center" width="4">
                                 {% if 'finished' == stage.state %}
                                     <span class="glyphicon glyphicon-ok"></span>
@@ -42,7 +48,13 @@
                             {% else %}
                                 <td><strong>{{ task.name }}</strong></td>
                             {% endif %}
-                            <td class="text-right">{{ task.time_end - task.time_begin }}s</td>
+                            <td class="text-right">
+                                {% if task.time_end %}
+                                    {{ task.time_end - task.time_begin }}s
+                                {% else %}
+                                    <span class="text-muted">&mdash;</span>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                 {% endfor %}

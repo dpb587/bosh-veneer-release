@@ -9,9 +9,10 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: <%= p('bosh_veneer.secret') %>
 
     veneer_bosh.director_name: <%= p('director.name') %>
+    veneer_bosh.director_address: <%= p('director.address') %>
 
     veneer_aws_cpi.region: <%= p('bosh_veneer.aws_cpi.region') %>
 

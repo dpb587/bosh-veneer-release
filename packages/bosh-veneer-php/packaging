@@ -77,6 +77,19 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
   make install
 )
 
+( cd bosh-veneer-php-blobs/libmcrypt
+
+  tar -xzf libmcrypt.tar.gz
+  cd libmcrypt-*
+
+  ./configure \
+    --prefix=${BOSH_INSTALL_TARGET}/external/libmcrypt \
+    --disable-posix-threads
+
+  make -j${CPUS}
+  make install
+)
+
 ( cd bosh-veneer-php-blobs/php
 
   tar -xzf php.tar.gz
@@ -93,6 +106,7 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
     --with-icu-dir=${BOSH_INSTALL_TARGET}/external/icu \
     --with-openssl=/var/vcap/packages/bosh-veneer-openssl \
     --with-curl=${BOSH_INSTALL_TARGET}/external/curl \
+    --with-mcrypt=${BOSH_INSTALL_TARGET}/external/libmcrypt \
     --enable-mbstring \
     --with-curlwrappers \
     --enable-opcache \

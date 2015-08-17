@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+wget \
+  -q \
+  -O libmcrypt.tar.gz \
+  "http://iweb.dl.sourceforge.net/project/mcrypt/Libmcrypt/${VERSION}/libmcrypt-${VERSION}.tar.gz"

@@ -1,6 +1,6 @@
 {% extends _layout %}
 
-{% block def_title 'Deployment Summary' %}
+{% block def_title _veneer_bosh_context.deployment.name %}
 
 {% block frag_content %}
   {{ render(endpoints.logsearch_monitstatus|veneer_web_appendqs({ '_frag' : 'content' })) }}

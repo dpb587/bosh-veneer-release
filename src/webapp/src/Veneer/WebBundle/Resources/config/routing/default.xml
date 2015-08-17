@@ -9,4 +9,11 @@
         <default key="_format">html</default>
     </route>
 
+    <route id="veneer_web_auth_begin" path="/auth/begin">
+        <default key="_controller">Veneer\WebBundle\Controller\AuthController::beginAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_web_auth_via_basic" path="/auth/via/basic" />
+
 </routes>

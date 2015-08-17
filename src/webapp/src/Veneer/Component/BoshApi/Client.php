@@ -5,18 +5,28 @@ namespace Veneer\Component\BoshApi;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Handler\CurlHandler;
-use Veneer\Component\BoshApi\Authentication\AuthenticationInterface;
+use Veneer\BoshBundle\Security\Core\Authentication\Token\AbstractToken;
+use Veneer\BoshBundle\Security\Core\Authentication\Token\BasicToken;
+use Veneer\BoshBundle\Security\Core\Authentication\Token\UaaToken;
 use GuzzleHttp\Psr7\Request;
 
 class Client extends GuzzleClient
 {
-    public function __construct(array $clientOptions, AuthenticationInterface $authentication)
+    public function __construct(array $clientOptions, AbstractToken $token)
     {
+        if ($token instanceof UaaToken) {
+            $authorizationHeader = $token->getUser()->getCredentials();
+        } elseif ($token instanceof BasicToken) {
+            $authorizationHeader = 'Basic ' . base64_encode($token->getUser()->getUsername() . ':' . $token->getUser()->getCredentials());
+        } else {
+            throw new \InvalidArgumentException('Token must be Uaa or Basic');
+        }
+
         $stack = HandlerStack::create(isset($clientOptions['handler']) ? $clientOptions['handler'] : new CurlHandler());
-        $stack->push(function (callable $handler) use ($authentication) {
-            return function (Request $request, array $options) use ($handler, $authentication) {
+        $stack->push(function (callable $handler) use ($authorizationHeader) {
+            return function (Request $request, array $options) use ($handler, $authorizationHeader) {
                 return $handler(
-                    $request->withHeader('Authorization', $authentication->getAuthorizationHeader()),
+                    $request->withHeader('Authorization', $authorizationHeader),
                     $options
                 );
             };
@@ -25,6 +35,11 @@ class Client extends GuzzleClient
         $clientOptions['handler'] = $stack;
         
         parent::__construct($clientOptions);
+    }
+
+    public function getInfo()
+    {
+        return json_decode($this->get('info')->getBody(), true);
     }
 
     public function getTaskOutput($taskId, $offset, $logType = 'result')

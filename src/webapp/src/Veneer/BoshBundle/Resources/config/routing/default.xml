@@ -157,8 +157,8 @@
         <default key="_veneer_web_object_context">bosh/task</default>
     </route>
 
-    <route id="veneer_bosh_task_tracker" path="/bosh/task/{task}/tracker.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\TaskController::trackerAction</default>
+    <route id="veneer_bosh_task_events" path="/bosh/task/{task}/events.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\TaskController::eventsAction</default>
         <default key="_format">html</default>
         <default key="_veneer_web_object_context">bosh/task</default>
     </route>

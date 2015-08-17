@@ -29,7 +29,7 @@ php_admin_flag[log_errors] = on
 php_admin_value[log_errors_max_len] = 32k
 php_admin_value[memory_limit] = 128M
 
-<% if !p('bosh_veneer.webapp.debug') %>
+<% if !p('bosh_veneer.app.debug') %>
 php_admin_value[opcache.revalidate_freq] = 0
 php_admin_value[opcache.validate_timestamps] = 0
 php_admin_value[opcache.max_accelerated_files] = 16384
@@ -41,8 +41,8 @@ php_admin_value[opcache.fast_shutdown] = 1
 php_value[error_reporting] = E_ALL & ~E_DEPRECATED
 php_value[max_execution_time] = 60
 
-env[SYMFONY_ENV] = <%= p('bosh_veneer.webapp.environment') %>
-env[SYMFONY_DEBUG] = <%= p('bosh_veneer.webapp.debug') ? true : false %>
+env[SYMFONY_ENV] = <%= p('bosh_veneer.app.environment') %>
+env[SYMFONY_DEBUG] = <%= p('bosh_veneer.app.debug') ? true : false %>
 env[SYMFONY_PARAMS] = /var/vcap/jobs/bosh-veneer/etc/webapp.yml
 env[LOGDIR] = /var/vcap/sys/log/bosh-veneer
 env[CACHEDIR] = /var/vcap/jobs/bosh-veneer/cache

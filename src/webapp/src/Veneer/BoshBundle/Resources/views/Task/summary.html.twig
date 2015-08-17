@@ -3,7 +3,7 @@
 {% block def_title '#' ~ _veneer_bosh_context.task.id %}
 
 {% block frag_content %}
-  {{ render(endpoints.tracker|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(endpoints.events|veneer_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

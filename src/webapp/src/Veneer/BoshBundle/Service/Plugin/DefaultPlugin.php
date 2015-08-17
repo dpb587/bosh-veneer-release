@@ -145,8 +145,8 @@ class DefaultPlugin implements PluginInterface
                 ];
             case 'bosh/task':
                 return [
-                    'tracker' => [
-                        'veneer_bosh_task_tracker',
+                    'events' => [
+                        'veneer_bosh_task_events',
                         [
                             'task' => $context['task']['id'],
                         ]
