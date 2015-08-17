@@ -6,6 +6,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    veneer_bosh.api.host: 10.163.16.6
 
 framework:
     #esi:             ~

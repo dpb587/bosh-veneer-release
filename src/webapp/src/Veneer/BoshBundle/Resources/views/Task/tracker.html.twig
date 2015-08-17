@@ -1,0 +1,82 @@
+{% extends _layout %}
+
+{% block def_title 'Tracker' %}
+
+{% block frag_content %}
+    {% if not tracker_state and not tracker_errors %}
+        <p class="text-muted">
+            No event detail available
+        </p>
+    {% else %}
+        <table class="table">
+            <tbody>
+                {% for stage in tracker_state %}
+                    {% if 'unknown' != stage.name %}
+                        <tr{% if 'failed' == stage.state %} class="danger"{% elseif 'in_progress' == stage.state %} class="info"{% endif %}>
+                            <td class="text-center" width="4">
+                                {% if 'finished' == stage.state %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                {% elseif 'failed' == stage.state %}
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                {% else %}
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                {% endif %}
+                            </td>
+                            <td><strong>{{ stage.name }}</strong></td>
+                            <td class="text-right">{{ stage.time_end - stage.time_begin }}s</td>
+                        </tr>
+                    {% endif %}
+                    {% for task_idx, task in stage.tasks %}
+                        <tr id="{{ stage.id }}-{{ task_idx }}" {% if 'failed' == task.state %} class="danger"{% elseif 'in_progress' == task.state %} class="info"{% endif %}{% if 'finished' == stage.state %} style="display:none;"{% endif %}>
+                            <td class="{% if 'unknown' != stage.name %}text-muted {% endif %}text-center" width="4">
+                                {% if 'finished' == stage.state %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                {% elseif 'failed' == stage.state %}
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                {% else %}
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                {% endif %}
+                            </td>
+                            {% if 'unknown' != stage.name %}
+                                <td>{{ task.name }}</td>
+                            {% else %}
+                                <td><strong>{{ task.name }}</strong></td>
+                            {% endif %}
+                            <td class="text-right">{{ task.time_end - task.time_begin }}s</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% for error in tracker_errors %}
+            <div>
+                <div style="padding-left:6px;padding-right:6px;">
+                    <div class="pull-right">{{ error.time|date('c') }}</div>
+                    <strong>Error {{ error.error.code }}</strong>
+                </div>
+                <pre>{{ error.error.message }}</pre>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block frag_sidebar %}
+  <dl>
+    <dt>State</dt>
+    <dd>{{ data.state|capitalize }}</dd>
+
+    <dt>Description</dt>
+    <dd>{{ data.description }}</dd>
+
+    <dt>Username</dt>
+    <dd>{{ data.username }}</dd>
+
+    <dt>Timestamp</dt>
+    <dd>{{ data.timestamp }}</dd>
+  </dl>
+
+  <ul class="list-unstyled">
+    <li><a href="{{ endpoints.properties }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-pencil"></span></small>Properties</a></li>
+  </ul>
+{% endblock %}

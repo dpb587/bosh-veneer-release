@@ -1,0 +1,26 @@
+{% extends _layout %}
+
+{% block def_title 'Users' %}
+
+{% block frag_content %}
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+        <tr>
+          <td><a href="{{ path('veneer_bosh_user_summary', { 'username' : result.username }) }}">{{ result.username }}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        something should go here
+    </p>
+{% endblock %}

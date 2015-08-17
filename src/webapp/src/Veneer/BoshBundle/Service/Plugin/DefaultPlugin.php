@@ -143,6 +143,15 @@ class DefaultPlugin implements PluginInterface
                         ],
                     ],
                 ];
+            case 'bosh/task':
+                return [
+                    'tracker' => [
+                        'veneer_bosh_task_tracker',
+                        [
+                            'task' => $context['task']['id'],
+                        ]
+                    ],
+                ];
             case 'bosh/release':
                 return [
                     'packageALL' => [
@@ -351,10 +360,26 @@ class DefaultPlugin implements PluginInterface
                         $request->attributes->get('version')
                     );
                 }
+            } elseif ('task' == $contextNameSplit[1]) {
+                $context['task'] = $this->loadTask(
+                    $request->attributes->get('task')
+                );
             }
         }
 
         return $context;
+    }
+
+    protected function loadTask($task)
+    {
+        $loaded = $this->em->getRepository('VeneerBoshBundle:Tasks')
+            ->findOneById($task);
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find task');
+        }
+
+        return $loaded;
     }
 
     protected function loadDeployment($deployment)
