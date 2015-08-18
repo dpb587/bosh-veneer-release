@@ -9,7 +9,7 @@ parameters:
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    secret: <%= p('bosh_veneer.secret') %>
+    secret: <%= p('bosh_veneer.app.secret') %>
 
     veneer_bosh.director_name: <%= p('director.name') %>
     veneer_bosh.director_address: <%= p('director.address') %>

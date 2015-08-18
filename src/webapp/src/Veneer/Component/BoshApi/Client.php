@@ -17,7 +17,7 @@ class Client extends GuzzleClient
         if ($token instanceof UaaToken) {
             $authorizationHeader = $token->getUser()->getCredentials();
         } elseif ($token instanceof BasicToken) {
-            $authorizationHeader = 'Basic ' . base64_encode($token->getUser()->getUsername() . ':' . $token->getUser()->getCredentials());
+            $authorizationHeader = 'Basic ' . base64_encode($token->getUsername() . ':' . ($token->getCredentials() ?: $token->getUser()->getCredentials()));
         } else {
             throw new \InvalidArgumentException('Token must be Uaa or Basic');
         }

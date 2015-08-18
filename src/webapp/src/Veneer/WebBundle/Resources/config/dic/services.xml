@@ -15,7 +15,7 @@
             <argument type="service" id="router" />
 
             <call method="add">
-                <argument>veneer</argument>
+                <argument>bosh-veneer</argument>
                 <argument type="collection">
                     <argument key="veneer_web_summary" type="collection"></argument>
                 </argument>

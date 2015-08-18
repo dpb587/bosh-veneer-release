@@ -14,7 +14,7 @@ class UserPasswordListener
     protected $securityContext;
     protected $encryptionService;
 
-    public function __construct(SecurityContextInterface $securityContext, EncryptionService $encryptionService = null)
+    public function __construct(SecurityContextInterface $securityContext, EncryptionService $encryptionService)
     {
         $this->securityContext = $securityContext;
         $this->encryptionService = $encryptionService;
@@ -33,8 +33,7 @@ class UserPasswordListener
         }
 
         $token->getUser()->setCredentials(
-            #$this->encryptionService->decrypt($event->getRequest()->cookies->get('_bosh_password'))
-            $event->getRequest()->cookies->get('_bosh_password')
+            $this->encryptionService->decrypt($event->getRequest()->cookies->get('_bosh_password'))
         );
     }
 
@@ -53,8 +52,7 @@ class UserPasswordListener
         if ('set' == $action) {
             $response->headers->setCookie(new Cookie(
                 '_bosh_password',
-                #$this->encryptionService->encrypt($this->securityContext->getToken()->getUser()->getCredentials()),
-                $this->securityContext->getToken()->getUser()->getCredentials(),
+                $this->encryptionService->encrypt($this->securityContext->getToken()->getUser()->getCredentials()),
                 0,
                 '/'
             ));

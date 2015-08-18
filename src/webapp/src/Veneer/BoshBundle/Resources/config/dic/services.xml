@@ -41,7 +41,7 @@
 
         <service id="veneer_bosh.security.firewall.user_password_listener" class="Veneer\BoshBundle\Security\Firewall\UserPasswordListener">
             <argument type="service" id="security.context" />
-            <!--<argument type="service" id="veneer_web.encryption" />-->
+            <argument type="service" id="veneer_web.encryption" />
 
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />

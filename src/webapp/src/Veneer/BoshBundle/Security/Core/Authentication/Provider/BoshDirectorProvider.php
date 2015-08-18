@@ -55,7 +55,7 @@ class BoshDirectorProvider implements AuthenticationProviderInterface
             // @todo wrapped
         }
 
-        throw new AuthenticationException('Upstream authentication failed.');
+        throw new AuthenticationException('BOSH authentication failed.');
     }
 
     public function supports(TokenInterface $token)
