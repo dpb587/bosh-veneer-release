@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_logsearch.plugin.web_link_provider.deployment_instance" class="Veneer\LogsearchBundle\Controller\Plugin\WebLinkProvider\DeploymentInstancePlugin">
+            <argument>%veneer_logsearch.kibana_url%</argument>
+            <argument>%veneer_bosh.director_name%</argument>
+
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_summary" />
+        </service>
+
+        <service id="veneer_logsearch.plugin.web_link_provider.widget" class="Veneer\LogsearchBundle\Controller\Plugin\WebLinkProvider\WidgetPlugin">
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_persistentdisk_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_summary" />
+        </service>
+    </services>
+</container>

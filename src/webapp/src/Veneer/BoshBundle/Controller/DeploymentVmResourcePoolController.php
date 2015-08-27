@@ -11,12 +11,12 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentVmResourcePoolController extends AbstractController
 {
-    public function cpiAction(Request $request, $_context)
+    public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
             'VeneerAwsCpiBundle:CoreDeploymentVmResourcePool:cpi',
             [
-                '_context' => $_context,
+                '_context' => $_bosh,
                 '_route' => $request->attributes->get('_route'),
                 '_route_params' => $request->attributes->get('_route_params'),
             ],

@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_cloque.plugin.web_link_provider.deployment" class="Veneer\CloqueBundle\Controller\Plugin\WebLinkProvider\DeploymentPlugin">
+            <argument type="service" id="veneer_cloque.versioning.repository" />
+            <argument type="service" id="veneer_cloque.versioning.web_service" />
+            <argument>%veneer_cloque.director_name%</argument>
+
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_summary" />
+        </service>
+    </services>
+</container>

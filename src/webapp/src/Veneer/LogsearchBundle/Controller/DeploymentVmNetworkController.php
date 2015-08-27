@@ -11,7 +11,7 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentVmNetworkController extends AbstractController
 {
-    public function hoststatsAction(array $_context)
+    public function hoststatsAction(array $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 
@@ -26,7 +26,7 @@ class DeploymentVmNetworkController extends AbstractController
         $de = new \DateTime('now');
         $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
 
-        $contextFilters = $es->generateContextFilters($_context);
+        $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);
 
         $results = $es->request(

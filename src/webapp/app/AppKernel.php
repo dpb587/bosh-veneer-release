@@ -52,12 +52,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $params = getenv('SYMFONY_PARAMS');
-
-        if (!empty($params)) {
-            $loader->load($params);
-        }
-
+        $loader->load(getenv('SYMFONY_PARAMS') ?: $this->getRootDir() . '/config/parameters.dist.yml');
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }

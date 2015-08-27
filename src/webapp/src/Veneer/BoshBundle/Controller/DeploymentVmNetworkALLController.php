@@ -11,9 +11,9 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentVmNetworkALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
-        $results = $_context['vm']['applySpecJsonAsArray']['networks'];
+        $results = $_bosh['vm']['applySpecJsonAsArray']['networks'];
         
         foreach ($results as $k => $v) {
             $results[$k]['name'] = $k;

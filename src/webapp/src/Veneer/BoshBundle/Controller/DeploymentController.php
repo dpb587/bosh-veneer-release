@@ -13,13 +13,13 @@ use Veneer\WebBundle\Service\Breadcrumbs;
 
 class DeploymentController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_context)
+    public static function defNav(Breadcrumbs $nav, array $_bosh)
     {
         return $nav->add(
-            $_context['deployment']['name'],
+            $_bosh['deployment']['name'],
             [
                 'veneer_bosh_deployment_summary' => [
-                    'deployment' => $_context['deployment']['name'],
+                    'deployment' => $_bosh['deployment']['name'],
                 ],
             ],
             [
@@ -29,35 +29,33 @@ class DeploymentController extends AbstractController
         );
     }
 
-    public function summaryAction($_context)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:summary.html.twig',
             [
-                'data' => $_context['deployment'],
-                'endpoints' => $this->container->get('veneer_bosh.plugin_factory')->getEndpoints('bosh/deployment', $_context),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/deployment', $_context),
+                'data' => $_bosh['deployment'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
 
-    public function manifestAction($_context)
+    public function manifestAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:manifest.html.twig',
             [
-                'string' => $_context['deployment']['manifest'],
+                'string' => $_bosh['deployment']['manifest'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
     
-    public function releasesAction($_context)
+    public function releasesAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:releases.html.twig',
@@ -73,19 +71,19 @@ class DeploymentController extends AbstractController
                         ->createQueryBuilder('drv')
                         ->join('drv.releaseVersion', 'rv')->addSelect('rv')
                         ->join('rv.release', 'r')->addSelect('r')
-                        ->where(new Expr\Comparison('drv.deployment', '=', ':deployment'))->setParameter('deployment', $_context['deployment'])
+                        ->where(new Expr\Comparison('drv.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
                         ->orderBy('r.name')
                         ->getQuery()
                         ->getResult()
                 ),
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
     
-    public function stemcellsAction($_context)
+    public function stemcellsAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:stemcells.html.twig',
@@ -98,7 +96,7 @@ class DeploymentController extends AbstractController
                         ->getRepository('VeneerBoshBundle:DeploymentsStemcells')
                         ->createQueryBuilder('ds')
                         ->join('ds.stemcell', 's')->addSelect('s')
-                        ->where(new Expr\Comparison('ds.deployment', '=', ':deployment'))->setParameter('deployment', $_context['deployment'])
+                        ->where(new Expr\Comparison('ds.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
                         ->orderBy('s.name')
                         ->addOrderBy('s.version')
                         ->getQuery()
@@ -106,7 +104,7 @@ class DeploymentController extends AbstractController
                 ),
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

@@ -11,7 +11,7 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class ReleasePackageALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleasePackageALL:index.html.twig',
@@ -19,7 +19,7 @@ class ReleasePackageALLController extends AbstractController
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('VeneerBoshBundle:Packages')
                     ->createQueryBuilder('p')
-                    ->andWhere(new Expr\Comparison('p.release', '=', ':release'))->setParameter('release', $_context['release'])
+                    ->andWhere(new Expr\Comparison('p.release', '=', ':release'))->setParameter('release', $_bosh['release'])
                     ->addOrderBy('p.name')
                     ->addOrderBy('p.version')
                     ->getQuery()

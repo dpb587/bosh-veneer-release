@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_aws_cpi.plugin.web_link_provider.console" class="Veneer\AwsCpiBundle\Controller\Plugin\WebLinkProvider\ConsolePlugin">
+            <argument>%veneer_bosh.director_name%</argument>
+            <argument>%veneer_aws_cpi.region%</argument>
+
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_persistentdisk_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_network_summary" />
+        </service>
+    </services>
+</container>

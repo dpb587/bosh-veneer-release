@@ -3,9 +3,9 @@
 {% block def_title _veneer_bosh_context.release.name ~ '/' ~ _veneer_bosh_context.version.version %}
 
 {% block frag_content %}  
-  {{ render(endpoints.templates|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.packages|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.deployments|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.templates.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.packages.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.deployments.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
@@ -18,6 +18,6 @@
   </dl>
 
   <ul class="list-unstyled">
-    <li><a href="{{ endpoints.properties }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-pencil"></span></small>Properties</a></li>
+    <li><a href="{{ _links.widget.properties.url }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-pencil"></span></small>Properties</a></li>
   </ul>
 {% endblock %}

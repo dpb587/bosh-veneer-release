@@ -29,7 +29,6 @@ class ReleaseALLController extends AbstractController
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseALL:index.html.twig',
             [
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/release:all'),
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('VeneerBoshBundle:Releases')
                     ->findBy([], [ 'name' => 'ASC' ]),

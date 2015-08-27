@@ -17,5 +17,7 @@ class VeneerCloqueExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/dic'));
 
         $loader->load('services.xml');
+        $loader->load('web-link-provider.xml');
+        $loader->load('web-topic-provider.xml');
     }
 }

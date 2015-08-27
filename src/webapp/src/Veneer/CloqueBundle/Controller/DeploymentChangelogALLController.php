@@ -12,9 +12,9 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentChangelogALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
-        $uncompiledPath = $this->container->getParameter('veneer_cloque.director_name') . '/' . $_context['deployment']['name'] . '/bosh.yml';
+        $uncompiledPath = $this->container->getParameter('veneer_cloque.director_name') . '/' . $_bosh['deployment']['name'] . '/bosh.yml';
 
         $repo = $this->container->get('veneer_cloque.versioning.repository');
 

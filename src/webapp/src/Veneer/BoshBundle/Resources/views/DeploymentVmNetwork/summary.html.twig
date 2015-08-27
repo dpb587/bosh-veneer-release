@@ -3,8 +3,8 @@
 {% block def_title data.name %}
 
 {% block frag_content %}  
-  {{ render(endpoints.cpi|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.hoststats|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.cpi.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.hoststats.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
@@ -45,5 +45,5 @@
     <dd>{{ data.dns_record_name }}</dd>
   </dl>
 
-  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block def_title '#' ~ _veneer_bosh_context.task.id %}
 
 {% block frag_content %}
-  {{ render(endpoints.events|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.events.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
@@ -21,5 +21,5 @@
     <dd>{{ data.timestamp|date('c') }}</dd>
   </dl>
 
-  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

@@ -12,17 +12,17 @@ use Veneer\WebBundle\Service\Breadcrumbs;
 
 class DeploymentInstancePersistentDiskController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_context)
+    public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceController::defNav($nav, $_context)
+        return DeploymentInstanceController::defNav($nav, $_bosh)
             ->add(
-                $_context['persistent_disk']['size'] . ' MB',
+                $_bosh['persistent_disk']['size'] . ' MB',
                 [
                     'veneer_bosh_deployment_instance_persistentdisk_summary' => [
-                        'deployment' => $_context['deployment']['name'],
-                        'job_name' => $_context['instance']['job'],
-                        'job_index' => $_context['instance']['index'],
-                        'persistent_disk' => $_context['persistent_disk']['id'],
+                        'deployment' => $_bosh['deployment']['name'],
+                        'job_name' => $_bosh['instance']['job'],
+                        'job_index' => $_bosh['instance']['index'],
+                        'persistent_disk' => $_bosh['persistent_disk']['id'],
                     ],
                 ],
                 [
@@ -32,27 +32,25 @@ class DeploymentInstancePersistentDiskController extends AbstractController
             );
     }
 
-    public function summaryAction($_context)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstancePersistentDisk:summary.html.twig',
             [
-                'data' => $_context['persistent_disk'],
-                'endpoints' => $this->container->get('veneer_bosh.plugin_factory')->getEndpoints('bosh/deployment/instance/persistent_disk', $_context),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/deployment/instance/persistent_disk', $_context),
+                'data' => $_bosh['persistent_disk'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
     
-    public function cpiAction(Request $request, $_context)
+    public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
             'VeneerAwsCpiBundle:CoreDeploymentInstancePersistentDisk:cpi',
             [
-                '_context' => $_context,
+                '_context' => $_bosh,
                 '_route' => $request->attributes->get('_route'),
                 '_route_params' => $request->attributes->get('_route_params'),
             ],

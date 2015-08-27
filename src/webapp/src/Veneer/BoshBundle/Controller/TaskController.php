@@ -13,13 +13,13 @@ use Veneer\BoshBundle\Model\TaskTracker;
 
 class TaskController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_context)
+    public static function defNav(Breadcrumbs $nav, $_bosh)
     {
         return $nav->add(
-            '#' . $_context['task']['id'],
+            '#' . $_bosh['task']['id'],
             [
                 'veneer_bosh_task_summary' => [
-                    'task' => $_context['task']['id'],
+                    'task' => $_bosh['task']['id'],
                 ],
             ],
             [
@@ -29,24 +29,22 @@ class TaskController extends AbstractController
         );
     }
 
-    public function summaryAction($_context)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Task:summary.html.twig',
             [
-                'data' => $_context['task'],
-                'endpoints' => $this->container->get('veneer_bosh.plugin_factory')->getEndpoints('bosh/task', $_context),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/task', $_context),
+                'data' => $_bosh['task'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
 
-    public function eventsAction($_context)
+    public function eventsAction($_bosh)
     {
-        $events = $this->container->get('veneer_bosh.api')->getTaskOutput($_context['task']['id'], 0, 'event');
+        $events = $this->container->get('veneer_bosh.api')->getTaskOutput($_bosh['task']['id'], 0, 'event');
 
         $tracker = new TaskTracker($events['data']);
 

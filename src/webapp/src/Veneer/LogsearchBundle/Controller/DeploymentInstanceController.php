@@ -11,7 +11,7 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentInstanceController extends AbstractController
 {
-    public function diskstatsAction(array $_context)
+    public function diskstatsAction(array $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 
@@ -24,7 +24,7 @@ class DeploymentInstanceController extends AbstractController
         $de = new \DateTime('now');
         $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
 
-        $contextFilters = $es->generateContextFilters($_context);
+        $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);
 
         $results = $es->request(
@@ -184,7 +184,7 @@ class DeploymentInstanceController extends AbstractController
         );
     }
 
-    public function loadstatsAction(array $_context)
+    public function loadstatsAction(array $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 
@@ -197,7 +197,7 @@ class DeploymentInstanceController extends AbstractController
         $de = new \DateTime('now');
         $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
 
-        $contextFilters = $es->generateContextFilters($_context);
+        $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);
 
         $results = $es->request(
@@ -294,7 +294,7 @@ class DeploymentInstanceController extends AbstractController
         );
     }
 
-    public function memstatsAction(array $_context)
+    public function memstatsAction(array $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 
@@ -307,7 +307,7 @@ class DeploymentInstanceController extends AbstractController
         $de = new \DateTime('now');
         $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
 
-        $contextFilters = $es->generateContextFilters($_context);
+        $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);
 
         $results = $es->request(

@@ -32,7 +32,6 @@ class UserALLController extends AbstractController
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('VeneerBoshBundle:Users')
                     ->findBy([], [ 'username' => 'ASC' ]),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/user:all'),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs')),

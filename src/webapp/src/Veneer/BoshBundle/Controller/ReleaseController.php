@@ -12,13 +12,13 @@ use Veneer\WebBundle\Service\Breadcrumbs;
 
 class ReleaseController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_context)
+    public static function defNav(Breadcrumbs $nav, $_bosh)
     {
         return $nav->add(
-            $_context['release']['name'],
+            $_bosh['release']['name'],
             [
                 'veneer_bosh_release_summary' => [
-                    'release' => $_context['release']['name'],
+                    'release' => $_bosh['release']['name'],
                 ],
             ],
             [
@@ -28,17 +28,15 @@ class ReleaseController extends AbstractController
         );
     }
 
-    public function summaryAction($_context)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Release:summary.html.twig',
             [
-                'data' => $_context['release'],
-                'endpoints' => $this->container->get('veneer_bosh.plugin_factory')->getEndpoints('bosh/release', $_context),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/release', $_context),
+                'data' => $_bosh['release'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

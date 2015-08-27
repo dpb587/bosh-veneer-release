@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_bosh.plugin.web_topic_provider.deployment" class="Veneer\BoshBundle\Controller\Plugin\WebTopicProvider\DeploymentPlugin">
+            <tag name="veneer_web.topic_provider" route="veneer_bosh_deployment_summary" />
+        </service>
+
+        <service id="veneer_bosh.plugin.web_topic_provider.release" class="Veneer\BoshBundle\Controller\Plugin\WebTopicProvider\ReleasePlugin">
+            <tag name="veneer_web.topic_provider" route="veneer_bosh_release_summary" />
+        </service>
+    </services>
+</container>

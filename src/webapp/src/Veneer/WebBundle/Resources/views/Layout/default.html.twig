@@ -33,15 +33,10 @@
                     {% endfor %}
               </ul>
           </div>
-            {#
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="{{ path('veneer_web_summary') }}"><span class="glyphicon glyphicon-tower" aria-hidden="true"></span></a></li>
-            </ul>
-            #}
-            {% if 1 < _user_links_primary|length or (0 < _user_links_primary|length and _user_links_primary[block('primary_link')] is not defined) %}
+            {% if 1 < _topics|length or (0 < _topics|length and _topics[block('primary_link')] is not defined) %}
               <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                  {% for name, link in _user_links_primary %}
+                  {% for name, link in _topics %}
                     <li{% if block('primary_link') == name %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
                   {% endfor %}
                 </ul>
@@ -74,13 +69,14 @@
           <div class="row">
               <div class="col-12 text-center text-muted" style="padding:18px 0 6px;">
                   <small>
-                      <a class="text-muted" href="{{ path('veneer_bosh_summary') }}">bosh</a>
-                      &middot;
-                      <a class="text-muted" href="#">aws-cpi</a>
-                      &middot;
-                      <a class="text-muted" href="#">logsearch</a>
-                      &middot;
-                      <a class="text-muted" href="#">cloque</a>
+                      {% for bundle in veneer_bosh_plugin_factory.bundles %}
+                          {% if loop.index0 %}&middot;{% endif %}
+                          {% if bundle.veneerRoute %}
+                              <a class="text-muted" href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerName }}</a>
+                          {% else %}
+                              <span class="text-muted">{{ bundle.veneerName }}</span>
+                            {% endif %}
+                        {% endfor %}
                   </small>
                   <br />
                   <small>

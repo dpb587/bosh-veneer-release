@@ -32,7 +32,6 @@ class TaskALLController extends AbstractController
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('VeneerBoshBundle:Tasks')
                     ->findBy([], [ 'id' => 'DESC' ]),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/task:all'),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs')),

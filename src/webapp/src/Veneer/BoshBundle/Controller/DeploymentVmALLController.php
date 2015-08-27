@@ -11,7 +11,7 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentVmALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentVmALL:index.html.twig',
@@ -20,7 +20,7 @@ class DeploymentVmALLController extends AbstractController
                     ->getRepository('VeneerBoshBundle:Vms')
                     ->findBy(
                         [
-                            'deployment' => $_context['deployment'],
+                            'deployment' => $_bosh['deployment'],
                         ],
                         [
                             'agentId' => 'ASC',

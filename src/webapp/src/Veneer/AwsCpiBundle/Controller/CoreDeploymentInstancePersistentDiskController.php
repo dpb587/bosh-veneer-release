@@ -11,12 +11,12 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class CoreDeploymentInstancePersistentDiskController extends AbstractController
 {
-    public function cpiAction(array $_context)
+    public function cpiAction(array $_bosh)
     {
         return $this->renderApi(
             'VeneerAwsCpiBundle:CoreDeploymentInstancePersistentDiskController:cpi.html.twig',
             [
-                'properties' => $_context['persistent_disk']['cloudPropertiesJsonAsArray'],
+                'properties' => $_bosh['persistent_disk']['cloudPropertiesJsonAsArray'],
             ]
         );
     }

@@ -12,7 +12,7 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentInstanceALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstanceALL:index.html.twig',
@@ -27,7 +27,7 @@ class DeploymentInstanceALLController extends AbstractController
                         ->getRepository('VeneerBoshBundle:Instances')
                         ->createQueryBuilder('i')
                         ->join('i.vm', 'v')
-                        ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_context['deployment'])
+                        ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
                         ->addOrderBy('i.job', 'ASC')
                         ->addOrderBy('i.index', 'ASC')
                         ->getQuery()

@@ -11,12 +11,12 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class ReleaseVersionALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
         $results = $this->container->get('doctrine.orm.bosh_entity_manager')
             ->getRepository('VeneerBoshBundle:ReleaseVersions')
             ->createQueryBuilder('v')
-            ->andWhere(new Expr\Comparison('v.release', '=', ':release'))->setParameter('release', $_context['release'])
+            ->andWhere(new Expr\Comparison('v.release', '=', ':release'))->setParameter('release', $_bosh['release'])
             ->addOrderBy('v.version')
             ->getQuery()
             ->getResult();

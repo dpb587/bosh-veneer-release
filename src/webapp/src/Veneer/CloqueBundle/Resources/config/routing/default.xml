@@ -14,13 +14,13 @@
     <route id="veneer_cloque_deployment_changelogALL_index" path="/cloque/deployment/{deployment}/changelog/:all/index.{_format}">
         <default key="_controller">Veneer\CloqueBundle\Controller\DeploymentChangelogALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_web_object_context">bosh/deployment</default>
+        <default key="_veneer_web_context">bosh/deployment</default>
     </route>
 
     <route id="veneer_cloque_deployment_infra_index" path="/cloque/deployment/{deployment}/infra/summary.{_format}">
         <default key="_controller">Veneer\CloqueBundle\Controller\DeploymentInfraController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_web_object_context">bosh/deployment</default>
+        <default key="_veneer_web_context">bosh/deployment</default>
     </route>
 
 </routes>

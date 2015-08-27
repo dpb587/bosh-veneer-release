@@ -3,9 +3,9 @@
 {% block def_title data.agentId %}
 
 {% block frag_content %}  
-  {{ render(endpoints.resourcepool_cpi|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.templates|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.networkALL|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.resourcepool_cpi.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.templates.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.networkALL.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
@@ -24,8 +24,8 @@
   </dl>
 
   <ul class="list-unstyled">
-    <li><a href="{{ endpoints.instance|default }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>Instance</a></li>
+    <li><a href="{{ _links.widget.instance.url|default }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-share-alt"></span></small>Instance</a></li>
   </ul>
 
-  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

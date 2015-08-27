@@ -5,6 +5,27 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="veneer_web.plugin.bundle.factory" class="Veneer\WebBundle\Plugin\Bundle\Factory">
+            <argument type="service" id="kernel" />
+        </service>
+
+        <service id="veneer_web.plugin.link_provider.factory" class="Veneer\WebBundle\Plugin\LinkProvider\Factory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- compiler -->
+        </service>
+
+        <service id="veneer_web.plugin.topic_provider.factory" class="Veneer\WebBundle\Plugin\TopicProvider\Factory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- compiler -->
+        </service>
+
+        <service id="veneer_web.plugin.request_context.factory" class="Veneer\WebBundle\Plugin\RequestContext\Factory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- compiler -->
+
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
+        </service>
+
         <service id="veneer_web.event_listener.json_response" class="Veneer\WebBundle\EventListener\JsonResponseListener">
             <argument>%kernel.debug%</argument>
 
@@ -27,7 +48,7 @@
 
         <service id="veneer_web.encryption" class="Veneer\Component\Security\EncryptionService">
             <argument type="collection">
-                <argument key="salt">%secret%</argument>
+                <argument key="key">%secret%</argument>
             </argument>
         </service>
     </services>

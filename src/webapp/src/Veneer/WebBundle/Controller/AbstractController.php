@@ -24,26 +24,38 @@ abstract class AbstractController extends Controller
         if ('json' == $_format) {
             return new JsonResponse($this->normalizeApiResult($data));
         } elseif ('html' == $_format) {
-            $context = $request->attributes->get('_context', []);
+            $context = $request->attributes->get('_bosh', []);
+
+            $extras = [
+                '_uuid' => md5(microtime(true)),
+                '_veneer_bosh_context' => $context,
+                '_links' => [],
+                '_topics' => [],
+            ];
+
+            if (isset($nondata['def_nav'][-1]['route'])) {
+                $extras['_links'] = $this->container->get('veneer_web.plugin.link_provider.factory')->getLinks(
+                    $request,
+                    $nondata['def_nav'][-1]['route'][0]
+                );
+
+                $extras['_topics'] = $this->container->get('veneer_web.plugin.topic_provider.factory')->getTopics(
+                    $request,
+                    $nondata['def_nav'][-1]['route'][0]
+                );
+            }
 
             return $this->render(
                 $view,
                 array_merge(
-                    [
-                        '_uuid' => md5(microtime(true)),
-                        '_user_links_primary' => $this->container->get('veneer_bosh.plugin_factory')->getUserPrimaryLinks(
-                            $request->attributes->get('_veneer_web_object_context'),
-                            $context
-                        ),
-                        '_veneer_bosh_context' => $context,
-                    ],
+                    $extras,
                     $data,
                     $nondata
                 )
             );
         }
     }
-    
+
     protected function normalizeApiResult($result)
     {
         if (is_array($result)) {

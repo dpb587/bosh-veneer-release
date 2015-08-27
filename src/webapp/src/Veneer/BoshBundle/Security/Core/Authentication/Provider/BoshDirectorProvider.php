@@ -6,6 +6,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Veneer\Component\BoshApi\Client;
 use Veneer\Component\BoshApi\SecurityTokenAuthentication;
 use Veneer\BoshBundle\Security\Core\Authentication\Token\AbstractToken;
@@ -30,32 +32,38 @@ class BoshDirectorProvider implements AuthenticationProviderInterface
 
         try {
             $info = $boshApi->getInfo();
-
-            $user = new User(
-                $info['user'],
-                $token->getCredentials(),
-                [
-                    'ROLE_USER',
-                ]
-            );
-
-            $class = get_class($token);
-            $authenticatedToken = new $class(
-                $user,
-                $token->getCredentials(),
-                $this->providerKey,
-                $user->getRoles()
-            );
-
-            $authenticatedToken->setAttributes($token->getAttributes());
-            $authenticatedToken->setAttribute('auth.expires', new \DateTime('+' . $this->cacheDuration . ' seconds'));
-
-            return $authenticatedToken;
         } catch (\Exception $e) {
-            // @todo wrapped
+            throw new AuthenticationServiceException(
+                'Failed to attempt authentication with director.',
+                null,
+                $e
+            );
         }
 
-        throw new AuthenticationException('BOSH authentication failed.');
+        if (empty($info['user'])) {
+            throw new BadCredentialsException('Invalid credentials.');
+        }
+
+        $user = new User(
+            $info['user'],
+            $token->getCredentials(),
+            [
+                'ROLE_USER',
+            ]
+        );
+
+        $class = get_class($token);
+        $authenticatedToken = new $class(
+            $user,
+            $token->getCredentials(),
+            $this->providerKey,
+            $user->getRoles()
+        );
+
+        $authenticatedToken->setAttributes($token->getAttributes());
+        $authenticatedToken->setAttribute('auth.expires', new \DateTime('+' . $this->cacheDuration . ' seconds'));
+
+        return $authenticatedToken;
     }
 
     public function supports(TokenInterface $token)

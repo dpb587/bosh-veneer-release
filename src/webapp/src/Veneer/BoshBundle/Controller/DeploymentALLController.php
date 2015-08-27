@@ -29,7 +29,6 @@ class DeploymentALLController extends AbstractController
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentALL:index.html.twig',
             [
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/deployment:all'),
                 'results' => array_map(
                     function ($v) {
                         return $v

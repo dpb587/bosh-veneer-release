@@ -12,7 +12,7 @@ use Doctrine\ORM\Query\Expr;
 
 class DeploymentInstancePersistentDiskALLController extends AbstractController
 {
-    public function indexAction($_context)
+    public function indexAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstancePersistentDiskALL:index.html.twig',
@@ -26,7 +26,7 @@ class DeploymentInstancePersistentDiskALLController extends AbstractController
                     $this->container->get('doctrine.orm.bosh_entity_manager')
                         ->getRepository('VeneerBoshBundle:PersistentDisks')
                         ->createQueryBuilder('pd')
-                        ->where(new Expr\Comparison('pd.instance', '=', ':instance'))->setParameter('instance', $_context['instance'])
+                        ->where(new Expr\Comparison('pd.instance', '=', ':instance'))->setParameter('instance', $_bosh['instance'])
                         ->addOrderBy('pd.id', 'ASC')
                         ->getQuery()
                         ->getResult()

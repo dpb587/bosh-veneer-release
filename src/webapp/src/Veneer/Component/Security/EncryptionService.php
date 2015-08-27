@@ -14,7 +14,7 @@ class EncryptionService
                 'cipher' => MCRYPT_RIJNDAEL_256,
                 'mode' => MCRYPT_MODE_ECB,
                 'random' => MCRYPT_DEV_URANDOM,
-                'salt' => 'ThisTokenIsNotSoSecretChangeIt',
+                'key' => 'ThisTokenIsNotSoSecretChangeIt',
             ),
             $options
         );
@@ -35,27 +35,29 @@ class EncryptionService
         return $this->iv;
     }
 
-    public function encrypt($data, $pepper = null)
+    public function encrypt($data, $salt = null)
     {
         return base64_encode(
             mcrypt_encrypt(
                 $this->options['cipher'],
-                md5($this->options['salt'] . $pepper),
-                $data,
+                md5($this->options['key'] . $salt),
+                base64_encode($data),
                 $this->options['mode'],
                 $this->getIV()
             )
         );
     }
 
-    public function decrypt($data, $pepper = null)
+    public function decrypt($data, $salt = null)
     {
-        return mcrypt_decrypt(
-            $this->options['cipher'],
-            md5($this->options['salt'] . $pepper),
-            base64_decode($data),
-            $this->options['mode'],
-            $this->getIV()
+        return base64_decode(
+            mcrypt_decrypt(
+                $this->options['cipher'],
+                md5($this->options['key'] . $salt),
+                base64_decode($data),
+                $this->options['mode'],
+                $this->getIV()
+            )
         );
     }
 }

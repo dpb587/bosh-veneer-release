@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_bosh.plugin.web_link_provider.bosh_io" class="Veneer\BoshBundle\Controller\Plugin\WebLinkProvider\BoshIoPlugin">
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deploymentALL_index" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_releaseALL_index" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_stemcellALL_index" />
+        </service>
+
+        <service id="veneer_bosh.plugin.web_link_provider.widget" class="Veneer\BoshBundle\Controller\Plugin\WebLinkProvider\WidgetPlugin">
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_persistentdisk_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_instance" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_network_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_task_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_release_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_release_template_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_release_version_summary" />
+        </service>
+    </services>
+</container>

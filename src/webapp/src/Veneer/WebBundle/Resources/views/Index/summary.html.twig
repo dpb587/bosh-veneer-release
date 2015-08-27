@@ -3,7 +3,26 @@
 {% block def_title veneer_bosh_director_name %}
 
 {% block frag_content %}
-    Something useful should go here...
+    <p>
+        Welcome &mdash; you are currently logged in as <strong>{{ app.security.token.username }}</strong>.
+        Please go somewhere more useful&hellip;
+    </p>
+
+    <ul>
+        {% for bundle in veneer_bosh_plugin_factory.bundles %}
+            <li>
+                {% if bundle.veneerRoute %}
+                    <a href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerTitle }}</a>
+                {% else %}
+                    {{ bundle.veneerTitle }}
+                {% endif %}
+                {% if bundle.veneerDescription %}
+                    &mdash;
+                    {{ bundle.veneerDescription }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block frag_sidebar %}

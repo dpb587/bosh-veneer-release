@@ -12,16 +12,16 @@ use Veneer\WebBundle\Service\Breadcrumbs;
 
 class DeploymentInstanceController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_context)
+    public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentController::defNav($nav, $_context)
+        return DeploymentController::defNav($nav, $_bosh)
             ->add(
-                $_context['instance']['job'] . '/' . $_context['instance']['index'],
+                $_bosh['instance']['job'] . '/' . $_bosh['instance']['index'],
                 [
                     'veneer_bosh_deployment_instance_summary' => [
-                        'deployment' => $_context['deployment']['name'],
-                        'job_name' => $_context['instance']['job'],
-                        'job_index' => $_context['instance']['index'],
+                        'deployment' => $_bosh['deployment']['name'],
+                        'job_name' => $_bosh['instance']['job'],
+                        'job_index' => $_bosh['instance']['index'],
                     ],
                 ],
                 [
@@ -31,32 +31,30 @@ class DeploymentInstanceController extends AbstractController
             );
     }
 
-    public function summaryAction($_context)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstance:summary.html.twig',
             [
-                'data' => $_context['instance'],
-                'endpoints' => $this->container->get('veneer_bosh.plugin_factory')->getEndpoints('bosh/deployment/instance', $_context),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/deployment/instance', $_context),
+                'data' => $_bosh['instance'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
     
-    public function vmAction($_context, $_format)
+    public function vmAction($_bosh, $_format)
     {
-        if (!$_context['instance']['vm']) {
+        if (!$_bosh['instance']['vm']) {
             throw new NotFoundHttpException();
         }
         
         return $this->redirectToRoute(
             'veneer_bosh_deployment_vm_summary',
             [
-                'deployment' => $_context['deployment']['name'],
-                'agent' => $_context['instance']['vm']['agentId'],
+                'deployment' => $_bosh['deployment']['name'],
+                'agent' => $_bosh['instance']['vm']['agentId'],
                 '_format' => $_format,
             ]
         );

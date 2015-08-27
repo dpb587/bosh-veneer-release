@@ -11,12 +11,12 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class CoreDeploymentVmNetworkController extends AbstractController
 {
-    public function cpiAction(array $_context)
+    public function cpiAction(array $_bosh)
     {
         return $this->renderApi(
             'VeneerAwsCpiBundle:CoreDeploymentVmNetworkController:cpi.html.twig',
             [
-                'properties' => $_context['network']['cloud_properties'],
+                'properties' => $_bosh['network']['cloud_properties'],
             ]
         );
     }

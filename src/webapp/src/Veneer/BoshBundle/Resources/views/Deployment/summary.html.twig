@@ -3,16 +3,16 @@
 {% block def_title _veneer_bosh_context.deployment.name %}
 
 {% block frag_content %}
-  {{ render(endpoints.logsearch_monitstatus|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.instanceALL|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(endpoints.releases|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.logsearch_monitstatus.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.instanceALL.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.releases.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
   <ul class="list-unstyled">
-    <li><a href="{{ endpoints.manifest }}">Manifest</a></li>
-    <li><a href="{{ endpoints.vmALL }}">Virtual Machines</a></li>
+    <li><a href="{{ _links.widget.manifest.url }}">Manifest</a></li>
+    <li><a href="{{ _links.widget.vmALL.url }}">Virtual Machines</a></li>
   </ul>
     
-  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { 'references' : references, 'divider' : true } only %}
+  {% include 'VeneerWebBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

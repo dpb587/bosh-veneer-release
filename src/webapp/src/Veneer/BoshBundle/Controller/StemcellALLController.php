@@ -32,7 +32,6 @@ class StemcellALLController extends AbstractController
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('VeneerBoshBundle:Stemcells')
                     ->findBy([], [ 'name' => 'ASC' ]),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/stemcell:all'),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs')),

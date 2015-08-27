@@ -1,4 +1,4 @@
-{% if references %}
+{% if _links %}
     {% if divider|default %}
         <hr />
     {% endif %}
@@ -29,9 +29,9 @@
                 title: 'Useful Links',
                 glyphicon: 'link',
             },
-        } if references[topic_name] is defined %}
+        } if _links[topic_name] is defined %}
             <dt><span class="glyphicon glyphicon-{{ topic.glyphicon }}"></span> {{ topic.title }}</dt>
-            {% for link in references[topic_name] %}
+            {% for link in _links[topic_name] %}
                 <dd>
                     <a href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}>{{ link.title }}</a>
                     {% if link.note|default %}

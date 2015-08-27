@@ -12,15 +12,15 @@ use Veneer\WebBundle\Service\Breadcrumbs;
 
 class DeploymentVmController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_context)
+    public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentController::defNav($nav, $_context)
+        return DeploymentController::defNav($nav, $_bosh)
             ->add(
-                'VM (' . (isset($_context['vm']['applySpecJsonAsArray']['job']['name']) ? ($_context['vm']['applySpecJsonAsArray']['job']['name'] . '/' . $_context['vm']['applySpecJsonAsArray']['index']) : substr($_context['vm']['agentId'], 0, 7)) . ')',
+                'VM (' . (isset($_bosh['vm']['applySpecJsonAsArray']['job']['name']) ? ($_bosh['vm']['applySpecJsonAsArray']['job']['name'] . '/' . $_bosh['vm']['applySpecJsonAsArray']['index']) : substr($_bosh['vm']['agentId'], 0, 7)) . ')',
                 [
                     'veneer_bosh_deployment_vm_summary' => [
-                        'deployment' => $_context['deployment']['name'],
-                        'agent' => $_context['vm']['agentId'],
+                        'deployment' => $_bosh['deployment']['name'],
+                        'agent' => $_bosh['vm']['agentId'],
                     ],
                 ],
                 [
@@ -29,27 +29,25 @@ class DeploymentVmController extends AbstractController
             );
     }
 
-    public function summaryAction($_context)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentVm:summary.html.twig',
             [
-                'data' => $_context['vm'],
-                'endpoints' => $this->container->get('veneer_bosh.plugin_factory')->getEndpoints('bosh/deployment/vm', $_context),
-                'references' => $this->container->get('veneer_bosh.plugin_factory')->getUserReferenceLinks('bosh/deployment/vm', $_context),
+                'data' => $_bosh['vm'],
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
 
-    public function instanceAction($_context, $_format)
+    public function instanceAction($_bosh, $_format)
     {
         $instance = $this->container->get('doctrine.orm.bosh_entity_manager')
             ->getRepository('VeneerBoshBundle:Instances')
             ->findOneBy([
-                'vm' => $_context['vm'],
+                'vm' => $_bosh['vm'],
             ]);
 
         if (!$instance) {
@@ -59,7 +57,7 @@ class DeploymentVmController extends AbstractController
         return $this->redirectToRoute(
             'veneer_bosh_deployment_instance_summary',
             [
-                'deployment' => $_context['deployment']['name'],
+                'deployment' => $_bosh['deployment']['name'],
                 'job_name' => $instance['job'],
                 'job_index' => $instance['index'],
                 '_format' => $_format,
@@ -67,20 +65,20 @@ class DeploymentVmController extends AbstractController
         );
     }
     
-    public function applyspecAction($_context)
+    public function applyspecAction($_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentVm:applyspec.html.twig',
-            $_context['vm']['applySpecJsonAsArray'],
+            $_bosh['vm']['applySpecJsonAsArray'],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
     
-    public function packagesAction($_context)
+    public function packagesAction($_bosh)
     {        
-        $results = $_context['vm']['applySpecJsonAsArray']['packages'];
+        $results = $_bosh['vm']['applySpecJsonAsArray']['packages'];
         
         usort(
             $results,
@@ -95,14 +93,14 @@ class DeploymentVmController extends AbstractController
                 'results' => $results,
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
     
-    public function templatesAction($_context)
+    public function templatesAction($_bosh)
     {
-        $results = $_context['vm']['applySpecJsonAsArray']['job']['templates'];
+        $results = $_bosh['vm']['applySpecJsonAsArray']['job']['templates'];
         
         usort(
             $results,
@@ -117,7 +115,7 @@ class DeploymentVmController extends AbstractController
                 'results' => $results,
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_context),
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

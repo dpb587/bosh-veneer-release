@@ -11,7 +11,7 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class DeploymentController extends AbstractController
 {
-    public function monitstatusAction(array $_context)
+    public function monitstatusAction(array $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 
@@ -21,7 +21,7 @@ class DeploymentController extends AbstractController
         $de = new \DateTime('now');
         $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
 
-        $contextFilters = $es->generateContextFilters($_context);
+        $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);
 
         $esResults = $es->request(

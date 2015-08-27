@@ -11,12 +11,12 @@ use Veneer\WebBundle\Controller\AbstractController;
 
 class CoreDeploymentVmResourcePoolController extends AbstractController
 {
-    public function cpiAction(array $_context)
+    public function cpiAction(array $_bosh)
     {
         return $this->renderApi(
             'VeneerAwsCpiBundle:CoreDeploymentVmResourcePoolController:cpi.html.twig',
             [
-                'properties' => $_context['vm']['applySpecJsonAsArray']['resource_pool']['cloud_properties'],
+                'properties' => $_bosh['vm']['applySpecJsonAsArray']['resource_pool']['cloud_properties'],
             ]
         );
     }
