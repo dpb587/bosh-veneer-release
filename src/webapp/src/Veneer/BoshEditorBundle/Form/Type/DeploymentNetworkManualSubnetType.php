@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 
-class NetworkManualSubnetType extends AbstractType
+class DeploymentNetworkManualSubnetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -77,6 +77,6 @@ class NetworkManualSubnetType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_network_manual';
+        return 'veneer_bosheditor_deployment_network_manual';
     }
 }

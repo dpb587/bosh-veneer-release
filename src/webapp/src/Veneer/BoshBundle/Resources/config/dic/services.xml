@@ -24,7 +24,7 @@
 
         <service id="veneer_bosh.security.user.user_provider" class="Veneer\BoshBundle\Security\User\UserProvider" />
 
-        <service id="veneer_bosh.api" class="Veneer\Component\BoshApi\Client">
+        <service id="veneer_bosh.api" class="Veneer\BoshBundle\Service\DirectorApiClient">
             <argument>%veneer_bosh.api.options%</argument>
             <argument type="service">
                 <service class="Veneer\BoshBundle\Security\Core\Authentication\Token\AbstractToken">

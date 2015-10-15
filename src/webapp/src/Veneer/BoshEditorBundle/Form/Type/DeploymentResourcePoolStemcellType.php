@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentNetworkType extends AbstractType
+class DeploymentResourcePoolStemcellType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -16,23 +16,33 @@ class DeploymentNetworkType extends AbstractType
                 'name',
                 'text',
                 [
-                    'label' => 'Network Name',
-                    'helptext' => 'DNS IP addresses for this network',
-                    'required' => false,
+                    'label' => 'Name',
                 ]
             )
             ->add(
-                'type_config',
+                'version',
                 'text',
                 [
-                    'label' => 'Network Type',
+                    'label' => 'Version',
                 ]
             )
-            ;
+        ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $options)
+    {
+        $options->setDefaults([
+            'label' => 'Stemcell',
+        ]);
+    }
+
+    public function getParent()
+    {
+        return 'form';
     }
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_network';
+        return 'veneer_bosheditor_deployment_resourcepool_stemcell';
     }
 }

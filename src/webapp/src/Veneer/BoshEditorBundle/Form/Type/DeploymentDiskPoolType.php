@@ -7,8 +7,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DiskPoolType extends AbstractType
+class DeploymentDiskPoolType extends AbstractType
 {
+    protected $cpi;
+
+    public function __construct($cpi)
+    {
+        $this->cpi = $cpi;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,7 +37,7 @@ class DiskPoolType extends AbstractType
             )
             ->add(
                 'cloud_properties',
-                $options['cpi']->getNetworkDynamicForm(),
+                $this->cpi->getDeploymentDiskPoolFormType(),
                 [
                     'label' => 'Cloud Properties',
                     'helptext' => 'IaaS-specific properties needed to create disk.',
@@ -39,15 +46,8 @@ class DiskPoolType extends AbstractType
             ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $options)
-    {
-        $options->setRequired([
-            'cpi',
-        ]);
-    }
-
     public function getName()
     {
-        return 'veneer_bosheditor_diskpool';
+        return 'veneer_bosheditor_deployment_diskpool';
     }
 }

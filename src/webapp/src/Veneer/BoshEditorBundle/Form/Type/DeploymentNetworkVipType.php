@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class NetworkVipType extends AbstractType
+class DeploymentNetworkVipType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,6 +32,6 @@ class NetworkVipType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_network_vip';
+        return 'veneer_bosheditor_deployment_network_vip';
     }
 }

@@ -7,8 +7,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ResourcePoolType extends AbstractType
+class DeploymentResourcePoolType extends AbstractType
 {
+    protected $cpi;
+
+    public function __construct($cpi)
+    {
+        $this->cpi = $cpi;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -20,14 +27,14 @@ class ResourcePoolType extends AbstractType
                     'helptext' => 'A unique name used to identify and reference the resource pool',
                 ]
             )
-            ->add(
-                'network',
-                'veneer_bosh_deployment_network',
-                [
-                    'label' => 'Network',
-                    'helptext' => 'References a valid network name defined in the Networks block. Newly created resource pool VMs use the described configuration.',
-                ]
-            )
+//            ->add(
+//                'network',
+//                'veneer_bosheditor_deployment_network',
+//                [
+//                    'label' => 'Network',
+//                    'helptext' => 'References a valid network name defined in the Networks block. Newly created resource pool VMs use the described configuration.',
+//                ]
+//            )
             ->add(
                 'size',
                 'integer',
@@ -39,7 +46,7 @@ class ResourcePoolType extends AbstractType
             )
             ->add(
                 'stemcell',
-                'veneer_bosh_director_stemcell',
+                'veneer_bosheditor_deployment_resourcepool_stemcell',
                 [
                     'label' => 'Stemcell',
                     'helptext' => 'The stemcell used to create resource pool VMs.',
@@ -47,7 +54,7 @@ class ResourcePoolType extends AbstractType
             )
             ->add(
                 'cloud_properties',
-                $options['cpi']->getNetworkDynamicForm(),
+                $this->cpi->getDeploymentResourcePoolFormType(),
                 [
                     'label' => 'Cloud Properties',
                     'helptext' => 'IaaS-specific properties needed to create VMs.',
@@ -58,22 +65,15 @@ class ResourcePoolType extends AbstractType
                 'textarea',
                 [
                     'label' => 'VM Environment',
-                    'helptext' => 'Describes the VM environment and provides a specific VM environment to the CPI create_stemcell call. env data is available to BOSH Agents as VM settings.',
+                    'helptext' => 'Describes the VM environment and provides a specific VM environment to the CPI create_stemcell call. Environment data is available to BOSH Agents as VM settings.',
                     'required' => false,
                 ]
             )
             ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $options)
-    {
-        $options->setRequired([
-            'cpi',
-        ]);
-    }
-
     public function getName()
     {
-        return 'veneer_bosheditor_network';
+        return 'veneer_bosheditor_deployment_resourcepool';
     }
 }

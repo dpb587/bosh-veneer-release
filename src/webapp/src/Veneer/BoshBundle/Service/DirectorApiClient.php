@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\Component\BoshApi;
+namespace Veneer\BoshBundle\Service;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
@@ -10,7 +10,7 @@ use Veneer\BoshBundle\Security\Core\Authentication\Token\BasicToken;
 use Veneer\BoshBundle\Security\Core\Authentication\Token\UaaToken;
 use GuzzleHttp\Psr7\Request;
 
-class Client extends GuzzleClient
+class DirectorApiClient extends GuzzleClient
 {
     public function __construct(array $clientOptions, AbstractToken $token)
     {

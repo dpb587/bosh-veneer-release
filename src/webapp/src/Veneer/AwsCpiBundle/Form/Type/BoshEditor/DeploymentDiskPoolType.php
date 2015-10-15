@@ -1,13 +1,13 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\Cpi;
+namespace Veneer\AwsCpiBundle\Form\Type\BoshEditor;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DiskPoolType extends AbstractType
+class DeploymentDiskPoolType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,6 +38,6 @@ class DiskPoolType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_awscpi_cpi_diskpool';
+        return 'veneer_awscpi_bosheditor_deployment_diskpool';
     }
 }

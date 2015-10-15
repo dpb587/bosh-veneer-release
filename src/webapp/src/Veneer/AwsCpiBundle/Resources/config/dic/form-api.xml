@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_awscpi.form.type.api.ec2_availabilityzone" class="Veneer\AwsCpiBundle\Form\Type\Api\Ec2AvailabilityZoneType">
+            <tag name="form.type" alias="veneer_awscpi_api_ec2_availabilityzone" />
+        </service>
+
+        <service id="veneer_awscpi.form.type.api.ec2_elb" class="Veneer\AwsCpiBundle\Form\Type\Api\Ec2ElbType">
+            <tag name="form.type" alias="veneer_awscpi_api_ec2_elb" />
+        </service>
+
+        <service id="veneer_awscpi.form.type.api.ec2_instancetype" class="Veneer\AwsCpiBundle\Form\Type\Api\Ec2InstanceTypeType">
+            <tag name="form.type" alias="veneer_awscpi_api_ec2_instancetype" />
+        </service>
+
+        <service id="veneer_awscpi.form.type.api.ec2_keypair" class="Veneer\AwsCpiBundle\Form\Type\Api\Ec2KeypairType">
+            <tag name="form.type" alias="veneer_awscpi_api_ec2_keypair" />
+        </service>
+
+        <service id="veneer_awscpi.form.type.api.vpc_subnet" class="Veneer\AwsCpiBundle\Form\Type\Api\VpcSubnetType">
+            <tag name="form.type" alias="veneer_awscpi_api_vpc_subnet" />
+        </service>
+    </services>
+</container>

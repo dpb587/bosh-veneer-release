@@ -2,6 +2,8 @@ veneer_web:
     resource: "@VeneerWebBundle/Resources/config/routing/default.xml"
 veneer_bosh:
     resource: "@VeneerBoshBundle/Resources/config/routing/default.xml"
+veneer_bosh_editor:
+    resource: "@VeneerBoshEditorBundle/Resources/config/routing/default.xml"
 veneer_logsearch:
     resource: "@VeneerLogsearchBundle/Resources/config/routing/default.xml"
 veneer_cloque:

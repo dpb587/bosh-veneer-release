@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class NetworkDynamicType extends AbstractType
+class DeploymentNetworkDynamicType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -42,6 +42,6 @@ class NetworkDynamicType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_network_dynamic';
+        return 'veneer_bosheditor_deployment_network_dynamic';
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\Cpi;
+namespace Veneer\AwsCpiBundle\Form\Type\BoshEditor;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ResourcePoolType extends AbstractType
+class DeploymentResourcePoolType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -58,7 +58,7 @@ class ResourcePoolType extends AbstractType
             )
             ->add(
                 'ephemeral_disk',
-                'veneer_awscpi_resourcepool_ephemeraldisk',
+                'veneer_awscpi_bosheditor_deployment_resourcepool_ephemeraldisk',
                 [
                     'label' => 'Ephemeral Disk',
                     'helptext' => 'EBS backed ephemeral disk of custom size for when instance storage is not large enough or not available for selected instance type.',
@@ -70,6 +70,6 @@ class ResourcePoolType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_awscpi_cpi_network';
+        return 'veneer_awscpi_bosheditor_deployment_resourcepool';
     }
 }
