@@ -16,7 +16,7 @@ class DeploymentVmResourcePoolController extends AbstractController
         return $this->forward(
             'VeneerAwsCpiBundle:CoreDeploymentVmResourcePool:cpi',
             [
-                '_context' => $_bosh,
+                '_bosh' => $_bosh,
                 '_route' => $request->attributes->get('_route'),
                 '_route_params' => $request->attributes->get('_route_params'),
             ],

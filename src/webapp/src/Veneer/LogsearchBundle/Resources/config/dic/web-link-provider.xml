@@ -16,7 +16,7 @@
             <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_summary" />
             <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_summary" />
             <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_instance_persistentdisk_summary" />
-            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_summary" />
+            <tag name="veneer_web.link_provider" route="veneer_bosh_deployment_vm_network_summary" />
         </service>
     </services>
 </container>

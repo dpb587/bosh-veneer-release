@@ -5,16 +5,17 @@ namespace Veneer\AwsCpiBundle\Controller\Plugin\WebLinkProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\WebBundle\Plugin\LinkProvider\PluginInterface;
 use Veneer\WebBundle\Plugin\LinkProvider\Link;
+use Veneer\AwsCpiBundle\Service\ConsoleHelper;
 
 class ConsolePlugin implements PluginInterface
 {
+    protected $consoleHelper;
     protected $directorName;
-    protected $region;
 
-    public function __construct($directorName, $region)
+    public function __construct(ConsoleHelper $consoleHelper, $directorName)
     {
+        $this->consoleHelper = $consoleHelper;
         $this->directorName = $directorName;
-        $this->region = $region;
     }
 
     public function getLinks(Request $request, $route)
@@ -28,13 +29,10 @@ class ConsolePlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('all instances')
-                        ->setUrl(sprintf(
-                            'https://%s.console.aws.amazon.com/ec2/v2/home?region=%s#Instances:tag:director=%s;tag:deployment=%s',
-                            $this->region,
-                            $this->region,
-                            $this->directorName,
-                            $_bosh['deployment']['name']
-                        )),
+                        ->setUrl($this->consoleHelper->getEc2InstanceSearch([
+                            'tag:director' => $this->directorName,
+                            'tag:deployment' => $_bosh['deployment']['name'],
+                        ])),
                 ];
             case 'veneer_bosh_deployment_instance_summary':
                 return [
@@ -42,15 +40,11 @@ class ConsolePlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('instance detail')
-                        ->setUrl(sprintf(
-                            'https://%s.console.aws.amazon.com/ec2/v2/home?region=%s#Instances:tag:director=%s;tag:deployment=%s;tag:Name=%s/%s',
-                            $this->region,
-                            $this->region,
-                            $this->directorName,
-                            $_bosh['deployment']['name'],
-                            $_bosh['instance']['job'],
-                            $_bosh['instance']['index']
-                        )),
+                        ->setUrl($this->consoleHelper->getEc2InstanceSearch([
+                            'tag:director' => $this->directorName,
+                            'tag:deployment' => $_bosh['deployment']['name'],
+                            'tag:Name' => $_bosh['instance']['job'] . '/' . $_bosh['instance']['index'],
+                        ])),
                 ];
             case 'veneer_bosh_deployment_instance_persistentdisk_summary':
                 return [
@@ -58,12 +52,7 @@ class ConsolePlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('disk detail')
-                        ->setUrl(sprintf(
-                            'https://%s.console.aws.amazon.com/ec2/v2/home?region=%s#Volumes:volumeId=%s',
-                            $this->region,
-                            $this->region,
-                            $_bosh['persistent_disk']['diskCid']
-                        )),
+                        ->setUrl($this->consoleHelper->getEc2VolumeLink($_bosh['persistent_disk']['diskCid'])),
                 ];
             case 'veneer_bosh_deployment_vm_summary':
                 return [
@@ -71,12 +60,7 @@ class ConsolePlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('instance detail')
-                        ->setUrl(sprintf(
-                            'https://%s.console.aws.amazon.com/ec2/v2/home?region=%s#Instances:instanceId=%s',
-                            $this->region,
-                            $this->region,
-                            $_bosh['vm']['cid']
-                        )),
+                        ->setUrl($this->consoleHelper->getEc2InstanceSearch($_bosh['vm']['cid'])),
                 ];
             case 'veneer_bosh_deployment_vm_network_summary':
                 return [
@@ -84,12 +68,7 @@ class ConsolePlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('instance detail')
-                        ->setUrl(sprintf(
-                            'https://%s.console.aws.amazon.com/ec2/v2/home?region=%s#NIC:search=%s',
-                            $this->region,
-                            $this->region,
-                            $_bosh['network']['ip']
-                        )),
+                        ->setUrl($this->consoleHelper->getEc2NicSearch([ 'search' => $_bosh['network']['ip'] ])),
                 ];
         }
 

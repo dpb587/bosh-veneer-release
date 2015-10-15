@@ -93,7 +93,7 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_vm_instance':
+            case 'veneer_bosh_deployment_vm_summary':
                 return [
                     (new Link('applyspec'))
                         ->setTopic(Link::TOPIC_WIDGET)

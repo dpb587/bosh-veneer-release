@@ -71,7 +71,7 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_vm_summary':
+            case 'veneer_bosh_deployment_vm_network_summary':
                 return [
                     (new Link('hoststats'))
                         ->setTopic(Link::TOPIC_WIDGET)

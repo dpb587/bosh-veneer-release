@@ -7,13 +7,13 @@
     <dl class="dl-horizontal">
       {% if properties.subnet is defined %}
         <dt>Subnet</dt>
-        <dd>{{ properties.subnet }}</dd>
+        <dd><a href="{{ aws_console_vpc_subnet(properties.subnet) }}" target="_blank">{{ properties.subnet }}</a></dd>
       {% endif %}
 
       {% if properties.security_groups is defined %}
         <dt>Security Groups</dt>
         {% for security_group in properties.security_groups %}
-          <dd>{{ security_group }}</dd>
+          <dd><a href="{{ aws_console_ec2_securitygroup({ 'groupName' : security_group }) }}" target="_blank">{{ security_group }}</a></dd>
         {% endfor %}
       {% endif %}
     </dl>

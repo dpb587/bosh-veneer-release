@@ -19,6 +19,7 @@ class VeneerAwsCpiExtension extends Extension
         $loader->load('form-api.xml');
         $loader->load('form-bosheditor.xml');
         $loader->load('services.xml');
+        $loader->load('twig.xml');
         $loader->load('web-link-provider.xml');
     }
 }
