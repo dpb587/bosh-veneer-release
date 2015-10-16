@@ -67,6 +67,10 @@ doctrine:
     dbal:
         default_connection: bosh
         connections:
+            state:
+                driver: "pdo_sqlite"
+                path: %kernel.root_dir%/state.sqlite
+                charset:  UTF8
             bosh:
                 driver:   "%database_adapter%"
                 host:     "%database_host%"
@@ -80,10 +84,17 @@ doctrine:
         default_entity_manager: bosh
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
+            state:
+                connection: state
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                mappings:
+                    VeneerWebBundle: ~
+                    VeneerMarketplaceBundle: ~
             bosh:
                 connection: bosh
                 naming_strategy: doctrine.orm.naming_strategy.underscore
-                auto_mapping: true
+                mappings:
+                    VeneerBoshBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -95,3 +106,8 @@ swiftmailer:
 
 braincrafted_bootstrap:
     less_filter: less
+
+veneer_marketplace:
+    marketplaces:
+        boshio:
+            type: bosh-hub

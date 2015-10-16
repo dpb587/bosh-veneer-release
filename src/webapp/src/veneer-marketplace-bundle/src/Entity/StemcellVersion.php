@@ -5,10 +5,10 @@ namespace Veneer\MarketplaceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="marketplace_release_version")
+ * @ORM\Table(name="marketplace_stemcell_version")
  * @ORM\Entity
  */
-class ReleaseVersion
+class StemcellVersion
 {
     /**
      * @ORM\Id
@@ -30,20 +30,20 @@ class ReleaseVersion
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="release", type="string", length=128)
+     * @ORM\Column(name="stemcell", type="string", length=128)
      */
-    protected $release;
+    protected $stemcell;
 
-    public function setRelease($release)
+    public function setStemcell($stemcell)
     {
-        $this->release = $release;
+        $this->stemcell = $stemcell;
 
         return $this;
     }
 
-    public function getRelease()
+    public function getStemcell()
     {
-        return $this->release;
+        return $this->stemcell;
     }
 
     /**
@@ -62,6 +62,23 @@ class ReleaseVersion
     public function getVersion()
     {
         return $this->version;
+    }
+
+    /**
+     * @ORM\Column(name="source_type", type="string", length=16)
+     */
+    protected $sourceType;
+
+    public function setSourceType($sourceType)
+    {
+        $this->sourceType = $sourceType;
+
+        return $this;
+    }
+
+    public function getSourceType()
+    {
+        return $this->sourceType;
     }
 
     /**

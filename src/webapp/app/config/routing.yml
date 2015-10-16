@@ -6,5 +6,5 @@ veneer_bosh_editor:
     resource: "@VeneerBoshEditorBundle/Resources/config/routing/default.xml"
 veneer_logsearch:
     resource: "@VeneerLogsearchBundle/Resources/config/routing/default.xml"
-veneer_cloque:
-    resource: "@VeneerCloqueBundle/Resources/config/routing/default.xml"
+#veneer_cloque:
+#    resource: "@VeneerCloqueBundle/Resources/config/routing/default.xml"

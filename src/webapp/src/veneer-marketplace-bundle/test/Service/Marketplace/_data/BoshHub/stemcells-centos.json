@@ -1,0 +1,272 @@
+[
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "1de55b7405f286b8e16087d50a2d6210",
+            "size": 727079746,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3104-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3104"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "df29a5e1d836f77dde52fb9213de0312",
+            "size": 736199372,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3100-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3100"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "b6480b504b643d1698c0561f4a307687",
+            "size": 734290144,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3098-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3098"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "1184c98966b159bcf83af72e1b0da962",
+            "size": 734343500,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3094-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3094"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "d1fceabf4bfa7aa71d8e19123ec2f42e",
+            "size": 734365839,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3093-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3093"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "4e06c382fb65ee86a25712f81e76b48d",
+            "size": 734392731,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3091-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3091"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "9b155884910d8043b6201378426ad2a4",
+            "size": 734508858,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3088-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3088"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "f76837c49e935071165e580984d14eda",
+            "size": 734580440,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3087-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3087"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "9e54a9a22037ae0ba630600178bebc23",
+            "size": 732591455,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3074-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3074"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "a1faa79e5c06f1a6427c56ef274e0659",
+            "size": 732619973,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3072-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3072"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "80d45b2055f94c00c2f9b5e35d3f4c8a",
+            "size": 732573942,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3071-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3071"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "1be288e9f8fc5027e364c2e7d93ac78a",
+            "size": 734426937,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3069-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3069"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "38f434d8d9062bb7edca98056074a2da",
+            "size": 734477594,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3068-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3068"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "925c3ff6f4f6b897426150d38520ac26",
+            "size": 734418751,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3063-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3063"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "0d644276632e7b0d64be5b11fb8345be",
+            "size": 734525274,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3062-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3062"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "6481c898f5d76f11ba9781f999c56f00",
+            "size": 734430661,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3058-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3058"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "f39542006fbed20e0e154fd79760b51e",
+            "size": 734447036,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3056-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3056"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "4c7d942c6d244fde2c722dc45a78b05f",
+            "size": 734368240,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3050-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3050"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "9d7651f3ec0659afdd9cda5e6b297149",
+            "size": 734086822,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3048-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3048"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "39160c1aa7b8d81849e1d22811e22149",
+            "size": 734191689,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3042-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3042"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "30066a4b9b16a667015486aaee576989",
+            "size": 733902098,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3039-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3039"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "50e800e4be102224c1b551f83c410b5d",
+            "size": 732915827,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3033-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3033"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "0c26303642387a206b7e9354ff3f3485",
+            "size": 732883157,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3031-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3031"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "75a432e67015d525ed77b83911f257ac",
+            "size": 732868087,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3030-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3030"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "cbeb258a1b5c6922faa714de49218b9e",
+            "size": 732860740,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3029-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3029"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "195b8233b241a869c9b4d5a89dec2a80",
+            "size": 732813109,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3026-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3026"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "3195c3e43782b7a26784dadf23cf4894",
+            "size": 732824335,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3025-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3025"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "493e54ed4ac82f02ca6e79578bb094d1",
+            "size": 732872832,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3022-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3022"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "be90d39182eee1da9fb06ce25aa42a22",
+            "size": 732762807,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3019-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3019"
+    },
+    {
+        "name": "bosh-openstack-kvm-centos-7-go_agent",
+        "regular": {
+            "md5": "c16c7925e7dbc82ded9ceca7f2b6c37c",
+            "size": 732765531,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/openstack/bosh-stemcell-3016-openstack-kvm-centos-7-go_agent.tgz"
+        },
+        "version": "3016"
+    }
+]

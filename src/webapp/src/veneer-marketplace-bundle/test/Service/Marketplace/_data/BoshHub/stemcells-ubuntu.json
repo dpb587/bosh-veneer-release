@@ -1,0 +1,272 @@
+[
+    {
+        "light": {
+            "md5": "3c28917b5241125d7d2d68703ec64635",
+            "size": 18039,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3104-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3104"
+    },
+    {
+        "light": {
+            "md5": "c5955c3383ddf29b312536a4aa410598",
+            "size": 18005,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3100-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3100"
+    },
+    {
+        "light": {
+            "md5": "d7b817082806b7d4b56627d5fae80c83",
+            "size": 17911,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3098-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3098"
+    },
+    {
+        "light": {
+            "md5": "930ed7d2f232bf2febadae4e97e30860",
+            "size": 17901,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3094-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3094"
+    },
+    {
+        "light": {
+            "md5": "e37db1b2a8494d2ba6b078b17cf0ef50",
+            "size": 17904,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3093-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3093"
+    },
+    {
+        "light": {
+            "md5": "5366c58356a8dbb0006cf4927e831b13",
+            "size": 18010,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3091-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3091"
+    },
+    {
+        "light": {
+            "md5": "a985ab156ed57976f1cfc9f40fffae0f",
+            "size": 18008,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3088-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3088"
+    },
+    {
+        "light": {
+            "md5": "c0348d1a22db712df8ff835a129e8cb9",
+            "size": 18053,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3087-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3087"
+    },
+    {
+        "light": {
+            "md5": "fb1ba849a792dba47727b45a4b076930",
+            "size": 17728,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3074-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3074"
+    },
+    {
+        "light": {
+            "md5": "1e61d28509b71dbf55d122f14e2ccbc1",
+            "size": 17713,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3072-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3072"
+    },
+    {
+        "light": {
+            "md5": "5fa792eef3b00ab03c3cea6ddac2a4d0",
+            "size": 17718,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3071-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3071"
+    },
+    {
+        "light": {
+            "md5": "46822645e6a1fb6da567a9af024ae2a6",
+            "size": 17696,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3069-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3069"
+    },
+    {
+        "light": {
+            "md5": "c798cec4ef57811605d8835b86f4d083",
+            "size": 17707,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3068-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3068"
+    },
+    {
+        "light": {
+            "md5": "11f8dc1e0f84ee3b5261083739f01132",
+            "size": 17793,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3063-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3063"
+    },
+    {
+        "light": {
+            "md5": "209ba28c641b906635fe86f8ea8c08b6",
+            "size": 17746,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3062-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3062"
+    },
+    {
+        "light": {
+            "md5": "59adcec865a5e1cfce2b3132d9d26db5",
+            "size": 17677,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3058-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3058"
+    },
+    {
+        "light": {
+            "md5": "acd5e28713348c0f17899c8a312767e1",
+            "size": 17762,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3056-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3056"
+    },
+    {
+        "light": {
+            "md5": "aebcc53a178f81266a4cc8e7bb0c44e4",
+            "size": 17740,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3050-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3050"
+    },
+    {
+        "light": {
+            "md5": "c1f252aa80f7d117e3668c3b4f0cb139",
+            "size": 17744,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3048-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3048"
+    },
+    {
+        "light": {
+            "md5": "7c8d9431db5a80c3e5c49883400f5d16",
+            "size": 17661,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3042-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3042"
+    },
+    {
+        "light": {
+            "md5": "c35c7c6b62370aeef6cb8b0c07b5c95d",
+            "size": 17678,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3039-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3039"
+    },
+    {
+        "light": {
+            "md5": "6f779112c7c661b52126264e63c10024",
+            "size": 17657,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3033-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3033"
+    },
+    {
+        "light": {
+            "md5": "760ec3ce9f54585db17598842e9f4343",
+            "size": 17716,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3031-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3031"
+    },
+    {
+        "light": {
+            "md5": "b4638e5354c4680102775d24e9fcb3ca",
+            "size": 17781,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3030-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3030"
+    },
+    {
+        "light": {
+            "md5": "66826f06fdeb909280e045ccb71f91bb",
+            "size": 17748,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3029-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3029"
+    },
+    {
+        "light": {
+            "md5": "349d6a2f8cfed5380420f2f11b6ecd7a",
+            "size": 17801,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3026-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3026"
+    },
+    {
+        "light": {
+            "md5": "f967f6e2b45914ff7c50cbd60de9d996",
+            "size": 17693,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3025-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3025"
+    },
+    {
+        "light": {
+            "md5": "63451cfc50bd335cf97140858722db73",
+            "size": 17852,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3022-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3022"
+    },
+    {
+        "light": {
+            "md5": "e460a933cf18fae375300e1b64eaffc1",
+            "size": 17675,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3019-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3019"
+    },
+    {
+        "light": {
+            "md5": "ea4bd325c4a215c69a9f62b477572ce4",
+            "size": 17707,
+            "url": "https://d26ekeud912fhb.cloudfront.net/bosh-stemcell/aws/light-bosh-stemcell-3016-aws-xen-hvm-ubuntu-trusty-go_agent.tgz"
+        },
+        "name": "bosh-aws-xen-hvm-ubuntu-trusty-go_agent",
+        "version": "3016"
+    }
+]

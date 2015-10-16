@@ -28,7 +28,8 @@ class AppKernel extends Kernel
             new Veneer\BoshEditorBundle\VeneerBoshEditorBundle(),
             new Veneer\AwsCpiBundle\VeneerAwsCpiBundle(),
             new Veneer\LogsearchBundle\VeneerLogsearchBundle(),
-            new Veneer\CloqueBundle\VeneerCloqueBundle(),
+            new Veneer\MarketplaceBundle\VeneerMarketplaceBundle(),
+            //new Veneer\CloqueBundle\VeneerCloqueBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
