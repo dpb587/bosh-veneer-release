@@ -1,0 +1,8 @@
+{
+    "name" : "dpb587/veneer-marketplace-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\MarketplaceBundle\\": "src/"
+        }
+    }
+}

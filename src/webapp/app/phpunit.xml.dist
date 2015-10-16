@@ -8,8 +8,8 @@
          bootstrap="bootstrap.php.cache"
 >
     <testsuites>
-        <testsuite name="bosh-veneer Test Suite">
-            <directory>../test</directory>
+        <testsuite name="bosh-veneer">
+            <directory>../src/**/test</directory>
         </testsuite>
     </testsuites>
 
@@ -23,9 +23,7 @@
         <whitelist>
             <directory>../src</directory>
             <exclude>
-                <directory>../src/*Bundle/Resources</directory>
-                <directory>../src/*/*Bundle/Resources</directory>
-                <directory>../src/*/Bundle/*Bundle/Resources</directory>
+                <directory>../src/*/src/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
