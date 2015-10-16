@@ -1,0 +1,381 @@
+types:
+    c1.medium:
+        cpu: 2
+        ecu: 5
+        memory: 1.7
+        storage:
+            quantity: 1
+            size: 350
+            type: hdd
+    c1.xlarge:
+        cpu: 8
+        ecu: 20
+        memory: 7
+        storage:
+            quantity: 4
+            size: 420
+            type: hdd
+    c3.large:
+        cpu: 2
+        ecu: 7
+        memory: 3.75
+        storage:
+            quantity: 2
+            size: 16
+            type: gp2
+    c3.xlarge:
+        cpu: 4
+        ecu: 14
+        memory: 7.5
+        storage:
+            quantity: 2
+            size: 40
+            type: gp2
+    c3.2xlarge:
+        cpu: 8
+        ecu: 28
+        memory: 15
+        storage:
+            quantity: 2
+            size: 80
+            type: gp2
+    c3.4xlarge:
+        cpu: 16
+        ecu: 55
+        memory: 30
+        storage:
+            quantity: 2
+            size: 160
+            type: gp2
+    c3.8xlarge:
+        cpu: 32
+        ecu: 108
+        memory: 60
+        storage:
+            quantity: 2
+            size: 320
+            type: gp2
+    c4.large:
+        cpu: 2
+        ecu: 8
+        memory: 3.75
+        storage: ~
+    c4.xlarge:
+        cpu: 4
+        ecu: 16
+        memory: 7.5
+        storage: ~
+    c4.2xlarge:
+        cpu: 8
+        ecu: 31
+        memory: 15
+        storage: ~
+    c4.4xlarge:
+        cpu: 16
+        ecu: 62
+        memory: 30
+        storage: ~
+    c4.8xlarge:
+        cpu: 36
+        ecu: 132
+        memory: 60
+        storage: ~
+    cc1.4xlarge:
+    cc2.8xlarge:
+        cpu: 32
+        ecu: 88
+        memory: 60.5
+        storage:
+            quantity: 4
+            size: 840
+            type: hdd
+    cg1.4xlarge:
+        cpu: 16
+        ecu: 33.5
+        memory: 22.5
+        storage:
+            quantity: 2
+            size: 840
+            type: hdd
+    cr1.8xlarge:
+        cpu: 32
+        ecu: 88
+        memory: 244
+        storage:
+            quantity: 2
+            size: 120
+            type: ssd
+    d2.xlarge:
+        cpu: 4
+        ecu: 14
+        memory: 30.5
+        storage:
+            quantity: 3
+            size: 2000
+            type: hdd
+    d2.2xlarge:
+        cpu: 8
+        ecu: 28
+        memory: 61
+        storage:
+            quantity: 6
+            size: 2000
+            type: hdd
+    d2.4xlarge:
+        cpu: 16
+        ecu: 56
+        memory: 122
+        storage:
+            quantity: 12
+            size: 2000
+            type: hdd
+    d2.8xlarge:
+        cpu: 36
+        ecu: 116
+        memory: 244
+        storage:
+            quantity: 24
+            size: 2000
+            type: hdd
+    g2.2xlarge:
+        cpu: 8
+        ecu: 26
+        memory: 15
+        storage:
+            quantity: 1
+            size: 60
+            type: gp2
+    g2.8xlarge:
+        cpu: 32
+        ecu: 104
+        memory: 60
+        storage:
+            quantity: 2
+            size: 120
+            type: gp2
+    hi1.4xlarge:
+        cpu: 16
+        ecu: 35
+        memory: 60.5
+        storage:
+            quantity: 2
+            size: 1024
+            type: ssd
+    hs1.8xlarge:
+        cpu: 16
+        ecu: 35
+        memory: 117
+        storage:
+            quantity: 24
+            size: 2048
+            type: hdd
+    i2.xlarge:
+        cpu: 4
+        ecu: 14
+        memory: 30.5
+        storage:
+            quantity: 1
+            size: 800
+            type: gp2
+    i2.2xlarge:
+        cpu: 8
+        ecu: 27
+        memory: 61
+        storage:
+            quantity: 2
+            size: 800
+            type: gp2
+    i2.4xlarge:
+        cpu: 16
+        ecu: 53
+        memory: 122
+        storage:
+            quantity: 4
+            size: 800
+            type: gp2
+    i2.8xlarge:
+        cpu: 32
+        ecu: 104
+        memory: 244
+        storage:
+            quantity: 8
+            size: 800
+            type: gp2
+    m1.small:
+        cpu: 1
+        ecu: 1
+        memory: 1.7
+        storage:
+            quantity: 1
+            size: 160
+            type: hdd
+    m1.medium:
+        cpu: 1
+        ecu: 2
+        memory: 3.75
+        storage:
+            quantity: 1
+            size: 410
+            type: hdd
+    m1.large:
+        cpu: 2
+        ecu: 4
+        memory: 7.5
+        storage:
+            quantity: 2
+            size: 420
+            type: hdd
+    m1.xlarge:
+        cpu: 4
+        ecu: 8
+        memory: 15
+        storage:
+            quantity: 4
+            size: 420
+            type: hdd
+    m2.xlarge:
+        cpu: 2
+        ecu: 6.5
+        memory: 17.1
+        storage:
+            quantity: 1
+            size: 420
+            type: hdd
+    m2.2xlarge:
+        cpu: 4
+        ecu: 13
+        memory: 34.2
+        storage:
+            quantity: 1
+            size: 850
+            type: hdd
+    m2.4xlarge:
+        cpu: 8
+        ecu: 26
+        memory: 68.4
+        storage:
+            quantity: 2
+            size: 840
+            type: hdd
+    m3.medium:
+        cpu: 1
+        ecu: 3
+        memory: 3.75
+        storage:
+            quantity: 1
+            size: 4
+            type: gp2
+    m3.large:
+        cpu: 2
+        ecu: 6.5
+        memory: 7.5
+        storage:
+            quantity: 1
+            size: 32
+            type: gp2
+    m3.xlarge:
+        cpu: 4
+        ecu: 13
+        memory: 15
+        storage:
+            quantity: 2
+            size: 40
+            type: gp2
+    m3.2xlarge:
+        cpu: 8
+        ecu: 26
+        memory: 30
+        storage:
+            quantity: 2
+            size: 80
+            type: gp2
+    m4.large:
+        cpu: 2
+        ecu: 6.5
+        memory: 8
+        storage: ~
+    m4.xlarge:
+        cpu: 4
+        ecu: 13
+        memory: 16
+        storage: ~
+    m4.2xlarge:
+        cpu: 8
+        ecu: 26
+        memory: 32
+        storage: ~
+    m4.4xlarge:
+        cpu: 16
+        ecu: 53.5
+        memory: 64
+        storage: ~
+    m4.10xlarge:
+        cpu: 40
+        ecu: 124.5
+        memory: 160
+        storage: ~
+    r3.large:
+        cpu: 2
+        ecu: 6.5
+        memory: 15
+        storage:
+            quantity: 1
+            size: 32
+            type: gp2
+    r3.xlarge:
+        cpu: 4
+        ecu: 13
+        memory: 30.5
+        storage:
+            quantity: 1
+            size: 80
+            type: gp2
+    r3.2xlarge:
+        cpu: 8
+        ecu: 26
+        memory: 61
+        storage:
+            quantity: 1
+            size: 160
+            type: gp2
+    r3.4xlarge:
+        cpu: 16
+        ecu: 52
+        memory: 122
+        storage:
+            quantity: 1
+            size: 320
+            type: gp2
+    r3.8xlarge:
+        cpu: 32
+        ecu: 104
+        memory: 244
+        storage:
+            quantity: 2
+            size: 320
+            type: gp2
+    t1.micro:
+        cpu: 1
+        ecu: ~
+        memory: 0.615
+        storage: ~
+    t2.micro:
+        cpu: 1
+        ecu: ~
+        memory: 1
+        storage: ~
+    t2.small:
+        cpu: 1
+        ecu: ~
+        memory: 2
+        storage: ~
+    t2.medium:
+        cpu: 2
+        ecu: ~
+        memory: 4
+        storage: ~
+    t2.large:
+        cpu: 2
+        ecu: ~
+        memory: 8
+        storage: ~

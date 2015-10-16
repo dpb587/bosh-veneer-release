@@ -1,0 +1,11 @@
+{
+    "name" : "dpb587/veneer-aws-cpi-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\AwsCpiBundle\\": "src/"
+        }
+    },
+    "require": {
+        "aws/aws-sdk-php" : "~2.7"
+    }
+}

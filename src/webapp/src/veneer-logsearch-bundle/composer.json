@@ -1,0 +1,8 @@
+{
+    "name" : "dpb587/veneer-logsearch-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\LogsearchBundle\\": "src/"
+        }
+    }
+}

@@ -1,10 +1,11 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "dpb587/veneer",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-4": { "DPB\\BoshWeb\\": "src/", "": "src/", "SymfonyStandard\\": "app/SymfonyStandard/" }
+        "psr-0": {
+            "": "src/"
+        }
     },
     "require": {
         "php": ">=5.3.9",
@@ -23,7 +24,8 @@
         "ruflin/elastica":  "2.2.*",
         "highslide-software/highcharts.com": "3.0.7",
         "less/less.js": "1.7.5",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "wikimedia/composer-merge-plugin": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
@@ -103,8 +105,11 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         },
-        "branch-alias": {
-            "dev-master": "2.7-dev"
+        "merge-plugin": {
+            "include": [
+                "composer.local.json",
+                "src/*/composer.json"
+            ]
         }
     }
 }
