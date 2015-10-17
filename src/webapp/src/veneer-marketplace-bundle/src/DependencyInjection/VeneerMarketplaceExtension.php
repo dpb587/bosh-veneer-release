@@ -19,8 +19,10 @@ class VeneerMarketplaceExtension extends Extension
 
         $loader->load('services.xml');
 
-        $configuration = $this->getConfiguration($configs, $container);
-        $config = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration(
+            $this->getConfiguration($configs, $container),
+            $configs
+        );
 
         $this->registerMarketplacesConfiguration($config['marketplaces'], $container);
     }

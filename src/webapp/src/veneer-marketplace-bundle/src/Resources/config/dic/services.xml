@@ -9,5 +9,10 @@
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- configuration -->
         </service>
+
+        <service id="veneer_marketplace.updater" class="Veneer\MarketplaceBundle\Service\Updater">
+            <argument type="service" id="veneer_marketplace.marketplaces" />
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+        </service>
     </services>
 </container>

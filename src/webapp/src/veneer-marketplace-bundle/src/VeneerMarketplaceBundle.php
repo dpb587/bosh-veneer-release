@@ -33,6 +33,6 @@ class VeneerMarketplaceBundle extends Bundle implements BundleInterface
 
     public function getVeneerRoute()
     {
-        return null;
+        return 'veneer_marketplace_summary';
     }
 }

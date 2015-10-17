@@ -8,3 +8,5 @@ veneer_logsearch:
     resource: "@VeneerLogsearchBundle/Resources/config/routing/default.xml"
 #veneer_cloque:
 #    resource: "@VeneerCloqueBundle/Resources/config/routing/default.xml"
+veneer_marketplace:
+    resource: "@VeneerMarketplaceBundle/Resources/config/routing/default.xml"

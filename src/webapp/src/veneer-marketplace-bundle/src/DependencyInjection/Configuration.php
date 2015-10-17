@@ -22,29 +22,36 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('marketplaces')
                     ->info('list of marketplaces')
-                        ->useAttributeAsKey('name')
-                        ->prototype('array')
-                            ->children()
-                                ->scalarNode('type')
-                                    ->info('class name or one of: ' . implode(', ', array_keys(Configuration::MARKETPLACE_TYPE_ALIAS)))
-                                    ->beforeNormalization()
-                                        ->ifTrue(function ($v) {
-                                            return array_key_exists($v, self::MARKETPLACE_TYPE_ALIAS);
-                                        })
-                                        ->then(function ($v) {
-                                            $m = self::MARKETPLACE_TYPE_ALIAS;
-                                            return $m[$v];
-                                        })
-                                        ->end()
-                                    ->end()
-                                ->scalarNode('title')
-                                    ->info('title shown in the interface')
-                                    ->defaultNull()
-                                    ->end()
-                                ->arrayNode('options')
-                                    ->info('type-specific options for the marketplace')
+                    ->normalizeKeys(false)
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->canBeUnset()
+                        ->performNoDeepMerging()
+                        ->children()
+                            ->scalarNode('type')
+                                ->info('class name or one of: ' . implode(', ', array_keys(Configuration::MARKETPLACE_TYPE_ALIAS)))
+                                ->beforeNormalization()
+                                    ->ifTrue(function ($v) {
+                                        return array_key_exists($v, self::MARKETPLACE_TYPE_ALIAS);
+                                    })
+                                    ->then(function ($v) {
+                                        $m = self::MARKETPLACE_TYPE_ALIAS;
+                                        return $m[$v];
+                                    })
                                     ->end()
                                 ->end()
+                            ->scalarNode('title')
+                                ->info('title shown in the interface')
+                                ->defaultNull()
+                                ->end()
+                            ->arrayNode('options')
+                                ->info('type-specific options for the marketplace')
+                                ->normalizeKeys(false)
+                                ->useAttributeAsKey('key')
+                                ->prototype('variable')
+                                    ->end()
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

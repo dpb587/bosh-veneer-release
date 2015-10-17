@@ -42,7 +42,7 @@ class BoshHubMarketplace implements MarketplaceInterface
 
         $releases = [];
 
-        foreach ($xpath->query('//li[@class = "list-group-item"]/a') as $release) {
+        foreach ($xpath->query('//li[@class = "list-group-item"]/a[1]') as $release) {
             $href = $release->attributes->getNamedItem('href')->nodeValue;
             $name = trim($release->textContent);
 
@@ -50,6 +50,7 @@ class BoshHubMarketplace implements MarketplaceInterface
         }
 
         foreach ($releases as $releasePage) {
+            fwrite(STDOUT, $releasePage . "\n");
             $response = $this->request($releasePage);
 
             $dom = new \DOMDocument();

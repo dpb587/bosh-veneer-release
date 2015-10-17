@@ -65,7 +65,7 @@ class ReleaseVersion
     }
 
     /**
-     * @ORM\Column(name="detail_url", type="text")
+     * @ORM\Column(name="detail_url", type="text", nullable=true)
      */
     protected $detailUrl;
 

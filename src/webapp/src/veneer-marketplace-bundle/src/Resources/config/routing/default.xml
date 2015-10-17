@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_marketplace_summary" path="/marketplace/summary.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- marketplace -->
+
+    <route id="veneer_marketplace_marketplaceALL_index" path="/marketplace/marketplace/:all/index.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace:all</default>
+    </route>
+
+    <route id="veneer_marketplace_marketplace_summary" path="/marketplace/marketplace/{marketplace}/summary.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace</default>
+    </route>
+
+    <!-- release -->
+
+    <route id="veneer_marketplace_marketplace_releaseALL_index" path="/marketplace/marketplace/{marketplace}/release/:all/index.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceReleaseALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/release:all</default>
+    </route>
+
+    <route id="veneer_marketplace_marketplace_release_summary" path="/marketplace/marketplace/{marketplace}/release/{release}/summary.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceReleaseController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/release</default>
+    </route>
+
+    <route id="veneer_marketplace_marketplace_release_versionALL_index" path="/marketplace/marketplace/{marketplace}/release/{release}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceReleaseVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/release/version:all</default>
+    </route>
+
+    <route id="veneer_marketplace_marketplace_release_version_summary" path="/marketplace/marketplace/{marketplace}/release/{release}/version/{version}/summary.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceReleaseVersionController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/release/version</default>
+    </route>
+
+    <!-- stemcell -->
+
+    <route id="veneer_marketplace_stemcellALL_index" path="/marketplace/marketplace/{marketplace}/stemcell/:all/index.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/stemcell:all</default>
+    </route>
+
+    <route id="veneer_marketplace_stemcell_summary" path="/marketplace/marketplace/{marketplace}/stemcell/{stemcell}/summary.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/stemcell</default>
+    </route>
+
+    <route id="veneer_marketplace_stemcell_versionALL_summary" path="/marketplace/marketplace/{marketplace}/stemcell/{stemcell}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/stemcell/version:all</default>
+    </route>
+
+    <route id="veneer_marketplace_stemcell_version_summary" path="/marketplace/marketplace/{marketplace}/stemcell/{stemcell}/version/{version}/summary.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellVersionController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_web_context">marketplace/marketplace/stemcell/version</default>
+    </route>
+
+</routes>
