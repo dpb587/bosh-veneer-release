@@ -7,30 +7,30 @@
         {% for topic_name, topic in {
             'config': {
                 title: 'Configuration',
-                glyphicon: 'cog',
+                fontawesome: 'cog',
             },
             'resources': {
                 title: 'Resources',
-                glyphicon: 'hdd',
+                fontawesome: 'hdd',
             },
             'performance': {
                 title: 'Performance',
-                glyphicon: 'dashboard',
+                fontawesome: 'dashboard',
             },
             'cpi': {
                 title: 'CPI',
-                glyphicon: 'cloud',
+                fontawesome: 'cloud',
             },
             'documentation': {
                 title: 'Documentation',
-                glyphicon: 'pencil',
+                fontawesome: 'pencil',
             },
             'other': {
                 title: 'Useful Links',
-                glyphicon: 'link',
+                fontawesome: 'link',
             },
         } if _links[topic_name] is defined %}
-            <dt><span class="glyphicon glyphicon-{{ topic.glyphicon }}"></span> {{ topic.title }}</dt>
+            <dt><i class="fa fa-{{ topic.fontawesome }}"></i> {{ topic.title }}</dt>
             {% for link in _links[topic_name] %}
                 <dd>
                     <a href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}>{{ link.title }}</a>

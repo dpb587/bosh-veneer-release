@@ -20,11 +20,11 @@ class Factory
     {
         $request = $event->getRequest();
 
-        if (!$request->attributes->has('_veneer_web_context')) {
+        if (!$request->attributes->has('_veneer_core_context')) {
             return;
         }
 
-        $contextList = (array) $request->attributes->get('_veneer_web_context');
+        $contextList = (array) $request->attributes->get('_veneer_core_context');
 
         foreach ($contextList as $context) {
             if (!isset($this->contextMap[$context])) {

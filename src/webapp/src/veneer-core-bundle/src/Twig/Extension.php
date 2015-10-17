@@ -7,7 +7,7 @@ class Extension extends \Twig_Extension
     public function getFilters()
     {
         return array(
-            'veneer_web_appendqs' => new \Twig_Filter_Method($this, 'appendQsFilter')
+            'veneer_core_appendqs' => new \Twig_Filter_Method($this, 'appendQsFilter')
         );
     }
 

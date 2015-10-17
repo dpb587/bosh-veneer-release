@@ -28,7 +28,8 @@ class DeploymentInstanceController extends AbstractController
                     'glyphicon' => 'stop',
                     'expanded' => true,
                 ]
-            );
+            )
+        ;
     }
 
     public function summaryAction($_bosh)

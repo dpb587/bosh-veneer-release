@@ -38,7 +38,7 @@
             <call method="add">
                 <argument>bosh-veneer</argument>
                 <argument type="collection">
-                    <argument key="veneer_web_summary" type="collection"></argument>
+                    <argument key="veneer_core_summary" type="collection"></argument>
                 </argument>
                 <argument type="collection">
                     <argument key="glyphicon">home</argument>

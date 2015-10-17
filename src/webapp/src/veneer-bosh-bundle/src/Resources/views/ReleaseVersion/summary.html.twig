@@ -3,9 +3,9 @@
 {% block def_title _veneer_bosh_context.release.name ~ '/' ~ _veneer_bosh_context.version.version %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.templates.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.packages.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.deployments.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.templates.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.packages.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.deployments.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

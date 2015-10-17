@@ -4,5 +4,10 @@
         "psr-4": {
             "Veneer\\BoshBundle\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\BoshBundle\\Test": "test/"
+        }
     }
 }

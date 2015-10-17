@@ -1,11 +1,11 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="pull-right">
-      <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><span class="glyphicon glyphicon-flash"></span></a>
+<div>
+  <div>
+    <div class="right">
+      <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><span class="fa fa-bolt"></span></a>
     </div>
-    <h3 class="panel-title"><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">{{ block('def_title') }}</a></h3>
+    <h4><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">{{ block('def_title') }}</a></h4>
   </div>
-  <div class="panel-body">
+  <div>
     {{ block('frag_' ~ _frag) }}
   </div>
 </div>

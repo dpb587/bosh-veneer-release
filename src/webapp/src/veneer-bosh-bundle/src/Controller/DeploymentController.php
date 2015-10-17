@@ -15,18 +15,20 @@ class DeploymentController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, array $_bosh)
     {
-        return $nav->add(
-            $_bosh['deployment']['name'],
-            [
-                'veneer_bosh_deployment_summary' => [
-                    'deployment' => $_bosh['deployment']['name'],
+        return DeploymentALLController::defNav($nav, $_bosh)
+            ->add(
+                $_bosh['deployment']['name'],
+                [
+                    'veneer_bosh_deployment_summary' => [
+                        'deployment' => $_bosh['deployment']['name'],
+                    ],
                 ],
-            ],
-            [
-                'glyphicon' => 'th',
-                'expanded' => true,
-            ]
-        );
+                [
+                    'glyphicon' => 'th',
+                    'expanded' => true,
+                ]
+            )
+        ;
     }
 
     public function summaryAction($_bosh)

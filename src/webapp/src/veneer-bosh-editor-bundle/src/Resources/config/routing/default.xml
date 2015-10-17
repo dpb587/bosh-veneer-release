@@ -7,6 +7,6 @@
     <route id="veneer_bosheditor_deployment_manifest" path="/bosh-editor/deployment/{deployment}/editor.{_format}">
         <default key="_controller">Veneer\BoshEditorBundle\Controller\TestController::editorAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_web_context">bosh/deployment</default>
+        <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 </routes>

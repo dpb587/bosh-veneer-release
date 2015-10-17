@@ -5,6 +5,11 @@
             "Veneer\\AwsCpiBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\AwsCpiBundle\\Test": "test/"
+        }
+    },
     "require": {
         "aws/aws-sdk-php" : "~3"
     }

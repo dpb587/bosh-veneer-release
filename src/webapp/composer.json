@@ -18,19 +18,31 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "braincrafted/bootstrap-bundle": "~2.0",
-        "twbs/bootstrap": "3.0.*",
         "jquery/jquery":  "1.11.*",
         "ruflin/elastica":  "2.2.*",
         "highslide-software/highcharts.com": "3.0.7",
         "less/less.js": "1.7.5",
         "guzzlehttp/guzzle": "~6.0",
-        "wikimedia/composer-merge-plugin": "^1.2"
+        "wikimedia/composer-merge-plugin": "^1.2",
+        "foundation/zurb": "5.5.3",
+        "yuilibrary/yuicompressor" : "2.4.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
     },
     "repositories": [
+        {
+            "type" : "package",
+            "package" : {
+                "name" : "yuilibrary/yuicompressor",
+                "version" : "2.4.7",
+                "dist" : {
+                    "url" : "http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip",
+                    "type" : "zip",
+                    "reference" : "885657c68"
+                }
+            }
+        },
         {
             "type" : "package",
             "package" : {
@@ -46,28 +58,12 @@
         {
             "type" : "package",
             "package" : {
-                "name" : "less/less.js",
-                "version" : "1.7.5",
+                "name" : "foundation/zurb",
+                "version" : "5.5.3",
                 "dist" : {
-                    "url" : "https://github.com/less/less.js/archive/08e2fc413675ea06426f9b9b532efbb2d600ea0b.zip",
+                    "url" : "http://foundation.zurb.com/cdn/releases/foundation-5.5.3.zip",
                     "type" : "zip",
-                    "reference" : "08e2fc413675ea06426f9b9b532efbb2d600ea0b"
-                },
-                "source" : {
-                    "url" : "git://github.com/less/less.js.git",
-                    "type" : "git",
-                    "reference" : "08e2fc413675ea06426f9b9b532efbb2d600ea0b"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "jquery/jquery",
-                "version": "1.11.1",
-                "dist": {
-                    "url": "http://code.jquery.com/jquery-1.11.1.js",
-                    "type": "file"
+                    "reference" : "563a7342a4d28a7ab54cfbd0ac4bfad05fb4475e"
                 }
             }
         }
@@ -82,8 +78,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-update-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
@@ -91,8 +86,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::removeSymfonyStandardFiles",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
-            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
     "config": {
@@ -101,10 +95,6 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        },
         "merge-plugin": {
             "include": [
                 "composer.local.json",

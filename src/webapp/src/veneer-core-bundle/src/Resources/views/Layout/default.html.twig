@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block html_title %}{% if block('def_title') %}{{ block('def_title') }} ~ {% endif %}{{ veneer_bosh_director_name }}{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
-
-    <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
-    {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
-
-    {% stylesheets '@VeneerCoreBundle/Resources/private/css/custom.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    {% stylesheets '@foundation_css' %}<link rel="stylesheet" href="{{ asset_url }}" />{% endstylesheets %}
+    {% javascripts '@modernizr_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
 
     {% block stylesheets %}{% endblock %}
+
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
     <script>var _postload=[]</script>
@@ -21,18 +17,52 @@
 
   <body>
     {% block html_body %}
-      <nav class="navbar navbar-default">
-          <div class="navbar-header">
-              <ul class="nav navbar-nav">
-                    {% for nav in def_nav|default([]) %}
-                        {% if loop.last or nav.options.expanded|default %}
-                            <li><a href="{{ nav.url }}">{% if nav.options.glyphicon %}<span class="glyphicon glyphicon-{{ nav.options.glyphicon }}" aria-hidden="true"></span> {% endif %}{{ nav.title }}</a></li>
-                        {% elseif nav.options.glyphicon %}
-                            <li><a href="{{ nav.url }}" title="{{ nav.title }}"><span class="glyphicon glyphicon-{{ nav.options.glyphicon }}" aria-hidden="true"></span></a></li>
-                        {% endif %}
-                    {% endfor %}
-              </ul>
-          </div>
+        <nav class="top-bar" data-topbar role="navigation">
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="{{ path('veneer_core_summary') }}">veneer</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          </ul>
+
+          <section class="top-bar-section">
+            {#<ul class="right">
+              <li class="active"><a href="#">Right Button Active</a></li>
+              <li class="has-dropdown">
+                <a href="#">Right Button Dropdown</a>
+                <ul class="dropdown">
+                  <li><a href="#">First link in dropdown</a></li>
+                  <li class="active"><a href="#">Active link in dropdown</a></li>
+                </ul>
+              </li>
+            </ul>#}
+
+            <ul class="left">
+              {% for bundle in veneer_bosh_plugin_factory.bundles if bundle.veneerRoute %}
+                <li{% if bundle.veneerRoute == def_nav[1].route[0]|default %} class="active"{% endif %}><a class="text-muted" href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerName }}</a></li>
+              {% endfor %}
+            </ul>
+          </section>
+        </nav>
+
+            <div class="row collapse">
+                <div class="small-12 column">
+                    <div style="border-bottom:#DEDEDE solid 1px;margin-bottom:12px;padding:10px 10px 9px;">
+                        {% for nav in def_nav|default([])[2:] %}
+                            {% if loop.first and loop.length > 1 %}
+                                <a href="{{ nav.url }}" title="{{ nav.title }}" style="color:#999999;">&nbsp;<i class="fa fa-angle-double-right"></i>&nbsp;</a>
+                            {% else %}
+                                {% if loop.index0 > 1 %}
+                                    <span style="color:#CFCFCF;">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
+                                {% endif %}
+                                <a href="{{ nav.url }}"{% if loop.first or loop.last or 1 == loop.index0 %} style="color:inherit;"{% endif %}>{% if nav.options.glyphicon|default %}<i class="fa fa-{{ nav.options.glyphicon }}" aria-hidden="true"></i> {% endif %}{{ nav.title }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+                    {#
             {% if 1 < _topics|length or (0 < _topics|length and _topics[block('primary_link')] is not defined) %}
               <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -41,60 +71,34 @@
                   {% endfor %}
                 </ul>
               </div>
-            {% endif %}
+            {% endif %}#}
       </nav>
 
-      <div class="container">
-            <div class="row">
-                <div class="page-header">
-                    <h1>{{ block('def_title') }}</h1>
-                </div>
-            </div>
+        <div class="row">
+            {% block frag_container %}
 
-            <div class="row">
-                {% block frag_container %}
+                  <div class="small-12 medium-3 column">
+                    {% block frag_sidebar %}{% endblock %}
+                  </div>
 
-                      <div class="col-sm-3">
-                        {% block frag_sidebar %}{% endblock %}
-                      </div>
+                  <div class="small-12 medium-9 column">
+                    {% block frag_content %}{% endblock %}
+                  </div>
 
-                      <div class="col-sm-9">
-                        {% block frag_content %}{% endblock %}
-                      </div>
+            {% endblock %}
 
-                {% endblock %}
+        </div>
 
-            </div>
-
-          <div class="row">
-              <div class="col-12 text-center text-muted" style="padding:18px 0 6px;">
-                  <small>
-                      {% for bundle in veneer_bosh_plugin_factory.bundles %}
-                          {% if loop.index0 %}&middot;{% endif %}
-                          {% if bundle.veneerRoute %}
-                              <a class="text-muted" href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerName }}</a>
-                          {% else %}
-                              <span class="text-muted">{{ bundle.veneerName }}</span>
-                            {% endif %}
-                        {% endfor %}
-                  </small>
-                  <br />
-                  <small>
-                      <a class="text-muted" href="https://github.com/dpb587/bosh-veneer-release">bosh-veneer</a>
-                      &ndash;
-                      created by <a class="text-muted" href="http://dpb587.me/">danny berger</a>
-                  </small>
-              </div>
-          </div>
-
-      </div>
+        <div class="text-center" style="border-top:#DEDEDE solid 1px;color:#999999;font-size:80%;margin-top:18px;padding:7px 0 6px;">
+            <a href="https://github.com/dpb587/bosh-veneer-release" style="color:inherit;">bosh-veneer</a>
+            &ndash;
+            created by <a href="http://dpb587.me/" style="color:inherit;">danny berger</a>
+        </div>
     {% endblock %}
 
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
-    {% javascripts '@highcharts' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    {% javascripts '@jquery_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
+    {% javascripts '@foundation_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
+    {% javascripts '@highcharts_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
 
     {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}
     <script>_postload.forEach(function (a){a.apply(window)})</script>

@@ -3,8 +3,8 @@
 {% block def_title data.name %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.cpi.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.hoststats.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.hoststats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

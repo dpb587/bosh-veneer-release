@@ -3,9 +3,9 @@
 {% block def_title data.agentId %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.resourcepool_cpi.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.templates.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.networkALL.url|veneer_web_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.resourcepool_cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.templates.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+  {{ render(_links.widget.networkALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

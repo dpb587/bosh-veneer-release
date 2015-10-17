@@ -4,5 +4,10 @@
         "psr-4": {
             "Veneer\\LogsearchBundle\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\LogsearchBundle\\Test": "test/"
+        }
     }
 }

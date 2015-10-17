@@ -4,5 +4,10 @@
         "psr-4": {
             "Veneer\\MarketplaceBundle\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\MarketplaceBundle\\Test": "test/"
+        }
     }
 }
