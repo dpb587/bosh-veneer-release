@@ -4,26 +4,26 @@
 
 {% block frag_content %}
     <dl class="dl-horizontal">
-        <dt>Instance Type</dt>
-        <dd>{{ properties.instance_type }}</dd>
+        <dt class="col-sm-12 col-md-3 text-right">Instance Type</dt>
+        <dd class="col-sm-12 col-md-9">{{ properties.instance_type }}</dd>
 
-        <dt>Availability Zone</dt>
-        <dd>{{ properties.availability_zone }}</dd>
+        <dt class="col-sm-12 col-md-3 text-right">Availability Zone</dt>
+        <dd class="col-sm-12 col-md-9">{{ properties.availability_zone }}</dd>
 
         {% if properties.key_name is defined %}
-            <dt>Key Pair Name</dt>
-            <dd>{{ properties.key_name }}</dd>
+            <dt class="col-sm-12 col-md-3 text-right">Key Pair Name</dt>
+            <dd class="col-sm-12 col-md-9">{{ properties.key_name }}</dd>
         {% endif %}
 
         {% if properties.ephemeral_disk is defined %}
-            <dt>Ephemeral Disk</dt>
-            <dd>{{ properties.ephemeral_disk.size }} MB{% if properties.ephemeral_disk.type is defined %}, {{ properties.ephemeral_disk.type }}{% endif %}</dd>
+            <dt class="col-sm-12 col-md-3 text-right">Ephemeral Disk</dt>
+            <dd class="col-sm-12 col-md-9">{{ properties.ephemeral_disk.size }} MB{% if properties.ephemeral_disk.type is defined %}, {{ properties.ephemeral_disk.type }}{% endif %}</dd>
         {% endif %}
 
         {% if properties.elbs is defined %}
-            <dt>ELBs</dt>
+            <dt class="col-sm-12 col-md-3 text-right">ELBs</dt>
             {% for elb in properties.elbs %}
-                <dd>{{ elb }}</dd>
+                <dd class="col-sm-12 col-md-9{% if loop.index0 %} col-md-offset-3{% endif %}">{{ elb }}</dd>
             {% endfor %}
         {% endif %}
     </dl>

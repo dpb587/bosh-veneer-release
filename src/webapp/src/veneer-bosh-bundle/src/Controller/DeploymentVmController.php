@@ -14,17 +14,14 @@ class DeploymentVmController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentController::defNav($nav, $_bosh)
+        return DeploymentVmALLController::defNav($nav, $_bosh)
             ->add(
-                'VM (' . (isset($_bosh['vm']['applySpecJsonAsArray']['job']['name']) ? ($_bosh['vm']['applySpecJsonAsArray']['job']['name'] . '/' . $_bosh['vm']['applySpecJsonAsArray']['index']) : substr($_bosh['vm']['agentId'], 0, 7)) . ')',
+                $_bosh['vm']['agentId'],
                 [
                     'veneer_bosh_deployment_vm_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
                         'agent' => $_bosh['vm']['agentId'],
                     ],
-                ],
-                [
-                    'glyphicon' => 'screenshot', // changeme
                 ]
             );
     }

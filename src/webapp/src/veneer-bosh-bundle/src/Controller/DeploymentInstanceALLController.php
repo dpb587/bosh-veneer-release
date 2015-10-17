@@ -9,9 +9,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Service\Breadcrumbs;
 
 class DeploymentInstanceALLController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_bosh)
+    {
+        return DeploymentController::defNav($nav, $_bosh)
+            ->add(
+                'jobs',
+                [
+                    'veneer_bosh_deployment_instanceALL_index' => [
+                        'deployment' => $_bosh['deployment']['name'],
+                    ],
+                ]
+            )
+        ;
+    }
+
     public function indexAction($_bosh)
     {
         return $this->renderApi(
@@ -33,6 +48,9 @@ class DeploymentInstanceALLController extends AbstractController
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

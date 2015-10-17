@@ -19,4 +19,16 @@ class IndexController extends AbstractController
             ]
         );
     }
+
+    public function aboutAction()
+    {
+        return $this->renderApi(
+            'VeneerCoreBundle:Index:about.html.twig',
+            [],
+            [
+                'def_nav' => $this->container->get('veneer_web.breadcrumbs')
+                    ->add('About'),
+            ]
+        );
+    }
 }

@@ -14,9 +14,9 @@ class DeploymentInstanceController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentController::defNav($nav, $_bosh)
+        return DeploymentInstanceALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['instance']['job'] . '/' . $_bosh['instance']['index'],
+                $_bosh['instance']['job'],
                 [
                     'veneer_bosh_deployment_instance_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
@@ -25,8 +25,17 @@ class DeploymentInstanceController extends AbstractController
                     ],
                 ],
                 [
-                    'glyphicon' => 'stop',
                     'expanded' => true,
+                ]
+            )
+            ->add(
+                '#' . $_bosh['instance']['index'],
+                [
+                    'veneer_bosh_deployment_instance_summary' => [
+                        'deployment' => $_bosh['deployment']['name'],
+                        'job_name' => $_bosh['instance']['job'],
+                        'job_index' => $_bosh['instance']['index'],
+                    ],
                 ]
             )
         ;

@@ -4,6 +4,11 @@
     xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <route id="veneer_core_about" path="/about.{_format}">
+        <default key="_controller">Veneer\CoreBundle\Controller\IndexController::aboutAction</default>
+        <default key="_format">html</default>
+    </route>
+
     <route id="veneer_core_summary" path="/summary.{_format}">
         <default key="_controller">Veneer\CoreBundle\Controller\IndexController::summaryAction</default>
         <default key="_format">html</default>

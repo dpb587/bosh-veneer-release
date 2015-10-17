@@ -22,7 +22,7 @@ class MarketplaceController extends AbstractController
                 ],
             ],
             [
-                'glyphicon' => 'gift',
+                'fontawesome' => 'gift',
                 'expanded' => true,
             ]
         );

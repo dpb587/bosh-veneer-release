@@ -27,7 +27,7 @@ class DeploymentController extends AbstractController
             #    ],
             #],
             [
-                'glyphicon' => 'th',
+                'fontawesome' => 'th',
                 'expanded' => true,
             ]
         );

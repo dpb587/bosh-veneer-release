@@ -14,5 +14,20 @@
             <argument type="service" id="veneer_marketplace.marketplaces" />
             <argument type="service" id="doctrine.orm.state_entity_manager" />
         </service>
+
+        <service id="veneer_marketplace.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
+            <factory service="service_container" method="get" />
+            <argument>veneer_web.breadcrumbs</argument>
+
+            <call method="add">
+                <argument>Marketplace</argument>
+                <argument type="collection">
+                    <argument key="veneer_marketplace_summary" type="collection"></argument>
+                </argument>
+                <argument type="collection">
+                    <argument key="fontawesome">gift</argument>
+                </argument>
+            </call>
+        </service>
     </services>
 </container>

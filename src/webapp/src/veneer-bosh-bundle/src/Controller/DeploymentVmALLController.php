@@ -8,9 +8,24 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Service\Breadcrumbs;
 
 class DeploymentVmALLController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_bosh)
+    {
+        return DeploymentController::defNav($nav, $_bosh)
+            ->add(
+                'vms',
+                [
+                    'veneer_bosh_deployment_vmALL_index' => [
+                        'deployment' => $_bosh['deployment']['name'],
+                    ],
+                ]
+            )
+        ;
+    }
+
     public function indexAction($_bosh)
     {
         return $this->renderApi(

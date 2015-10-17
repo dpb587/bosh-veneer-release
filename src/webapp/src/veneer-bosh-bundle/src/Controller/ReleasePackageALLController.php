@@ -8,9 +8,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Service\Breadcrumbs;
 
 class ReleasePackageALLController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_bosh)
+    {
+        return ReleaseController::defNav($nav, $_bosh)
+            ->add(
+                'packages',
+                [
+                    'veneer_bosh_release_packageALL_index' => [
+                        'release' => $_bosh['release']['name'],
+                    ],
+                ]
+            );
+    }
+
     public function indexAction($_bosh)
     {
         return $this->renderApi(
@@ -24,6 +38,9 @@ class ReleasePackageALLController extends AbstractController
                     ->addOrderBy('p.version')
                     ->getQuery()
                     ->getResult(),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

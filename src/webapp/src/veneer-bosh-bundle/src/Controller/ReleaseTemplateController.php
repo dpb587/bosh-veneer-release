@@ -15,9 +15,9 @@ class ReleaseTemplateController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return ReleaseController::defNav($nav, $_bosh)
+        return ReleaseTemplateALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['template']['name'],
+                $_bosh['template']['name'] . '/' . $_bosh['template']['version'],
                 [
                     'veneer_bosh_release_template_summary' => [
                         'release' => $_bosh['release']['name'],
@@ -26,7 +26,7 @@ class ReleaseTemplateController extends AbstractController
                     ],
                 ],
                 [
-                    'glyphicon' => 'record',
+                    'fontawesome' => 'record',
                     'expanded' => true,
                 ]
             );

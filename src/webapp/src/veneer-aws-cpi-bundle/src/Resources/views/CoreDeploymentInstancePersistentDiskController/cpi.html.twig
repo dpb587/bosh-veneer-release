@@ -6,13 +6,13 @@
   {% if 0 < properties|length %}
     <dl class="dl-horizontal">
       {% if properties.type is defined %}
-        <dt>Type</dt>
-        <dd>{{ properties.type}}</dd>
+        <dt class="col-sm-12 col-md-3 text-right">Type</dt>
+        <dd class="col-sm-12 col-md-9">{{ properties.type}}</dd>
       {% endif %}
 
       {% if properties.encrypted is defined %}
-        <dt>Encrypted</dt>
-        <dd>{{ properties.encrypted ? 'Yes' : 'No' }}</dd>
+        <dt class="col-sm-12 col-md-3 text-right">Encrypted</dt>
+        <dd class="col-sm-12 col-md-9">{{ properties.encrypted ? 'Yes' : 'No' }}</dd>
       {% endif %}
     </dl>
   {% else %}

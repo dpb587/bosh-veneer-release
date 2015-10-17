@@ -19,7 +19,7 @@ class UserALLController extends AbstractController
                 'veneer_bosh_userALL_index' => [],
             ],
             [
-                'glyphicon' => 'user',
+                'fontawesome' => 'user',
             ]
         );
     }

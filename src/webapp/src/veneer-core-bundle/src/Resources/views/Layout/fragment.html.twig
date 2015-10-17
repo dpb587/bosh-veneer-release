@@ -1,11 +1,12 @@
-<div>
-  <div>
-    <div class="right">
-      <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><span class="fa fa-bolt"></span></a>
+<div class="card">
+  <div class="card-header">
+    <div class="pull-right">
+      <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"><i class="fa fa-link fa-fw"></i></a>
+      <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><i class="fa fa-bolt fa-fw"></i></a>
     </div>
-    <h4><a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">{{ block('def_title') }}</a></h4>
+    {{ block('def_title') }}
   </div>
-  <div>
+  <div class="card-block">
     {{ block('frag_' ~ _frag) }}
   </div>
 </div>

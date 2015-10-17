@@ -15,7 +15,7 @@ class ReleaseVersionController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return ReleaseController::defNav($nav, $_bosh)
+        return ReleaseVersionALLController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['version']['version'],
                 [
@@ -25,7 +25,7 @@ class ReleaseVersionController extends AbstractController
                     ],
                 ],
                 [
-                    'glyphicon' => 'record',
+                    'fontawesome' => 'record',
                     'expanded' => true,
                 ]
             );

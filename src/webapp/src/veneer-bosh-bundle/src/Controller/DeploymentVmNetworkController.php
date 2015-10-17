@@ -14,7 +14,7 @@ class DeploymentVmNetworkController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentController::defNav($nav, $_bosh)
+        return DeploymentVmNetworkALLController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['network']['name'],
                 [
@@ -23,9 +23,6 @@ class DeploymentVmNetworkController extends AbstractController
                         'agent' => $_bosh['vm']['agentId'],
                         'network' => $_bosh['network']['name'],
                     ],
-                ],
-                [
-                    'glyphicon' => 'screenshot', // @todo change me
                 ]
             );
     }

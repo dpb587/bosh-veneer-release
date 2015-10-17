@@ -53,7 +53,7 @@
                     <argument key="veneer_bosh_summary" type="collection"></argument>
                 </argument>
                 <argument type="collection">
-                    <argument key="glyphicon">tower</argument>
+                    <argument key="fontawesome">tower</argument>
                 </argument>
             </call>
         </service>

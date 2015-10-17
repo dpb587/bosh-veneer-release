@@ -14,12 +14,12 @@ class MarketplaceALLController extends AbstractController
     public static function defNav(Breadcrumbs $nav)
     {
         return $nav->add(
-            '{marketplace}',
+            'marketplaces',
             [
                 'veneer_marketplace_marketplaceALL_index' => [],
             ],
             [
-                'glyphicon' => 'gift',
+                'fontawesome' => 'map-signs',
             ]
         );
     }
@@ -37,7 +37,7 @@ class MarketplaceALLController extends AbstractController
                 }),
             ],
             [
-                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs')),
+                'def_nav' => static::defNav($this->container->get('veneer_marketplace.breadcrumbs')),
             ]
         );
     }

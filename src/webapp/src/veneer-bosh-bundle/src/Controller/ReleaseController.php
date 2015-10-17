@@ -14,18 +14,16 @@ class ReleaseController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return $nav->add(
-            $_bosh['release']['name'],
-            [
-                'veneer_bosh_release_summary' => [
-                    'release' => $_bosh['release']['name'],
-                ],
-            ],
-            [
-                'glyphicon' => 'tree-deciduous',
-                'expanded' => true,
-            ]
-        );
+        return ReleaseALLController::defNav($nav, $_bosh)
+            ->add(
+                $_bosh['release']['name'],
+                [
+                    'veneer_bosh_release_summary' => [
+                        'release' => $_bosh['release']['name'],
+                    ],
+                ]
+            )
+        ;
     }
 
     public function summaryAction($_bosh)

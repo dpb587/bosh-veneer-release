@@ -49,18 +49,16 @@ assetic:
         highcharts_js:
             inputs:
                 - "%kernel.root_dir%/../vendor/highslide-software/highcharts.com/js/highcharts.src.js"
-        foundation_css:
+        bootstrap_css:
             inputs:
-                - "%kernel.root_dir%/../vendor/foundation/zurb/css/foundation.min.css"
-        foundation_js:
+                - "@VeneerCoreBundle/Resources/private/bootstrap-compiled/css/bootstrap.min.css"
+                - "@VeneerCoreBundle/Resources/private/css/custom.css"
+        bootstrap_js:
             inputs:
-                - "%kernel.root_dir%/../vendor/foundation/zurb/js/foundation.min.js"
-        modernizr_js:
-            inputs:
-                - "%kernel.root_dir%/../vendor/foundation/zurb/js/vendor/modernizr.js"
+                - "@VeneerCoreBundle/Resources/private/bootstrap-compiled/js/bootstrap.min.js"
         jquery_js:
             inputs:
-                - "%kernel.root_dir%/../vendor/foundation/zurb/js/vendor/jquery.js"
+                - "%kernel.root_dir%/../vendor/components/jquery/jquery.min.js"
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

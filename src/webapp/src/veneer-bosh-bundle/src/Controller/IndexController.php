@@ -29,7 +29,8 @@ class IndexController extends AbstractController
                 ],
             ],
             [
-                'def_nav' => $this->container->get('veneer_bosh.breadcrumbs'),
+                'def_nav' => $this->container->get('veneer_bosh.breadcrumbs')
+                    ->add('BOSH Director'),
             ]
         );
     }

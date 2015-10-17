@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4431ed3e7805333ebbc36ff64966ccbc",
-    "content-hash": "54baa8b5795517084b4c0bdd7ba71ce1",
+    "hash": "202a3937235a0b9de5efa151fb7f9d73",
+    "content-hash": "2792b6616d3e6e30c5638045961fe4ab",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -82,6 +82,48 @@
                 "sdk"
             ],
             "time": "2015-10-15 21:40:56"
+        },
+        {
+            "name": "components/jquery",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jquery.git",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jquery/zipball/7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "reference": "7b1d1104656a092423fbfba13c5920e9bbba290c",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "jquery.js"
+                    ],
+                    "files": [
+                        "jquery.min.js",
+                        "jquery.min.map",
+                        "jquery-migrate.js",
+                        "jquery-migrate.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Resig",
+                    "email": "jeresig@gmail.com"
+                }
+            ],
+            "description": "jQuery JavaScript Library",
+            "homepage": "http://jquery.com",
+            "time": "2015-05-08 05:04:47"
         },
         {
             "name": "doctrine/annotations",
@@ -780,17 +822,6 @@
             "time": "2015-08-31 13:19:01"
         },
         {
-            "name": "foundation/zurb",
-            "version": "5.5.3",
-            "dist": {
-                "type": "zip",
-                "url": "http://foundation.zurb.com/cdn/releases/foundation-5.5.3.zip",
-                "reference": "563a7342a4d28a7ab54cfbd0ac4bfad05fb4475e",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "guzzlehttp/guzzle",
             "version": "6.1.0",
             "source": {
@@ -1023,17 +1054,6 @@
             "time": "2014-01-12 16:20:24"
         },
         {
-            "name": "jquery/jquery",
-            "version": "1.11.1",
-            "dist": {
-                "type": "file",
-                "url": "http://code.jquery.com/jquery-1.11.1.js",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "kriswallsmith/assetic",
             "version": "v1.3.1",
             "source": {
@@ -1110,22 +1130,6 @@
                 "minification"
             ],
             "time": "2015-10-15 01:33:42"
-        },
-        {
-            "name": "less/less.js",
-            "version": "1.7.5",
-            "source": {
-                "type": "git",
-                "url": "git://github.com/less/less.js.git",
-                "reference": "08e2fc413675ea06426f9b9b532efbb2d600ea0b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/less/less.js/archive/08e2fc413675ea06426f9b9b532efbb2d600ea0b.zip",
-                "reference": "08e2fc413675ea06426f9b9b532efbb2d600ea0b",
-                "shasum": null
-            },
-            "type": "library"
         },
         {
             "name": "monolog/monolog",

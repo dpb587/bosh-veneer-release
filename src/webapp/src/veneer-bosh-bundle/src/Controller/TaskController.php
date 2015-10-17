@@ -15,18 +15,16 @@ class TaskController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return $nav->add(
-            '#' . $_bosh['task']['id'],
-            [
-                'veneer_bosh_task_summary' => [
-                    'task' => $_bosh['task']['id'],
-                ],
-            ],
-            [
-                'glyphicon' => 'tasks',
-                'expanded' => true,
-            ]
-        );
+        return TaskALLController::defNav($nav, $_bosh)
+            ->add(
+                '#' . $_bosh['task']['id'],
+                [
+                    'veneer_bosh_task_summary' => [
+                        'task' => $_bosh['task']['id'],
+                    ],
+                ]
+            )
+        ;
     }
 
     public function summaryAction($_bosh)

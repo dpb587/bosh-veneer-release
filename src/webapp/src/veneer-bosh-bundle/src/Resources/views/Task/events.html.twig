@@ -15,11 +15,11 @@
                         <tr>
                             <td class="text-center" width="4">
                                 {% if 'finished' == stage.state %}
-                                    <span class="glyphicon glyphicon-ok text-success"></span>
+                                    <span class="fontawesome fontawesome-ok text-success"></span>
                                 {% elseif 'failed' == stage.state %}
-                                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                                    <span class="fontawesome fontawesome-remove text-danger"></span>
                                 {% else %}
-                                    <span class="glyphicon glyphicon-refresh"></span>
+                                    <span class="fontawesome fontawesome-refresh"></span>
                                 {% endif %}
                             </td>
                             <td><strong>{{ stage.name }}</strong></td>
@@ -36,11 +36,11 @@
                         <tr id="{{ stage.id }}-{{ task_idx }}" {% if 'failed' == task.state %} class="danger"{% elseif 'finished' != task.state %} class="warning"{% endif %}{% if 'finished' == stage.state %} style="display:none;"{% endif %}>
                             <td class="text-center" width="4">
                                 {% if 'finished' == stage.state %}
-                                    <span class="glyphicon glyphicon-ok text-success"></span>
+                                    <span class="fontawesome fontawesome-ok text-success"></span>
                                 {% elseif 'failed' == stage.state %}
-                                    <span class="glyphicon glyphicon-remove text-danger"></span>
+                                    <span class="fontawesome fontawesome-remove text-danger"></span>
                                 {% else %}
-                                    <span class="glyphicon glyphicon-refresh"></span>
+                                    <span class="fontawesome fontawesome-refresh"></span>
                                 {% endif %}
                             </td>
                             {% if 'unknown' != stage.name %}
@@ -91,6 +91,6 @@
   </dl>
 
   <ul class="list-unstyled">
-    <li><a href="{{ _links.widget.properties.url }}"><small class="text-muted" style="margin-right:3px;"><span class="glyphicon glyphicon-pencil"></span></small>Properties</a></li>
+    <li><a href="{{ _links.widget.properties.url }}"><small class="text-muted" style="margin-right:3px;"><span class="fontawesome fontawesome-pencil"></span></small>Properties</a></li>
   </ul>
 {% endblock %}

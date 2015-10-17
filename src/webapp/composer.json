@@ -18,13 +18,11 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "jquery/jquery":  "1.11.*",
+        "components/jquery":  "2.1.4",
         "ruflin/elastica":  "2.2.*",
         "highslide-software/highcharts.com": "3.0.7",
-        "less/less.js": "1.7.5",
         "guzzlehttp/guzzle": "~6.0",
         "wikimedia/composer-merge-plugin": "^1.2",
-        "foundation/zurb": "5.5.3",
         "yuilibrary/yuicompressor" : "2.4.7"
     },
     "require-dev": {
@@ -52,18 +50,6 @@
                     "url" : "https://github.com/highslide-software/highcharts.com/archive/57d15b2324567ee32fe8fd543b518a20de0fb4da.zip",
                     "type" : "zip",
                     "reference" : "57d15b2324567ee32fe8fd543b518a20de0fb4da"
-                }
-            }
-        },
-        {
-            "type" : "package",
-            "package" : {
-                "name" : "foundation/zurb",
-                "version" : "5.5.3",
-                "dist" : {
-                    "url" : "http://foundation.zurb.com/cdn/releases/foundation-5.5.3.zip",
-                    "type" : "zip",
-                    "reference" : "563a7342a4d28a7ab54cfbd0ac4bfad05fb4475e"
                 }
             }
         }

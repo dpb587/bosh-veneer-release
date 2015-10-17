@@ -41,7 +41,7 @@
                     <argument key="veneer_core_summary" type="collection"></argument>
                 </argument>
                 <argument type="collection">
-                    <argument key="glyphicon">home</argument>
+                    <argument key="fontawesome">home</argument>
                 </argument>
             </call>
         </service>

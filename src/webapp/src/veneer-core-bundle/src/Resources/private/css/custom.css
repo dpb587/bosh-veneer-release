@@ -1,7 +1,3 @@
-dl dd + dt {
-    margin-top: 12px;
-}
-
-dl.dl-horizontal dd + dt + dd{
-    margin-top: 12px;
+dl dd + dd {
+    margin-top: -0.5rem;
 }

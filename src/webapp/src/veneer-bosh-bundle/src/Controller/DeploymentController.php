@@ -22,10 +22,6 @@ class DeploymentController extends AbstractController
                     'veneer_bosh_deployment_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
                     ],
-                ],
-                [
-                    'glyphicon' => 'th',
-                    'expanded' => true,
                 ]
             )
         ;

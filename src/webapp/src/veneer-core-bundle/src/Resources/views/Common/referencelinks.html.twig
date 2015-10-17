@@ -1,9 +1,5 @@
 {% if _links %}
-    {% if divider|default %}
-        <hr />
-    {% endif %}
-
-    <dl>
+    <div class="list-group">
         {% for topic_name, topic in {
             'config': {
                 title: 'Configuration',
@@ -23,22 +19,19 @@
             },
             'documentation': {
                 title: 'Documentation',
-                fontawesome: 'pencil',
+                fontawesome: 'info-circle',
             },
             'other': {
                 title: 'Useful Links',
                 fontawesome: 'link',
             },
         } if _links[topic_name] is defined %}
-            <dt><i class="fa fa-{{ topic.fontawesome }}"></i> {{ topic.title }}</dt>
             {% for link in _links[topic_name] %}
-                <dd>
-                    <a href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}>{{ link.title }}</a>
-                    {% if link.note|default %}
-                        <span class="text-muted">&ndash; {{ link.note }}</span>
-                    {% endif %}
-                </dd>
+                <a class="list-group-item" href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}{% if link.note|default %} title="{{ link.note }}"{% endif %}>
+                    <i class="fa fa-{{ topic.fontawesome }} fa-fw"></i>
+                    {{ link.title }}
+                </a>
             {% endfor %}
         {% endfor %}
-    </dl>
+    </div>
 {% endif %}

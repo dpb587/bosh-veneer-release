@@ -6,14 +6,14 @@
   {% if 0 < properties|length %}
     <dl class="dl-horizontal">
       {% if properties.subnet is defined %}
-        <dt>Subnet</dt>
-        <dd><a href="{{ aws_console_vpc_subnet(properties.subnet) }}" target="_blank">{{ properties.subnet }}</a></dd>
+        <dt class="col-sm-12 col-md-3 text-right">Subnet</dt>
+        <dd class="col-sm-12 col-md-9"><a href="{{ aws_console_vpc_subnet(properties.subnet) }}" target="_blank">{{ properties.subnet }}</a></dd>
       {% endif %}
 
       {% if properties.security_groups is defined %}
-        <dt>Security Groups</dt>
+        <dt class="col-sm-12 col-md-3 text-right">Security Groups</dt>
         {% for security_group in properties.security_groups %}
-          <dd><a href="{{ aws_console_ec2_securitygroup({ 'groupName' : security_group }) }}" target="_blank">{{ security_group }}</a></dd>
+          <dd class="col-sm-12 col-md-9{% if loop.index0 %} col-md-offset-3{% endif %}"><a href="{{ aws_console_ec2_securitygroup({ 'groupName' : security_group }) }}" target="_blank">{{ security_group }}</a></dd>
         {% endfor %}
       {% endif %}
     </dl>

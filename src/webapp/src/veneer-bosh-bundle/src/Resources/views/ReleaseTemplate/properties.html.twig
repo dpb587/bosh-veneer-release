@@ -16,12 +16,12 @@
           <td style="width:20px;">
             {% if 'default' in property|keys %}
               {% if none == property.default %}
-                <span class="js-tooltip glyphicon glyphicon-unchecked" title="No Value Required" style="color:#31708f;" data-toggle="tooltip" data-placement="bottom"></span>
+                <span class="js-tooltip fontawesome fontawesome-unchecked" title="No Value Required" style="color:#31708f;" data-toggle="tooltip" data-placement="bottom"></span>
               {% else %}
-                <span class="js-tooltip glyphicon glyphicon-check" title="Has Default Value" style="color:#3c763d;" data-toggle="tooltip" data-placement="bottom"></span>
+                <span class="js-tooltip fontawesome fontawesome-check" title="Has Default Value" style="color:#3c763d;" data-toggle="tooltip" data-placement="bottom"></span>
               {% endif %}
             {% else %}
-              <span class="js-tooltip glyphicon glyphicon-edit" title="Needs User Value" style="color:#a94442;" data-toggle="tooltip" data-placement="bottom"></span>
+              <span class="js-tooltip fontawesome fontawesome-edit" title="Needs User Value" style="color:#a94442;" data-toggle="tooltip" data-placement="bottom"></span>
             {% endif %}
           </td>
           <td style="width:40%;word-wrap:break-word;">

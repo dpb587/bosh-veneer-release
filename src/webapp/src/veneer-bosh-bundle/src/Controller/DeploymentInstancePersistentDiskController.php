@@ -26,7 +26,7 @@ class DeploymentInstancePersistentDiskController extends AbstractController
                     ],
                 ],
                 [
-                    'glyphicon' => 'hdd',
+                    'fontawesome' => 'hdd',
                     'expanded' => true,
                 ]
             );

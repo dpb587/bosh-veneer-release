@@ -19,9 +19,9 @@
                             {% spaceless %}
                                 <a href="{{ path('veneer_bosh_deployment_instance_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job_name': job_name|split('/')[0], 'job_index': job_name|split('/')[1] }) }}" title="{{ job_name }} @ {{ job_check.timestamp }}">
                                     {% if 0 == job_check.status %}
-                                        <span class="text-success"><span class="glyphicon glyphicon-ok"></span></span>
+                                        <span class="text-success"><span class="fontawesome fontawesome-ok"></span></span>
                                     {% else %}
-                                        <span class="text-danger"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="text-danger"><span class="fontawesome fontawesome-remove"></span></span>
                                     {% endif %}
                                 </a>
                             {% endspaceless %}
