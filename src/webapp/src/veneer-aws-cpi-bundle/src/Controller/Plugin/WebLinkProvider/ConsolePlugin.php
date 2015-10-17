@@ -3,8 +3,8 @@
 namespace Veneer\AwsCpiBundle\Controller\Plugin\WebLinkProvider;
 
 use Symfony\Component\HttpFoundation\Request;
-use Veneer\WebBundle\Plugin\LinkProvider\PluginInterface;
-use Veneer\WebBundle\Plugin\LinkProvider\Link;
+use Veneer\CoreBundle\Plugin\LinkProvider\PluginInterface;
+use Veneer\CoreBundle\Plugin\LinkProvider\Link;
 use Veneer\AwsCpiBundle\Service\ConsoleHelper;
 
 class ConsolePlugin implements PluginInterface

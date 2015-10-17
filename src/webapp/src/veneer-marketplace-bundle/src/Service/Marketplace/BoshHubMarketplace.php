@@ -50,7 +50,6 @@ class BoshHubMarketplace implements MarketplaceInterface
         }
 
         foreach ($releases as $releasePage) {
-            fwrite(STDOUT, $releasePage . "\n");
             $response = $this->request($releasePage);
 
             $dom = new \DOMDocument();

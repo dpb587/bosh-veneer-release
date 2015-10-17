@@ -3,7 +3,7 @@
 namespace Veneer\LogsearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Veneer\WebBundle\Plugin\Bundle\BundleInterface;
+use Veneer\CoreBundle\Plugin\Bundle\BundleInterface;
 
 class VeneerLogsearchBundle extends Bundle implements BundleInterface
 {

@@ -3,7 +3,7 @@
 namespace Veneer\BoshEditorBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Veneer\WebBundle\Plugin\Bundle\BundleInterface;
+use Veneer\CoreBundle\Plugin\Bundle\BundleInterface;
 
 class VeneerBoshEditorBundle extends Bundle implements BundleInterface
 {

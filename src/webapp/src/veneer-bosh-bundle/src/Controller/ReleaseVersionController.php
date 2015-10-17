@@ -8,8 +8,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
-use Veneer\WebBundle\Controller\AbstractController;
-use Veneer\WebBundle\Service\Breadcrumbs;
+use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Service\Breadcrumbs;
 
 class ReleaseVersionController extends AbstractController
 {

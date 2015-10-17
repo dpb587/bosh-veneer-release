@@ -44,7 +44,7 @@ assetic:
     use_controller: false
     #bundles:        [ ]
     bundles:
-        - VeneerWebBundle
+        - VeneerCoreBundle
     assets:
         highcharts:
             inputs:
@@ -88,7 +88,7 @@ doctrine:
                 connection: state
                 naming_strategy: doctrine.orm.naming_strategy.underscore
                 mappings:
-                    VeneerWebBundle: ~
+                    VeneerCoreBundle: ~
                     VeneerMarketplaceBundle: ~
             bosh:
                 connection: bosh

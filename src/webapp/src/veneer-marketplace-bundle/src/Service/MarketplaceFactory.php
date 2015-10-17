@@ -2,7 +2,7 @@
 
 namespace Veneer\MarketplaceBundle\Service;
 
-use Veneer\Component\DependencyInjection\ContainerMap;
+use Veneer\CoreBundle\DependencyInjection\ContainerMap;
 
 class MarketplaceFactory extends ContainerMap
 {

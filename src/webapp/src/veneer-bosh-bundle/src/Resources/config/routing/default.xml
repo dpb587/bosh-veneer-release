@@ -18,7 +18,7 @@
     </route>
 
     <route id="veneer_bosh_deployment_data" path="/bosh/deployment/{deployment}/data.{_format}">
-        <default key="_controller">Veneer\WebBundle\Controller\GenericObjectController::dataAction</default>
+        <default key="_controller">Veneer\CoreBundle\Controller\GenericObjectController::dataAction</default>
         <default key="_format">html</default>
         <default key="_veneer_web_context">bosh/deployment</default>
     </route>

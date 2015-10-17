@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
 
-            new Veneer\WebBundle\VeneerWebBundle(),
+            new Veneer\CoreBundle\VeneerCoreBundle(),
             new Veneer\BoshBundle\VeneerBoshBundle(),
             new Veneer\BoshEditorBundle\VeneerBoshEditorBundle(),
             new Veneer\AwsCpiBundle\VeneerAwsCpiBundle(),

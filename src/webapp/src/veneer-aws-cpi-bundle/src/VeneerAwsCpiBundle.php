@@ -3,7 +3,7 @@
 namespace Veneer\AwsCpiBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Veneer\WebBundle\Plugin\Bundle\BundleInterface;
+use Veneer\CoreBundle\Plugin\Bundle\BundleInterface;
 
 class VeneerAwsCpiBundle extends Bundle implements BundleInterface
 {

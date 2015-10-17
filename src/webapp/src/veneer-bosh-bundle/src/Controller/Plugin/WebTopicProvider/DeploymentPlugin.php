@@ -3,8 +3,8 @@
 namespace Veneer\BoshBundle\Controller\Plugin\WebTopicProvider;
 
 use Symfony\Component\HttpFoundation\Request;
-use Veneer\WebBundle\Plugin\TopicProvider\PluginInterface;
-use Veneer\WebBundle\Plugin\TopicProvider\Topic;
+use Veneer\CoreBundle\Plugin\TopicProvider\PluginInterface;
+use Veneer\CoreBundle\Plugin\TopicProvider\Topic;
 
 class DeploymentPlugin implements PluginInterface
 {

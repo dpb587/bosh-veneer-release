@@ -25,9 +25,9 @@ class AwsS3Marketplace implements MarketplaceInterface
                 'access_key_id' => null,
                 'secret_access_key' => null,
                 'release_prefix' => 'release/',
-                'release_regex' => '#/(?P<name>[^/]+)\-(?P<version>\d+)\.tgz$#',
+                'release_regex' => '#/(?P<name>[^/]+)\-(?P<version>\d.*)\.tgz$#',
                 'stemcell_prefix' => 'stemcell/',
-                'stemcell_regex' => '#/(?P<name>[^/]+)(?<light>\-light)?\-(?P<version>\d+)\.tgz$#',
+                'stemcell_regex' => '#/(?P<name>[^/]+)(?<light>\-light)?\-(?P<version>\d.*)\.tgz$#',
             ],
             $options
         );

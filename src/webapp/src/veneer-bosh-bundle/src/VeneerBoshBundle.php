@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Veneer\BoshBundle\DependencyInjection\Security\Factory\BoshDirectorFactory;
-use Veneer\WebBundle\Plugin\Bundle\BundleInterface;
+use Veneer\CoreBundle\Plugin\Bundle\BundleInterface;
 
 class VeneerBoshBundle extends Bundle implements BundleInterface
 {

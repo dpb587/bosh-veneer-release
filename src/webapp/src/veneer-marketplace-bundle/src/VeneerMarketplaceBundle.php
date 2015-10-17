@@ -3,8 +3,8 @@
 namespace Veneer\MarketplaceBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Veneer\WebBundle\Plugin\Bundle\BundleInterface;
-use Veneer\Component\DependencyInjection\ContainerMapCompilerPass;
+use Veneer\CoreBundle\Plugin\Bundle\BundleInterface;
+use Veneer\CoreBundle\DependencyInjection\CompilerPass\ContainerMapCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class VeneerMarketplaceBundle extends Bundle implements BundleInterface

@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Veneer\WebBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {

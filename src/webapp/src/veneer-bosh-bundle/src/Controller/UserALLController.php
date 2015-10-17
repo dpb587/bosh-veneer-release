@@ -6,8 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Veneer\WebBundle\Controller\AbstractController;
-use Veneer\WebBundle\Service\Breadcrumbs;
+use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Service\Breadcrumbs;
 
 class UserALLController extends AbstractController
 {

@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Veneer\BoshBundle\Security\Core\Authentication\Token\BasicToken;
-use Veneer\Component\Security\EncryptionService;
+use Veneer\CoreBundle\Service\EncryptionService;
 
 class UserPasswordListener
 {

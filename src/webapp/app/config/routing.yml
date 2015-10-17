@@ -1,5 +1,5 @@
 veneer_web:
-    resource: "@VeneerWebBundle/Resources/config/routing/default.xml"
+    resource: "@VeneerCoreBundle/Resources/config/routing/default.xml"
 veneer_bosh:
     resource: "@VeneerBoshBundle/Resources/config/routing/default.xml"
 veneer_bosh_editor:

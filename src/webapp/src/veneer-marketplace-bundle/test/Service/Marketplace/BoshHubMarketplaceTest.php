@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\MarketplaceBundle\Test\Service\Marketplace;
+namespace Veneer\MarketplaceBundle\Tests\Service\Marketplace;
 
 use Veneer\MarketplaceBundle\Service\Marketplace\BoshHubMarketplace;
 use GuzzleHttp\Psr7\Response;

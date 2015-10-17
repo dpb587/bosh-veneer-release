@@ -1,0 +1,8 @@
+{
+    "name" : "dpb587/veneer-core-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\CoreBundle\\": "src/"
+        }
+    }
+}
