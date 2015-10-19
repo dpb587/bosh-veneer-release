@@ -9,51 +9,12 @@
     },
     "require": {
         "php": ">=5.3.9",
-        "symfony/symfony": "2.7.*",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
-        "doctrine/doctrine-bundle": "~1.4",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~4.0",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "components/jquery":  "2.1.4",
-        "ruflin/elastica":  "2.2.*",
-        "highslide-software/highcharts.com": "3.0.7",
-        "guzzlehttp/guzzle": "~6.0",
-        "wikimedia/composer-merge-plugin": "^1.2",
-        "yuilibrary/yuicompressor" : "2.4.7"
+        "wikimedia/composer-merge-plugin": "^1.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
     },
-    "repositories": [
-        {
-            "type" : "package",
-            "package" : {
-                "name" : "yuilibrary/yuicompressor",
-                "version" : "2.4.7",
-                "dist" : {
-                    "url" : "http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip",
-                    "type" : "zip",
-                    "reference" : "885657c68"
-                }
-            }
-        },
-        {
-            "type" : "package",
-            "package" : {
-                "name" : "highslide-software/highcharts.com",
-                "version" : "3.0.7",
-                "dist" : {
-                    "url" : "https://github.com/highslide-software/highcharts.com/archive/57d15b2324567ee32fe8fd543b518a20de0fb4da.zip",
-                    "type" : "zip",
-                    "reference" : "57d15b2324567ee32fe8fd543b518a20de0fb4da"
-                }
-            }
-        }
-    ],
     "scripts": {
         "post-root-package-install": [
             "SymfonyStandard\\Composer::hookRootPackageInstall"

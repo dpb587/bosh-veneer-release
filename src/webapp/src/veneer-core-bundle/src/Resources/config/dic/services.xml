@@ -5,34 +5,52 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_web.plugin.bundle.factory" class="Veneer\CoreBundle\Plugin\Bundle\Factory">
+        <service id="veneer_core.plugin.bundle.factory" class="Veneer\CoreBundle\Plugin\Bundle\Factory">
             <argument type="service" id="kernel" />
         </service>
 
-        <service id="veneer_web.plugin.link_provider.factory" class="Veneer\CoreBundle\Plugin\LinkProvider\Factory">
+        <service id="veneer_core.plugin.link_provider.factory" class="Veneer\CoreBundle\Plugin\LinkProvider\Factory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- compiler -->
         </service>
 
-        <service id="veneer_web.plugin.topic_provider.factory" class="Veneer\CoreBundle\Plugin\TopicProvider\Factory">
+        <service id="veneer_core.plugin.topic_provider.factory" class="Veneer\CoreBundle\Plugin\TopicProvider\Factory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- compiler -->
         </service>
 
-        <service id="veneer_web.plugin.request_context.factory" class="Veneer\CoreBundle\Plugin\RequestContext\Factory">
+        <service id="veneer_core.plugin.request_context.factory" class="Veneer\CoreBundle\Plugin\RequestContext\Factory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- compiler -->
 
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
-        <service id="veneer_web.event_listener.json_response" class="Veneer\CoreBundle\EventListener\JsonResponseListener">
+        <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">
+            <argument>/var/vcap/store/bosh-veneer/repository/git-root</argument>
+            <argument>prod-abraxas/aws-usw2</argument>
+            <argument>/var/vcap/packages/bosh-veneer-git/bin/git</argument>
+        </service>
+
+        <service id="veneer_core.workspace.watcher" class="Veneer\CoreBundle\Service\Workspace\WatcherFactory">
+            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- map -->
+        </service>
+
+        <service id="veneer_core.event_listener.json_response" class="Veneer\CoreBundle\EventListener\JsonResponseListener">
             <argument>%kernel.debug%</argument>
 
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
         </service>
 
-        <service id="veneer_web.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs" scope="prototype">
+        <service id="veneer_core.encryption" class="Veneer\CoreBundle\Service\EncryptionService">
+            <argument type="collection">
+                <argument key="key">%secret%</argument>
+            </argument>
+        </service>
+
+        <service id="veneer_core.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs" scope="prototype">
             <argument type="service" id="router" />
 
             <call method="add">
@@ -44,12 +62,6 @@
                     <argument key="fontawesome">home</argument>
                 </argument>
             </call>
-        </service>
-
-        <service id="veneer_web.encryption" class="Veneer\CoreBundle\Service\EncryptionService">
-            <argument type="collection">
-                <argument key="key">%secret%</argument>
-            </argument>
         </service>
     </services>
 </container>

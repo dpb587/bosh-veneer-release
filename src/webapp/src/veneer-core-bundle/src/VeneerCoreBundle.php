@@ -11,6 +11,7 @@ class VeneerCoreBundle extends Bundle
     {
         parent::build($builder);
 
+        $builder->addCompilerPass(new DependencyInjection\CompilerPass\WorkspaceWatcherCompilerPass());
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\RequestContextPluginCompilerPass());
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\LinkProviderPluginCompilerPass());
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\TopicProviderPluginCompilerPass());

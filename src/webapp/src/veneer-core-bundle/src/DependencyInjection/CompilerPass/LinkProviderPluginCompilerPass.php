@@ -9,22 +9,23 @@ class LinkProviderPluginCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('veneer_web.plugin.link_provider.factory')) {
+        if (!$container->hasDefinition('veneer_core.plugin.link_provider.factory')) {
             return;
         }
 
         $map = array();
 
-        foreach ($container->findTaggedServiceIds('veneer_web.link_provider') as $id => $attributes) {
+        foreach ($container->findTaggedServiceIds('veneer_core.link_provider') as $id => $attributes) {
+            fwrite(STDOUT, $id . print_r($attributes, true));
             foreach ($attributes as $attribute) {
                 if (!isset($attribute['route'])) {
-                    throw new \InvalidArgumentException(sprintf('The service "%s" is missing the "route" property for tag "veneer_web.link_provider".', $id));
+                    throw new \InvalidArgumentException(sprintf('The service "%s" is missing the "route" property for tag "veneer_core.link_provider".', $id));
                 }
 
                 $map[$attribute['route']][] = $id;
             }
         }
 
-        $container->getDefinition('veneer_web.plugin.link_provider.factory')->replaceArgument(1, $map);
+        $container->getDefinition('veneer_core.plugin.link_provider.factory')->replaceArgument(1, $map);
     }
 }

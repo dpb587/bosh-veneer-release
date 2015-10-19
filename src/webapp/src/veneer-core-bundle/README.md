@@ -7,9 +7,13 @@ below...
 ## Workspace
 
 We'll assume that some bundles will want to store and version their configuration somehow. For example, the ops bundle
-needs to store and update deployment manifests. This tool uses a `git` repository to accomplish this, allowing users to
-clone, fetch to, and push from their local workstations as a form of backup and to support lower-level functionality and
-configuration that bundles may not currently support.
+needs to store and update deployment manifests.
+
+### Repository
+
+This tool uses a `git` repository to accomplish this, allowing users to clone, fetch to, and push from their local
+workstations as a form of backup and to support lower-level functionality and configuration that bundles may not
+currently support.
 
 For CLI access, the workspace is available at:
 
@@ -62,10 +66,10 @@ Once a branch is updated, the following steps are taken...
 
 Callbacks are executed with a WorkspaceChangeEvent including the following details...
 
- * `tree` - tree (Tree)
- * `path` - path (string)
- * `blob` - new file content (Blob, or null when deleted)
- * `changeset` - list of all files changed
+ * `branch`
+ * `commit`
+ * `path`
+ * `change` - `created`, `modified`, `deleted`
 
 
 ### Environment

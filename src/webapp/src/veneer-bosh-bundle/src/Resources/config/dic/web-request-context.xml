@@ -8,30 +8,30 @@
         <service id="veneer_bosh.plugin.web_request_context.builtin" class="Veneer\BoshBundle\Controller\Plugin\WebRequestContext\BuiltinPlugin">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
-            <tag name="veneer_web.request_context" context="bosh/deployment" />
-            <tag name="veneer_web.request_context" context="bosh/deployment:all" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/property:all" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/property" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/instance" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/instance:all" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/instance/persistent_disk" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/instance/persistent_disk:all" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/vm" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/vm:all" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/vm/network" />
-            <tag name="veneer_web.request_context" context="bosh/deployment/vm/network:all" />
-            <tag name="veneer_web.request_context" context="bosh/task" />
-            <tag name="veneer_web.request_context" context="bosh/task:all" />
-            <tag name="veneer_web.request_context" context="bosh/release" />
-            <tag name="veneer_web.request_context" context="bosh/release:all" />
-            <tag name="veneer_web.request_context" context="bosh/release/package" />
-            <tag name="veneer_web.request_context" context="bosh/release/package:all" />
-            <tag name="veneer_web.request_context" context="bosh/release/template" />
-            <tag name="veneer_web.request_context" context="bosh/release/template:all" />
-            <tag name="veneer_web.request_context" context="bosh/release/version" />
-            <tag name="veneer_web.request_context" context="bosh/release/version:all" />
-            <tag name="veneer_web.request_context" context="bosh/stemcell" />
-            <tag name="veneer_web.request_context" context="bosh/stemcell:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment" />
+            <tag name="veneer_core.request_context" context="bosh/deployment:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/property:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/property" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance/persistent_disk" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance/persistent_disk:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/vm" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/vm:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/vm/network" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/vm/network:all" />
+            <tag name="veneer_core.request_context" context="bosh/task" />
+            <tag name="veneer_core.request_context" context="bosh/task:all" />
+            <tag name="veneer_core.request_context" context="bosh/release" />
+            <tag name="veneer_core.request_context" context="bosh/release:all" />
+            <tag name="veneer_core.request_context" context="bosh/release/package" />
+            <tag name="veneer_core.request_context" context="bosh/release/package:all" />
+            <tag name="veneer_core.request_context" context="bosh/release/template" />
+            <tag name="veneer_core.request_context" context="bosh/release/template:all" />
+            <tag name="veneer_core.request_context" context="bosh/release/version" />
+            <tag name="veneer_core.request_context" context="bosh/release/version:all" />
+            <tag name="veneer_core.request_context" context="bosh/stemcell" />
+            <tag name="veneer_core.request_context" context="bosh/stemcell:all" />
         </service>
     </services>
 </container>

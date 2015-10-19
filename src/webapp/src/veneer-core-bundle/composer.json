@@ -9,5 +9,31 @@
         "psr-4": {
             "Veneer\\CoreBundle\\Test": "test/"
         }
-    }
+    },
+    "require": {
+        "symfony/symfony": "2.7.*",
+        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
+        "doctrine/dbal": "<2.5",
+        "doctrine/doctrine-bundle": "~1.4",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "components/jquery":  "2.1.4",
+        "teqneers/php-stream-wrapper-for-git": "dev-master",
+        "yuilibrary/yuicompressor" : "2.4.7"
+    },
+    "repositories": [
+        {
+            "type" : "package",
+            "package" : {
+                "name" : "yuilibrary/yuicompressor",
+                "version" : "2.4.7",
+                "dist" : {
+                    "url" : "http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip",
+                    "type" : "zip",
+                    "reference" : "885657c68"
+                }
+            }
+        }
+    ]
 }

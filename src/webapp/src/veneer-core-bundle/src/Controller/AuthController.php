@@ -20,7 +20,7 @@ class AuthController extends AbstractController
                 'exception' => $exception ? $exception->getMessage() : null,
             ],
             [
-                'def_nav' => $this->container->get('veneer_web.breadcrumbs'),
+                'def_nav' => $this->container->get('veneer_core.breadcrumbs'),
             ]
         );
     }

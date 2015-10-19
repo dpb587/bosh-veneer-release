@@ -34,12 +34,12 @@ abstract class AbstractController extends Controller
             ];
 
             if (isset($nondata['def_nav'][-1]['route'])) {
-                $extras['_links'] = $this->container->get('veneer_web.plugin.link_provider.factory')->getLinks(
+                $extras['_links'] = $this->container->get('veneer_core.plugin.link_provider.factory')->getLinks(
                     $request,
                     $nondata['def_nav'][-1]['route'][0]
                 );
 
-                $extras['_topics'] = $this->container->get('veneer_web.plugin.topic_provider.factory')->getTopics(
+                $extras['_topics'] = $this->container->get('veneer_core.plugin.topic_provider.factory')->getTopics(
                     $request,
                     $nondata['def_nav'][-1]['route'][0]
                 );

@@ -9,5 +9,8 @@
         "psr-4": {
             "Veneer\\BoshBundle\\Test": "test/"
         }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
     }
 }

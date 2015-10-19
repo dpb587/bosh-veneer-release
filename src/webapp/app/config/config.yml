@@ -36,7 +36,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
       veneer_bosh_director_name: "%veneer_bosh.director_name%"
-      veneer_bosh_plugin_factory: "@veneer_web.plugin.bundle.factory"
+      veneer_bosh_plugin_factory: "@veneer_core.plugin.bundle.factory"
 
 # Assetic Configuration
 assetic:
@@ -95,6 +95,7 @@ doctrine:
                 mappings:
                     VeneerCoreBundle: ~
                     VeneerMarketplaceBundle: ~
+                    VeneerOpsBundle: ~
             bosh:
                 connection: bosh
                 naming_strategy: doctrine.orm.naming_strategy.underscore

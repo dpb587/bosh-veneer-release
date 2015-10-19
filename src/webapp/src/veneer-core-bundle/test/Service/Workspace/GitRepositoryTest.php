@@ -22,15 +22,18 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
             'git init .',
             'git config user.name "John Doe"',
             'git config user.email "jdoe@example.com"',
-            'echo "test1" > test1',
-            'echo "test2" > test2',
-            'echo "test3" > test3',
+            'echo file1 > file1',
+            'echo file2 > file2',
+            'echo file3 > file3',
+            'mkdir dirA',
+            'echo dirA.file1 > dirA/file1',
+            'cd dirA ; ln -s ../file2 file2',
             'git add -A',
             'GIT_AUTHOR_DATE="2015.10.31T01:02:03" GIT_COMMITTER_DATE="2015.10.31T01:02:03" git commit -m "first commit"',
             'git tag tag1',
-            'rm test1',
-            'echo "test3b" > test3',
-            'echo "test4" > test4',
+            'rm file1',
+            'echo file3b > file3',
+            'echo file4 > file4',
             'git add -A',
             'GIT_AUTHOR_DATE="2015.10.31T01:02:03" GIT_COMMITTER_DATE="2015.10.31T01:02:03" git commit -m "second commit"',
         ] as $exec) {
@@ -52,7 +55,7 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
     public function tearDown()
     {
         if ($this->repo) {
-            exec('rm -fr ' . escapeshellarg(dirname($this->repo->getRoot())));
+            //exec('rm -fr ' . escapeshellarg(dirname($this->repo->getRoot())));
         }
     }
 
@@ -61,24 +64,37 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
         $this->assertStringStartsWith(sys_get_temp_dir() . '/gitrepo-', $this->repo->getRoot());
     }
 
-    public function testBlob()
+    public function testBlobFile()
     {
-        $blob = $this->repo->getBlob('test3');
+        $blob = $this->repo->getBlob('file3');
         $this->assertInstanceOf(Blob::class, $blob);
 
         $this->assertEquals(BlobInterface::STATE_CREATED, $blob->getState());
-        $this->assertEquals('test3', $blob->getPath());
+        $this->assertEquals('file3', $blob->getPath());
         $this->assertEquals(BlobInterface::TYPE_FILE, $blob->type());
         $this->assertEquals('644', $blob->mode());
-        $this->assertEquals("test3b\n", $blob->data());
+        $this->assertEquals('file3b' . "\n", $blob->data());
         $this->assertFalse($blob->isModified());
 
         $blob->mode('777');
-        $blob->data('test3c');
+        $blob->data('file3c');
 
         $this->assertTrue($blob->isModified());
         $this->assertEquals('777', $blob->mode());
-        $this->assertEquals('test3c', $blob->data());
+        $this->assertEquals('file3c', $blob->data());
+    }
+
+    public function testBlobLink()
+    {
+        $blob = $this->repo->getBlob('dirA/file2');
+        $this->assertInstanceOf(Blob::class, $blob);
+
+        $this->assertEquals(BlobInterface::STATE_CREATED, $blob->getState());
+        $this->assertEquals('dirA/file2', $blob->getPath());
+        $this->assertEquals(BlobInterface::TYPE_LINK, $blob->type());
+        $this->assertEquals('000', $blob->mode());
+        $this->assertEquals('../file2', $blob->data());
+        $this->assertFalse($blob->isModified());
     }
 
     public function testChangeset()
@@ -96,20 +112,20 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(3, $changes);
         $this->assertEquals(
             [
-                'test1' => Changeset::DELETED,
-                'test3' => Changeset::MODIFIED,
-                'test4' => Changeset::CREATED,
+                'file1' => Changeset::DELETED,
+                'file3' => Changeset::MODIFIED,
+                'file4' => Changeset::CREATED,
             ],
             $changes
         );
 
-        $this->assertEquals("test3\n", $changeset->getOldBlob('test3')->data());
-        $this->assertEquals("test3b\n", $changeset->getNewBlob('test3')->data());
+        $this->assertEquals('file3' . "\n", $changeset->getOldBlob('file3')->data());
+        $this->assertEquals('file3b' . "\n", $changeset->getNewBlob('file3')->data());
     }
 
     public function testTreeTagResolution()
     {
-        $this->assertEquals('9b534bfe807f1d170cc1fbebe3af3dc0a389ecd1', $this->repo->getTree('tag1')->getCanonicalName());
+        $this->assertEquals('da138a0972c1b9dc4911abdfbfb9a52ec658fe9c', $this->repo->getTree('tag1')->getCanonicalName());
     }
 
     /**

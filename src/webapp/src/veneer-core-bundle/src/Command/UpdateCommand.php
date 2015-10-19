@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\MarketplaceBundle\Command;
+namespace Veneer\CoreBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,5 +27,12 @@ class UpdateCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $container = $this->getContainer();
+        $repository = $container->get('veneer_core.workspace.repository');
+        $watcher = $container->get('veneer_core.workspace.watcher');
+
+        $changeset = $repository->diff($input->getArgument('old-commit'), $input->getArgument('new-commit'));
+
+        $watcher->handleChangeset($input->getArgument('ref'), $changeset);
     }
 }

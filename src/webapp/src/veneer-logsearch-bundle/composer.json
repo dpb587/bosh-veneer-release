@@ -9,5 +9,23 @@
         "psr-4": {
             "Veneer\\LogsearchBundle\\Test": "test/"
         }
-    }
+    },
+    "require": {
+        "ruflin/elastica":  "2.2.*",
+        "highslide-software/highcharts.com": "3.0.7"
+    },
+    "repositories": [
+        {
+            "type" : "package",
+            "package" : {
+                "name" : "highslide-software/highcharts.com",
+                "version" : "3.0.7",
+                "dist" : {
+                    "url" : "https://github.com/highslide-software/highcharts.com/archive/57d15b2324567ee32fe8fd543b518a20de0fb4da.zip",
+                    "type" : "zip",
+                    "reference" : "57d15b2324567ee32fe8fd543b518a20de0fb4da"
+                }
+            }
+        }
+    ]
 }

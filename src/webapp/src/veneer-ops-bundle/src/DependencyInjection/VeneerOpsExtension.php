@@ -17,5 +17,6 @@ class VeneerOpsExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/dic'));
 
         $loader->load('form.xml');
+        $loader->load('services.xml');
     }
 }

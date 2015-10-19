@@ -15,7 +15,7 @@ class IndexController extends AbstractController
             'VeneerCoreBundle:Index:summary.html.twig',
             [],
             [
-                'def_nav' => $this->container->get('veneer_web.breadcrumbs'),
+                'def_nav' => $this->container->get('veneer_core.breadcrumbs'),
             ]
         );
     }
@@ -26,7 +26,7 @@ class IndexController extends AbstractController
             'VeneerCoreBundle:Index:about.html.twig',
             [],
             [
-                'def_nav' => $this->container->get('veneer_web.breadcrumbs')
+                'def_nav' => $this->container->get('veneer_core.breadcrumbs')
                     ->add('About'),
             ]
         );

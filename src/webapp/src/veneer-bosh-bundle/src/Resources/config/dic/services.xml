@@ -35,7 +35,7 @@
 
         <service id="veneer_bosh.security.firewall.user_password_listener" class="Veneer\BoshBundle\Security\Firewall\UserPasswordListener">
             <argument type="service" id="security.context" />
-            <argument type="service" id="veneer_web.encryption" />
+            <argument type="service" id="veneer_core.encryption" />
 
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
@@ -45,7 +45,7 @@
 
         <service id="veneer_bosh.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
             <factory service="service_container" method="get" />
-            <argument>veneer_web.breadcrumbs</argument>
+            <argument>veneer_core.breadcrumbs</argument>
 
             <call method="add">
                 <argument>%veneer_bosh.director_name%</argument>

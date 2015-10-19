@@ -6,11 +6,11 @@
 
     <services>
         <service id="veneer_bosh.plugin.web_topic_provider.deployment" class="Veneer\BoshBundle\Controller\Plugin\WebTopicProvider\DeploymentPlugin">
-            <tag name="veneer_web.topic_provider" route="veneer_bosh_deployment_summary" />
+            <tag name="veneer_core.topic_provider" route="veneer_bosh_deployment_summary" />
         </service>
 
         <service id="veneer_bosh.plugin.web_topic_provider.release" class="Veneer\BoshBundle\Controller\Plugin\WebTopicProvider\ReleasePlugin">
-            <tag name="veneer_web.topic_provider" route="veneer_bosh_release_summary" />
+            <tag name="veneer_core.topic_provider" route="veneer_bosh_release_summary" />
         </service>
     </services>
 </container>

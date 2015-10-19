@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_web.form.extension.help" class="Veneer\CoreBundle\Form\Extension\HelpExtension">
+        <service id="veneer_core.form.extension.help" class="Veneer\CoreBundle\Form\Extension\HelpExtension">
             <tag name="form.type_extension" alias="form" />
         </service>
 

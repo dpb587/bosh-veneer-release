@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_ops.workspace.watcher" class="Veneer\OpsBundle\Service\WorkspaceWatcher">
+            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="service_container" />
+
+            <tag name="veneer_core.workspace.watcher" path="#/bosh\.yml$#" method="onDeploymentManifest" />
+        </service>
+
+        <!-- @todo the cpi service needs to be defined elsewhere and automatically -->
+        <service id="cpi" class="Object">
+            <factory service="kernel" method="getBundle" />
+            <argument>VeneerAwsCpiBundle</argument>
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_resourcepool" class="Veneer\OpsBundle\Form\Type\DeploymentResourcePoolType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_resourcepool" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_resourcepool_stemcell" class="Veneer\OpsBundle\Form\Type\DeploymentResourcePoolStemcellType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_resourcepool_stemcell" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_network" class="Veneer\OpsBundle\Form\Type\DeploymentNetworkType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_network" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_diskpool" class="Veneer\OpsBundle\Form\Type\DeploymentDiskPoolType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_diskpool" />
+        </service>
+    </services>
+</container>
