@@ -32,8 +32,12 @@
             <argument>/var/vcap/packages/bosh-veneer-git/bin/git</argument>
         </service>
 
+        <service id="veneer_core.workspace.editor" class="Veneer\CoreBundle\Service\Workspace\EditorFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- map -->
+        </service>
+
         <service id="veneer_core.workspace.watcher" class="Veneer\CoreBundle\Service\Workspace\WatcherFactory">
-            <argument type="service" id="veneer_core.workspace.repository" />
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- map -->
         </service>

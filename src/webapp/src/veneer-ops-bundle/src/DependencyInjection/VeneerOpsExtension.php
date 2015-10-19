@@ -18,5 +18,6 @@ class VeneerOpsExtension extends Extension
 
         $loader->load('form.xml');
         $loader->load('services.xml');
+        $loader->load('web-link-provider.xml');
     }
 }

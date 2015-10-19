@@ -16,7 +16,6 @@ class LinkProviderPluginCompilerPass implements CompilerPassInterface
         $map = array();
 
         foreach ($container->findTaggedServiceIds('veneer_core.link_provider') as $id => $attributes) {
-            fwrite(STDOUT, $id . print_r($attributes, true));
             foreach ($attributes as $attribute) {
                 if (!isset($attribute['route'])) {
                     throw new \InvalidArgumentException(sprintf('The service "%s" is missing the "route" property for tag "veneer_core.link_provider".', $id));

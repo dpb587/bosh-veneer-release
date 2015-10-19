@@ -34,6 +34,6 @@ class WorkspaceWatcherCompilerPass implements CompilerPassInterface
             }
         }
 
-        $container->getDefinition('veneer_core.workspace.watcher')->replaceArgument(2, array_reverse(iterator_to_array($map)));
+        $container->getDefinition('veneer_core.workspace.watcher')->replaceArgument(1, array_reverse(iterator_to_array($map)));
     }
 }

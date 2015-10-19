@@ -6,6 +6,7 @@ use Symfony\Component\Process\Process;
 use Veneer\CoreBundle\Service\Workspace\Changeset;
 use TQ\Git\Repository\Repository;
 use TQ\Git\Cli\Binary;
+use TQ\Vcs\Gaufrette\Adapter;
 
 class GitRepository extends Repository
 {
@@ -16,6 +17,11 @@ class GitRepository extends Repository
         $this->pathPrefix = rtrim($pathPrefix, '/');
 
         parent::__construct($root, Binary::ensure($git));
+    }
+
+    public function getGaufrette()
+    {
+        return new Adapter($this);
     }
 
     public function listDirectory($directory = '.', $ref = 'HEAD')

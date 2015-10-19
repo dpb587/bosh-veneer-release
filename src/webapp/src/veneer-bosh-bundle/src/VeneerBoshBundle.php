@@ -16,6 +16,7 @@ class VeneerBoshBundle extends Bundle implements BundleInterface
         $extension = $builder->getExtension('security');
         $extension->addSecurityListenerFactory(new BoshDirectorFactory());
     }
+
     public function getVeneerName()
     {
         return 'bosh';

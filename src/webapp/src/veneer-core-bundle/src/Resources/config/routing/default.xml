@@ -14,6 +14,21 @@
         <default key="_format">html</default>
     </route>
 
+    <route id="veneer_core_workspace_repo_editor" path="/core/workspace/repo/editor/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::editorAction</default>
+        <requirement key="path">.*</requirement>
+    </route>
+
+    <route id="veneer_core_workspace_repo_blob" path="/core/workspace/repo/blob/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::blobAction</default>
+        <requirement key="path">.*</requirement>
+    </route>
+
+    <route id="veneer_core_workspace_repo_tree" path="/core/workspace/repo/tree/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::treeAction</default>
+        <requirement key="path">.*</requirement>
+    </route>
+
     <route id="veneer_core_auth_begin" path="/auth/begin">
         <default key="_controller">Veneer\CoreBundle\Controller\AuthController::beginAction</default>
         <default key="_format">html</default>
