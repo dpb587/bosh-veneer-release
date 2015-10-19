@@ -83,11 +83,9 @@
 
             {% endblock %}
 
-        <footer class="text-center" style="margin-top:16px;">
+        <footer class="text-right" style="margin-top:16px;padding-right:6px;">
             <small class="text-muted">
-                &ndash;
-                <a href="{{ path('veneer_core_about') }}" style="color:inherit;">v0.1.2</a>
-                &ndash;
+                &mdash; <a href="{{ path('veneer_core_about') }}" style="color:inherit;">v0.1.0+dev.{{ 'now'|date('YmdHis') }}</a>
             </small>
         </footer>
     {% endblock %}

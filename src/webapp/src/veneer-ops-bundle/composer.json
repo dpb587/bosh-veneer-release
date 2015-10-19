@@ -1,0 +1,13 @@
+{
+    "name" : "dpb587/veneer-ops-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\OpsBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\OpsBundle\\Test": "test/"
+        }
+    }
+}

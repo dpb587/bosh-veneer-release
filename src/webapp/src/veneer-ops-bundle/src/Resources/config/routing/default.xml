@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_ops_summary" path="/ops/summary.{_format}">
+        <default key="_controller">Veneer\OpsBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_ops_deployment_manifest" path="/bosh-editor/deployment/{deployment}/editor.{_format}">
+        <default key="_controller">Veneer\OpsBundle\Controller\TestController::editorAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment</default>
+    </route>
+</routes>

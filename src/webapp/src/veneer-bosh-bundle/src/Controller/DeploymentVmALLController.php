@@ -41,6 +41,9 @@ class DeploymentVmALLController extends AbstractController
                             'agentId' => 'ASC',
                         ]
                     ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

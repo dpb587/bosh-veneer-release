@@ -24,7 +24,7 @@ class AppKernel extends Kernel
 
             new Veneer\CoreBundle\VeneerCoreBundle(),
             new Veneer\BoshBundle\VeneerBoshBundle(),
-            new Veneer\BoshEditorBundle\VeneerBoshEditorBundle(),
+            new Veneer\OpsBundle\VeneerOpsBundle(),
             new Veneer\AwsCpiBundle\VeneerAwsCpiBundle(),
             new Veneer\LogsearchBundle\VeneerLogsearchBundle(),
             new Veneer\MarketplaceBundle\VeneerMarketplaceBundle(),

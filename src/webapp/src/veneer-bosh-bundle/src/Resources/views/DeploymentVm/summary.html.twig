@@ -10,8 +10,8 @@
 
 {% block frag_sidebar %}
   <dl>
-    <dt>Agent</dt>
-    <dd>{{ data.agentId }}</dd>
+    <dt>Job</dt>
+    <dd>{{ data.applySpecJsonAsArray.job.name }}/{{ data.applySpecJsonAsArray.index }}</dd>
 
     <dt>CID</dt>
     <dd>{{ data.cid }}</dd>
