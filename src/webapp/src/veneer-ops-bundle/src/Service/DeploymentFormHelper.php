@@ -27,6 +27,13 @@ class DeploymentFormHelper
                 'path' => '[compilation]',
                 'data' => isset($this->manifest['compilation']) ? $this->manifest['compilation'] : [],
             ];
+        } elseif (preg_match('/^update(\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
+            $formType = 'veneer_bosheditor_deployment_update';
+            $data = [
+                'isset' => isset($this->manifest['update']),
+                'path' => '[update]',
+                'data' => isset($this->manifest['update']) ? $this->manifest['update'] : [],
+            ];
         } elseif (preg_match('/^disk_pools\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
             $formType = 'veneer_bosheditor_deployment_diskpool';
             $data = $this->lookupNamedIndex('disk_pools', $pathMatch['name']);

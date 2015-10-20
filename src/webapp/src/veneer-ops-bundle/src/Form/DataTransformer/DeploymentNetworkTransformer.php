@@ -18,12 +18,17 @@ class DeploymentNetworkTransformer implements DataTransformerInterface
         $network = $value;
         unset($network['name'], $network['type']);
 
-        return [
+        $wrap = [
             'name' => $value['name'],
-            'network' => [
-                $value['type'] => $network,
-            ],
         ];
+
+        if (isset($value['type'])) {
+            $wrap['network'] = [
+                $value['type'] => $network,
+            ];
+        }
+
+        return $wrap;
     }
 
     public function reverseTransform($value)

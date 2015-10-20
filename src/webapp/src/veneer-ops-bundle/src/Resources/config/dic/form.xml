@@ -11,6 +11,16 @@
             <argument>VeneerAwsCpiBundle</argument>
         </service>
 
+        <service id="veneer_ops.form.type.deployment_compilation" class="Veneer\OpsBundle\Form\Type\DeploymentCompilationType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_compilation" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_update" class="Veneer\OpsBundle\Form\Type\DeploymentUpdateType">
+            <tag name="form.type" alias="veneer_bosheditor_deployment_update" />
+        </service>
+
         <service id="veneer_ops.form.type.deployment_release" class="Veneer\OpsBundle\Form\Type\DeploymentReleaseType">
             <argument type="service" id="cpi" />
 

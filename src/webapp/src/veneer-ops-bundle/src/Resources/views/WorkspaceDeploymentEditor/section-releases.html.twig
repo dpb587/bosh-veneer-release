@@ -33,7 +33,15 @@
         {% else %}
             <tfoot>
                 <tr>
-                    <td class="text-muted">No releases configured &mdash; <a href="#">add one</a></td>
+                    <td colspan="2">
+                        <p>
+                            No releases configured &mdash; <a href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'releases[]' }) }}">add one&hellip;</a>
+                        </p>
+                        <p class="text-muted">
+                            <span class="text-primary"><i class="fa fa-question-circle"></i></span>
+                            The name and version of each release in the deployment.
+                        </p>
+                    </td>
                 </tr>
             </tfoot>
         {% endif %}

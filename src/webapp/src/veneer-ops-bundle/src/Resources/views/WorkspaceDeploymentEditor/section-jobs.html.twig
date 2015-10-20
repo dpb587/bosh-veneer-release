@@ -32,7 +32,17 @@
         {% else %}
             <tfoot>
                 <tr>
-                    <td class="text-muted" colspan="3">No jobs configured &mdash; <a href="#">add one</a></td>
+                    <td colspan="2">
+                        <p>
+                            No jobs configured &mdash; <a href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'jobs[]' }) }}">add one&hellip;</a>
+                        </p>
+                        <p class="text-muted">
+                            <span class="text-primary"><i class="fa fa-question-circle"></i></span>
+                            Specifies the mapping between BOSH release jobs and cloud instances. Jobs are defined in the
+                            BOSH release. The Jobs block defines how BOSH associates jobs with the VMs started by the
+                            IaaS.
+                        </p>
+                    </td>
                 </tr>
             </tfoot>
         {% endif %}

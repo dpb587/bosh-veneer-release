@@ -51,6 +51,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $file),
+                'sidenav_active' => 'summary',
             ]
         );
     }
@@ -93,6 +94,8 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $editor = new DeploymentFormHelper($this->container->get('form.factory'), $yaml);
         $editorProfile = $editor->lookup($path);
 
+        $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $path));
+
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceDeploymentEditor:edit.html.twig',
             [
@@ -101,8 +104,17 @@ class WorkspaceDeploymentEditorController extends AbstractController
                 'form' => $editorProfile['form']->createView(),
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $file),
-                'sidenav_active' => str_replace('_', '', preg_replace('/^([^\.\[]+)(.+)$/', '$1', $path)),
+                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $file)
+                    ->add(
+                        $section,
+                        [
+                            'veneer_ops_workspace_deploymenteditor_section' => [
+                                'section' => $section,
+                                'file' => $file,
+                            ],
+                        ]
+                    ),
+                'sidenav_active' => $section,
             ]
         );
     }

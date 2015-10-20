@@ -32,7 +32,16 @@
         {% else %}
             <tfoot>
                 <tr>
-                    <td class="text-muted">No networks configured &mdash; <a href="#">add one</a></td>
+                    <td colspan="2">
+                        <p>
+                            No networks configured &mdash; <a href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'networks[]' }) }}">add one&hellip;</a>
+                        </p>
+                        <p class="text-muted">
+                            <span class="text-primary"><i class="fa fa-question-circle"></i></span>
+                            Each sub-block listed in the Networks block specifies a network configuration that jobs can
+                            reference.
+                        </p>
+                    </td>
                 </tr>
             </tfoot>
         {% endif %}

@@ -32,7 +32,7 @@ class WidgetPlugin implements PluginInterface
                             ->setRoute(
                                 'veneer_core_workspace_repo_editor',
                                 [
-                                    'path' => $deployment->getSourcePath(),
+                                    'file' => $deployment->getSourcePath(),
                                 ]
                             ),
                     ];

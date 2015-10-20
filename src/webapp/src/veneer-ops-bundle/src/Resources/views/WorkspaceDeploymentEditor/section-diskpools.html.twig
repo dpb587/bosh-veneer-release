@@ -33,7 +33,16 @@
         {% else %}
             <tfoot>
                 <tr>
-                    <td class="text-muted" colspan="2">No disk pools configured &mdash; <a href="#">add one</a></td>
+                    <td colspan="2">
+                        <p>
+                            No disk pools configured &mdash; <a href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'disk_pools[]' }) }}">add one&hellip;</a>
+                        </p>
+                        <p class="text-muted">
+                            <span class="text-primary"><i class="fa fa-question-circle"></i></span>
+                            Specifies the disk pools a deployment uses. A deployment manifest can describe multiple disk
+                            pools and uses unique names to identify and reference them.
+                        </p>
+                    </td>
                 </tr>
             </tfoot>
         {% endif %}
