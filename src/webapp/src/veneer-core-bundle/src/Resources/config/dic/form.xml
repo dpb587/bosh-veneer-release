@@ -5,6 +5,22 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="veneer_core.form.type.form_picker" class="Veneer\CoreBundle\Form\Type\FormPickerType">
+            <tag name="form.type" alias="veneer_core_form_picker" />
+        </service>
+
+        <service id="veneer_core.form.type.networking_cidr" class="Veneer\CoreBundle\Form\Type\NetworkingCidrType">
+            <tag name="form.type" alias="veneer_core_networking_cidr" />
+        </service>
+
+        <service id="veneer_core.form.type.networking_ip" class="Veneer\CoreBundle\Form\Type\NetworkingIpType">
+            <tag name="form.type" alias="veneer_core_networking_ip" />
+        </service>
+
+        <service id="veneer_core.form.type.form_picker" class="Veneer\CoreBundle\Form\Type\FormPickerType">
+            <tag name="form.type" alias="veneer_core_form_picker" />
+        </service>
+
         <service id="veneer_core.form.extension.help" class="Veneer\CoreBundle\Form\Extension\HelpExtension">
             <tag name="form.type_extension" alias="form" />
         </service>

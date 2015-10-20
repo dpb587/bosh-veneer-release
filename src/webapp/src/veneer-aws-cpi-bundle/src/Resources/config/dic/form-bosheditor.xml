@@ -6,20 +6,18 @@
 
     <services>
         <service id="veneer_awscpi.form.type.bosheditor.deployment_diskpool" class="Veneer\AwsCpiBundle\Form\Type\BoshEditor\DeploymentDiskPoolType">
-            <argument type="service" id="cpi" />
-
             <tag name="form.type" alias="veneer_awscpi_bosheditor_deployment_diskpool" />
         </service>
 
         <service id="veneer_awscpi.form.type.bosheditor.deployment_resourcepool" class="Veneer\AwsCpiBundle\Form\Type\BoshEditor\DeploymentResourcePoolType">
-            <argument type="service" id="cpi" />
-
             <tag name="form.type" alias="veneer_awscpi_bosheditor_deployment_resourcepool" />
         </service>
 
-        <service id="veneer_awscpi.form.type.bosheditor.deployment_resourcepool_ephemeraldisk" class="Veneer\AwsCpiBundle\Form\Type\BoshEditor\DeploymentResourcePoolEphemeralDiskType">
-            <argument type="service" id="cpi" />
+        <service id="veneer_awscpi.form.type.bosheditor.deployment_network" class="Veneer\AwsCpiBundle\Form\Type\BoshEditor\DeploymentNetworkType">
+            <tag name="form.type" alias="veneer_awscpi_bosheditor_deployment_network" />
+        </service>
 
+        <service id="veneer_awscpi.form.type.bosheditor.deployment_resourcepool_ephemeraldisk" class="Veneer\AwsCpiBundle\Form\Type\BoshEditor\DeploymentResourcePoolEphemeralDiskType">
             <tag name="form.type" alias="veneer_awscpi_bosheditor_deployment_resourcepool_ephemeraldisk" />
         </service>
     </services>

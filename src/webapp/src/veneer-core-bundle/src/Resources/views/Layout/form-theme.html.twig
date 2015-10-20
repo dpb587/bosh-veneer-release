@@ -1,3 +1,56 @@
+{% block veneer_core_form_picker_widget %}
+    <div id="formpicker-{{ form.vars.id }}" style="border-top:#DEDEDE solid 1px;">
+        {% for child in form.children.via %}
+            {% set subform = form.children['via_' ~ child.vars.value] %}
+
+            <div id="formpicker-label-{{ child.vars.id }}" class="formpicker-label" style="{% if loop.index0 %}border-top:#DEDEDE solid 1px;{% endif %}line-height:0;">
+                <label for="{{ child.vars.id }}" style="display:block;font-family:inherit;padding:11px 0 4px 12px;">
+                    {{ form_widget(child) }}
+                    <span style="padding-left:8px;">{{ subform.vars.label }}</span>{% if subform.vars.helptext %}<span style="color:#666666;"> &mdash; {{ subform.vars.helptext }}</span>{% endif %}
+                </label>
+            </div>
+            {% if subform.children|length or 1 < subform.vars.block_prefixes|length %}
+                <div id="formpicker-form-{{ child.vars.id }}" class="formpicker-form{% if child.vars.checked %} active{% endif %}" style="border-top:#DEDEDE dotted 1px;{% if not child.vars.checked %}display:none;{% endif %}padding:10px 20px 18px {{ subform.vars.selector_icon is defined ? 92 : 40 }}px;">
+                    {{ form_errors(subform) }}
+
+                    {{ form_widget(subform) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <script>
+        _postload.push(function () {
+            var labels = $('#formpicker-{{ form.vars.id }} .formpicker-label');
+            var forms = $('#formpicker-{{ form.vars.id }} .formpicker-form');
+
+            labels.bind(
+                'click',
+                function (e) {
+                    var form = $('#formpicker-form-' + $(this).attr('id').substring(17))[0];
+
+                    forms.each(function (i, o) {
+                        oj = $(o);
+
+                        if (o == form) {
+                            return;
+                        } else if (oj.hasClass('active')) {
+                            oj.removeClass('active');
+                            o.style.display = 'none';
+                        }
+                    });
+
+                    if (form) {
+                        $(form).addClass('active');
+                        form.style.display = 'block';
+                    }
+                }
+            );
+        });
+    </script>
+{% endblock %}
+
+
 {# Widgets #}
 
 {%- block form_widget -%}
@@ -25,9 +78,65 @@
 
 {%- block collection_widget -%}
     {% if prototype is defined %}
-        {%- set attr = attr|merge({'data-prototype': form_row(prototype) }) -%}
+        {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
     {% endif %}
-    {{- block('form_widget') -}}
+
+    {% do form.setRendered(true) %}
+
+    <div id="{{ form.vars.id }}-collection">
+        {{- block('form_widget') -}}
+    </div>
+    <div id="{{ form.vars.id }}-trigger_add" class="{{ form.vars.id }}-add">
+        <a class="btn btn-success-outline btn-sm" href="#"><i class="fa fa-plus fa-fw"></i> Add {{ label }}</a>
+    </div>
+
+    <script>
+        _postload.push(function () {
+            var id = {{ form.vars.id|json_encode|raw }};
+            var collection = $('#' + id);
+            var protoScript, protoHtml = collection.attr('data-prototype');
+
+            $('.' + id + '-add').bind('click', function (e) {
+                if (e) e.preventDefault();
+
+                var locid = new Date().getTime();
+
+                var form = $('<div/>');
+                form.append(protoHtml.replace(/__name__/g, locid));
+                var item = collection.append(form);
+
+                var anchor = $('<a class="btn btn-danger-outline btn-sm" href="#"><i class="fa fa-minus"></i></a>');
+                var btn = $('label[for="' + id + '_' + locid + '"]', form).replaceWith(anchor);
+                anchor.parent('.form-control-label').removeClass('form-control-label');
+                {#if (protoScript) {
+                    Browser.exec(protoScript.replace(/__name__/g, locid));
+                }#}
+            });
+
+            $('.' + id + '-remove').bind('click', function (e, item) {
+                var ref = item;
+
+                // couldn't figure out a css selector for this with slick
+                if (item.getParent().id != baseid) {
+                        if (!item.getParents().some(function (o) {
+                                if (o.id == baseid) {
+                                        return true;
+                                }
+
+                                        item = o;
+                                })) {
+                                        return;
+                                }
+                        }
+
+                item.destroy();
+
+                if (collection.getChildren('div.row').length === 0) {
+                    collection.fireEvent('collection.empty', [e]);
+                }
+            });
+        });
+    </script>
 {%- endblock collection_widget -%}
 
 {%- block textarea_widget -%}
@@ -256,18 +365,43 @@
 {%- endblock repeated_row -%}
 
 {%- block form_row -%}
-    <div class="form-group row{% if errors|length > 0 %} has-error{% endif %}">
-        <div class="col-sm-12 col-md-3 form-control-label">
-            {{- form_label(form) -}}
+    {% if compound and 'veneer_core_form_picker' not in block_prefixes and 3 == block_prefixes|length %}
+        <div class="row{% if errors|length > 0 %} has-error{% endif %}">
+            <div class="col-sm-12 col-md-3 form-control-label"{% if 'collection' not in block_prefixes %} style="font-weight:bold;"{% endif %}>
+                {{- form_label(form) -}}
+            </div>
+            <div class="col-sm-12 col-md-9" style="padding-top:0.45rem;">
+                {% if helptext %}
+                    <small class="text-muted">{{ helptext }}</small>
+                {% endif %}
+                {{ form_errors(form) }}
+            </div>
         </div>
-        <div class="col-sm-12 col-md-9">
-            {{- form_errors(form) -}}
-            {{- form_widget(form) -}}
-            {% if helptext %}
-                <small class="text-muted">{{ helptext }}</small>
-            {% endif %}
+        {% if 'collection' in block_prefixes %}
+            <div class="row">
+                <div class="col-sm-12 col-md-offset-3 col-md-9">
+                    {{ form_widget(form) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="form-subform">
+                {{ form_widget(form) }}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="form-group row{% if errors|length > 0 %} has-error{% endif %}">
+            <div class="col-sm-12 col-md-3 form-control-label">
+                {{- form_label(form) -}}
+            </div>
+            <div class="col-sm-12 col-md-9">
+                {{- form_errors(form) -}}
+                {{- form_widget(form) -}}
+                {% if helptext %}
+                    <small class="text-muted">{{ helptext }}</small>
+                {% endif %}
+            </div>
         </div>
-    </div>
+    {% endif %}
 {%- endblock form_row -%}
 
 {%- block button_row -%}

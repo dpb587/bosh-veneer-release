@@ -9,6 +9,13 @@ use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DeploymentNetworkDynamicType extends AbstractType
 {
+    protected $cpi;
+
+    public function __construct($cpi)
+    {
+        $this->cpi = $cpi;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,20 +31,13 @@ class DeploymentNetworkDynamicType extends AbstractType
             )
             ->add(
                 'cloud_properties',
-                $options['cpi']->getNetworkDynamicForm(),
+                $this->cpi->getDeploymentNetworkDynamicFormType(),
                 [
                     'label' => 'Cloud Properties',
                     'helptext' => 'IaaS-specific properties for the network.',
                 ]
             )
             ;
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $options)
-    {
-        $options->setRequired([
-            'cpi',
-        ]);
     }
 
     public function getName()

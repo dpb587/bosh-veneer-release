@@ -16,17 +16,13 @@ class DeploymentNetworkManualType extends AbstractType
                 'subnets',
                 'collection',
                 array(
-                    'type' => 'veneer_bosh_network_manual_subnet',
+                    'label' => 'Subnets',
+                    'type' => 'veneer_bosheditor_deployment_network_manual_subnet',
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 )
             )
             ;
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $options)
-    {
-        $options->setRequired([
-            'cpi',
-        ]);
     }
 
     public function getName()

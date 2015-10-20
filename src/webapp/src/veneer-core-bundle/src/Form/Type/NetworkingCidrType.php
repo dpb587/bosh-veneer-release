@@ -3,7 +3,8 @@
 namespace Veneer\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Veneer\Component\Validator\Constraints as VeneerConstraints;
+use Veneer\CoreBundle\Validator\Constraints as VeneerConstraints;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class NetworkingCidrType extends AbstractType
 {

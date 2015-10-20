@@ -53,6 +53,8 @@ class DeploymentResourcePoolType extends AbstractType
                     'label' => 'ELB Names',
                     'type' => 'veneer_awscpi_api_ec2_elb',
                     'helptext' => 'ELB names that should be attached to created VMs.',
+                    'allow_add' => true,
+                    'allow_delete' => true,
                     'required' => false,
                 ]
             )

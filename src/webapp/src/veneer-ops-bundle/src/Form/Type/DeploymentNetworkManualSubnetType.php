@@ -8,6 +8,13 @@ use Symfony\Component\Validator\Constraints;
 
 class DeploymentNetworkManualSubnetType extends AbstractType
 {
+    protected $cpi;
+
+    public function __construct($cpi)
+    {
+        $this->cpi = $cpi;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -33,6 +40,8 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                 [
                     'type' => 'veneer_core_networking_cidr',
                     'label' => 'DNS',
+                    'allow_add' => true,
+                    'allow_delete' => true,
                     'helptext' => 'DNS IP addresses for this subnet',
                     'required' => false,
                 ]
@@ -43,6 +52,8 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                 [
                     'type' => 'veneer_core_networking_cidr',
                     'label' => 'Reserved IPs',
+                    'allow_add' => true,
+                    'allow_delete' => true,
                     'helptext' => 'Reserved IPs and/or IP ranges. BOSH does not assign IPs from this range to any VM',
                     'required' => false,
                 ]
@@ -53,13 +64,15 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                 [
                     'type' => 'veneer_core_networking_cidr',
                     'label' => 'Static IPs',
-                    'helptext' => 'static IPs and/or IP ranges. BOSH assigns IPs from this range to jobs requesting static IPs. Only IPs specified here can be used for static IP reservations.',
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'helptext' => 'Static IPs and/or IP ranges. BOSH assigns IPs from this range to jobs requesting static IPs. Only IPs specified here can be used for static IP reservations.',
                     'required' => false,
                 ]
             )
             ->add(
                 'cloud_properties',
-                $options['cpi']->getNetworkManualSubnetForm(),
+                $this->cpi->getDeploymentNetworkManualForm(),
                 [
                     'label' => 'Cloud Properties',
                     'helptext' => 'IaaS-specific properties for the subnet.',
@@ -68,15 +81,8 @@ class DeploymentNetworkManualSubnetType extends AbstractType
             ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $options)
-    {
-        $options->setRequired([
-            'cpi',
-        ]);
-    }
-
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_network_manual';
+        return 'veneer_bosheditor_deployment_network_manual_subnet';
     }
 }

@@ -16,10 +16,18 @@ class DeploymentNetworkType extends AbstractType
                 'subnet',
                 'veneer_awscpi_api_vpc_subnet',
                 [
-                    'label' => 'DNS',
+                    'label' => 'Subnet',
                     'helptext' => 'Subnet ID in which instance will be created.',
                 ]
             )
+//            ->add(
+//                'security_groups',
+//                'veneer_awscpi_api_vpc_subnet',
+//                [
+//                    'label' => 'DNS',
+//                    'helptext' => 'Subnet ID in which instance will be created.',
+//                ]
+//            )
             ;
     }
 

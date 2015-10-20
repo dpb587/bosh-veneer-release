@@ -12,9 +12,7 @@ class ArrayToYamlTransformer implements DataTransformerInterface
     {
         if (null === $value) {
             return;
-        }
-
-        if (!is_array($value)) {
+        } elseif (!is_array($value)) {
             throw new TransformationFailedException('Expected an array.');
         }
 
@@ -24,10 +22,8 @@ class ArrayToYamlTransformer implements DataTransformerInterface
     public function reverseTransform($value)
     {
         if (null === $value) {
-            return false;
-        }
-
-        if (!is_string($value)) {
+            return null;
+        } elseif (!is_string($value)) {
             throw new TransformationFailedException('Expected a string.');
         }
 

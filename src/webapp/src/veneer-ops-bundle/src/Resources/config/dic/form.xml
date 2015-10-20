@@ -35,6 +35,22 @@
             <tag name="form.type" alias="veneer_bosheditor_deployment_network" />
         </service>
 
+        <service id="veneer_ops.form.type.deployment_network_dynamic" class="Veneer\OpsBundle\Form\Type\DeploymentNetworkDynamicType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_network_dynamic" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_network_manual" class="Veneer\OpsBundle\Form\Type\DeploymentNetworkManualType">
+            <tag name="form.type" alias="veneer_bosheditor_deployment_network_manual" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_network_manual_subnet" class="Veneer\OpsBundle\Form\Type\DeploymentNetworkManualSubnetType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_bosheditor_deployment_network_manual_subnet" />
+        </service>
+
         <service id="veneer_ops.form.type.deployment_diskpool" class="Veneer\OpsBundle\Form\Type\DeploymentDiskPoolType">
             <argument type="service" id="cpi" />
 
