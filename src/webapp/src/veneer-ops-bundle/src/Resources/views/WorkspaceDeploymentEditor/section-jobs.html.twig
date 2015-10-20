@@ -1,0 +1,40 @@
+{% extends 'VeneerOpsBundle:WorkspaceDeploymentEditor:layout.html.twig' %}
+
+{% block frag_content %}
+    <table class="table table-hover" width="100%">
+        <thead>
+            <tr>
+                <th style="border-top:0;">
+                    <h3 style="margin-bottom:0;">Jobs</h3>
+                </th>
+                <th class="text-right" style="border-top:0;">
+                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'jobs[]' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
+                </th>
+            </tr>
+        </thead>
+        {% if manifest.jobs|default %}
+            <tbody>
+                {% for job in manifest.jobs %}
+                    <tr>
+                        <td>
+                            <strong>{{ job.name }}</strong>, &times;{{ job.instances }}<br />
+                            <small>{{ job.resource_pool }} with {{ job.networks|length }} network{{ 1 < job.networks|length ? 's' : '' }}, {{ job.templates|length }} template{{ 1 < job.templates|length ? 's' : '' }}</small>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                <a class="btn btn-primary-outline btn-sm" title="Change" type="button"><i class="fa fa-pencil fa-fw"></i></a>
+                                <a class="btn btn-danger-outline btn-sm" title="Remove" type="button"><i class="fa fa-remove fa-fw"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% else %}
+            <tfoot>
+                <tr>
+                    <td class="text-muted" colspan="3">No jobs configured &mdash; <a href="#">add one</a></td>
+                </tr>
+            </tfoot>
+        {% endif %}
+    </table>
+{% endblock %}

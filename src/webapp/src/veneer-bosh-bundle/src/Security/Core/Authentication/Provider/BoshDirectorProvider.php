@@ -8,8 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProvid
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
-use Veneer\Component\BoshApi\Client;
-use Veneer\Component\BoshApi\SecurityTokenAuthentication;
+use Veneer\BoshBundle\Service\DirectorApiClient;
 use Veneer\BoshBundle\Security\Core\Authentication\Token\AbstractToken;
 use Veneer\BoshBundle\Security\User\User;
 
@@ -28,7 +27,7 @@ class BoshDirectorProvider implements AuthenticationProviderInterface
 
     public function authenticate(TokenInterface $token)
     {
-        $boshApi = new Client($this->boshApiOptions, $token);
+        $boshApi = new DirectorApiClient($this->boshApiOptions, $token);
 
         try {
             $info = $boshApi->getInfo();

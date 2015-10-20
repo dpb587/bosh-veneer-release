@@ -1,0 +1,31 @@
+{% extends _layout %}
+
+{% block def_title 'Deployment Editor (' ~ manifest.name|default('unknown') ~ ')' %}
+
+{% block frag_sidebar %}
+    <dl>
+        <dt>Deployment Name</dt>
+        <dd>{{ manifest.name|default('unknown') }}</dd>
+    </dl>
+
+    <ul class="nav">
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'releases', 'file' : file }), 'Releases', 'leaf', 'releases', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'networks', 'file' : file }), 'Networks', 'exchange', 'networks', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'resourcepools', 'file' : file }), 'Resource Pools', 'cubes', 'resourcepools', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'diskpools', 'file' : file }), 'Disk Pools', 'database', 'diskpools', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'jobs', 'file' : file }), 'Jobs', 'server', 'jobs', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'properties', 'file' : file }), 'Properties', 'cogs', 'properties', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'compilation' }), 'Compilation', 'cog', 'compilation', sidenav_active) }}
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'update' }), 'Update', 'cog', 'update', sidenav_active) }}
+    </ul>
+{% endblock %}
+
+{% macro navlink(path, title, fontawesome, name, active) %}
+    <li class="nav-item">
+        {% if name == active %}
+            <i class="fa fa-{{ fontawesome }} fa-fw"></i> {{ title }}
+        {% else %}
+            <a href="{{ path }}" class="nav-link"><i class="fa fa-{{ fontawesome }} fa-fw"></i> {{ title }}</a>
+        {% endif %}
+    </li>
+{% endmacro %}

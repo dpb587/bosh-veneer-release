@@ -9,9 +9,19 @@
         <default key="_format">html</default>
     </route>
 
-    <route id="veneer_ops_deployment_manifest" path="/bosh-editor/deployment/{deployment}/editor.{_format}">
-        <default key="_controller">Veneer\OpsBundle\Controller\TestController::editorAction</default>
+    <route id="veneer_ops_workspace_deploymenteditor_summary" path="/ops/workspace/deployment-editor/summary.{_format}">
+        <default key="_controller">Veneer\OpsBundle\Controller\WorkspaceDeploymentEditorController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment</default>
+    </route>
+
+    <route id="veneer_ops_workspace_deploymenteditor_section" path="/ops/workspace/deployment-editor/{section}.{_format}">
+        <default key="_controller">Veneer\OpsBundle\Controller\WorkspaceDeploymentEditorController::sectionAction</default>
+        <default key="_format">html</default>
+        <requirement key="section">releases|networks|diskpools|resourcepools|jobs|properties</requirement>
+    </route>
+
+    <route id="veneer_ops_workspace_deploymenteditor_edit" path="/ops/workspace/deployment-editor/edit.{_format}">
+        <default key="_controller">Veneer\OpsBundle\Controller\WorkspaceDeploymentEditorController::editAction</default>
+        <default key="_format">html</default>
     </route>
 </routes>

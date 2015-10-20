@@ -7,31 +7,37 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class WorkspaceRepoController extends AbstractController
 {
-    public function defNav(Breadcrumbs $nav, $path)
+    public static function defNav(Breadcrumbs $nav, $path)
     {
-        $nav
-            ->add(
-                'core',
-                [
-                    'veneer_core_summary' => [],
-                ]
-            )
-            ->add(
-                'Workspace',
-                [
-                    'veneer_core_workspace_repo_tree' => [
-                        'path' => '',
+        return self::defNavPath(
+            $nav
+                ->add(
+                    'core',
+                    [
+                        'veneer_core_summary' => [],
+                    ]
+                )
+                ->add(
+                    'Workspace',
+                    [
+                        'veneer_core_workspace_repo_tree' => [
+                            'path' => '',
+                        ],
                     ],
-                ],
-                [
-                    'fontawesome' => 'folder-open-o',
-                ]
-            )
-        ;
+                    [
+                        'fontawesome' => 'folder-open-o',
+                    ]
+                ),
+            $path
+        );
+    }
 
+    public static function defNavPath(Breadcrumbs $nav, $path)
+    {
         $paths = explode('/', trim($path, '/'));
 
         if ((1 < count($paths)) || ('' != $paths[0])) {
@@ -78,11 +84,10 @@ class WorkspaceRepoController extends AbstractController
             throw new NotFoundHttpException('No editor available', $e);
         }
 
-        return $this->renderApi(
-            'VeneerCoreBundle:Index:about.html.twig',
-            [],
+        return $this->redirectToRoute(
+            $editor->getRoute(),
             [
-                'def_nav' => static::defNav($this->container->get('veneer_core.breadcrumbs'), $path),
+                'path' => $path,
             ]
         );
     }

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
+use Veneer\OpsBundle\Form\DataTransformer\ArrayToYamlTransformer;
 
 class DeploymentResourcePoolType extends AbstractType
 {
@@ -69,7 +70,9 @@ class DeploymentResourcePoolType extends AbstractType
                     'required' => false,
                 ]
             )
-            ;
+        ;
+
+        $builder->get('env')->addModelTransformer(new ArrayToYamlTransformer());
     }
 
     public function getName()

@@ -4,6 +4,12 @@ This bundle provides some of the shared components that other bundles need to bu
 below...
 
 
+## User Interface
+
+ * [Bootstrap 4](http://v4-alpha.getbootstrap.com/components/buttons/)
+ * [Font Awesome](https://fortawesome.github.io/Font-Awesome/icons/)
+
+
 ## Workspace
 
 We'll assume that some bundles will want to store and version their configuration somehow. For example, the ops bundle

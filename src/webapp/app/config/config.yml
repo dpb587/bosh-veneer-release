@@ -34,6 +34,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - "VeneerCoreBundle:Layout:form-theme.html.twig"
     globals:
       veneer_bosh_director_name: "%veneer_bosh.director_name%"
       veneer_bosh_plugin_factory: "@veneer_core.plugin.bundle.factory"

@@ -5,13 +5,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_ops.workspace.watcher" class="Veneer\OpsBundle\Service\WorkspaceWatcher">
-            <argument type="service" id="veneer_core.workspace.repository" />
-            <argument type="service" id="service_container" />
-
-            <tag name="veneer_core.workspace.watcher" path="#/bosh\.yml$#" method="onDeploymentManifest" />
-        </service>
-
         <!-- @todo the cpi service needs to be defined elsewhere and automatically -->
         <service id="cpi" class="Object">
             <factory service="kernel" method="getBundle" />
@@ -40,6 +33,18 @@
             <argument type="service" id="cpi" />
 
             <tag name="form.type" alias="veneer_bosheditor_deployment_diskpool" />
+        </service>
+
+        <service id="veneer_ops.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
+            <factory service="service_container" method="get" />
+            <argument>veneer_core.breadcrumbs</argument>
+
+            <call method="add">
+                <argument>Ops</argument>
+                <argument type="collection">
+                    <argument key="veneer_ops_summary" type="collection"></argument>
+                </argument>
+            </call>
         </service>
     </services>
 </container>

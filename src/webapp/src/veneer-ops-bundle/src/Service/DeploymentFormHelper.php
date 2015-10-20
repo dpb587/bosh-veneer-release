@@ -5,7 +5,7 @@ namespace Veneer\OpsBundle\Service;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class DeploymentEditor
+class DeploymentFormHelper
 {
     protected $formFactory;
     protected $manifest;
@@ -36,6 +36,9 @@ class DeploymentEditor
         } elseif (preg_match('/^resource_pools\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
             $formType = 'veneer_bosheditor_deployment_resourcepool';
             $data = $this->lookupNamedIndex('resource_pools', $pathMatch['name']);
+        } elseif (preg_match('/^releases\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
+            $formType = 'veneer_bosheditor_deployment_release';
+            $data = $this->lookupNamedIndex('releases', $pathMatch['name']);
         } else {
             throw new \InvalidArgumentException('Invalid concept');
         }
