@@ -43,6 +43,6 @@ class DeploymentResourcePoolStemcellType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_resourcepool_stemcell';
+        return 'veneer_ops_deployment_resourcepool_stemcell';
     }
 }

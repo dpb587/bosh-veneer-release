@@ -21,30 +21,30 @@ class DeploymentFormHelper
         $pathMatch = null;
 
         if (preg_match('/^compilation(\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $formType = 'veneer_bosheditor_deployment_compilation';
+            $formType = 'veneer_ops_deployment_compilation';
             $data = [
                 'isset' => isset($this->manifest['compilation']),
                 'path' => '[compilation]',
                 'data' => isset($this->manifest['compilation']) ? $this->manifest['compilation'] : [],
             ];
         } elseif (preg_match('/^update(\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $formType = 'veneer_bosheditor_deployment_update';
+            $formType = 'veneer_ops_deployment_update';
             $data = [
                 'isset' => isset($this->manifest['update']),
                 'path' => '[update]',
                 'data' => isset($this->manifest['update']) ? $this->manifest['update'] : [],
             ];
         } elseif (preg_match('/^disk_pools\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $formType = 'veneer_bosheditor_deployment_diskpool';
+            $formType = 'veneer_ops_deployment_diskpool';
             $data = $this->lookupNamedIndex('disk_pools', $pathMatch['name']);
         } elseif (preg_match('/^networks\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $formType = 'veneer_bosheditor_deployment_network';
+            $formType = 'veneer_ops_deployment_network';
             $data = $this->lookupNamedIndex('networks', $pathMatch['name']);
         } elseif (preg_match('/^resource_pools\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $formType = 'veneer_bosheditor_deployment_resourcepool';
+            $formType = 'veneer_ops_deployment_resourcepool';
             $data = $this->lookupNamedIndex('resource_pools', $pathMatch['name']);
         } elseif (preg_match('/^releases\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $formType = 'veneer_bosheditor_deployment_release';
+            $formType = 'veneer_ops_deployment_release';
             $data = $this->lookupNamedIndex('releases', $pathMatch['name']);
         } else {
             throw new \InvalidArgumentException('Invalid concept');

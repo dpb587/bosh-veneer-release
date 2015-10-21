@@ -17,7 +17,7 @@ class DeploymentNetworkManualType extends AbstractType
                 'collection',
                 array(
                     'label' => 'Subnets',
-                    'type' => 'veneer_bosheditor_deployment_network_manual_subnet',
+                    'type' => 'veneer_ops_deployment_network_manual_subnet',
                     'allow_add' => true,
                     'allow_delete' => true,
                 )
@@ -27,6 +27,6 @@ class DeploymentNetworkManualType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_network_manual';
+        return 'veneer_ops_deployment_network_manual';
     }
 }

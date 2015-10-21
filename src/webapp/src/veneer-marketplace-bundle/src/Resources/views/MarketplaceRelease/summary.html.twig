@@ -1,0 +1,24 @@
+{% extends _layout %}
+
+{% block def_title _veneer_bosh_context.release.name %}
+
+{% block frag_content %}  
+  {{ render(_links.widget.versionALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <dl>
+        <dt>Last Refreshed</dt>
+        <dd>{{ stats.stat_last_seen_at_max|date('F j \\a\\t g:i a') }}</dd>
+
+        {% if stats.tarball_size_min %}
+            <dt>Tarball Size</dt>
+            <dd>
+                {{ stats.tarball_size_min|byte_format }}
+                {% if stats.tarball_size_min != stats.tarball_size_max %}
+                    &ndash; {{ stats.tarball_size_max|byte_format }}
+                {% endif %}
+            </dd>
+        {% endif %}
+    </dl>
+{% endblock %}

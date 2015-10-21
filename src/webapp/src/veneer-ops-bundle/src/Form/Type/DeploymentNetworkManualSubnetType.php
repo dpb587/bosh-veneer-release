@@ -83,6 +83,6 @@ class DeploymentNetworkManualSubnetType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_network_manual_subnet';
+        return 'veneer_ops_deployment_network_manual_subnet';
     }
 }

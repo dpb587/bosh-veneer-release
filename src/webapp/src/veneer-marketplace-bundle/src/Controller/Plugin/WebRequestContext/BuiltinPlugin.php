@@ -11,6 +11,7 @@ use Veneer\BoshBundle\Entity\Vms;
 use Veneer\BoshBundle\Entity\Releases;
 use Veneer\CoreBundle\Plugin\RequestContext\PluginInterface;
 use Veneer\MarketplaceBundle\Service\MarketplaceFactory;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BuiltinPlugin implements PluginInterface
 {
@@ -36,7 +37,13 @@ class BuiltinPlugin implements PluginInterface
         if ('marketplace' == $contextSplit[0]) {
             if ('marketplace' == $contextSplit[1]) {
                 try {
-                    $veneerBoshContext['marketplace'] = $this->factory->get($request->attributes->get('marketplace'));
+                    $service = $this->factory->get($request->attributes->get('marketplace'));
+
+                    $veneerBoshContext['marketplace'] = [
+                        'name' => $request->attributes->get('marketplace'),
+                        'title' => $service->getTitle(),
+                        'details' => $service->getDetails(),
+                    ];
                 } catch (\InvalidArgumentException $e) {
                     throw new NotFoundHttpException('Failed to find marketplace', $e);
                 }

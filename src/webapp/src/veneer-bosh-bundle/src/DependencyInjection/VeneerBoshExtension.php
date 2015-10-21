@@ -19,6 +19,5 @@ class VeneerBoshExtension extends Extension
         $loader->load('services.xml');
         $loader->load('web-link-provider.xml');
         $loader->load('web-request-context.xml');
-        $loader->load('web-topic-provider.xml');
     }
 }

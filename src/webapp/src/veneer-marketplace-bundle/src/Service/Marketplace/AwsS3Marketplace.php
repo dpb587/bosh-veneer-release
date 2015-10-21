@@ -38,6 +38,14 @@ class AwsS3Marketplace implements MarketplaceInterface
         return $this->title;
     }
 
+    public function getDetails()
+    {
+        return [
+            'Region' => $this->options['region'],
+            'Bucket' => $this->options['bucket'],
+        ];
+    }
+
     public function yieldReleases()
     {
         $regex = $this->options['release_regex'];

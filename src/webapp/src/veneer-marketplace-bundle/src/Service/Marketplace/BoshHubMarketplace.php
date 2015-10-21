@@ -30,6 +30,13 @@ class BoshHubMarketplace implements MarketplaceInterface
         return $this->title;
     }
 
+    public function getDetails()
+    {
+        return [
+            'Website' => $this->options['base_uri'],
+        ];
+    }
+
     public function yieldReleases()
     {
         $baseUri = new Uri($this->options['base_uri']);

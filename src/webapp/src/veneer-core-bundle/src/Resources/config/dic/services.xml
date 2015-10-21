@@ -14,11 +14,6 @@
             <argument type="collection" /><!-- compiler -->
         </service>
 
-        <service id="veneer_core.plugin.topic_provider.factory" class="Veneer\CoreBundle\Plugin\TopicProvider\Factory">
-            <argument type="service" id="service_container" />
-            <argument type="collection" /><!-- compiler -->
-        </service>
-
         <service id="veneer_core.plugin.request_context.factory" class="Veneer\CoreBundle\Plugin\RequestContext\Factory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- compiler -->

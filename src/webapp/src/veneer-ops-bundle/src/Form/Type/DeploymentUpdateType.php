@@ -57,6 +57,6 @@ class DeploymentUpdateType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_update';
+        return 'veneer_ops_deployment_update';
     }
 }

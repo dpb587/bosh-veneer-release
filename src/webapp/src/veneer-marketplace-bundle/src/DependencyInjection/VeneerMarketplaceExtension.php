@@ -17,6 +17,8 @@ class VeneerMarketplaceExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/dic'));
 
+        $loader->load('web-request-context.xml');
+        $loader->load('web-link-provider.xml');
         $loader->load('services.xml');
 
         $config = $this->processConfiguration(

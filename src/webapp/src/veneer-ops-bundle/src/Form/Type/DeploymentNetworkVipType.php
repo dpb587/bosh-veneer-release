@@ -32,6 +32,6 @@ class DeploymentNetworkVipType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_network_vip';
+        return 'veneer_ops_deployment_network_vip';
     }
 }

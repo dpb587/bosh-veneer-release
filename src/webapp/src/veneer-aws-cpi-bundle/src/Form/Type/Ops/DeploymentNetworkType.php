@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\BoshEditor;
+namespace Veneer\AwsCpiBundle\Form\Type\Ops;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +33,6 @@ class DeploymentNetworkType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_awscpi_bosheditor_deployment_network';
+        return 'veneer_awscpi_ops_deployment_network';
     }
 }

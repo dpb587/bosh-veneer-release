@@ -29,21 +29,21 @@ class VeneerAwsCpiBundle extends Bundle implements BundleInterface
 
     public function getDeploymentResourcePoolFormType()
     {
-        return 'veneer_awscpi_bosheditor_deployment_resourcepool';
+        return 'veneer_awscpi_ops_deployment_resourcepool';
     }
 
     public function getDeploymentDiskPoolFormType()
     {
-        return 'veneer_awscpi_bosheditor_deployment_diskpool';
+        return 'veneer_awscpi_ops_deployment_diskpool';
     }
 
     public function getDeploymentNetworkDynamicFormType()
     {
-        return 'veneer_awscpi_bosheditor_deployment_network';
+        return 'veneer_awscpi_ops_deployment_network';
     }
 
     public function getDeploymentNetworkManualForm()
     {
-        return 'veneer_awscpi_bosheditor_deployment_network';
+        return 'veneer_awscpi_ops_deployment_network';
     }
 }

@@ -8,7 +8,7 @@
                     <h3 style="margin-bottom:0;">Releases</h3>
                 </th>
                 <th class="text-right" style="border-top:0;">
-                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'releases[]' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
+                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : 'releases[]' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
                 </th>
             </tr>
         </thead>
@@ -35,7 +35,7 @@
                 <tr>
                     <td colspan="2">
                         <p>
-                            No releases configured &mdash; <a href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'file' : file, 'path' : 'releases[]' }) }}">add one&hellip;</a>
+                            No releases configured &mdash; <a href="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : 'releases[]' }) }}">add one&hellip;</a>
                         </p>
                         <p class="text-muted">
                             <span class="text-primary"><i class="fa fa-question-circle"></i></span>

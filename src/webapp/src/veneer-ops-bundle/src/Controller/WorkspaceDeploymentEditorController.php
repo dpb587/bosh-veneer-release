@@ -13,7 +13,7 @@ use Veneer\OpsBundle\Service\DeploymentFormHelper;
 
 class WorkspaceDeploymentEditorController extends AbstractController
 {
-    public function defNav(Breadcrumbs $nav, $file)
+    public function defNav(Breadcrumbs $nav, $path)
     {
         return $nav
             ->add(
@@ -24,10 +24,10 @@ class WorkspaceDeploymentEditorController extends AbstractController
                 ]
             )
             ->add(
-                $file,
+                $path,
                 [
                     'veneer_ops_workspace_deploymenteditor_summary' => [
-                        'file' => $file,
+                        'path' => $path,
                     ],
                 ],
                 [
@@ -39,18 +39,18 @@ class WorkspaceDeploymentEditorController extends AbstractController
 
     public function summaryAction(Request $request)
     {
-        $file = $request->query->get('file');
+        $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $yaml = Yaml::parse($repo->showFile($file));
+        $yaml = Yaml::parse($repo->showFile($path));
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceDeploymentEditor:summary.html.twig',
             [
-                'file' => $file,
+                'path' => $path,
                 'manifest' => $yaml,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $file),
+                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $path),
                 'sidenav_active' => 'summary',
             ]
         );
@@ -58,24 +58,24 @@ class WorkspaceDeploymentEditorController extends AbstractController
 
     public function sectionAction(Request $request, $section)
     {
-        $file = $request->query->get('file');
+        $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $yaml = Yaml::parse($repo->showFile($file));
+        $yaml = Yaml::parse($repo->showFile($path));
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceDeploymentEditor:section-' . $section . '.html.twig',
             [
-                'file' => $file,
+                'path' => $path,
                 'manifest' => $yaml,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $file)
+                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $path)
                     ->add(
                         $section,
                         [
                             'veneer_ops_workspace_deploymenteditor_section' => [
                                 'section' => $section,
-                                'file' => $file,
+                                'path' => $path,
                             ],
                         ]
                     ),
@@ -86,34 +86,40 @@ class WorkspaceDeploymentEditorController extends AbstractController
 
     public function editAction(Request $request)
     {
-        $file = $request->query->get('file');
         $path = $request->query->get('path');
+        $property = $request->query->get('property');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $yaml = Yaml::parse($repo->showFile($file));
+        $yaml = Yaml::parse($repo->showFile($path));
 
         $editor = new DeploymentFormHelper($this->container->get('form.factory'), $yaml);
-        $editorProfile = $editor->lookup($path);
+        $editorProfile = $editor->lookup($property);
 
-        $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $path));
+        $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
+        $nav = self::defNav($this->container->get('veneer_ops.breadcrumbs'), $path);
+
+        if (in_array($section, [ 'compilation', 'update' ])) {
+            $nav->add($section);
+        } else {
+            $nav->add(
+                $section,
+                [
+                    'veneer_ops_workspace_deploymenteditor_section' => [
+                        'section' => $section,
+                        'path' => $path,
+                    ],
+                ]
+            );
+        }
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceDeploymentEditor:edit.html.twig',
             [
-                'file' => $file,
+                'path' => $path,
                 'manifest' => $yaml,
                 'form' => $editorProfile['form']->createView(),
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $file)
-                    ->add(
-                        $section,
-                        [
-                            'veneer_ops_workspace_deploymenteditor_section' => [
-                                'section' => $section,
-                                'file' => $file,
-                            ],
-                        ]
-                    ),
+                'def_nav' => $nav,
                 'sidenav_active' => $section,
             ]
         );

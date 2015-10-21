@@ -32,6 +32,6 @@ class DeploymentReleaseType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_release';
+        return 'veneer_ops_deployment_release';
     }
 }

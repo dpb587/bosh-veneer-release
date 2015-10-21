@@ -48,6 +48,6 @@ class DeploymentDiskPoolType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_diskpool';
+        return 'veneer_ops_deployment_diskpool';
     }
 }

@@ -30,7 +30,7 @@ class DeploymentResourcePoolType extends AbstractType
             )
 //            ->add(
 //                'network',
-//                'veneer_bosheditor_deployment_network',
+//                'veneer_ops_deployment_network',
 //                [
 //                    'label' => 'Network',
 //                    'helptext' => 'References a valid network name defined in the Networks block. Newly created resource pool VMs use the described configuration.',
@@ -47,7 +47,7 @@ class DeploymentResourcePoolType extends AbstractType
             )
             ->add(
                 'stemcell',
-                'veneer_bosheditor_deployment_resourcepool_stemcell',
+                'veneer_ops_deployment_resourcepool_stemcell',
                 [
                     'label' => 'Stemcell',
                     'helptext' => 'The stemcell used to create resource pool VMs.',
@@ -77,6 +77,6 @@ class DeploymentResourcePoolType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_resourcepool';
+        return 'veneer_ops_deployment_resourcepool';
     }
 }

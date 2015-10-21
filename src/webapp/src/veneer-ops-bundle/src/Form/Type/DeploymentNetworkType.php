@@ -29,13 +29,13 @@ class DeploymentNetworkType extends AbstractType
                     'label' => 'Network Type',
                     'forms' => [
                         'manual' => [
-                            'veneer_bosheditor_deployment_network_manual',
+                            'veneer_ops_deployment_network_manual',
                             [
                                 'label' => 'Manual',
                             ],
                         ],
                         'dynamic' => [
-                            'veneer_bosheditor_deployment_network_dynamic',
+                            'veneer_ops_deployment_network_dynamic',
                             [
                                 'label' => 'Dynamic',
                             ],
@@ -50,6 +50,6 @@ class DeploymentNetworkType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_bosheditor_deployment_network';
+        return 'veneer_ops_deployment_network';
     }
 }

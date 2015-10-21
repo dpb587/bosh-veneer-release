@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\BoshEditor;
+namespace Veneer\AwsCpiBundle\Form\Type\Ops;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,6 +38,6 @@ class DeploymentDiskPoolType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_awscpi_bosheditor_deployment_diskpool';
+        return 'veneer_awscpi_ops_deployment_diskpool';
     }
 }
