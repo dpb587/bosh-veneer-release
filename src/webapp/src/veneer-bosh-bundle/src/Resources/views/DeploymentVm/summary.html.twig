@@ -3,29 +3,29 @@
 {% block def_title data.agentId %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.resourcepool_cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.templates.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.networkALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.resourcepool_cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.templates.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.networkALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>Job</dt>
-    <dd>{{ data.applySpecJsonAsArray.job.name }}/{{ data.applySpecJsonAsArray.index }}</dd>
+    <dl>
+        <dt>Job</dt>
+        <dd>{{ data.applySpecJsonAsArray.job.name }}/{{ data.applySpecJsonAsArray.index }}</dd>
 
-    <dt>CID</dt>
-    <dd>{{ data.cid }}</dd>
+        <dt>CID</dt>
+        <dd>{{ data.cid }}</dd>
 
-    <dt>Resource Pool</dt>
-    <dd>{{ data.applySpecJsonAsArray.resource_pool.name }}</dd>
+        <dt>Resource Pool</dt>
+        <dd>{{ data.applySpecJsonAsArray.resource_pool.name }}</dd>
 
-    <dt>Stemcell</dt>
-    <dd><a href="{{ path('veneer_bosh_stemcell_summary', { 'stemcell' : data.applySpecJsonAsArray.resource_pool.stemcell.name, 'version' : data.applySpecJsonAsArray.resource_pool.stemcell.version }) }}">{{ data.applySpecJsonAsArray.resource_pool.stemcell.name }}<span class="text-muted">/{{ data.applySpecJsonAsArray.resource_pool.stemcell.version }}</span></a></dd>
-  </dl>
+        <dt>Stemcell</dt>
+        <dd><a href="{{ path('veneer_bosh_stemcell_summary', { 'stemcell' : data.applySpecJsonAsArray.resource_pool.stemcell.name, 'version' : data.applySpecJsonAsArray.resource_pool.stemcell.version }) }}">{{ data.applySpecJsonAsArray.resource_pool.stemcell.name }}<span class="text-muted">/{{ data.applySpecJsonAsArray.resource_pool.stemcell.version }}</span></a></dd>
+    </dl>
 
-  <ul class="list-unstyled">
-    <li><a href="{{ _links.widget.instance.url|default }}"><small class="text-muted" style="margin-right:3px;"><span class="fontawesome fontawesome-share-alt"></span></small>Instance</a></li>
-  </ul>
+    <ul class="list-unstyled">
+        <li><a href="{{ _links.widget.instance.url|default }}"><small class="text-muted" style="margin-right:3px;"><span class="fontawesome fontawesome-share-alt"></span></small>Instance</a></li>
+    </ul>
 
-  {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

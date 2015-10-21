@@ -3,24 +3,24 @@
 {% block def_title data.job ~ '/' ~ data.index %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.loadstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.memstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.diskstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.persistentdiskALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.loadstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.memstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.diskstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.persistentdiskALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>State</dt>
-    <dd>{{ data.state|capitalize }}</dd>
+    <dl>
+        <dt>State</dt>
+        <dd>{{ data.state|capitalize }}</dd>
     
-    <dt>Resurrection Paused</dt>
-    <dd>{{ data.resurrectionPaused ? 'Yes' : 'No' }}</dd>
-  </dl>
+        <dt>Resurrection Paused</dt>
+        <dd>{{ data.resurrectionPaused ? 'Yes' : 'No' }}</dd>
+    </dl>
 
-  <ul class="list-unstyled">
-    <li><a href="{{ _links.widget.vm.url }}"><small class="text-muted" style="margin-right:3px;"><span class="fontawesome fontawesome-share-alt"></span></small>Virtual Machine</a></li>
-  </ul>
+    <ul class="list-unstyled">
+        <li><a href="{{ _links.widget.vm.url }}"><small class="text-muted" style="margin-right:3px;"><span class="fontawesome fontawesome-share-alt"></span></small>Virtual Machine</a></li>
+    </ul>
 
-  {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

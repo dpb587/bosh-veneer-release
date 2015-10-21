@@ -3,47 +3,47 @@
 {% block def_title data.name %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.hoststats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.hoststats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    {% if data.type is defined %}
-        <dt>Type</dt>
-        <dd>{{ data.type }}</dd>
-    {% endif %}
+    <dl>
+        {% if data.type is defined %}
+            <dt>Type</dt>
+            <dd>{{ data.type }}</dd>
+        {% endif %}
     
-    <dt>IP</dt>
-    <dd>{{ data.ip }}</dd>
+        <dt>IP</dt>
+        <dd>{{ data.ip }}</dd>
     
-    {% if data.netmask is defined %}
-      <dt>Netmask</dt>
-      <dd>{{ data.netmask }}</dd>
-    {% endif %}
+        {% if data.netmask is defined %}
+            <dt>Netmask</dt>
+            <dd>{{ data.netmask }}</dd>
+        {% endif %}
     
-    {% if data.gateway is defined %}
-      <dt>Gateway</dt>
-      <dd>{{ data.gateway }}</dd>
-    {% endif %}
+        {% if data.gateway is defined %}
+            <dt>Gateway</dt>
+            <dd>{{ data.gateway }}</dd>
+        {% endif %}
     
-    {% if data.dns is defined %}
-      <dt>DNS</dt>
-      {% for v in data.dns %}
-        <dd>{{ v }}</dd>
-      {% endfor %}
-    {% endif %}
+        {% if data.dns is defined %}
+            <dt>DNS</dt>
+            {% for v in data.dns %}
+                <dd>{{ v }}</dd>
+            {% endfor %}
+        {% endif %}
     
-    {% if data.default is defined %}
-      <dt>Default</dt>
-      {% for v in data.default %}
-        <dd>{{ v }}</dd>
-      {% endfor %}
-    {% endif %}
+        {% if data.default is defined %}
+            <dt>Default</dt>
+            {% for v in data.default %}
+                <dd>{{ v }}</dd>
+            {% endfor %}
+        {% endif %}
     
-    <dt>DNS Record Name</dt>
-    <dd>{{ data.dns_record_name }}</dd>
-  </dl>
+        <dt>DNS Record Name</dt>
+        <dd>{{ data.dns_record_name }}</dd>
+    </dl>
 
-  {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

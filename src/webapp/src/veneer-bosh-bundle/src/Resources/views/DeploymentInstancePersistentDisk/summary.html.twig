@@ -3,20 +3,20 @@
 {% block def_title data.size %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>Size</dt>
-    <dd>{{ data.size }} MB</dd>
+    <dl>
+        <dt>Size</dt>
+        <dd>{{ data.size }} MB</dd>
 
-    <dt>Active</dt>
-    <dd>{{ data.active ? 'Yes' : 'No' }}</dd>
+        <dt>Active</dt>
+        <dd>{{ data.active ? 'Yes' : 'No' }}</dd>
 
-    <dt>CID</dt>
-    <dd>{{ data.diskCid }}</dd>
-  </dl>
+        <dt>CID</dt>
+        <dd>{{ data.diskCid }}</dd>
+    </dl>
 
-  {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

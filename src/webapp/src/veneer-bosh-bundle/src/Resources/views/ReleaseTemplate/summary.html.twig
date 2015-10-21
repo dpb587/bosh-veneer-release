@@ -3,14 +3,14 @@
 {% block def_title _veneer_bosh_context.template.name ~ '/' ~ _veneer_bosh_context.template.version %}
 
 {% block frag_content %}  
-  {{ render(_links.widget.properties.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.properties.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>Packages</dt>
-    {% for package in data.packageNamesJsonAsArray %}
-        <dd>{{ package }}</dd>
-    {% endfor %}
-  </dl>
+    <dl>
+        <dt>Packages</dt>
+        {% for package in data.packageNamesJsonAsArray %}
+            <dd>{{ package }}</dd>
+        {% endfor %}
+    </dl>
 {% endblock %}

@@ -1,100 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>{% block html_title %}{% if block('def_title') %}{{ block('def_title') }} ~ {% endif %}{{ veneer_bosh_director_name }}{% endblock %}</title>
+        <title>{% block html_title %}{% if block('def_title') %}{{ block('def_title') }} ~ {% endif %}{{ veneer_bosh_director_name }}{% endblock %}</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    {% stylesheets '@bootstrap_css' %}<link rel="stylesheet" href="{{ asset_url }}" />{% endstylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        {% stylesheets '@bootstrap_css' %}<link rel="stylesheet" href="{{ asset_url }}" />{% endstylesheets %}
 
-    {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}{% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
-    <script>var _postload=[]</script>
+        <script>var _postload=[]</script>
   </head>
 
   <body>
-    {% block html_body %}
-          <nav class="navbar navbar-light bg-faded">
-            <a class="navbar-brand" href="{{ path('veneer_core_summary') }}">veneer</a>
-            <ul class="nav navbar-nav">
-              {% for bundle in veneer_bosh_plugin_factory.bundles if bundle.veneerRoute %}
-                <li class="nav-item{% if bundle.veneerRoute == def_nav[1].route[0]|default %} active{% endif %}">
-                    <a class="nav-link" href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerName }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-            <form class="form-inline navbar-form pull-right">
-              <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search">
-                <span class="input-group-btn">
-                  <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
-                </span>
-            </form>
-          </nav>
-
-        <div style="border-bottom:#E8E8E8 solid 1px;margin-bottom:16px;padding:10px 12px 9px;">
-            {% block content_nav %}
-                {% for nav in def_nav|default([])[2:] %}
-                    {% if loop.first and loop.length > 1 %}
-                        <a href="{{ nav.url }}" title="{{ nav.title }}" style="color:#999999;">&nbsp;<i class="fa fa-{{ nav.options.fontawesome|default('angle-double-right') }}"></i>&nbsp;</a>
-                    {% else %}
-                        {% if loop.index0 %}
-                            <span style="color:#CFCFCF;">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
-                        {% endif %}
-                        {% if loop.first %}&nbsp;{% endif %}{#
-                        #}<a href="{{ nav.url }}" style="color:inherit;">{% if nav.options.fontawesome|default %}<i class="fa fa-{{ nav.options.fontawesome }}" aria-hidden="true"></i> {% endif %}{{ nav.title }}</a>
-                    {% endif %}
-                {% else %}
-                    &nbsp;{{ block('def_title') }}
-                {% endfor %}
-            {% endblock %}
-        </div>
-
-                    {#
-            {% if 1 < _topics|length or (0 < _topics|length and _topics[block('primary_link')] is not defined) %}
-              <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                  {% for name, link in _topics %}
-                    <li{% if block('primary_link') == name %} class="active"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
-                  {% endfor %}
+        {% block html_body %}
+            <nav class="navbar navbar-light bg-faded">
+                <a class="navbar-brand" href="{{ path('veneer_core_summary') }}">veneer</a>
+                <ul class="nav navbar-nav">
+                    {% for bundle in veneer_bosh_plugin_factory.bundles if bundle.veneerRoute %}
+                        <li class="nav-item{% if bundle.veneerRoute == def_nav[1].route[0]|default %} active{% endif %}">
+                            <a class="nav-link" href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerName }}</a>
+                        </li>
+                    {% endfor %}
                 </ul>
-              </div>
-            {% endif %}#}
-      </nav>
+                <form class="form-inline navbar-form pull-right">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </form>
+            </nav>
+
+            <div style="border-bottom:#E8E8E8 solid 1px;margin-bottom:16px;padding:10px 12px 9px;">
+                {% block content_nav %}
+                    {% for nav in def_nav|default([])[2:] %}
+                        {% if loop.first and loop.length > 1 %}
+                            <a href="{{ nav.url }}" title="{{ nav.title }}" style="color:#999999;">&nbsp;<i class="fa fa-{{ nav.options.fontawesome|default('angle-double-right') }}"></i>&nbsp;</a>
+                        {% else %}
+                            {% if loop.index0 %}
+                                <span style="color:#CFCFCF;">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
+                            {% endif %}
+                            {% if loop.first %}&nbsp;{% endif %}{#
+                            #}<a href="{{ nav.url }}" style="color:inherit;">{% if nav.options.fontawesome|default %}<i class="fa fa-{{ nav.options.fontawesome }}" aria-hidden="true"></i> {% endif %}{{ nav.title }}</a>
+                        {% endif %}
+                    {% else %}
+                        &nbsp;{{ block('def_title') }}
+                    {% endfor %}
+                {% endblock %}
+            </div>
 
             {% block frag_container %}
-
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 col-md-3">
-                          {% block frag_sidebar %}{% endblock %}
+                            {% block frag_sidebar %}{% endblock %}
                         </div>
 
                         <div class="col-sm-12 col-md-9">
-                          {% block frag_content %}{% endblock %}
+                            {% block frag_content %}{% endblock %}
                         </div>
                     </div>
                 </div>
-
             {% endblock %}
 
-        <footer class="text-right" style="margin-top:16px;padding-right:6px;">
-            <small class="text-muted">
-                &mdash; <a href="{{ path('veneer_core_about') }}" style="color:inherit;">v0.1.0+dev.{{ 'now'|date('YmdHis') }}</a>
-            </small>
-        </footer>
-    {% endblock %}
+            <footer class="text-center" style="margin-top:2rem;">
+                <small class="text-muted">
+                    <a class="text-muted" href="{{ path('veneer_core_about') }}"><i class="fa fa-wrench fa-fw"></i>0.1.0+dev.{{ 'now'|date('YmdH') }}</a>
+                    &nbsp;&middot;&nbsp;
+                    <a class="text-muted" href="http://dpb587.me" target="_blank"><i class="fa fa-hand-peace-o fa-fw"></i>dpb587</a>
+                </small>
+            </footer>
+        {% endblock %}
 
-    {% javascripts '@jquery_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
-    {% javascripts '@bootstrap_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
-    {% javascripts '@highcharts_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
+        {% javascripts '@jquery_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
+        {% javascripts '@bootstrap_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
+        {% javascripts '@highcharts_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
 
-    {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}
-    <script>_postload.forEach(function (a){a.apply(window)})</script>
-  </body>
+        {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}
+        <script>_postload.forEach(function (a){a.apply(window)})</script>
+    </body>
 </html>

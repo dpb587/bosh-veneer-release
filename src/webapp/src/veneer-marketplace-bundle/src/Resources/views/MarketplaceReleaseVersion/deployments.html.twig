@@ -3,22 +3,22 @@
 {% block def_title 'Deployments' %}
 
 {% block frag_content %}
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Deployment</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for result in results %}
-        <tr>
-          <td><a href="{{ path('veneer_bosh_deployment_summary', { 'deployment' : result.name }) }}">{{ result.name }}</a></td>
-        </tr>
-      {% else %}
-          <tr>
-              <td class="text-muted">No deployments are using this release version.</td>
-          </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Deployment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td><a href="{{ path('veneer_bosh_deployment_summary', { 'deployment' : result.name }) }}">{{ result.name }}</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td class="text-muted">No deployments are using this release version.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

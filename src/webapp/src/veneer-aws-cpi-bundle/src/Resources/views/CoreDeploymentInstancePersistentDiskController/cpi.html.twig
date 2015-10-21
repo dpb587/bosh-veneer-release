@@ -3,19 +3,19 @@
 {% block def_title 'Cloud Properties' %}
 
 {% block frag_content %}
-  {% if 0 < properties|length %}
-    <dl class="dl-horizontal">
-      {% if properties.type is defined %}
-        <dt class="col-sm-12 col-md-3 text-right">Type</dt>
-        <dd class="col-sm-12 col-md-9">{{ properties.type}}</dd>
-      {% endif %}
+    {% if 0 < properties|length %}
+        <dl class="dl-horizontal">
+            {% if properties.type is defined %}
+                <dt class="col-sm-12 col-md-3 text-right">Type</dt>
+                <dd class="col-sm-12 col-md-9">{{ properties.type}}</dd>
+            {% endif %}
 
-      {% if properties.encrypted is defined %}
-        <dt class="col-sm-12 col-md-3 text-right">Encrypted</dt>
-        <dd class="col-sm-12 col-md-9">{{ properties.encrypted ? 'Yes' : 'No' }}</dd>
-      {% endif %}
-    </dl>
-  {% else %}
-    <p class="text-muted">No properties configured.</p>
-  {% endif %}
+            {% if properties.encrypted is defined %}
+                <dt class="col-sm-12 col-md-3 text-right">Encrypted</dt>
+                <dd class="col-sm-12 col-md-9">{{ properties.encrypted ? 'Yes' : 'No' }}</dd>
+            {% endif %}
+        </dl>
+    {% else %}
+        <p class="text-muted">No properties configured.</p>
+    {% endif %}
 {% endblock %}

@@ -3,18 +3,18 @@
 {% block def_title 'Packages' %}
 
 {% block frag_content %}
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Package</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for result in results %}
-        <tr>
-            <td><a href="{{ path('veneer_bosh_release_package_summary', { 'release' : _veneer_bosh_context.release.name, 'package' : result.name, 'version' : result.version }) }}">{{ result.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Package</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td><a href="{{ path('veneer_bosh_release_package_summary', { 'release' : _veneer_bosh_context.release.name, 'package' : result.name, 'version' : result.version }) }}">{{ result.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

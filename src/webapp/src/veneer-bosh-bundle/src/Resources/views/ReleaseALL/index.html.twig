@@ -3,20 +3,20 @@
 {% block def_title 'Releases' %}
 
 {% block frag_content %}
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Release</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for result in results %}
-        <tr>
-          <td><a href="{{ path('veneer_bosh_release_summary', { 'release' : result.name }) }}">{{ result.name }}</a></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Release</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td><a href="{{ path('veneer_bosh_release_summary', { 'release' : result.name }) }}">{{ result.name }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
 {% block frag_sidebar %}

@@ -3,16 +3,16 @@
 {% block def_title _veneer_bosh_context.deployment.name %}
 
 {% block frag_content %}
-  {{ render(_links.widget.logsearch_monitstatus.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.instanceALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-  {{ render(_links.widget.releases.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.logsearch_monitstatus.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.instanceALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.releases.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <ul class="list-unstyled">
-    <li><a href="{{ _links.widget.manifest.url }}">Manifest</a></li>
-    <li><a href="{{ _links.widget.vmALL.url }}">Virtual Machines</a></li>
-  </ul>
+    <ul class="list-unstyled">
+        <li><a href="{{ _links.widget.manifest.url }}">Manifest</a></li>
+        <li><a href="{{ _links.widget.vmALL.url }}">Virtual Machines</a></li>
+    </ul>
     
-  {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}

@@ -1,13 +1,13 @@
 <div class="card">
-  <div class="card-header">
-    <div class="pull-right">
-      <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"><i class="fa fa-link fa-fw"></i></a>
-      <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><i class="fa fa-bolt fa-fw"></i></a>
+    <div class="card-header">
+        <div class="pull-right">
+            <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"><i class="fa fa-link fa-fw"></i></a>
+            <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><i class="fa fa-bolt fa-fw"></i></a>
+        </div>
+        {{ block('def_title') }}
     </div>
-    {{ block('def_title') }}
-  </div>
-  <div class="card-block">
-    {{ block('frag_' ~ _frag) }}
-  </div>
+    <div class="card-block">
+        {{ block('frag_' ~ _frag) }}
+    </div>
 </div>
 {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}

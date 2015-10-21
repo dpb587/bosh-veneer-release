@@ -3,23 +3,23 @@
 {% block def_title '#' ~ _veneer_bosh_context.task.id %}
 
 {% block frag_content %}
-  {{ render(_links.widget.events.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.events.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}
-  <dl>
-    <dt>State</dt>
-    <dd>{{ data.state|capitalize }}</dd>
+    <dl>
+        <dt>State</dt>
+        <dd>{{ data.state|capitalize }}</dd>
 
-    <dt>Description</dt>
-    <dd>{{ data.description }}</dd>
+        <dt>Description</dt>
+        <dd>{{ data.description }}</dd>
 
-    <dt>Username</dt>
-    <dd>{{ data.username }}</dd>
+        <dt>Username</dt>
+        <dd>{{ data.username }}</dd>
 
-    <dt>Timestamp</dt>
-    <dd>{{ data.timestamp|date('c') }}</dd>
-  </dl>
+        <dt>Timestamp</dt>
+        <dd>{{ data.timestamp|date('c') }}</dd>
+    </dl>
 
-  {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
 {% endblock %}
