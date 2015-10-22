@@ -46,6 +46,9 @@ class DeploymentFormHelper
         } elseif (preg_match('/^releases\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
             $formType = 'veneer_ops_deployment_release';
             $data = $this->lookupNamedIndex('releases', $pathMatch['name']);
+        } elseif (preg_match('/^jobs\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
+            $formType = 'veneer_ops_deployment_job';
+            $data = $this->lookupNamedIndex('jobs', $pathMatch['name']);
         } else {
             throw new \InvalidArgumentException('Invalid concept');
         }

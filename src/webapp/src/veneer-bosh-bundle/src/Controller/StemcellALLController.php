@@ -14,7 +14,7 @@ class StemcellALLController extends AbstractController
     public static function defNav(Breadcrumbs $nav)
     {
         return $nav->add(
-            'stemcells',
+            'stemcell',
             [
                 'veneer_bosh_stemcellALL_index' => [],
             ],

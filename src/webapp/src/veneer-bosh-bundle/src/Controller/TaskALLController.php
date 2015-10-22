@@ -14,12 +14,12 @@ class TaskALLController extends AbstractController
     public static function defNav(Breadcrumbs $nav)
     {
         return $nav->add(
-            'tasks',
+            'task',
             [
                 'veneer_bosh_taskALL_index' => [],
             ],
             [
-                'fontawesome' => 'exchange',
+                'fontawesome' => 'check-square-o',
             ]
         );
     }

@@ -16,7 +16,7 @@ class ReleasePackageALLController extends AbstractController
     {
         return ReleaseController::defNav($nav, $_bosh)
             ->add(
-                'packages',
+                'package',
                 [
                     'veneer_bosh_release_packageALL_index' => [
                         'release' => $_bosh['release']['name'],

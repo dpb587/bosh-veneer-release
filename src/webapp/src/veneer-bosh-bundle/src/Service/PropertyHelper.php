@@ -6,6 +6,80 @@ use Symfony\Component\Yaml\Yaml;
 
 class PropertyHelper
 {
+    public function mergePropertySets(array $propertySets)
+    {
+        $merged = [];
+
+        foreach ($propertySets as $ref => $propertySet) {
+            foreach ($propertySet as $name => $property) {
+                if (!isset($merged[$name])) {
+                    $merged[$name] = [
+                        '_ref' => [],
+                        '_description' => [],
+                        '_example' => [],
+                        '_default' => [],
+                        '_type' => [],
+                        '_other' => [],
+                    ];
+                }
+
+                if (!in_array($ref, $merged[$name]['_ref'])) {
+                    $merged[$name]['_ref'][] = $ref;
+                }
+
+                if (array_key_exists('description', $property)) {
+                    if (!in_array($property['description'], $merged[$name]['_description'])) {
+                        $merged[$name]['_description'][] = $property['description'];
+                    }
+
+                    unset($property['description']);
+                }
+
+                if (array_key_exists('example', $property)) {
+                    if (!in_array($property['example'], $merged[$name]['_example'])) {
+                        $merged[$name]['_example'][] = $property['example'];
+                    }
+
+                    unset($property['example']);
+                }
+
+                if (array_key_exists('default', $property)) {
+                    if (!in_array($property['default'], $merged[$name]['_default'])) {
+                        $merged[$name]['_default'][] = $property['default'];
+                    }
+
+                    unset($property['default']);
+                }
+
+                if (array_key_exists('type', $property)) {
+                    foreach ((array) $property['type'] as $type) {
+                        if (!in_array($type, $merged[$name]['type'])) {
+                            $merged[$name]['_type'][] = $type;
+                        }
+                    }
+
+                    unset($property['type']);
+                }
+
+                foreach ($property as $k => $v) {
+                    $merged[$name]['_other'][$k][] = $v;
+                }
+            }
+        }
+
+        // consolidate singletons in case we pretend this is a regular property tree
+
+        foreach ($merged as $name => $property) {
+            foreach ([ 'description', 'example', 'default', 'type' ] as $key) {
+                if (1 == count($property['_' . $key])) {
+                    $merged[$name][$key] = $property['_' . $key][0];
+                }
+            }
+        }
+
+        return $merged;
+    }
+
     public function createPropertyTree(array $properties, $context = null) {
         $scope = [];
 
@@ -22,12 +96,35 @@ class PropertyHelper
                 ];
             } else {
                 $scope[$propcont] = [
+                    'full_key' => $name,
                     'value' => $property,
                 ];
             }
         }
 
         ksort($scope);
+
+        return $scope;
+    }
+
+    public function flattenPropertyTree(array $propertyTree, $context = null)
+    {
+        $scope = [];
+
+        foreach ($propertyTree as $k => $v) {
+            if (is_array($v)) {
+                // if this is a hash, go deep
+                foreach ($v as $k2 => $v2) {
+                    if (is_string($k2)) {
+                        $scope = array_merge($scope, $this->flattenPropertyTree($v, $context . $k . '.'));
+
+                        continue 2;
+                    }
+                }
+            }
+
+            $scope[$context . $k] = $v;
+        }
 
         return $scope;
     }

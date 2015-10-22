@@ -16,7 +16,7 @@ class ReleaseTemplateALLController extends AbstractController
     {
         return ReleaseController::defNav($nav, $_bosh)
             ->add(
-                'templates',
+                'template',
                 [
                     'veneer_bosh_release_templateALL_index' => [
                         'release' => $_bosh['release']['name'],

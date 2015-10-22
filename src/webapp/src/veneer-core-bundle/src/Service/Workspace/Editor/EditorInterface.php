@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\CoreBundle\Service\Workspace;
+namespace Veneer\CoreBundle\Service\Workspace\Editor;
 
 interface EditorInterface
 {

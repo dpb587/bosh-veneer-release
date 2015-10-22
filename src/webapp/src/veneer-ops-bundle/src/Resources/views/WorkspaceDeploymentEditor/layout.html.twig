@@ -3,12 +3,8 @@
 {% block def_title 'Deployment Editor (' ~ manifest.name|default('unknown') ~ ')' %}
 
 {% block frag_sidebar %}
-    <dl>
-        <dt>Deployment Name</dt>
-        <dd>{{ manifest.name|default('unknown') }}</dd>
-    </dl>
-
     <ul class="nav">
+        {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_summary', { 'path' : path }), 'Summary', 'info', 'summary', sidenav_active) }}
         {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'releases', 'path' : path }), 'Releases', 'leaf', 'releases', sidenav_active) }}
         {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'networks', 'path' : path }), 'Networks', 'exchange', 'networks', sidenav_active) }}
         {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_section', { 'section' : 'resourcepools', 'path' : path }), 'Resource Pools', 'cubes', 'resourcepools', sidenav_active) }}
@@ -18,6 +14,10 @@
         {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : 'compilation' }), 'Compilation', 'cog', 'compilation', sidenav_active) }}
         {{ _self.navlink(path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : 'update' }), 'Update', 'cog', 'update', sidenav_active) }}
     </ul>
+
+    <hr />
+
+    <div><small><a class="text-muted" href="{{ path('veneer_core_workspace_repo_blob', { 'path' : path }) }}"><i class="fa fa-code"></i> {{ path }}</a></small></div>
 {% endblock %}
 
 {% macro navlink(path, title, fontawesome, name, active) %}

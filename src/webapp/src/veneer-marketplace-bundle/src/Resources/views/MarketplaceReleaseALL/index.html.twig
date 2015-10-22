@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Release</th>
+                <th class="text-center">Uploaded</th>
                 <th class="text-right">Versions</th>
             </tr>
         </thead>
@@ -14,6 +15,13 @@
             {% for result in results %}
                 <tr>
                     <td><a href="{{ path('veneer_marketplace_marketplace_release_summary', { 'marketplace' : _veneer_bosh_context.marketplace.name, 'release' : result.name }) }}">{{ result.name }}</a></td>
+                    <td class="text-center">
+                        {% if result.name in uploaded_locally %}
+                            <a href="{{ path('veneer_bosh_release_summary', { 'release' : result.name }) }}">
+                                <i class="fa fa-check fa-fw"></i>
+                            </a>
+                        {% endif %}
+                    </td>
                     <td class="text-right">{{ result.version_count|number_format }}</td>
                 </tr>
             {% endfor %}

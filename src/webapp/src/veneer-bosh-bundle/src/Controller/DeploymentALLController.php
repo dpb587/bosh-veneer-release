@@ -14,7 +14,7 @@ class DeploymentALLController extends AbstractController
     public static function defNav(Breadcrumbs $nav)
     {
         return $nav->add(
-            'deployments',
+            'deployment',
             [
                 'veneer_bosh_deploymentALL_index' => [],
             ],

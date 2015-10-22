@@ -25,6 +25,8 @@ class DeploymentNetworkDynamicType extends AbstractType
                 [
                     'type' => 'veneer_core_networking_cidr',
                     'label' => 'DNS',
+                    'allow_add' => true,
+                    'allow_delete' => true,
                     'helptext' => 'DNS IP addresses for this network',
                     'required' => false,
                 ]

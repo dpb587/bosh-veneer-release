@@ -1,5 +1,46 @@
 {% extends 'VeneerOpsBundle:WorkspaceDeploymentEditor:layout.html.twig' %}
 
+{% macro property_tree(path, tree, manifest) %}
+    <table class="table" style="margin-bottom:0;">
+        <tbody>
+            {% for key, node in tree if node.children is defined %}
+                <tr class="table-active">
+                    <td width="16" style="padding-right:0.2rem;"><i class="fa fa-plus fa-fw"></i></td>
+                    <td colspan="2" style="padding-left:0.2rem;"><strong>{{ key }}</strong></td>
+                </tr>
+                <tr>
+                    <td width="16" style="border-top:0;padding:0 0.2rem 0;">&nbsp;</td>
+                    <td colspan="2" style="border-top:0;padding:0 0 0 0.2rem;">
+                        {{ _self.property_tree(path, node.children, manifest[key]|default({})) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for key, node in tree if node.children is not defined %}
+                <tr>
+                    <td width="16" style="padding-right:0.2rem;"><i class="fa fa-chevron-right fa-fw"></i></td>
+                    <td style="padding-left:0.2rem;">
+                        {{ key }}
+                        {% if node.value.description|default %}
+                            <br />
+                            <small class="text-muted">{{ node.value.description }}</small>
+                        {% endif %}
+                    </td>
+                    <td class="text-right">
+                        {% set url = path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : 'properties.' ~ node.full_key }) %}
+                        {% if manifest[key] is defined %}
+                            <a class="btn btn-primary-outline btn-sm" href="{{ url }}"><i class="fa fa-pencil fa-fw"></i></a>
+                        {% elseif node.value.default is defined %}
+                            <a class="btn btn-success-outline btn-sm" href="{{ url }}"><i class="fa fa-plus fa-fw"></i></a>
+                        {% else %}
+                            <a class="btn btn-success-outline btn-sm" href="{{ url }}"><i class="fa fa-plus fa-fw"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
 {% block frag_content %}
-    something
+    {{ _self.property_tree(path, properties_tree, manifest.properties|default({})) }}
 {% endblock %}

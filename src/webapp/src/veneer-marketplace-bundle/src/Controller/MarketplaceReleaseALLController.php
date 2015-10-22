@@ -43,6 +43,18 @@ class MarketplaceReleaseALLController extends AbstractController
                     ->setParameter('marketplace', $_bosh['marketplace']['name'])
                     ->getArrayResult()
                 ,
+                'uploaded_locally' => array_map(
+                    'current',
+                    $this->container->get('doctrine.orm.bosh_entity_manager')
+                        ->createQuery(
+                            '
+                                SELECT
+                                    r.name
+                                FROM VeneerBoshBundle:Releases r
+                            '
+                        )
+                        ->getArrayResult()
+                ),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_marketplace.breadcrumbs'), $_bosh),

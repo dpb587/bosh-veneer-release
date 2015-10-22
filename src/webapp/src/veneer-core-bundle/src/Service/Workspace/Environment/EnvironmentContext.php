@@ -1,19 +1,33 @@
 <?php
 
-namespace Veneer\CoreBundle\Service;
+namespace Veneer\CoreBundle\Service\Workspace\Environment
+;
 
-class EnvironmentLookup implements \ArrayAccess
+class EnvironmentContext implements \ArrayAccess
 {
     protected $factory;
     protected $path;
     protected $caller;
+    protected $aliases;
+
     protected $cache = [];
 
-    public function __construct(EnvironmentFactory $factory, $path, $caller)
+    public function __construct(EnvironmentFactory $factory, $path, $caller, array $aliases = [])
     {
         $this->factory = $factory;
         $this->path = $path;
         $this->caller = $caller;
+        $this->aliases = $aliases;
+    }
+
+    public function getContextPath()
+    {
+        return $this->path;
+    }
+
+    public function getContextCaller()
+    {
+        return $this->caller;
     }
 
     public function offsetGet($offset)
@@ -21,7 +35,7 @@ class EnvironmentLookup implements \ArrayAccess
         if (!isset($this->cache[$offset])) {
             $sp = explode(':', $offset, 2);
 
-            $this->cache[$offset] = $this->factory->get($sp[0])->loadEnvironment($sp[1], $this->path, $this->caller);
+            $this->cache[$offset] = $this->factory->get($sp[0])->loadEnvironment($this, $sp[1]);
         }
 
         return $this->cache[$offset];

@@ -16,7 +16,7 @@ class ReleaseVersionALLController extends AbstractController
     {
         return ReleaseController::defNav($nav, $_bosh)
             ->add(
-                'versions',
+                'version',
                 [
                     'veneer_bosh_release_versionALL_index' => [
                         'release' => $_bosh['release']['name'],

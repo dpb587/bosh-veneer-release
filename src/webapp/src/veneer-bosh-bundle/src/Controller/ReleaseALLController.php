@@ -14,7 +14,7 @@ class ReleaseALLController extends AbstractController
     public static function defNav(Breadcrumbs $nav)
     {
         return $nav->add(
-            'releases',
+            'release',
             [
                 'veneer_bosh_releaseALL_index' => [],
             ],

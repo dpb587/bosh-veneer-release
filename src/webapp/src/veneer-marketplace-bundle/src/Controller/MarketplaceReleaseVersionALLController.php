@@ -48,7 +48,7 @@ class MarketplaceReleaseVersionALLController extends AbstractController
             'VeneerMarketplaceBundle:MarketplaceReleaseVersionALL:index.html.twig',
             [
                 'results' => $results,
-                'installed_locally' => array_map(
+                'uploaded_locally' => array_map(
                     'current',
                     $this->container->get('doctrine.orm.bosh_entity_manager')
                         ->createQuery(

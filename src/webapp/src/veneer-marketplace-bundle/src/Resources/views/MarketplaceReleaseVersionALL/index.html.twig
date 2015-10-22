@@ -16,7 +16,7 @@
                 <tr>
                     <td><a href="{{ path('veneer_marketplace_marketplace_release_version_summary', { 'marketplace' : _veneer_bosh_context.marketplace.name, 'release' : result.release, 'version' : result.version }) }}">{{ result.version }}</a></td>
                     <td class="text-center">
-                        {% if result.version in installed_locally %}
+                        {% if result.version in uploaded_locally %}
                             <a href="{{ path('veneer_bosh_release_version_summary', { 'release' : result.release, 'version' : result.version }) }}">
                                 <i class="fa fa-check fa-fw"></i>
                             </a>

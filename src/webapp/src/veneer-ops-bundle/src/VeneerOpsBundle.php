@@ -24,6 +24,6 @@ class VeneerOpsBundle extends Bundle implements BundleInterface
 
     public function getVeneerRoute()
     {
-        return 'veneer_ops_summary';
+        return null;
     }
 }

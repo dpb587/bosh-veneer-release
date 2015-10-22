@@ -10,21 +10,22 @@ use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\OpsBundle\Service\DeploymentFormHelper;
+use Veneer\BoshBundle\Controller\DeploymentController;
+use Veneer\BoshBundle\Entity\Deployments;
+use Doctrine\ORM\Query\Expr;
 
 class WorkspaceDeploymentEditorController extends AbstractController
 {
-    public function defNav(Breadcrumbs $nav, $path)
+    public function defNav(Breadcrumbs $nav, $path, $name)
     {
-        return $nav
+        $mock = new Deployments();
+        $refl = new \ReflectionProperty($mock, 'name');
+        $refl->setAccessible(true);
+        $refl->setValue($mock, $name);
+
+        return DeploymentController::defNav($nav, [ 'deployment' => $mock ])
             ->add(
-                'Deployment Editor',
-                null,
-                [
-                    'fontawesome' => 'sitemap',
-                ]
-            )
-            ->add(
-                $path,
+                'editor',
                 [
                     'veneer_ops_workspace_deploymenteditor_summary' => [
                         'path' => $path,
@@ -50,7 +51,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
                 'manifest' => $yaml,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $path),
+                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']),
                 'sidenav_active' => 'summary',
             ]
         );
@@ -61,15 +62,58 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
         $yaml = Yaml::parse($repo->showFile($path));
+        $tplExtras = [];
+
+        if ('properties' == $section) {
+            $propertySets = [];
+            $propertyHelper = $this->container->get('veneer_bosh.property_helper');
+            $er = $this->container->get('doctrine.orm.bosh_entity_manager')->getRepository('VeneerBoshBundle:ReleaseVersionsTemplates');
+
+            $releaseVersions = [];
+
+            foreach ($yaml['releases'] as $release) {
+                $releaseVersions[$release['name']] = $release['version'];
+            }
+
+            foreach ($yaml['jobs'] as $job) {
+                foreach ($job['templates'] as $template) {
+                    $found = $er->createQueryBuilder('rvt')
+                        ->addSelect('t')
+                        ->join('rvt.releaseVersion', 'rv')
+                        ->join('rvt.template', 't')
+                        ->join('rv.release', 'r')
+                        ->andWhere(new Expr\Comparison('r.name', '=', ':release'))->setParameter('release', $template['release'])
+                        ->andWhere(new Expr\Comparison('rv.version', '=', ':version'))->setParameter('version', $releaseVersions[$template['release']])
+                        ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template['name'])
+                        ->getQuery()
+                        ->getSingleResult()
+                        ;
+
+                    if (!$found) {
+                        throw new \LogicException('Failed to find template for ' . json_encode($template));
+                    }
+
+                    $propertySets[$template['name']] = $found['template']['propertiesJsonAsArray'];
+                }
+            }
+
+            $merged = $propertyHelper->mergePropertySets($propertySets);
+            $propertyTree = $propertyHelper->createPropertyTree($merged);
+
+            $tplExtras['properties_tree'] = $propertyTree;
+        }
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceDeploymentEditor:section-' . $section . '.html.twig',
+            array_merge(
+                [
+                    'path' => $path,
+                    'manifest' => $yaml,
+                ],
+                $tplExtras
+            ),
             [
-                'path' => $path,
-                'manifest' => $yaml,
-            ],
-            [
-                'def_nav' => self::defNav($this->container->get('veneer_ops.breadcrumbs'), $path)
+                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name'])
                     ->add(
                         $section,
                         [
@@ -95,7 +139,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $editorProfile = $editor->lookup($property);
 
         $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
-        $nav = self::defNav($this->container->get('veneer_ops.breadcrumbs'), $path);
+        $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);
 
         if (in_array($section, [ 'compilation', 'update' ])) {
             $nav->add($section);
