@@ -1,7 +1,15 @@
 {% extends 'VeneerOpsBundle:WorkspaceDeploymentEditor:layout.html.twig' %}
 
 {% block frag_content %}
-    <form>
+    <h3>{{ title }}</h3>
+
+    <form action="{{ path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : property }) }}" method="post">
         {{ form_rest(form) }}
+
+        <div>
+            <button class="btn btn-success" type="submit">Save Changes</button>
+            &nbsp;
+            <a class="btn btn-warning-outline btn-sm" href="{{ def_nav[-1].url }}">cancel</a>
+        </div>
     </form>
 {% endblock %}

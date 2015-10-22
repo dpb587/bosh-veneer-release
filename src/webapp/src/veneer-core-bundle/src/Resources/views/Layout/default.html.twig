@@ -30,7 +30,7 @@
                 </ul>
                 <form class="form-inline navbar-form pull-right">
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Search">
+                        <input class="form-control" type="search" placeholder="Search">
                         <span class="input-group-btn">
                             <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
                         </span>
@@ -82,6 +82,7 @@
         {% javascripts '@jquery_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
         {% javascripts '@bootstrap_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
         {% javascripts '@highcharts_js' %}<script src="{{ asset_url }}"></script>{% endjavascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.min.js"></script>
 
         {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}
         <script>_postload.forEach(function (a){a.apply(window)})</script>

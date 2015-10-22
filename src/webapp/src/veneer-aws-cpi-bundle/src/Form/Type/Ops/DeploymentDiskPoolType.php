@@ -30,6 +30,7 @@ class DeploymentDiskPoolType extends AbstractType
                 'checkbox',
                 [
                     'label' => 'Turns on EBS volume encryption for this persistent disk.',
+                    'required' => false,
                     'helptext' => 'VM root and ephemeral disk are not encrypted.',
                 ]
             )

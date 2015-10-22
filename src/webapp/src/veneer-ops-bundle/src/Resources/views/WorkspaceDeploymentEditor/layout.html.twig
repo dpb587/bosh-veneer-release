@@ -17,7 +17,10 @@
 
     <hr />
 
-    <div><small><a class="text-muted" href="{{ path('veneer_core_workspace_repo_blob', { 'path' : path }) }}"><i class="fa fa-code"></i> {{ path }}</a></small></div>
+    <ul class="list-unstyled">
+        <li><small><a class="text-muted" href="{{ path('veneer_core_workspace_env_view', { 'path' : path }) }}"><i class="fa fa-dot-circle-o fa-fw"></i> environment</a></small></li>
+        <li><small><a class="text-muted" href="{{ path('veneer_core_workspace_repo_blob', { 'path' : path }) }}"><i class="fa fa-code fa-fw"></i> {{ path }}</a></small></li>
+    </ul>
 {% endblock %}
 
 {% macro navlink(path, title, fontawesome, name, active) %}

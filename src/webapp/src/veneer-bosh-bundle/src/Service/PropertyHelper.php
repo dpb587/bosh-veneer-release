@@ -2,10 +2,65 @@
 
 namespace Veneer\BoshBundle\Service;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Yaml\Yaml;
+use Doctrine\ORM\Query\Expr;
 
 class PropertyHelper
 {
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    public function mergeManifestPropertySets(array $manifest, array $templates = null)
+    {
+        $er = $this->em->getRepository('VeneerBoshBundle:ReleaseVersionsTemplates');
+
+        $releaseVersions = [];
+
+        foreach ($manifest['releases'] as $release) {
+            $releaseVersions[$release['name']] = $release['version'];
+        }
+
+        $propertySets = [];
+        $knownTemplates = [];
+
+        foreach ($manifest['jobs'] as $job) {
+            foreach ($job['templates'] as $template) {
+                if (in_array($template, $knownTemplates)) {
+                    continue;
+                } elseif ((null !== $templates) && (!in_array($template, $templates))) {
+                    continue;
+                }
+
+                $knownTemplates[] = $template;
+
+                $found = $er->createQueryBuilder('rvt')
+                    ->addSelect('t')
+                    ->join('rvt.releaseVersion', 'rv')
+                    ->join('rvt.template', 't')
+                    ->join('rv.release', 'r')
+                    ->andWhere(new Expr\Comparison('r.name', '=', ':release'))->setParameter('release', $template['release'])
+                    ->andWhere(new Expr\Comparison('rv.version', '=', ':version'))->setParameter('version', $releaseVersions[$template['release']])
+                    ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template['name'])
+                    ->getQuery()
+                    ->getSingleResult()
+                    ;
+
+                if (!$found) {
+                    continue;
+                }
+
+                $propertySets[$template['name']] = $found['template']['propertiesJsonAsArray'];
+            }
+        }
+
+        return $this->mergePropertySets($propertySets);
+    }
+
     public function mergePropertySets(array $propertySets)
     {
         $merged = [];
@@ -112,11 +167,26 @@ class PropertyHelper
         $scope = [];
 
         foreach ($propertyTree as $k => $v) {
+            if (isset($v['children'])) {
+                $scope = array_merge($scope, $this->flattenPropertyTree($v['children'], $context . $k . '.'));
+            } elseif (isset($v['value'])) {
+                $scope[$context . $k] = $v['value'];
+            }
+        }
+
+        return $scope;
+    }
+
+    public function flattenProperties(array $properties, $context = null)
+    {
+        $scope = [];
+
+        foreach ($properties as $k => $v) {
             if (is_array($v)) {
                 // if this is a hash, go deep
                 foreach ($v as $k2 => $v2) {
                     if (is_string($k2)) {
-                        $scope = array_merge($scope, $this->flattenPropertyTree($v, $context . $k . '.'));
+                        $scope = array_merge($scope, $this->flattenProperties($v, $context . $k . '.'));
 
                         continue 2;
                     }

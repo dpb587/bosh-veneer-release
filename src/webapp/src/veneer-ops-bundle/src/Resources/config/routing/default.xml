@@ -24,4 +24,9 @@
         <default key="_controller">Veneer\OpsBundle\Controller\WorkspaceDeploymentEditorController::editAction</default>
         <default key="_format">html</default>
     </route>
+
+    <route id="veneer_ops_workspace_deploymenteditor_remove" path="/ops/workspace/deployment-editor/remove.{_format}">
+        <default key="_controller">Veneer\OpsBundle\Controller\WorkspaceDeploymentEditorController::removeAction</default>
+        <default key="_format">html</default>
+    </route>
 </routes>

@@ -1,3 +1,20 @@
+{% block veneer_core_yaml_widget %}
+    <textarea id="{{ id }}-textarea" name="{{ full_name }}" style="display:none;">{{ value }}</textarea>
+    <div id="{{ id }}-div" style="border:#DEDEDE inset 1px;height:5rem;">{{ value }}</div>
+    <script>
+        _postload.push(function () {
+            var editor = ace.edit("{{ id }}-div");
+            editor.getSession().setMode("ace/mode/yaml");
+            editor.renderer.setShowGutter(false);
+            var textarea = $('#{{ id }}-textarea').hide();
+            editor.getSession().setValue(textarea.val());
+            editor.getSession().on('change', function(){
+              textarea.val(editor.getSession().getValue());
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block veneer_core_form_picker_widget %}
     <div id="formpicker-{{ form.vars.id }}" style="border-top:#DEDEDE solid 1px;">
         {% for child in form.children.via %}

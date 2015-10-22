@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
 use Veneer\OpsBundle\Service\DeploymentFormHelper;
 use Veneer\BoshBundle\Controller\DeploymentController;
 use Veneer\BoshBundle\Entity\Deployments;
-use Doctrine\ORM\Query\Expr;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 
 class WorkspaceDeploymentEditorController extends AbstractController
 {
@@ -65,39 +65,11 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $tplExtras = [];
 
         if ('properties' == $section) {
-            $propertySets = [];
             $propertyHelper = $this->container->get('veneer_bosh.property_helper');
-            $er = $this->container->get('doctrine.orm.bosh_entity_manager')->getRepository('VeneerBoshBundle:ReleaseVersionsTemplates');
 
-            $releaseVersions = [];
+            // aaaaaa
 
-            foreach ($yaml['releases'] as $release) {
-                $releaseVersions[$release['name']] = $release['version'];
-            }
-
-            foreach ($yaml['jobs'] as $job) {
-                foreach ($job['templates'] as $template) {
-                    $found = $er->createQueryBuilder('rvt')
-                        ->addSelect('t')
-                        ->join('rvt.releaseVersion', 'rv')
-                        ->join('rvt.template', 't')
-                        ->join('rv.release', 'r')
-                        ->andWhere(new Expr\Comparison('r.name', '=', ':release'))->setParameter('release', $template['release'])
-                        ->andWhere(new Expr\Comparison('rv.version', '=', ':version'))->setParameter('version', $releaseVersions[$template['release']])
-                        ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template['name'])
-                        ->getQuery()
-                        ->getSingleResult()
-                        ;
-
-                    if (!$found) {
-                        throw new \LogicException('Failed to find template for ' . json_encode($template));
-                    }
-
-                    $propertySets[$template['name']] = $found['template']['propertiesJsonAsArray'];
-                }
-            }
-
-            $merged = $propertyHelper->mergePropertySets($propertySets);
+            $merged = $propertyHelper->mergeManifestPropertySets($yaml);
             $propertyTree = $propertyHelper->createPropertyTree($merged);
 
             $tplExtras['properties_tree'] = $propertyTree;
@@ -135,8 +107,20 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $yaml = Yaml::parse($repo->showFile($path));
 
-        $editor = new DeploymentFormHelper($this->container->get('form.factory'), $yaml);
-        $editorProfile = $editor->lookup($property);
+        $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.property_helper'));
+        $editorProfile = $editor->lookup($yaml, $property);
+
+        if ($request->request->has($editorProfile['form']->getName())) {
+            $editorProfile['form']->bind($request);
+
+            if ($editorProfile['form']->isValid()) {
+                $accessor = PropertyAccess::createPropertyAccessor();
+
+                $accessor->setValue($yaml, $editorProfile['path'], $editorProfile['form']->getData());
+
+                die(print_r($yaml, true));
+            }
+        }
 
         $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);
@@ -160,6 +144,8 @@ class WorkspaceDeploymentEditorController extends AbstractController
             [
                 'path' => $path,
                 'manifest' => $yaml,
+                'property' => $property,
+                'title' => $editorProfile['title'],
                 'form' => $editorProfile['form']->createView(),
             ],
             [
