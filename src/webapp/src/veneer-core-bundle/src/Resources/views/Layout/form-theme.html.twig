@@ -1,6 +1,6 @@
 {% block veneer_core_yaml_widget %}
     <textarea id="{{ id }}-textarea" name="{{ full_name }}" style="display:none;">{{ value }}</textarea>
-    <div id="{{ id }}-div" style="border:#DEDEDE inset 1px;height:5rem;">{{ value }}</div>
+    <div id="{{ id }}-div" style="border:#DEDEDE inset 1px;height:6rem;">{{ value }}</div>
     <script>
         _postload.push(function () {
             var editor = ace.edit("{{ id }}-div");

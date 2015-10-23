@@ -41,7 +41,7 @@
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
         </service>
 
-        <service id="veneer_bosh.property_helper" class="Veneer\BoshBundle\Service\PropertyHelper">
+        <service id="veneer_bosh.deployment_property_spec_helper" class="Veneer\BoshBundle\Service\DeploymentPropertySpecHelper">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
 class ReleaseVersionController extends AbstractController
 {
@@ -109,25 +110,21 @@ class ReleaseVersionController extends AbstractController
 
     public function propertiesAction($_bosh)
     {
-        $allProperties = call_user_func_array(
-            'array_merge',
-            array_map(
-                function ($template) {
-                    return $template['propertiesJsonAsArray'];
-                },
-                $this->loadTemplates($_bosh)
-            )
-        );
+        $specs = [];
 
-        $propertyHelper = $this->container->get('veneer_bosh.property_helper');
+        foreach ($this->loadTemplates($_bosh) as $template) {
+            $specs[$template['name']] = $template['propertiesJsonAsArray'];
+        }
 
-        $properties = $propertyHelper->createPropertyTree($allProperties);
+        $mergedSpec = DeploymentPropertySpecHelper::mergeSpecs($specs);
+
+        $propertiesTree = DeploymentPropertySpecHelper::convertSpecToTree($mergedSpec);
 
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseVersion:properties.html.twig',
             [
-                'properties' => $properties,
-                'yaml' => $propertyHelper->createDocumentedYaml($properties),
+                'properties_tree' => $propertiesTree,
+                'yaml' => DeploymentPropertySpecHelper::createDocumentedYaml($propertiesTree),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),

@@ -1,6 +1,6 @@
 {% extends 'VeneerOpsBundle:WorkspaceDeploymentEditor:layout.html.twig' %}
 
-{% macro property_tree(path, tree, manifest) %}
+{% macro property_tree(path, tree, manifest, editpath) %}
     <table class="table" style="margin-bottom:0;">
         <tbody>
             {% for key, node in tree if node.children is defined %}
@@ -11,7 +11,7 @@
                 <tr>
                     <td width="16" style="border-top:0;padding:0 0.2rem 0;">&nbsp;</td>
                     <td colspan="2" style="border-top:0;padding:0 0 0 0.2rem;">
-                        {{ _self.property_tree(path, node.children, manifest[key]|default({})) }}
+                        {{ _self.property_tree(path, node.children, manifest[key]|default({}), editpath) }}
                     </td>
                 </tr>
             {% endfor %}
@@ -26,7 +26,7 @@
                         {% endif %}
                     </td>
                     <td class="text-right">
-                        {% set url = path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : 'properties.' ~ node.full_key }) %}
+                        {% set url = path('veneer_ops_workspace_deploymenteditor_edit', { 'path' : path, 'property' : editpath ~ node.property }) %}
                         {% if manifest[key] is defined %}
                             <a class="btn btn-primary-outline btn-sm" href="{{ url }}"><i class="fa fa-pencil fa-fw"></i></a>
                         {% elseif node.value.default is defined %}
@@ -42,5 +42,5 @@
 {% endmacro %}
 
 {% block frag_content %}
-    {{ _self.property_tree(path, properties_tree, manifest.properties|default({})) }}
+    {{ _self.property_tree(path, properties_tree, properties_configured, properties_editpath) }}
 {% endblock %}

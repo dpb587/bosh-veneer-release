@@ -13,6 +13,7 @@ use Veneer\OpsBundle\Service\DeploymentFormHelper;
 use Veneer\BoshBundle\Controller\DeploymentController;
 use Veneer\BoshBundle\Entity\Deployments;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
 class WorkspaceDeploymentEditorController extends AbstractController
 {
@@ -65,12 +66,37 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $tplExtras = [];
 
         if ('properties' == $section) {
-            $propertyHelper = $this->container->get('veneer_bosh.property_helper');
+            $deploymentPropertySpecHelper = $this->container->get('veneer_bosh.deployment_property_spec_helper');
 
-            // aaaaaa
+            if ($request->query->has('job')) {
+                $filterJob = $request->query->get('job');
+                $foundJob = false;
 
-            $merged = $propertyHelper->mergeManifestPropertySets($yaml);
-            $propertyTree = $propertyHelper->createPropertyTree($merged);
+                foreach ($yaml['jobs'] as $job) {
+                    if ($job['name'] != $filterJob) {
+                        continue;
+                    }
+
+                    $foundJob = true;
+
+                    break;
+                }
+
+                if (!$foundJob) {
+                    throw new NotFoundHttpException('Failed to find job');
+                }
+
+                $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseTemplates($yaml, $filterJob);
+                $tplExtras['properties_configured'] = isset($job['properties']) ? $job['properties'] : null;
+                $tplExtras['properties_editpath'] = 'jobs[' . $filterJob . '].properties.';
+            } else {
+                $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseTemplates($yaml);
+                $tplExtras['properties_configured'] = isset($yaml['properties']) ? $yaml['properties'] : null;
+                $tplExtras['properties_editpath'] = 'properties.';
+            }
+
+            $merged = $deploymentPropertySpecHelper->mergeTemplatePropertiesSpecs($propertyTemplates);
+            $propertyTree = $deploymentPropertySpecHelper->convertSpecToTree($merged);
 
             $tplExtras['properties_tree'] = $propertyTree;
         }
@@ -107,7 +133,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $yaml = Yaml::parse($repo->showFile($path));
 
-        $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.property_helper'));
+        $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.deployment_property_spec_helper'));
         $editorProfile = $editor->lookup($yaml, $property);
 
         if ($request->request->has($editorProfile['form']->getName())) {
