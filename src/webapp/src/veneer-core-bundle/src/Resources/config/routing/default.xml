@@ -23,8 +23,8 @@
 
     <!-- workspace/repo -->
 
-    <route id="veneer_core_workspace_repo_editor" path="/core/workspace/repo/editor/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::editorAction</default>
+    <route id="veneer_core_workspace_repo_app" path="/core/workspace/repo/app/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::appAction</default>
         <requirement key="path">.*</requirement>
     </route>
 

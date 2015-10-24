@@ -74,18 +74,16 @@ class WorkspaceRepoController extends AbstractController
         );
     }
 
-    public function editorAction($path)
+    public function appAction($path)
     {
-        $repo = $this->container->get('veneer_core.workspace.repository');
-
         try {
-            $editor = $this->container->get('veneer_core.workspace.editor')->findEditor($path);
+            $app = $this->container->get('veneer_core.workspace.app')->findApp($path);
         } catch (\RuntimeException $e) {
-            throw new NotFoundHttpException('No editor available', $e);
+            throw new NotFoundHttpException('No app available', $e);
         }
 
         return $this->redirectToRoute(
-            $editor->getRoute(),
+            $app->getAppRoute(),
             [
                 'path' => $path,
             ]

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_awscpi_summary" path="/aws-cpi/summary.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_awscpi_workspace_app_cloudformation_edit" path="/aws-cpi/workspace/app/cloudformation/edit.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\WorkspaceAppCloudFormationController::editAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_awscpi_workspace_app_cloudformation_summary" path="/aws-cpi/workspace/app/cloudformation/summary.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\WorkspaceAppCloudFormationController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+</routes>

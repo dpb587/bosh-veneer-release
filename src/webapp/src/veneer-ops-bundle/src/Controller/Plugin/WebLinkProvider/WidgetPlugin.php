@@ -30,7 +30,7 @@ class WidgetPlugin implements PluginInterface
                             ->setTopic(Link::TOPIC_CONFIG)
                             ->setTitle('Edit Deployment')
                             ->setRoute(
-                                'veneer_core_workspace_repo_editor',
+                                'veneer_core_workspace_repo_app',
                                 [
                                     'path' => $deployment->getSourcePath(),
                                 ]

@@ -9,7 +9,7 @@ class VeneerAwsCpiBundle extends Bundle implements BundleInterface
 {
     public function getVeneerName()
     {
-        return 'aws-cpi';
+        return 'aws';
     }
 
     public function getVeneerTitle()
@@ -24,7 +24,7 @@ class VeneerAwsCpiBundle extends Bundle implements BundleInterface
 
     public function getVeneerRoute()
     {
-        return null;
+        return 'veneer_awscpi_summary';
     }
 
     public function getDeploymentResourcePoolFormType()

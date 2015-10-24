@@ -27,7 +27,7 @@
             <argument>/var/vcap/packages/bosh-veneer-git/bin/git</argument>
         </service>
 
-        <service id="veneer_core.workspace.editor" class="Veneer\CoreBundle\Service\Workspace\Editor\EditorFactory">
+        <service id="veneer_core.workspace.app" class="Veneer\CoreBundle\Service\Workspace\App\AppFactory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- map -->
         </service>

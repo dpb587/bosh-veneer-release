@@ -15,7 +15,7 @@ use Veneer\BoshBundle\Entity\Deployments;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
-class WorkspaceDeploymentEditorController extends AbstractController
+class WorkspaceAppDeploymentController extends AbstractController
 {
     public function defNav(Breadcrumbs $nav, $path, $name)
     {
@@ -28,7 +28,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
             ->add(
                 'editor',
                 [
-                    'veneer_ops_workspace_deploymenteditor_summary' => [
+                    'veneer_ops_workspace_app_deployment_summary' => [
                         'path' => $path,
                     ],
                 ],
@@ -46,7 +46,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $yaml = Yaml::parse($repo->showFile($path));
 
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceDeploymentEditor:summary.html.twig',
+            'VeneerOpsBundle:WorkspaceAppDeployment:summary.html.twig',
             [
                 'path' => $path,
                 'manifest' => $yaml,
@@ -105,7 +105,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceDeploymentEditor:section-' . $section . '.html.twig',
+            'VeneerOpsBundle:WorkspaceAppDeployment:section-' . $section . '.html.twig',
             array_merge(
                 [
                     'path' => $path,
@@ -118,7 +118,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
                     ->add(
                         $navSection,
                         [
-                            'veneer_ops_workspace_deploymenteditor_section' => [
+                            'veneer_ops_workspace_app_deployment_section' => [
                                 'section' => $navSection,
                                 'path' => $path,
                             ],
@@ -160,7 +160,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
             $nav->add(
                 $section,
                 [
-                    'veneer_ops_workspace_deploymenteditor_section' => [
+                    'veneer_ops_workspace_app_deployment_section' => [
                         'section' => $section,
                         'path' => $path,
                     ],
@@ -169,7 +169,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceDeploymentEditor:edit.html.twig',
+            'VeneerOpsBundle:WorkspaceAppDeployment:edit.html.twig',
             [
                 'path' => $path,
                 'manifest' => $yaml,

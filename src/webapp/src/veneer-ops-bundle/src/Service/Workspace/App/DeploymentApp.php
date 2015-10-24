@@ -1,14 +1,10 @@
 <?php
 
-namespace Veneer\OpsBundle\Service;
+namespace Veneer\OpsBundle\Service\Workspace\App;
 
-use Veneer\CoreBundle\Service\Workspace\Changeset;
-use Veneer\CoreBundle\Service\Workspace\GitRepository;
-use Veneer\OpsBundle\Entity\DeploymentWorkspace;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Yaml\Yaml;
+use Veneer\CoreBundle\Service\Workspace\App\AppInterface;
 
-class WorkspaceWatcher
+class DeploymentApp implements AppInterface
 {
     protected $repository;
     protected $container;
@@ -18,8 +14,22 @@ class WorkspaceWatcher
         $this->repository = $repository;
         $this->container = $container;
     }
+    public function getAppTitle()
+    {
+        return 'Deployment Editor';
+    }
 
-    public function onDeploymentManifest($branch, Changeset $changeset, $path)
+    public function getAppDescription()
+    {
+        return 'Edit the various aspects of your deployment manifests';
+    }
+
+    public function getAppRoute()
+    {
+        return 'veneer_ops_workspace_app_deployment_summary';
+    }
+
+    public function onManifestChange($branch, Changeset $changeset, $path)
     {
         $em = $this->container->get('doctrine.orm.state_entity_manager');
 

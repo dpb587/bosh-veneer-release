@@ -1,10 +1,10 @@
 <?php
 
-namespace Veneer\CoreBundle\Service\Workspace\Editor;
+namespace Veneer\CoreBundle\Service\Workspace\App;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class EditorFactory
+class AppFactory
 {
     protected $container;
     protected $map;
@@ -15,7 +15,7 @@ class EditorFactory
         $this->map = $map;
     }
 
-    public function findEditor($path)
+    public function findApp($path)
     {
         foreach ($this->map as $handler) {
             if (preg_match($handler['path'], $path)) {
@@ -23,6 +23,6 @@ class EditorFactory
             }
         }
 
-        throw new \RuntimeException('Failed to find editor for path');
+        throw new \RuntimeException('Failed to find application for path');
     }
 }

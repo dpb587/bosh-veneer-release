@@ -1,0 +1,50 @@
+{% extends 'VeneerAwsCpiBundle:WorkspaceAppCloudFormation:layout.html.twig' %}
+
+{% block frag_content %}
+    <table class="table table-hover" width="100%">
+        <thead>
+            <tr>
+                <th style="border-top:0;">
+                    <h3 style="margin-bottom:0;">Resource Pools</h3>
+                </th>
+                <th class="text-right" style="border-top:0;">
+                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'resource_pools[]' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
+                </th>
+            </tr>
+        </thead>
+        {% if manifest.resource_pools|default %}
+            <tbody>
+                {% for resource_pool in manifest.resource_pools %}
+                    <tr>
+                        <td>
+                            <strong>{{ resource_pool.name }}</strong><br />
+                            <small>{{ resource_pool.stemcell.name }}/{{ resource_pool.stemcell.version }}, {{ resource_pool.network }}</small>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                <a class="btn btn-warning-outline btn-sm" type="button"><i class="fa fa-arrow-circle-o-up"></i> v2019</a>
+                                <a class="btn btn-primary-outline btn-sm" href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'resource_pools[' ~ resource_pool.name ~ ']' }) }}" title="Change" type="button"><i class="fa fa-pencil fa-fw"></i></a>
+                                <a class="btn btn-danger-outline btn-sm" title="Remove" type="button"><i class="fa fa-remove fa-fw"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        {% else %}
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <p>
+                            No resource pools configured &mdash; <a href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'resource_pools[]' }) }}">add one&hellip;</a>
+                        </p>
+                        <p class="text-muted">
+                            <span class="text-primary"><i class="fa fa-question-circle"></i></span>
+                            Specifies the resource pools a deployment uses. A deployment manifest can describe multiple
+                            resource pools and uses unique names to identify and reference them.
+                        </p>
+                    </td>
+                </tr>
+            </tfoot>
+        {% endif %}
+    </table>
+{% endblock %}
