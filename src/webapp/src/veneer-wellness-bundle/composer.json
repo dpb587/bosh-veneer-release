@@ -1,0 +1,13 @@
+{
+    "name" : "dpb587/veneer-wellness-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\WellnessBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\WellnessBundle\\Test": "test/"
+        }
+    }
+}

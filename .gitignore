@@ -7,3 +7,4 @@
 /config/private.yml
 /dev_releases
 /nbproject
+/.env

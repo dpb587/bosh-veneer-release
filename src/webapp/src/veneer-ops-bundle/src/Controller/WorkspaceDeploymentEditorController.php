@@ -63,6 +63,8 @@ class WorkspaceDeploymentEditorController extends AbstractController
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
         $yaml = Yaml::parse($repo->showFile($path));
+
+        $navSection = $section;
         $tplExtras = [];
 
         if ('properties' == $section) {
@@ -89,6 +91,7 @@ class WorkspaceDeploymentEditorController extends AbstractController
                 $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseTemplates($yaml, $filterJob);
                 $tplExtras['properties_configured'] = isset($job['properties']) ? $job['properties'] : null;
                 $tplExtras['properties_editpath'] = 'jobs[' . $filterJob . '].properties.';
+                $navSection = 'jobs';
             } else {
                 $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseTemplates($yaml);
                 $tplExtras['properties_configured'] = isset($yaml['properties']) ? $yaml['properties'] : null;
@@ -113,15 +116,15 @@ class WorkspaceDeploymentEditorController extends AbstractController
             [
                 'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name'])
                     ->add(
-                        $section,
+                        $navSection,
                         [
                             'veneer_ops_workspace_deploymenteditor_section' => [
-                                'section' => $section,
+                                'section' => $navSection,
                                 'path' => $path,
                             ],
                         ]
                     ),
-                'sidenav_active' => $section,
+                'sidenav_active' => $navSection,
             ]
         );
     }

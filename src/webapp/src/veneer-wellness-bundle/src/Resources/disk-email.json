@@ -1,0 +1,51 @@
+{
+    "meta": {
+        "title": "Low Disk Alert"
+    },
+    "trigger": {
+        "cron" : {
+            "schedule": "*/5"
+        }
+    },
+    "source": {
+        "logsearch_shipper_metric": {
+            "duration": "5m",
+            "segment": {
+                "context.director": {
+                    "field": "@source.bosh_director"
+                },
+                "context.deployment": {
+                    "field": "@source.bosh_deployment"
+                },
+                "context.job": {
+                    "field": "@source.bosh_job"
+                }
+            },
+            "metric": "host\\.df_xvd[a-z][0-9]+\\.df_complex_(used|free)",
+            "metric_match": "regexp"
+        }
+    },
+    "transform": {
+        "multiple": [
+            {
+                "regex_remap": {
+                    "regex": "#^host\\.df_([^\\.]+)\\.df_complex_(\\.+)$\\.avg#",
+                    "remap": "[$1][$2]"
+                }
+            }
+        ]
+    },
+    "condition": {
+        "expression": {
+            "true": "check[source][avg] <= 50000"
+        }
+    },
+    "action": {
+        "email": {
+            "to": "dpb587@gmail.com",
+            "from": "cronie@localhost",
+            "subject": "Low Memory on {{ check.context.job }}",
+            "body": "Oops, it looks like {{ check.context.job }} only has {{ check.source.avg|byte_format }} available."
+        }
+    }
+}

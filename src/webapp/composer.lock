@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5de9bee69024457be14d125b2ad1598d17968e11"
+                "reference": "b4fba5210039feaf32850776dc382c9946ed4b97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5de9bee69024457be14d125b2ad1598d17968e11",
-                "reference": "5de9bee69024457be14d125b2ad1598d17968e11",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b4fba5210039feaf32850776dc382c9946ed4b97",
+                "reference": "b4fba5210039feaf32850776dc382c9946ed4b97",
                 "shasum": ""
             },
             "require": {
@@ -38,6 +38,7 @@
                 "ext-pcre": "*",
                 "ext-simplexml": "*",
                 "ext-spl": "*",
+                "nette/neon": "^2.3",
                 "phpunit/phpunit": "~4.0"
             },
             "suggest": {
@@ -81,7 +82,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2015-10-15 21:40:56"
+            "time": "2015-10-22 22:56:23"
         },
         {
             "name": "components/jquery",
@@ -1409,17 +1410,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v4.0.1",
+            "version": "v4.0.2",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "62d99ba41144e704300e40f755346553702b27c9"
+                "reference": "6f5d663a1a34b5116c69009895feb81fb37a8875"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/62d99ba41144e704300e40f755346553702b27c9",
-                "reference": "62d99ba41144e704300e40f755346553702b27c9",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/6f5d663a1a34b5116c69009895feb81fb37a8875",
+                "reference": "6f5d663a1a34b5116c69009895feb81fb37a8875",
                 "shasum": ""
             },
             "require": {
@@ -1465,7 +1466,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-08-03 10:07:56"
+            "time": "2015-10-20 06:54:18"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -1878,20 +1879,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/teqneers/PHP-Stream-Wrapper-for-Git.git",
-                "reference": "742a4c2de51616f01425d319926b26627483965c"
+                "reference": "410d0e956b1f2b1a02e72f14ac4951236562b7db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/teqneers/PHP-Stream-Wrapper-for-Git/zipball/742a4c2de51616f01425d319926b26627483965c",
-                "reference": "742a4c2de51616f01425d319926b26627483965c",
+                "url": "https://api.github.com/repos/teqneers/PHP-Stream-Wrapper-for-Git/zipball/410d0e956b1f2b1a02e72f14ac4951236562b7db",
+                "reference": "410d0e956b1f2b1a02e72f14ac4951236562b7db",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "knplabs/gaufrette": "*",
-                "phpunit/phpunit": "3.7.*"
+                "knplabs/gaufrette": "~0.2",
+                "phpunit/phpunit": "~4.7"
             },
             "suggest": {
                 "knplabs/gaufrette": "to use the Gaufrette adapter"
@@ -1920,7 +1921,7 @@
                 "stream-wrapper",
                 "streamwrapper"
             ],
-            "time": "2015-02-26 14:53:27"
+            "time": "2015-10-23 14:45:54"
         },
         {
             "name": "twig/twig",

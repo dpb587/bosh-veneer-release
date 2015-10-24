@@ -2,7 +2,7 @@
 
 namespace Veneer\OpsBundle\Service\Workspace;
 
-use Veneer\CoreBundle\Service\Workspace\EditorInterface;
+use Veneer\CoreBundle\Service\Workspace\Editor\EditorInterface;
 
 class DeploymentEditor implements EditorInterface
 {
