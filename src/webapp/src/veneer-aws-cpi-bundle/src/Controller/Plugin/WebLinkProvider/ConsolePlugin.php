@@ -34,7 +34,7 @@ class ConsolePlugin implements PluginInterface
                             'tag:deployment' => $_bosh['deployment']['name'],
                         ])),
                 ];
-            case 'veneer_bosh_deployment_instance_summary':
+            case 'veneer_bosh_deployment_job_index_summary':
                 return [
                     (new Link('awscpi_console'))
                         ->setTopic(Link::TOPIC_CPI)
@@ -43,16 +43,16 @@ class ConsolePlugin implements PluginInterface
                         ->setUrl($this->consoleHelper->getEc2InstanceSearch([
                             'tag:director' => $this->directorName,
                             'tag:deployment' => $_bosh['deployment']['name'],
-                            'tag:Name' => $_bosh['instance']['job'] . '/' . $_bosh['instance']['index'],
+                            'tag:Name' => $_bosh['job']['job'] . '/' . $_bosh['index']['index'],
                         ])),
                 ];
-            case 'veneer_bosh_deployment_instance_persistentdisk_summary':
+            case 'veneer_bosh_deployment_job_index_persistentdisk_summary':
                 return [
                     (new Link('awscpi_console'))
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('disk detail')
-                        ->setUrl($this->consoleHelper->getEc2VolumeLink($_bosh['persistent_disk']['diskCid'])),
+                        ->setUrl($this->consoleHelper->getEc2VolumeSearch($_bosh['persistent_disk']['diskCid'])),
                 ];
             case 'veneer_bosh_deployment_vm_summary':
                 return [

@@ -14,7 +14,7 @@ class CoreDeploymentVmNetworkController extends AbstractController
     public function cpiAction(array $_bosh)
     {
         return $this->renderApi(
-            'VeneerAwsCpiBundle:CoreDeploymentVmNetworkController:cpi.html.twig',
+            'VeneerAwsCpiBundle:CoreDeploymentVmNetwork:cpi.html.twig',
             [
                 'properties' => $_bosh['network']['cloud_properties'],
             ]

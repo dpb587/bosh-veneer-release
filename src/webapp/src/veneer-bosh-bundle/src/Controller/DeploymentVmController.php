@@ -52,7 +52,7 @@ class DeploymentVmController extends AbstractController
         }
 
         return $this->redirectToRoute(
-            'veneer_bosh_deployment_instance_summary',
+            'veneer_bosh_deployment_job_index_summary',
             [
                 'deployment' => $_bosh['deployment']['name'],
                 'job_name' => $instance['job'],

@@ -36,19 +36,26 @@ class BuiltinPlugin implements PluginInterface
                     $request->attributes->get('deployment')
                 );
 
-                if ('instance' == $contextSplit[2]) {
-                    $veneerBoshContext['instance'] = $this->loadDeploymentInstance(
+                if ('job' == $contextSplit[2]) {
+                    $veneerBoshContext['job'] = $this->loadDeploymentJob(
                         $veneerBoshContext['deployment'],
-                        $request->attributes->get('job_name'),
-                        $request->attributes->get('job_index')
+                        $request->attributes->get('job')
                     );
 
-                    if ('persistent_disk' == $contextSplit[3]) {
-                        $veneerBoshContext['persistent_disk'] = $this->loadDeploymentInstancePersistentDisk(
+                    if ('index' == $contextSplit[3]) {
+                        $veneerBoshContext['index'] = $this->loadDeploymentJobIndex(
                             $veneerBoshContext['deployment'],
-                            $veneerBoshContext['instance'],
-                            $request->attributes->get('persistent_disk')
+                            $request->attributes->get('job'),
+                            $request->attributes->get('index')
                         );
+
+                        if ('persistent_disk' == $contextSplit[4]) {
+                            $veneerBoshContext['persistent_disk'] = $this->loadDeploymentJobIndexPersistentDisk(
+                                $veneerBoshContext['deployment'],
+                                $veneerBoshContext['index'],
+                                $request->attributes->get('persistent_disk')
+                            );
+                        }
                     }
                 } elseif ('vm' == $contextSplit[2]) {
                     $veneerBoshContext['vm'] = $this->loadDeploymentVm(
@@ -120,7 +127,24 @@ class BuiltinPlugin implements PluginInterface
         return $loaded;
     }
 
-    protected function loadDeploymentInstance(Deployments $deployment, $jobName, $jobIndex)
+    protected function loadDeploymentJob(Deployments $deployment, $jobName)
+    {
+        $loaded = $this->em->getRepository('VeneerBoshBundle:Instances')
+            ->findOneBy([
+                'deployment' => $deployment,
+                'job' => $jobName,
+            ]);
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find deployment job');
+        }
+
+        return [
+            'job' => $jobName,
+        ];
+    }
+
+    protected function loadDeploymentJobIndex(Deployments $deployment, $jobName, $jobIndex)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:Instances')
             ->findOneBy([
@@ -130,13 +154,13 @@ class BuiltinPlugin implements PluginInterface
             ]);
 
         if (!$loaded) {
-            throw new NotFoundHttpException('Failed to find deployment instance');
+            throw new NotFoundHttpException('Failed to find deployment job index');
         }
 
         return $loaded;
     }
 
-    protected function loadDeploymentInstancePersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
+    protected function loadDeploymentJobIndexPersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:PersistentDisks')
             ->findOneBy([

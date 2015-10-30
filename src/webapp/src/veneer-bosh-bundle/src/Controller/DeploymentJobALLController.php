@@ -11,7 +11,7 @@ use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentInstanceALLController extends AbstractController
+class DeploymentJobALLController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
@@ -19,7 +19,7 @@ class DeploymentInstanceALLController extends AbstractController
             ->add(
                 'jobs',
                 [
-                    'veneer_bosh_deployment_instanceALL_index' => [
+                    'veneer_bosh_deployment_jobALL_index' => [
                         'deployment' => $_bosh['deployment']['name'],
                     ],
                 ]
@@ -30,24 +30,18 @@ class DeploymentInstanceALLController extends AbstractController
     public function indexAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceALL:index.html.twig',
+            'VeneerBoshBundle:DeploymentJobALL:index.html.twig',
             [
-                'results' => array_map(
-                    function ($v) {
-                        return $v
-                            ->setSerializationHint('vm', false)
-                            ;
-                    },
-                    $this->container->get('doctrine.orm.bosh_entity_manager')
-                        ->getRepository('VeneerBoshBundle:Instances')
-                        ->createQueryBuilder('i')
-                        ->join('i.vm', 'v')
-                        ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
-                        ->addOrderBy('i.job', 'ASC')
-                        ->addOrderBy('i.index', 'ASC')
-                        ->getQuery()
-                        ->getResult()
-                ),
+                'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
+                    ->getRepository('VeneerBoshBundle:Instances')
+                    ->createQueryBuilder('i')
+                    ->distinct()
+                    ->select('i.job')
+                    ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
+                    ->addOrderBy('i.job', 'ASC')
+                    ->getQuery()
+                    ->getResult()
+                    ,
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),

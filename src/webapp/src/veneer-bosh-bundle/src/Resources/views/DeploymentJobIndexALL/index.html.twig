@@ -13,7 +13,7 @@
         <tbody>
             {% for result in results %}
                 <tr>
-                    <td><a href="{{ path('veneer_bosh_deployment_instance_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job_name' : result.job, 'job_index' : result.index }) }}">{{ result.job }}<span class="text-muted">/{{ result.index }}</span></a></td>
+                    <td><a href="{{ path('veneer_bosh_deployment_job_index_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job' : result.job, 'index' : result.index }) }}">{{ result.index }}</a></td>
                     <td>{{ result.state|capitalize }}</td>
                 </tr>
             {% endfor %}

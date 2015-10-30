@@ -33,10 +33,10 @@
             <tag name="veneer_bosh.plugin" context="bosh/deployment:all" />
             <tag name="veneer_bosh.plugin" context="bosh/deployment/property:all" />
             <tag name="veneer_bosh.plugin" context="bosh/deployment/property" />
-            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance" />
-            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance:all" />
-            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance/persistent_disk" />
-            <tag name="veneer_bosh.plugin" context="bosh/deployment/instance/persistent_disk:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/job/index" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/job/index:all" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/job/index/persistent_disk" />
+            <tag name="veneer_bosh.plugin" context="bosh/deployment/job/index/persistent_disk:all" />
             <tag name="veneer_bosh.plugin" context="bosh/deployment/vm" />
             <tag name="veneer_bosh.plugin" context="bosh/deployment/vm:all" />
             <tag name="veneer_bosh.plugin" context="bosh/deployment/vm/network" />

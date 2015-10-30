@@ -24,49 +24,49 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instance_summary':
+            case 'veneer_bosh_deployment_job_index_summary':
                 return [
                     (new Link('diskstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_instance_diskstats',
+                            'veneer_logsearch_deployment_job_index_diskstats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                             ]
                         ),
                     (new Link('loadstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_instance_loadstats',
+                            'veneer_logsearch_deployment_job_index_loadstats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                             ]
                         ),
                     (new Link('memstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_instance_memstats',
+                            'veneer_logsearch_deployment_job_index_memstats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instance_persistentdisk_summary':
+            case 'veneer_bosh_deployment_job_index_persistentdisk_summary':
                 return [
                     (new Link('hoststats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_instance_persistentdisk_hoststats',
+                            'veneer_logsearch_deployment_job_index_persistentdisk_hoststats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                                 'persistent_disk' => $_bosh['persistent_disk']['id'],
                             ]
                         ),

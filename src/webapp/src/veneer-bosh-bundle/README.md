@@ -1,9 +1,13 @@
 # veneer-bosh-bundle
 
-This bundle allows browsing the current state of resources managed by the BOSH director.
+This bundle allows browsing the current state of resources managed by the BOSH director. The focus is to present the
+database's view of resources in a read-only, user-friendly, but architecturally mirrored way. The resources mirrored
+here are the basis for other bundles customizing the user experience.
 
 
-## ORM
+## Development
+
+### ORM
 
 You might need to resync entities...
 

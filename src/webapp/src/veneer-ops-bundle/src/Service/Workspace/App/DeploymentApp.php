@@ -2,7 +2,9 @@
 
 namespace Veneer\OpsBundle\Service\Workspace\App;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Veneer\CoreBundle\Service\Workspace\App\AppInterface;
+use Veneer\CoreBundle\Service\Workspace\GitRepository;
 
 class DeploymentApp implements AppInterface
 {

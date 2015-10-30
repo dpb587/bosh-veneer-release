@@ -14,7 +14,7 @@ class CoreDeploymentVmResourcePoolController extends AbstractController
     public function cpiAction(array $_bosh)
     {
         return $this->renderApi(
-            'VeneerAwsCpiBundle:CoreDeploymentVmResourcePoolController:cpi.html.twig',
+            'VeneerAwsCpiBundle:CoreDeploymentVmResourcePool:cpi.html.twig',
             [
                 'properties' => $_bosh['vm']['applySpecJsonAsArray']['resource_pool']['cloud_properties'],
             ]

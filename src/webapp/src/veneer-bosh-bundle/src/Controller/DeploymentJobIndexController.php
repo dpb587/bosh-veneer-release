@@ -10,31 +10,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentInstanceController extends AbstractController
+class DeploymentJobIndexController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceALLController::defNav($nav, $_bosh)
+        return DeploymentJobIndexALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['instance']['job'],
+                $_bosh['index']['index'],
                 [
-                    'veneer_bosh_deployment_instance_summary' => [
+                    'veneer_bosh_deployment_job_index_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'job_name' => $_bosh['instance']['job'],
-                        'job_index' => $_bosh['instance']['index'],
-                    ],
-                ],
-                [
-                    'expanded' => true,
-                ]
-            )
-            ->add(
-                '#' . $_bosh['instance']['index'],
-                [
-                    'veneer_bosh_deployment_instance_summary' => [
-                        'deployment' => $_bosh['deployment']['name'],
-                        'job_name' => $_bosh['instance']['job'],
-                        'job_index' => $_bosh['instance']['index'],
+                        'job' => $_bosh['job']['job'],
+                        'index' => $_bosh['index']['index'],
                     ],
                 ]
             )
@@ -44,9 +31,9 @@ class DeploymentInstanceController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstance:summary.html.twig',
+            'VeneerBoshBundle:DeploymentJobIndex:summary.html.twig',
             [
-                'data' => $_bosh['instance'],
+                'data' => $_bosh['index'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
@@ -56,7 +43,7 @@ class DeploymentInstanceController extends AbstractController
     
     public function vmAction($_bosh, $_format)
     {
-        if (!$_bosh['instance']['vm']) {
+        if (!$_bosh['index']['vm']) {
             throw new NotFoundHttpException();
         }
         
@@ -64,7 +51,7 @@ class DeploymentInstanceController extends AbstractController
             'veneer_bosh_deployment_vm_summary',
             [
                 'deployment' => $_bosh['deployment']['name'],
-                'agent' => $_bosh['instance']['vm']['agentId'],
+                'agent' => $_bosh['index']['vm']['agentId'],
                 '_format' => $_format,
             ]
         );

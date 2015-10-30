@@ -39,10 +39,10 @@ class WidgetPlugin implements PluginInterface
                                 'deployment' => $_bosh['deployment']['name'],
                             ]
                         ),
-                    (new Link('instanceALL'))
+                    (new Link('jobALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instanceALL_index',
+                            'veneer_bosh_deployment_jobALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                             ]
@@ -56,39 +56,51 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instance_summary':
+            case 'veneer_bosh_deployment_job_summary':
+                return [
+                    (new Link('indexALL'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute(
+                            'veneer_bosh_deployment_job_indexALL_index',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'job' => $_bosh['job']['job'],
+                            ]
+                        ),
+                ];
+            case 'veneer_bosh_deployment_job_index_summary':
                 return [
                     (new Link('vm'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instance_vm',
+                            'veneer_bosh_deployment_job_index_vm',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                             ]
                         ),
                     (new Link('persistentdiskALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instance_persistentdiskALL_index',
+                            'veneer_bosh_deployment_job_index_persistentdiskALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instance_persistentdisk_summary':
+            case 'veneer_bosh_deployment_job_index_persistentdisk_summary':
                 return [
                     (new Link('cpi'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instance_persistentdisk_cpi',
+                            'veneer_bosh_deployment_job_index_persistentdisk_cpi',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job_name' => $_bosh['instance']['job'],
-                                'job_index' => $_bosh['instance']['index'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
                                 'persistent_disk' => $_bosh['persistent_disk']['id'],
                             ]
                         ),

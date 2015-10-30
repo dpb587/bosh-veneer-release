@@ -10,8 +10,8 @@
             <argument>%veneer_bosh.director_name%</argument>
 
             <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_summary" />
-            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_instance_summary" />
-            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_instance_persistentdisk_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_job_index_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_job_index_persistentdisk_summary" />
             <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_vm_summary" />
             <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_vm_network_summary" />
         </service>

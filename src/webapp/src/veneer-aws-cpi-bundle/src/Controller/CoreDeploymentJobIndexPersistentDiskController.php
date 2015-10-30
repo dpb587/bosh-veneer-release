@@ -9,12 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 
-class CoreDeploymentInstancePersistentDiskController extends AbstractController
+class CoreDeploymentJobIndexPersistentDiskController extends AbstractController
 {
     public function cpiAction(array $_bosh)
     {
         return $this->renderApi(
-            'VeneerAwsCpiBundle:CoreDeploymentInstancePersistentDiskController:cpi.html.twig',
+            'VeneerAwsCpiBundle:CoreDeploymentJobIndexPersistentDisk:cpi.html.twig',
             [
                 'properties' => $_bosh['persistent_disk']['cloudPropertiesJsonAsArray'],
             ]

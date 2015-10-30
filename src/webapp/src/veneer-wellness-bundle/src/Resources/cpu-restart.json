@@ -1,9 +1,11 @@
 {
-    "trigger": {
-        "cron" : {
-            "schedule": "*/5"
+    "trigger": [
+        {
+            "cron" : {
+                "schedule": "*/5"
+            }
         }
-    },
+    ],
     "source": {
         "logsearch_shipper_metric": {
             "duration": "30m",
