@@ -1,0 +1,64 @@
+{% extends _layout %}
+
+{% block def_title 'CloudWatch - Bytes' %}
+
+{% block frag_content %}
+    <div id="highcharts-{{ _uuid }}" style="height:180px;"></div>
+{% endblock %}
+
+{% block javascripts %}
+    $('#highcharts-{{ _uuid }}').highcharts({
+        chart: {
+            spacingBottom: 4,
+            spacingLeft: 4,
+            spacingRight: 4,
+            spacingTop: 4,
+            type: 'areaspline'
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                animation: false,
+                marker: {
+                    radius: 2,
+                    symbol: 'circle'
+                }
+            }
+        },
+        series: [
+            {
+                color: '#439755',
+                data: {{ series.VolumeReadBytes|json_encode|raw }},
+                fillOpacity: 0.4,
+                name: 'Read',
+                zIndex: 3
+            },
+            {
+                color: '#439755',
+                data: {{ series.VolumeWriteBytes|json_encode|raw }}.map(function(v){v.y*=-1;return v;}),
+                fillOpacity: 0.4,
+                name: 'Written',
+                zIndex: 2
+            }
+        ],
+        title: {
+            text: null
+        },
+        tooltip: {
+            shared: true
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: null
+            }
+        }
+    });
+{% endblock %}

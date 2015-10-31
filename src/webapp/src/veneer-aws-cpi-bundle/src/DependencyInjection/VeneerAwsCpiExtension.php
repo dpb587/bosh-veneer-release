@@ -22,5 +22,19 @@ class VeneerAwsCpiExtension extends Extension
         $loader->load('twig.xml');
         $loader->load('web-link-provider.xml');
         $loader->load('web-workspace.xml');
+
+        $config = $this->processConfiguration(
+            $this->getConfiguration($configs, $container),
+            $configs
+        );
+
+        $container->setParameter('veneer_aws_cpi.region', $config['region']);
+        $container->setParameter('veneer_aws_cpi.api.access_key_id', $config['api']['access_key_id']);
+        $container->setParameter('veneer_aws_cpi.api.secret_access_key', $config['api']['secret_access_key']);
+    }
+
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return new Configuration();
     }
 }

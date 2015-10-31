@@ -4,13 +4,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="veneer_aws_cpi.region">us-east-1</parameter>
-    </parameters>
-
     <services>
         <service id="veneer_aws_cpi.console_helper" class="Veneer\AwsCpiBundle\Service\ConsoleHelper">
             <argument>%veneer_aws_cpi.region%</argument>
+        </service>
+
+        <service id="veneer_aws_cpi.api.cloudwatch" class="Aws\CloudWatch\CloudWatchClient">
+            <argument type="collection">
+                <argument key="version">2010-08-01</argument>
+                <argument key="region">%veneer_aws_cpi.region%</argument>
+                <argument key="credentials" type="collection">
+                    <argument key="key">%veneer_aws_cpi.api.access_key_id%</argument>
+                    <argument key="secret">%veneer_aws_cpi.api.secret_access_key%</argument>
+                </argument>
+            </argument>
         </service>
     </services>
 </container>

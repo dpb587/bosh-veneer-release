@@ -9,6 +9,36 @@
         <default key="_format">html</default>
     </route>
 
+    <route id="veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchbytesstats" path="/aws-cpi/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/cloudwatch-bytes-stats.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\CoreDeploymentJobIndexPersistentDiskController::cloudwatchBytesStatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
+    </route>
+
+    <route id="veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchopsstats" path="/aws-cpi/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/cloudwatch-ops-stats.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\CoreDeploymentJobIndexPersistentDiskController::cloudwatchOpsStatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
+    </route>
+
+    <route id="veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchtimestats" path="/aws-cpi/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/cloudwatch-time-stats.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\CoreDeploymentJobIndexPersistentDiskController::cloudwatchTimeStatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
+    </route>
+
+    <route id="veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchidlestats" path="/aws-cpi/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/cloudwatch-idle-stats.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\CoreDeploymentJobIndexPersistentDiskController::cloudwatchIdleStatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
+    </route>
+
+    <route id="veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchqueuestats" path="/aws-cpi/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/cloudwatch-queue-stats.{_format}">
+        <default key="_controller">Veneer\AwsCpiBundle\Controller\CoreDeploymentJobIndexPersistentDiskController::cloudwatchQueueStatsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
+    </route>
+
     <route id="veneer_awscpi_workspace_app_cloudformation_edit" path="/aws-cpi/workspace/app/cloudformation/edit.{_format}">
         <default key="_controller">Veneer\AwsCpiBundle\Controller\WorkspaceAppCloudFormationController::editAction</default>
         <default key="_format">html</default>

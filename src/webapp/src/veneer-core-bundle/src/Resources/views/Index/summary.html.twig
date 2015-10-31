@@ -4,29 +4,24 @@
 
 {% block frag_content %}
     <p>
-        Welcome &mdash; you are currently logged in as <strong>{{ app.security.token.username }}</strong>.
-        Please go somewhere more useful&hellip;
+        The following components are installed and configured. Please pick one to get started&hellip;
     </p>
 
-    <ul>
+    <div class="list-group">
         {% for bundle in veneer_bosh_plugin_factory.bundles %}
-            <li>
-                {% if bundle.veneerRoute %}
-                    <a href="{{ path(bundle.veneerRoute) }}">{{ bundle.veneerTitle }}</a>
-                {% else %}
-                    {{ bundle.veneerTitle }}
-                {% endif %}
+            <a class="list-group-item"{% if bundle.veneerRoute %} href="{{ path(bundle.veneerRoute) }}"{% endif %}>
+                {{ bundle.veneerTitle }}
                 {% if bundle.veneerDescription %}
-                    &mdash;
-                    {{ bundle.veneerDescription }}
+                    <span class="text-muted">&mdash; {{ bundle.veneerDescription }}</span>
                 {% endif %}
-            </li>
+            </a>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
 
 {% block frag_sidebar %}
     <p class="text-muted">
-        BOSH has an affinity for command line tools. Veneer has an affinity for a better user experience with BOSH.
+        <strong>veneer</strong> (noun) &ndash;
+        a thin decorative covering of [UX and tools] applied to a coarser [BOSH environment].
     </p>
 {% endblock %}
