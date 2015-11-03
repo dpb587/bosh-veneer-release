@@ -40,9 +40,13 @@ class TaskController extends AbstractController
         );
     }
 
-    public function eventsAction($_bosh)
+    public function eventsAction(Request $request, $_bosh)
     {
         $events = $this->container->get('veneer_bosh.api')->getTaskOutput($_bosh['task']['id'], 0, 'event');
+
+        if ($request->query->get('step')) {
+            $events['data'] = array_slice($events['data'], 0, $request->query->get('step'));
+        }
 
         $tracker = new TaskTracker($events['data']);
 

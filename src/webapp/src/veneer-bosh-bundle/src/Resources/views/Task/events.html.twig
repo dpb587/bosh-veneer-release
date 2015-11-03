@@ -3,6 +3,8 @@
 {% block def_title 'Events' %}
 
 {% block frag_content %}
+    <meta name="task-state" content="{{ _veneer_bosh_context.task.state }}" />
+
     {% if not tracker_state and not tracker_errors %}
         <p class="text-muted">
             No event detail available
@@ -13,34 +15,41 @@
                 {% for stage in tracker_state %}
                     {% if 'unknown' != stage.name %}
                         <tr>
-                            <td class="text-center" width="4">
+                            <td class="text-center" width="4" style="padding-right:0;">
                                 {% if 'finished' == stage.state %}
                                     <span class="fa fa-fw fa-check text-success"></span>
                                 {% elseif 'failed' == stage.state %}
                                     <span class="fa fa-fw fa-times text-danger"></span>
                                 {% else %}
-                                    <span class="fa fa-fw fa-refresh"></span>
+                                    <span class="fa fa-fw fa-circle-o-notch fa-spin"></span>
                                 {% endif %}
                             </td>
-                            <td><strong>{{ stage.name }}</strong></td>
-                            <td class="text-right">
+                            <td>
+                                <strong data-stage-toggle="{{ stage.id }}">
+                                    {{ stage.name }}
+                                    {% if 'finished' == stage.state %}
+                                        <a class="text-muted" href="#"><i class="fa fa-plus-square-o"></i></a>
+                                    {% endif %}
+                                </strong>
+                            </td>
+                            <td class="text-right" width="20%">
                                 {% if stage.time_end %}
-                                    {{ stage.time_end - stage.time_begin }}s
+                                    <span title="started {{ stage.time_begin|date('g:i a') }}">{{ stage.time_end - stage.time_begin }}s</span>
                                 {% else %}
-                                    <span class="text-muted">&mdash;</span>
+                                    <span class="text-muted">started {{ stage.time_begin|date('g:i a') }}</span>
                                 {% endif %}
                             </td>
                         </tr>
                     {% endif %}
                     {% for task_idx, task in stage.tasks %}
-                        <tr id="{{ stage.id }}-{{ task_idx }}" {% if 'failed' == task.state %} class="danger"{% elseif 'finished' != task.state %} class="warning"{% endif %}{% if 'finished' == stage.state %} style="display:none;"{% endif %}>
-                            <td class="text-center" width="4">
-                                {% if 'finished' == stage.state %}
-                                    <span class="fontawesome fontawesome-ok text-success"></span>
-                                {% elseif 'failed' == stage.state %}
-                                    <span class="fontawesome fontawesome-remove text-danger"></span>
+                        <tr id="{{ stage.id }}-{{ task_idx }}" {% if 'failed' == task.state %} class="danger"{% elseif 'finished' != task.state %} class="warning"{% endif %}{% if 'unknown' != stage.name and 'finished' == stage.state %} style="display:none;"{% endif %} data-stage-toggle="{{ stage.id }}">
+                            <td class="text-center" width="4" style="padding-right:0;">
+                                {% if 'finished' == task.state %}
+                                    <span class="fa fa-check text-success"></span>
+                                {% elseif 'failed' == task.state %}
+                                    <span class="fa fa-times text-danger"></span>
                                 {% else %}
-                                    <span class="fontawesome fontawesome-refresh"></span>
+                                    <span class="fa fa-circle-o-notch fa-spin"></span>
                                 {% endif %}
                             </td>
                             {% if 'unknown' != stage.name %}
@@ -48,11 +57,11 @@
                             {% else %}
                                 <td><strong>{{ task.name }}</strong></td>
                             {% endif %}
-                            <td class="text-right">
+                            <td class="text-right" width="20%">
                                 {% if task.time_end %}
-                                    {{ task.time_end - task.time_begin }}s
+                                    <span title="started {{ task.time_begin|date('g:i a') }}">{{ task.time_end - task.time_begin }}s</span>
                                 {% elseif task.progress is defined %}
-                                    {{ task.progress }}%
+                                    <span title="started {{ task.time_begin|date('g:i a') }}"><progress class="progress progress-striped progress-animated" value="{{ task.progress }}" max="100" style="margin:6px 0;">{{ task.progress }}%</progress></span>
                                 {% else %}
                                     <span class="text-muted">&mdash;</span>
                                 {% endif %}
@@ -75,22 +84,25 @@
     {% endif %}
 {% endblock %}
 
-{% block frag_sidebar %}
-  <dl>
-    <dt>State</dt>
-    <dd>{{ data.state|capitalize }}</dd>
+{% block javascripts %}
+    function toggle(strong) {
+        var strong = $(strong);
+        var i = $('i.fa', strong)[0];
+        var display = 'none';
 
-    <dt>Description</dt>
-    <dd>{{ data.description }}</dd>
+        if (i.className == 'fa fa-plus-square-o') {
+            i.className = 'fa fa-minus-square-o';
+            display = null;
+        } else {
+            i.className = 'fa fa-plus-square-o';
+        }
 
-    <dt>Username</dt>
-    <dd>{{ data.username }}</dd>
+        $('tr[data-stage-toggle="' + strong.attr('data-stage-toggle') + '"]').each(function () {
+            this.style.display = display;
+        });
+    }
 
-    <dt>Timestamp</dt>
-    <dd>{{ data.timestamp }}</dd>
-  </dl>
-
-  <ul class="list-unstyled">
-    <li><a href="{{ _links.widget.properties.url }}"><small class="text-muted" style="margin-right:3px;"><span class="fontawesome fontawesome-pencil"></span></small>Properties</a></li>
-  </ul>
+    $('strong[data-stage-toggle]').bind('click', function (e) {
+        toggle($(this));
+    });
 {% endblock %}

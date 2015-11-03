@@ -79,6 +79,10 @@ class TaskTracker
                 $event,
             ],
         ];
+
+        // new task, so we're apparently still in progress
+        $this->state[$event['stage']]['time_end'] = null;
+        $this->state[$event['stage']]['state'] = $event['state'];
     }
 
     public function getState()

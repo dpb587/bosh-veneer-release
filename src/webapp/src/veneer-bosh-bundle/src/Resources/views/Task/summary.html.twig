@@ -3,7 +3,7 @@
 {% block def_title '#' ~ _veneer_bosh_context.task.id %}
 
 {% block frag_content %}
-    {{ render(_links.widget.events.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    <div id="widget-events">{{ render(_links.widget.events.url|veneer_core_appendqs({ '_frag' : 'content', 'step' : 0 })) }}</div>
 {% endblock %}
 
 {% block frag_sidebar %}
@@ -22,4 +22,23 @@
     </dl>
 
     {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+{% endblock %}
+
+{% block javascripts %}
+    {% if 'started' == data.state %}
+        var events = $('#widget-events');
+
+        function reload() {
+            events.load(
+                {{ _links.widget.events.url|veneer_core_appendqs({ '_frag' : 'content' })|json_encode|raw }},
+                function (response, status, xhr) {
+                    if ('started' == $('meta[name = "task-state"]', events).attr('content')) {
+                        setTimeout(reload, 5000);
+                    }
+                }
+            );
+        }
+
+        setTimeout(reload, 5000);
+    {% endif %}
 {% endblock %}
