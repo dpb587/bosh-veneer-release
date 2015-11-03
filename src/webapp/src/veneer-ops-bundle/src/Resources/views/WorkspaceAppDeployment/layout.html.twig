@@ -2,6 +2,23 @@
 
 {% block def_title 'Deployment Editor (' ~ manifest.name|default('unknown') ~ ')' %}
 
+{% block frag_container %}
+    {% if draft_profile.draft_started %}
+        <div class="bg-primary" style="margin:-16px 0 16px;padding:7px 16px 8px 16px;">
+            <div class="pull-right">
+
+                &nbsp;
+                <a class="btn btn-secondary">Review</a>
+            </div>
+            <div style="padding:6px 0;">
+                Some changes have not yet been applied.
+                Last changed on {{ draft_profile.draft_last_date|date('M jS \\a\\t g:i a') }}
+            </div>
+        </div>
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
 {% block frag_sidebar %}
     <ul class="nav">
         {{ _self.navlink(path('veneer_ops_workspace_app_deployment_summary', { 'path' : path }), 'Summary', 'info', 'summary', sidenav_active) }}

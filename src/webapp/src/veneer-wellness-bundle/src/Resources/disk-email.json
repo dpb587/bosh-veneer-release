@@ -1,11 +1,14 @@
 {
     "meta": {
-        "title": "Low Disk Alert"
+        "title": "Low Disk Alert",
+        "tags": [
+            "performance"
+        ]
     },
     "trigger": [
         {
             "cron" : {
-                "schedule": "*/5"
+                "schedule": "*/15"
             }
         }
     ],

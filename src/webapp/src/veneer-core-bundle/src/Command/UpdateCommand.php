@@ -27,6 +27,10 @@ class UpdateCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (0 === strpos($input->getArgument('ref'), 'refs/heads/veneer-draft-')) {
+            return;
+        }
+
         $container = $this->getContainer();
         $repository = $container->get('veneer_core.workspace.repository');
         $watcher = $container->get('veneer_core.workspace.watcher');

@@ -5,12 +5,24 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="veneer_wellness.check.manager" class="Veneer\WellnessBundle\Service\Check\Manager">
+            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+            <argument type="service" id="veneer_wellness.check.source" />
+            <argument type="service" id="veneer_wellness.check.condition" />
+        </service>
+
         <service id="veneer_wellness.check.action" class="Veneer\WellnessBundle\Service\Check\Action\ActionFactory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- compiler -->
         </service>
 
         <service id="veneer_wellness.check.source" class="Veneer\WellnessBundle\Service\Check\Source\SourceFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- compiler -->
+        </service>
+
+        <service id="veneer_wellness.check.condition" class="Veneer\WellnessBundle\Service\Check\Condition\ConditionFactory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- compiler -->
         </service>

@@ -12,9 +12,11 @@
         <service id="veneer_ops.plugin.web_workspace_app.deployment" class="Veneer\OpsBundle\Service\Workspace\App\DeploymentApp">
             <argument type="service" id="veneer_core.workspace.repository" />
             <argument type="service" id="service_container" />
+            <argument type="service" id="logger" />
 
             <tag name="veneer_core.workspace.app" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />
             <tag name="veneer_core.workspace.watcher" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestChange" />
+            <tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />
         </service>
     </services>
 </container>

@@ -6,13 +6,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WatcherFactory
 {
-    protected $repository;
     protected $container;
     protected $map;
 
-    public function __construct(GitRepository $repository, ContainerInterface $container, array $map)
+    public function __construct(ContainerInterface $container, array $map)
     {
-        $this->repository = $repository;
         $this->container = $container;
         $this->map = $map;
     }

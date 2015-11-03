@@ -4,6 +4,10 @@ namespace Veneer\WellnessBundle\Service\Check;
 
 class Check implements \ArrayAccess
 {
+    const STATE_OK = 'ok';
+    const STATE_ALARM = 'alarm';
+    const STATE_ERROR = 'error';
+
     protected $context;
     protected $sourceConfig;
     protected $source;

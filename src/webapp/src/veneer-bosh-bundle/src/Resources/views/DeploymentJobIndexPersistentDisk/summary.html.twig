@@ -4,6 +4,10 @@
 
 {% block frag_content %}  
     {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.cloudwatchbytesstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.cloudwatchopsstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.cloudwatchqueuestats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(_links.widget.cloudwatchidlestats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}
 
 {% block frag_sidebar %}

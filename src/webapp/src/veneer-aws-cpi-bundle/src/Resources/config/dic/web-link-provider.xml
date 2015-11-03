@@ -15,5 +15,9 @@
             <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_vm_summary" />
             <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_vm_network_summary" />
         </service>
+
+        <service id="veneer_aws_cpi.plugin.web_link_provider.widget" class="Veneer\AwsCpiBundle\Controller\Plugin\WebLinkProvider\WidgetPlugin">
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_job_index_persistentdisk_summary" />
+        </service>
     </services>
 </container>

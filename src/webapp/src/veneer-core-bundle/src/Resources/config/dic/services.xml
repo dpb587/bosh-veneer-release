@@ -23,7 +23,7 @@
 
         <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">
             <argument>/var/vcap/store/bosh-veneer/repository/git-root</argument>
-            <argument>prod-abraxas/aws-usw2</argument>
+            <argument>%veneer_cloque.versioning.repository.path_prefix%</argument>
             <argument>/var/vcap/packages/bosh-veneer-git/bin/git</argument>
         </service>
 
@@ -41,6 +41,12 @@
             <argument>%kernel.debug%</argument>
 
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+        </service>
+
+        <service id="veneer_core.workspace.repository.drafts" class="Veneer\CoreBundle\Service\Workspace\RepositoryDrafts" scope="request">
+            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="request" />
+            <argument type="service" id="security.context" />
         </service>
 
         <service id="veneer_core.encryption" class="Veneer\CoreBundle\Service\EncryptionService">

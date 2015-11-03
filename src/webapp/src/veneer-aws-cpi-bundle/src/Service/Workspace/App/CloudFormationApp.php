@@ -20,4 +20,8 @@ class CloudFormationApp implements AppInterface
     {
         return 'veneer_awscpi_workspace_app_cloudformation_summary';
     }
+
+    public function onTemplateChange()
+    {
+    }
 }

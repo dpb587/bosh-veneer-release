@@ -43,11 +43,15 @@ class WorkspaceAppDeploymentController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $yaml = Yaml::parse($repo->showFile($path));
+        $repoDrafts = $this->container->get('veneer_core.workspace.repository.drafts');
+        $draftProfile = $repoDrafts->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+
+        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceAppDeployment:summary.html.twig',
             [
+                'draft_profile' => $draftProfile,
                 'path' => $path,
                 'manifest' => $yaml,
             ],
@@ -62,7 +66,10 @@ class WorkspaceAppDeploymentController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $yaml = Yaml::parse($repo->showFile($path));
+        $repoDrafts = $this->container->get('veneer_core.workspace.repository.drafts');
+        $draftProfile = $repoDrafts->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+
+        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
 
         $navSection = $section;
         $tplExtras = [];
@@ -108,6 +115,7 @@ class WorkspaceAppDeploymentController extends AbstractController
             'VeneerOpsBundle:WorkspaceAppDeployment:section-' . $section . '.html.twig',
             array_merge(
                 [
+                    'draft_profile' => $draftProfile,
                     'path' => $path,
                     'manifest' => $yaml,
                 ],
@@ -134,22 +142,13 @@ class WorkspaceAppDeploymentController extends AbstractController
         $path = $request->query->get('path');
         $property = $request->query->get('property');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $yaml = Yaml::parse($repo->showFile($path));
+        $repoDrafts = $this->container->get('veneer_core.workspace.repository.drafts');
+        $draftProfile = $repoDrafts->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+
+        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
 
         $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.deployment_property_spec_helper'));
         $editorProfile = $editor->lookup($yaml, $property);
-
-        if ($request->request->has($editorProfile['form']->getName())) {
-            $editorProfile['form']->bind($request);
-
-            if ($editorProfile['form']->isValid()) {
-                $accessor = PropertyAccess::createPropertyAccessor();
-
-                $accessor->setValue($yaml, $editorProfile['path'], $editorProfile['form']->getData());
-
-                die(print_r($yaml, true));
-            }
-        }
 
         $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);
@@ -168,9 +167,30 @@ class WorkspaceAppDeploymentController extends AbstractController
             );
         }
 
+        if ($request->request->has($editorProfile['form']->getName())) {
+            $editorProfile['form']->bind($request);
+
+            if ($editorProfile['form']->isValid()) {
+                $accessor = PropertyAccess::createPropertyAccessor();
+
+                $accessor->setValue($yaml, $editorProfile['path'], $editorProfile['form']->getData());
+
+                $repoDrafts->commit(
+                    $draftProfile,
+                    [
+                        $path => Yaml::dump($yaml, 8),
+                    ],
+                    'Update ' . $request->query->get('property')
+                );
+
+                return $this->redirect($nav[-2]['url']);
+            }
+        }
+
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceAppDeployment:edit.html.twig',
             [
+                'draft_profile' => $draftProfile,
                 'path' => $path,
                 'manifest' => $yaml,
                 'property' => $property,

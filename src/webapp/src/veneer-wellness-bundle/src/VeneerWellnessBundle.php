@@ -15,6 +15,7 @@ class VeneerWellnessBundle extends Bundle implements BundleInterface
 
         $builder->addCompilerPass(new ContainerMapCompilerPass('veneer_wellness.check.action'));
         $builder->addCompilerPass(new ContainerMapCompilerPass('veneer_wellness.check.source'));
+        $builder->addCompilerPass(new ContainerMapCompilerPass('veneer_wellness.check.condition'));
     }
 
     public function getVeneerName()
