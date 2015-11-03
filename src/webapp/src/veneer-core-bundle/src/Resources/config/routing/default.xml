@@ -28,13 +28,17 @@
         <requirement key="path">.*</requirement>
     </route>
 
-    <route id="veneer_core_workspace_repo_blob" path="/core/workspace/repo/blob/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::blobAction</default>
+    <route id="veneer_core_workspace_repo_review_index" path="/core/workspace/repo/review/{ref}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoReviewController::indexAction</default>
+    </route>
+
+    <route id="veneer_core_workspace_repo_blob_index" path="/core/workspace/repo/blob/{ref}/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoBlobController::indexAction</default>
         <requirement key="path">.*</requirement>
     </route>
 
-    <route id="veneer_core_workspace_repo_tree" path="/core/workspace/repo/tree/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::treeAction</default>
+    <route id="veneer_core_workspace_repo_tree_index" path="/core/workspace/repo/tree/{ref}/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoTreeController::indexAction</default>
         <requirement key="path">.*</requirement>
     </route>
 

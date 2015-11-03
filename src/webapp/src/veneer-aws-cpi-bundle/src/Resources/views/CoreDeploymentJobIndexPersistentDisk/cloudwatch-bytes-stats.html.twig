@@ -32,14 +32,14 @@
         },
         series: [
             {
-                color: '#439755',
+                color: '#3D6CAD',
                 data: {{ series.VolumeReadBytes|json_encode|raw }},
                 fillOpacity: 0.4,
                 name: 'Read',
                 zIndex: 3
             },
             {
-                color: '#439755',
+                color: '#D67E41',
                 data: {{ series.VolumeWriteBytes|json_encode|raw }}.map(function(v){v.y*=-1;return v;}),
                 fillOpacity: 0.4,
                 name: 'Written',

@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class WorkspaceRepoController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $path)
+    public static function defNav(Breadcrumbs $nav, $ref, $path)
     {
         return self::defNavPath(
             $nav
@@ -24,7 +24,8 @@ class WorkspaceRepoController extends AbstractController
                 ->add(
                     'Workspace',
                     [
-                        'veneer_core_workspace_repo_tree' => [
+                        'veneer_core_workspace_repo_tree_index' => [
+                            'ref' => $ref,
                             'path' => '',
                         ],
                     ],
@@ -32,11 +33,12 @@ class WorkspaceRepoController extends AbstractController
                         'fontawesome' => 'folder-open-o',
                     ]
                 ),
+            $ref,
             $path
         );
     }
 
-    public static function defNavPath(Breadcrumbs $nav, $path)
+    public static function defNavPath(Breadcrumbs $nav, $ref, $path)
     {
         $paths = explode('/', trim($path, '/'));
 
@@ -47,7 +49,8 @@ class WorkspaceRepoController extends AbstractController
                 $nav->add(
                     $path,
                     [
-                        'veneer_core_workspace_repo_tree' => [
+                        'veneer_core_workspace_repo_tree_index' => [
+                            'ref' => $ref,
                             'path' => implode('/', $partialPath),
                         ],
                     ]
@@ -56,22 +59,6 @@ class WorkspaceRepoController extends AbstractController
         }
 
         return $nav;
-    }
-
-    public function treeAction($path)
-    {
-        $repo = $this->container->get('veneer_core.workspace.repository');
-
-        return $this->renderApi(
-            'VeneerCoreBundle:WorkspaceRepo:tree.html.twig',
-            [
-                'path' => $path,
-                'children' => $repo->listDirectory($path),
-            ],
-            [
-                'def_nav' => static::defNav($this->container->get('veneer_core.breadcrumbs'), $path),
-            ]
-        );
     }
 
     public function appAction($path)

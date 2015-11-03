@@ -5,7 +5,7 @@
 {% block frag_content %}
     <div class="list-group">
         {% for child in children %}
-            <a class="list-group-item" href="{{ path('veneer_core_workspace_repo_tree', { 'path' : path ~ '/' ~ child }) }}">
+            <a class="list-group-item" href="{{ path('veneer_core_workspace_repo_tree_index', { 'ref' : ref, 'path' : path ~ '/' ~ child }) }}">
                 <i class="fa fa-folder fa-fw"></i>
                 {{ child }}
             </a>

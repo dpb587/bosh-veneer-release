@@ -10,6 +10,7 @@ use Veneer\BoshBundle\Entity\Instances;
 use Veneer\BoshBundle\Entity\Vms;
 use Veneer\BoshBundle\Entity\Releases;
 use Veneer\CoreBundle\Plugin\RequestContext\PluginInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BuiltinPlugin implements PluginInterface
 {
