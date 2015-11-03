@@ -37,6 +37,29 @@ class DirectorApiClient extends GuzzleClient
         parent::__construct($clientOptions);
     }
 
+    public function postForTaskId($uri, array $json = [])
+    {
+        $response = $this->post(
+            $uri,
+            [
+                'allow_redirects' => false,
+                'json' => $json,
+            ]
+        );
+
+        if (!in_array($response->getStatusCode(), [ 302, 303 ])) {
+            throw new \RuntimeException('A redirect was expected to a task, but received: ' . $response->getStatusCode());
+        }
+        
+        $location = current($response->getHeader('location'));
+
+        if (!preg_match('#/tasks/\d+$#', $location)) {
+            throw new \RuntimeException('A location for task was expected, but received: ' . $location);
+        }
+
+        return basename($location);
+    }
+
     public function getInfo()
     {
         return json_decode($this->get('info')->getBody(), true);

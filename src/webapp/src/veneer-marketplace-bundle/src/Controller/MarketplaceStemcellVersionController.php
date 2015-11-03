@@ -11,17 +11,17 @@ use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class MarketplaceReleaseVersionController extends AbstractController
+class MarketplaceStemcellVersionController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return MarketplaceReleaseVersionALLController::defNav($nav, $_bosh)
+        return MarketplaceStemcellVersionALLController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['version']->getVersion(),
                 [
-                    'veneer_marketplace_marketplace_release_version_summary' => [
+                    'veneer_marketplace_marketplace_stemcell_version_summary' => [
                         'marketplace' => $_bosh['marketplace']['name'],
-                        'release' => $_bosh['release']['name'],
+                        'stemcell' => $_bosh['stemcell']['name'],
                         'version' => $_bosh['version']->getVersion(),
                     ],
                 ]
@@ -31,7 +31,7 @@ class MarketplaceReleaseVersionController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerMarketplaceBundle:MarketplaceReleaseVersion:summary.html.twig',
+            'VeneerMarketplaceBundle:MarketplaceStemcellVersion:summary.html.twig',
             [
                 'data' => $_bosh['version'],
             ],
@@ -46,10 +46,10 @@ class MarketplaceReleaseVersionController extends AbstractController
         if (Request::METHOD_POST == $request->getMethod()) {
             $authenticatedUrl = $this->container->get('veneer_marketplace.marketplaces')
                 ->get($_bosh['marketplace']['name'])
-                ->authenticateReleaseTarballUrl($_bosh['version']->getTarballUrl());
+                ->authenticateStemcellTarballUrl($_bosh['version']->getTarballUrl());
 
             $task = $this->container->get('veneer_bosh.api')->postForTaskId(
-                'releases',
+                'stemcells',
                 [
                     'location' => $authenticatedUrl,
                 ]
@@ -64,7 +64,7 @@ class MarketplaceReleaseVersionController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerMarketplaceBundle:MarketplaceReleaseVersion:upload.html.twig',
+            'VeneerMarketplaceBundle:MarketplaceStemcellVersion:upload.html.twig',
             [
                 'data' => $_bosh['version'],
             ],
@@ -73,9 +73,9 @@ class MarketplaceReleaseVersionController extends AbstractController
                     ->add(
                         'Upload',
                         [
-                            'veneer_marketplace_marketplace_release_version_upload' => [
+                            'veneer_marketplace_marketplace_stemcell_version_upload' => [
                                 'marketplace' => $_bosh['marketplace']['name'],
-                                'release' => $_bosh['release']['name'],
+                                'stemcell' => $_bosh['stemcell']['name'],
                                 'version' => $_bosh['version']->getVersion(),
                             ],
                         ]

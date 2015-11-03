@@ -7,6 +7,9 @@
 
     {% if not tracker_state and not tracker_errors %}
         <p class="text-muted">
+            {% if _veneer_bosh_context.task.state in [ 'queued', 'started', 'processing' ] %}
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+            {% endif %}
             No event detail available
         </p>
     {% else %}
@@ -25,10 +28,10 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <strong data-stage-toggle="{{ stage.id }}">
+                                <strong{% if  'finished' == stage.state %} data-stage-toggle="{{ stage.id }}"{% endif %}>
                                     {{ stage.name }}
                                     {% if 'finished' == stage.state %}
-                                        <a class="text-muted" href="#"><i class="fa fa-plus-square-o"></i></a>
+                                        &nbsp; <a class="text-muted" href="#"><i class="fa fa-plus-square-o"></i></a>
                                     {% endif %}
                                 </strong>
                             </td>

@@ -49,6 +49,12 @@
         <default key="_veneer_core_context">marketplace/marketplace/release/version</default>
     </route>
 
+    <route id="veneer_marketplace_marketplace_release_version_upload" path="/marketplace/marketplace/{marketplace}/release/{release}/version/{version}/upload.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceReleaseVersionController::uploadAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">marketplace/marketplace/release/version</default>
+    </route>
+
     <!-- stemcell -->
 
     <route id="veneer_marketplace_marketplace_stemcellALL_index" path="/marketplace/marketplace/{marketplace}/stemcell/:all/index.{_format}">
@@ -69,8 +75,20 @@
         <default key="_veneer_core_context">marketplace/marketplace/stemcell/version:all</default>
     </route>
 
+    <route id="veneer_marketplace_marketplace_stemcell_versionALL_index" path="/marketplace/marketplace/{marketplace}/stemcell/{stemcell}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">marketplace/marketplace/stemcell/version:all</default>
+    </route>
+
     <route id="veneer_marketplace_marketplace_stemcell_version_summary" path="/marketplace/marketplace/{marketplace}/stemcell/{stemcell}/version/{version}/summary.{_format}">
         <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellVersionController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">marketplace/marketplace/stemcell/version</default>
+    </route>
+
+    <route id="veneer_marketplace_marketplace_stemcell_version_upload" path="/marketplace/marketplace/{marketplace}/stemcell/{stemcell}/version/{version}/upload.{_format}">
+        <default key="_controller">Veneer\MarketplaceBundle\Controller\MarketplaceStemcellVersionController::uploadAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">marketplace/marketplace/stemcell/version</default>
     </route>

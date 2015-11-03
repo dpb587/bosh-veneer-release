@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\CoreBundle\Plugin\LinkProvider;
+namespace Veneer\CoreBundle\Plugin\Advisor;
 
 use Symfony\Component\HttpFoundation\Request;
 

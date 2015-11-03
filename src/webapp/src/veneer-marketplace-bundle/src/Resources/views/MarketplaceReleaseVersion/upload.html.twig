@@ -1,0 +1,13 @@
+{% extends _layout %}
+
+{% block def_title 'Upload Release' %}
+
+{% block frag_content %}
+    <form action="{{ def_nav[-1].url }}" method="post">
+        <p>
+            Do you want to upload this release to the director?
+        </p>
+
+        <button class="btn btn-primary" type="submit">Upload</button>
+    </form>
+{% endblock %}

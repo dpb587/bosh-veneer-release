@@ -1,6 +1,6 @@
 {% extends _layout %}
 
-{% block def_title _veneer_bosh_context.release.name %}
+{% block def_title _veneer_bosh_context.stemcell.name %}
 
 {% block frag_content %}  
   {{ render(_links.widget.versionALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}

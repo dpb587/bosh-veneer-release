@@ -25,20 +25,20 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% if 'started' == data.state %}
+    {% if data.state in [ 'queued', 'started', 'processing' ] %}
         var events = $('#widget-events');
 
         function reload() {
             events.load(
                 {{ _links.widget.events.url|veneer_core_appendqs({ '_frag' : 'content' })|json_encode|raw }},
                 function (response, status, xhr) {
-                    if ('started' == $('meta[name = "task-state"]', events).attr('content')) {
+                    if (-1 == [ 'errored', 'done' ].indexOf($('meta[name = "task-state"]', events).attr('content'))) {
                         setTimeout(reload, 5000);
                     }
                 }
             );
         }
 
-        setTimeout(reload, 5000);
+        setTimeout(reload, 2000);
     {% endif %}
 {% endblock %}

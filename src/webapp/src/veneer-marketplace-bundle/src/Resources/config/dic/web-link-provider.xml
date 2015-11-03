@@ -8,6 +8,8 @@
         <service id="veneer_marketplace.plugin.web_link_provider.widget" class="Veneer\MarketplaceBundle\Controller\Plugin\WebLinkProvider\WidgetPlugin">
             <tag name="veneer_core.link_provider" route="veneer_marketplace_marketplace_release_summary" />
             <tag name="veneer_core.link_provider" route="veneer_marketplace_marketplace_release_version_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_marketplace_marketplace_stemcell_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_marketplace_marketplace_stemcell_version_summary" />
         </service>
     </services>
 </container>
