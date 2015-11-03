@@ -263,10 +263,22 @@
         <default key="_veneer_core_context">bosh/stemcell:all</default>
     </route>
 
-    <route id="veneer_bosh_stemcell_version_summary" path="/bosh/stemcell/{stemcell}/version/{version}/summary.{_format}">
+    <route id="veneer_bosh_stemcell_summary" path="/bosh/stemcell/{stemcell}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\StemcellController::summaryAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/stemcell</default>
+    </route>
+
+    <route id="veneer_bosh_stemcell_versionALL_index" path="/bosh/stemcell/{stemcell}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\StemcellVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/stemcell/version:all</default>
+    </route>
+
+    <route id="veneer_bosh_stemcell_version_summary" path="/bosh/stemcell/{stemcell}/version/{version}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\StemcellVersionController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/stemcell/version</default>
     </route>
 
 </routes>

@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class StemcellVersion
 {
+    use ParsedSemverTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="marketplace", type="string", length=64)

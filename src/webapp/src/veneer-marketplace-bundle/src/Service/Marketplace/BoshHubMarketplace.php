@@ -98,8 +98,8 @@ class BoshHubMarketplace implements MarketplaceInterface
 
         $stemcells = [];
 
-        foreach ($xpath->query('//li[@class = "list-group-item stemcell"]/div/a[@class = "note"]') as $release) {
-            $href = $release->attributes->getNamedItem('href')->nodeValue;
+        foreach ($xpath->query('//li[@class = "list-group-item stemcell"]/div[@class = "col-md-3"]/a[2]') as $stemcell) {
+            $href = $stemcell->attributes->getNamedItem('href')->nodeValue;
             $name = basename($href);
 
             $stemcells[$name] = $href;

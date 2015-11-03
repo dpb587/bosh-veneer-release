@@ -43,6 +43,18 @@ class MarketplaceStemcellALLController extends AbstractController
                     ->setParameter('marketplace', $_bosh['marketplace']['name'])
                     ->getArrayResult()
                 ,
+                'uploaded_locally' => array_map(
+                    'current',
+                    $this->container->get('doctrine.orm.bosh_entity_manager')
+                        ->createQuery(
+                            '
+                                SELECT
+                                    s.name
+                                FROM VeneerBoshBundle:Stemcells s
+                            '
+                        )
+                        ->getArrayResult()
+                ),
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_marketplace.breadcrumbs'), $_bosh),

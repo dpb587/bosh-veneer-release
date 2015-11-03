@@ -18,7 +18,13 @@
                     <tr>
                         <td>
                             <strong>{{ release.name }}</strong><br />
-                            <small>v{{ release.version }}</small>
+                            <small>
+                                {% if 'latest' == release.version %}
+                                    {{ release.version }}
+                                {% else %}
+                                    v{{ release.version }}
+                                {% endif %}
+                            </small>
                         </td>
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="Actions">

@@ -4,6 +4,7 @@ namespace Veneer\MarketplaceBundle\Service;
 
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManager;
+use Veneer\MarketplaceBundle\Service\NaiveSemverParser;
 
 class Updater
 {
@@ -30,7 +31,11 @@ class Updater
 
         $this->em->beginTransaction();
 
+        $i = 0;
+
         foreach ($marketplaceService->yieldReleases() as $release) {
+            $i += 1;
+
             $release->setMarketplace($marketplaceName);
             $release->setStatFirstSeenAt(new \DateTime());
             $release->setStatLastSeenAt($release->getStatFirstSeenAt());
@@ -44,6 +49,10 @@ class Updater
             if ($found) {
                 $logger->debug(sprintf('release %s/%s (repeat)', $release->getRelease(), $release->getVersion()));
 
+                $found->setDetailUrl($release->getDetailUrl());
+                $found->setTarballUrl($release->getTarballUrl());
+                $found->setTarballSize($release->getTarballSize());
+                $found->setTarballChecksum($release->getTarballChecksum());
                 $found->setStatLastSeenAt($release->getStatLastSeenAt());
 
                 $release = $found;
@@ -51,8 +60,14 @@ class Updater
                 $logger->info(sprintf('release %s/%s (new)', $release->getRelease(), $release->getVersion()));
             }
 
+            NaiveSemverParser::parse($release);
+
             $this->em->persist($release);
             $this->em->flush();
+
+            if (0 == $i % 50) {
+                $this->em->clear();
+            }
         }
 
         $this->em->commit();
@@ -65,7 +80,11 @@ class Updater
 
         $this->em->beginTransaction();
 
+        $i = 0;
+
         foreach ($marketplaceService->yieldStemcells() as $stemcell) {
+            $i += 1;
+
             $stemcell->setMarketplace($marketplaceName);
             $stemcell->setStatFirstSeenAt(new \DateTime());
             $stemcell->setStatLastSeenAt($stemcell->getStatFirstSeenAt());
@@ -79,6 +98,11 @@ class Updater
             if ($found) {
                 $logger->debug(sprintf('stemcell %s/%s (repeat)', $stemcell->getStemcell(), $stemcell->getVersion()));
 
+                $found->setSourceType($stemcell->getSourceType());
+                $found->setDetailUrl($stemcell->getDetailUrl());
+                $found->setTarballUrl($stemcell->getTarballUrl());
+                $found->setTarballSize($stemcell->getTarballSize());
+                $found->setTarballChecksum($stemcell->getTarballChecksum());
                 $found->setStatLastSeenAt($stemcell->getStatLastSeenAt());
 
                 $stemcell = $found;
@@ -86,8 +110,14 @@ class Updater
                 $logger->info(sprintf('stemcell %s/%s (new)', $stemcell->getStemcell(), $stemcell->getVersion()));
             }
 
+            NaiveSemverParser::parse($stemcell);
+
             $this->em->persist($stemcell);
             $this->em->flush();
+
+            if (0 == $i % 50) {
+                $this->em->clear();
+            }
         }
 
         $this->em->commit();

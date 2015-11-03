@@ -33,16 +33,13 @@ class MarketplaceStemcellVersionALLController extends AbstractController
             ->createQueryBuilder('v')
             ->andWhere(new Expr\Comparison('v.marketplace', '=', ':marketplace'))->setParameter('marketplace', $_bosh['marketplace']['name'])
             ->andWhere(new Expr\Comparison('v.stemcell', '=', ':stemcell'))->setParameter('stemcell', $_bosh['stemcell']['name'])
-            ->addOrderBy('v.version')
+            ->addOrderBy('v.semverMajor', 'DESC')
+            ->addOrderBy('v.semverMinor', 'DESC')
+            ->addOrderBy('v.semverPatch', 'DESC')
+            ->addOrderBy('v.semverExtra', 'DESC')
+            ->addOrderBy('v.version', 'DESC')
             ->getQuery()
             ->getResult();
-        
-        usort(
-            $results,
-            function($a, $b) {
-                return -1 * version_compare($a->getVersion(), $b->getVersion());
-            }
-        );
 
         return $this->renderApi(
             'VeneerMarketplaceBundle:MarketplaceStemcellVersionALL:index.html.twig',
