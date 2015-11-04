@@ -30,7 +30,7 @@ class Extension extends \Twig_Extension
 
     public function appendQsFilter($url, array $qs)
     {
-        return $url . ((false === strpos('?', $url)) ? '?' : '&') . http_build_query($qs);
+        return $url . ((false === strpos($url, '?')) ? '?' : '&') . http_build_query($qs);
     }
 
     public function getName()

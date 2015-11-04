@@ -25,6 +25,13 @@ class WidgetPlugin implements PluginInterface
                         ),
                 ];
             case 'veneer_bosh_deployment_job_index_summary':
+                $metricPrefix = sprintf(
+                    'bosh.deployment[%s].job[%s].index[%s]',
+                    $_bosh['deployment']['name'],
+                    $_bosh['job']['job'],
+                    $_bosh['index']['index']
+                );
+
                 return [
                     (new Link('diskstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
@@ -39,21 +46,52 @@ class WidgetPlugin implements PluginInterface
                     (new Link('loadstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_job_index_loadstats',
+                            'veneer_core_metric_chart_index',
                             [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'title' => 'Load Average',
+                                'series' => [
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.load.load.longterm',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.load.load.midterm',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.load.load.shortterm',
+                                    ],
+                                ],
                             ]
                         ),
                     (new Link('memstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_job_index_memstats',
+                            'veneer_core_metric_chart_index',
                             [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'title' => 'Memory Usage',
+                                'defaults' => [
+                                    'stacking' => 'normal',
+                                ],
+                                'series' => [
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_used',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_buffered',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_cached',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_free',
+                                    ],
+                                ],
                             ]
                         ),
                 ];

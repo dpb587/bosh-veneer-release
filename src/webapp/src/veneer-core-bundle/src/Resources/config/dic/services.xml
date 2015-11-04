@@ -55,6 +55,15 @@
             </argument>
         </service>
 
+        <service id="veneer_core.plugin.metric.context.root" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- compiler -->
+        </service>
+
+        <service id="veneer_core.plugin.metric.context.resolver" class="Veneer\CoreBundle\Plugin\Metric\Resolver">
+            <argument type="service" id="veneer_core.plugin.metric.context.root" />
+        </service>
+
         <service id="veneer_core.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs" scope="prototype">
             <argument type="service" id="router" />
 

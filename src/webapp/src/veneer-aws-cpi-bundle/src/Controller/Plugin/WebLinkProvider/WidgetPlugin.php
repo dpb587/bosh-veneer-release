@@ -14,49 +14,79 @@ class WidgetPlugin implements PluginInterface
 
         switch ($route) {
             case 'veneer_bosh_deployment_job_index_persistentdisk_summary':
+                $metricPrefix = sprintf(
+                    'bosh.deployment[%s].job[%s].index[%s].persistent_disk[%s]',
+                    $_bosh['deployment']['name'],
+                    $_bosh['job']['job'],
+                    $_bosh['index']['index'],
+                    $_bosh['persistent_disk']['id']
+                );
+
                 return [
                     (new Link('cloudwatchbytesstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchbytesstats',
+                            'veneer_core_metric_chart_index',
                             [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
-                                'persistent_disk' => $_bosh['persistent_disk']['id'],
+                                'title' => 'CloudWatch - Bytes',
+                                'series' => [
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.aws_cloudwatch.write_bytes',
+                                        'transform' => 'flipY',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.aws_cloudwatch.read_bytes',
+                                    ],
+                                ],
                             ]
                         ),
                     (new Link('cloudwatchopsstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchopsstats',
+                            'veneer_core_metric_chart_index',
                             [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
-                                'persistent_disk' => $_bosh['persistent_disk']['id'],
+                                'title' => 'CloudWatch - Ops',
+                                'series' => [
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.aws_cloudwatch.write_ops',
+                                        'transform' => 'flipY',
+                                    ],
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.aws_cloudwatch.read_ops',
+                                    ],
+                                ],
                             ]
                         ),
                     (new Link('cloudwatchqueuestats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchqueuestats',
+                            'veneer_core_metric_chart_index',
                             [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
-                                'persistent_disk' => $_bosh['persistent_disk']['id'],
+                                'title' => 'CloudWatch - Queue Length',
+                                'series' => [
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.aws_cloudwatch.queue_length',
+                                    ],
+                                ],
                             ]
                         ),
                     (new Link('cloudwatchidlestats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_awscpi_deployment_job_index_persistentdisk_cloudwatchidlestats',
+                            'veneer_core_metric_chart_index',
                             [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
-                                'persistent_disk' => $_bosh['persistent_disk']['id'],
+                                'title' => 'CloudWatch - Queue Length',
+                                'series' => [
+                                    [
+                                        'statistic' => 'avg',
+                                        'metric' => $metricPrefix . '.aws_cloudwatch.idle_time',
+                                    ],
+                                ],
                             ]
                         ),
                 ];

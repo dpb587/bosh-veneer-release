@@ -16,6 +16,7 @@ class VeneerBoshExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/dic'));
 
+        $loader->load('core-metric.xml');
         $loader->load('services.xml');
         $loader->load('web-link-provider.xml');
         $loader->load('web-request-context.xml');

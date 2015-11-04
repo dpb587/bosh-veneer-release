@@ -1,0 +1,102 @@
+{% extends _layout %}
+
+{% block def_title title %}
+
+{% block frag_content %}
+    <div id="highcharts-{{ _uuid }}" style="height:180px;"></div>
+{% endblock %}
+
+{% block javascripts %}
+    var queued = {{ refs|length }};
+    var chart = {
+        chart: {
+            spacingBottom: 4,
+            spacingLeft: 4,
+            spacingRight: 4,
+            spacingTop: 4
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                animation: false,
+                marker: {
+                    radius: 2,
+                    symbol: 'circle'
+                }
+            }
+        },
+        series: [],
+        title: {
+            text: null
+        },
+        tooltip: {
+            shared: true
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: null
+            }
+        }
+    };
+
+    function tryDraw() {
+        if (chart.series.length != queued) {
+            return;
+        }
+
+        $('#highcharts-{{ _uuid }}').highcharts(chart);
+    }
+
+    var transforms = {
+        flipY: function (series) {
+            series.data.map(function (v) {
+                if (null != v[1]) {
+                    v[1] *= -1;
+                }
+
+                return v;
+            });
+        }
+    };
+
+    {% for ref in refs %}
+        setTimeout(
+            function () {
+                $.getJSON(
+                    {{ ref.url|json_encode|raw }},
+                    function (data) {
+                        var series = {
+                            fillOpacity: 0.4,
+                            type: 'areaspline',
+                            zIndex: {{ loop.index0 }}
+                        };
+                        $.extend(series, data.meta.chart, {{ ref.defaults|default({})|json_encode|raw }});
+
+                        if (series.title) {
+                            series.name = series.title;
+                            delete series.title;
+                        }
+
+                        series.data = data.data;
+
+                        {% for transform in ref.transform|default([]) %}
+                            transforms.{{ transform }}(series);
+                        {% endfor %}
+
+                        chart.series.push(series);
+                        tryDraw();
+                    }
+                );
+            },
+            {{ 10 + 80 * loop.index0 }}
+        );
+    {% endfor %}
+{% endblock %}

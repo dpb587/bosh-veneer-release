@@ -2,7 +2,7 @@
 
 {% block def_title data.size %}
 
-{% block frag_content %}  
+{% block frag_content %}
     {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
     {{ render(_links.widget.cloudwatchbytesstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
     {{ render(_links.widget.cloudwatchopsstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}

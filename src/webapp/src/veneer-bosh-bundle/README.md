@@ -5,6 +5,32 @@ database's view of resources in a read-only, user-friendly, but architecturally 
 here are the basis for other bundles customizing the user experience.
 
 
+# Metrics
+
+avg(bosh/deployment[legacy]/jobs[appsrv-onde-c4def]/index[0]/logsearch/hoststats/loadavg/short)
+    => metric+value bosh/deployment[legacy]/jobs[appsrv-onde-c4def]/index[0]/logsearch/hoststats/loadavg/short
+avg(bosh/deployment[legacy]/jobs[appsrv-onde-c4def]/index[]/logsearch/hoststats/loadavg/short)
+    => metric+value bosh/deployment[legacy]/jobs[appsrv-onde-c4def]/index[0]/logsearch/hoststats/loadavg/short
+    => metric+value bosh/deployment[legacy]/jobs[appsrv-onde-c4def]/index[1]/logsearch/hoststats/loadavg/short
+bosh/deployment[legacy]/jobs[*]//avg(index[*]/logsearch/hoststats/loadavg/short)
+    => metric bosh.deployment[legacy]/jobs[appsrv-onde-c4def]
+       value
+    => metric bosh.deployment[legacy]/jobs[dbsrv-master]
+
+Scope - logsearch_hoststats, aws_cloudwatch, aws_ec2_profile
+
+IndexedScope -> jobs[], jobs[*], jobs[key]
+  INDEX_TYPE => EACH
+  INDEX_TYPE => SEGMENT
+  INDEX_TYPE => SPECIFIC
+
+ResolvedMetric
+  getChartTitle();
+  getChartColor();
+  getChartAlpha();
+  load(\DateTime $start, \DateTime $stop, \DateInterval $period, $statistic);
+
+
 ## Development
 
 ### ORM

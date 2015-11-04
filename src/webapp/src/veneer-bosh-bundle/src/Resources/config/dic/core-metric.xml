@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_bosh.plugin.core_metric.context.bosh" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\Context" scope="prototype">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_core.plugin.metric.context.root" alias="bosh" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_metric.context.deployment" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentContext" scope="prototype">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_job" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentJobContext" scope="prototype">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_job_index" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentJobIndexContext" scope="prototype">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_job_index_persistent_disk" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext" scope="prototype">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_vm" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentVmContext" scope="prototype">
+            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_vm_network" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext" scope="prototype">
+            <argument type="service" id="service_container" />
+        </service>
+    </services>
+</container>

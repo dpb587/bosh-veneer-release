@@ -21,6 +21,18 @@
 
     <route id="veneer_core_auth_via_basic" path="/auth/via/basic" />
 
+    <!-- metrics -->
+
+    <route id="veneer_core_metric_data_raw_range" path="/core/metric/data/raw/range.{_format}">
+        <default key="_controller">Veneer\CoreBundle\Controller\MetricDataRawController::rangeAction</default>
+        <default key="_format">json</default>
+    </route>
+
+    <route id="veneer_core_metric_chart_index" path="/core/metric/chart/index.{_format}">
+        <default key="_controller">Veneer\CoreBundle\Controller\MetricChartController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
     <!-- workspace/repo -->
 
     <route id="veneer_core_workspace_repo_app" path="/core/workspace/repo/app/{path}">
