@@ -1,8 +1,8 @@
-<div class="card">
+<div class="card" data-href="{{ app.request.uri }}">
     <div class="card-header">
         <div class="pull-right">
-            <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"><i class="fa fa-link fa-fw"></i></a>
-            <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge({ '_format' : 'json' })) }}"><i class="fa fa-bolt fa-fw"></i></a>
+            <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge(app.request.query.all)|merge({ '_frag' : null })) }}"><i class="fa fa-link fa-fw"></i></a>
+            <a class="text-muted" href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params', {})|merge(app.request.query.all)|merge({ '_frag' : null })|merge({ '_format' : 'json' })) }}"><i class="fa fa-bolt fa-fw"></i></a>
         </div>
         {{ block('def_title') }}
     </div>

@@ -106,7 +106,7 @@ class DeploymentFormHelper
             'options' => [
                 'value_type' => 'veneer_core_yaml',
                 'value_options' => [
-                    'helptext' => isset($propertiesSpec[$path]['description']) ? $propertiesSpec[$path]['description'] : null,
+                    'veneer_help_html' => isset($propertiesSpec[$path]['description']) ? $propertiesSpec[$path]['description'] : null,
                     'label' => ucwords(strtr(implode('', array_slice(explode('.', $path), -1)), '_', ' ')),
                 ],
             ],

@@ -27,7 +27,7 @@ class DeploymentNetworkDynamicType extends AbstractType
                     'label' => 'DNS',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'helptext' => 'DNS IP addresses for this network',
+                    'veneer_help_html' => '<p>DNS IP addresses for this network</p>',
                     'required' => false,
                 ]
             )
@@ -36,7 +36,7 @@ class DeploymentNetworkDynamicType extends AbstractType
                 $this->cpi->getDeploymentNetworkDynamicFormType(),
                 [
                     'label' => 'Cloud Properties',
-                    'helptext' => 'IaaS-specific properties for the network.',
+                    'veneer_help_html' => '<p>IaaS-specific properties for the network.</p>',
                 ]
             )
             ;

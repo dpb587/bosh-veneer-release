@@ -24,7 +24,7 @@ class DeploymentCompilationType extends AbstractType
                 'integer',
                 [
                     'label' => 'Workers',
-                    'helptext' => 'The maximum number of compilation VMs.',
+                    'veneer_help_html' => '<p>The maximum number of compilation VMs.</p>',
                 ]
             )
 //            ->add(
@@ -32,7 +32,7 @@ class DeploymentCompilationType extends AbstractType
 //                'veneer_ops_deployment_network',
 //                [
 //                    'label' => 'Network',
-//                    'helptext' => 'References a valid network name defined in the Networks block. BOSH assigns network properties to compilation VMs according to the type and properties of the specified network.',
+//                    'veneer_help_html' => '<p>References a valid network name defined in the Networks block. BOSH assigns network properties to compilation VMs according to the type and properties of the specified network.</p>',
 //                ]
 //            )
             ->add(
@@ -40,7 +40,7 @@ class DeploymentCompilationType extends AbstractType
                 'checkbox',
                 [
                     'label' => 'Reuse Compilation VMs',
-                    'helptext' => 'If enabled, compilation VMs are re-used when compiling packages. When disabled, BOSH creates a new compilation VM for each new package compilation and destroys the VM when compilation is complete.',
+                    'veneer_help_html' => '<p>If enabled, compilation VMs are re-used when compiling packages. When disabled, BOSH creates a new compilation VM for each new package compilation and destroys the VM when compilation is complete.</p>',
                     'required' => false,
                 ]
             )
@@ -49,7 +49,7 @@ class DeploymentCompilationType extends AbstractType
                 $this->cpi->getDeploymentResourcePoolFormType(),
                 [
                     'label' => 'Cloud Properties',
-                    'helptext' => 'Describes any IaaS-specific properties needed to create compilation VMs.',
+                    'veneer_help_html' => '<p>Describes any IaaS-specific properties needed to create compilation VMs.</p>',
                 ]
             )
             ;

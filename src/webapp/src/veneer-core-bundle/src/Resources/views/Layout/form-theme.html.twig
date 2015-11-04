@@ -23,7 +23,7 @@
             <div id="formpicker-label-{{ child.vars.id }}" class="formpicker-label" style="{% if loop.index0 %}border-top:#DEDEDE solid 1px;{% endif %}line-height:0;">
                 <label for="{{ child.vars.id }}" style="display:block;font-family:inherit;padding:11px 0 4px 12px;">
                     {{ form_widget(child) }}
-                    <span style="padding-left:8px;">{{ subform.vars.label }}</span>{% if subform.vars.helptext %}<span style="color:#666666;"> &mdash; {{ subform.vars.helptext }}</span>{% endif %}
+                    <span style="padding-left:8px;">{{ subform.vars.label }}</span>{% if subform.vars.veneer_help_html %}<span style="color:#666666;"> &mdash; {{ subform.vars.veneer_help_html }}</span>{% endif %}
                 </label>
             </div>
             {% if subform.children|length or 1 < subform.vars.block_prefixes|length %}
@@ -72,7 +72,7 @@
 
 {%- block form_widget -%}
     {% if compound %}
-        {{- block('form_widget_compound') -}}
+        <div style="border-left:#DEDEDE solid 2px;padding:0.4rem 0 0.1rem 1rem;margin-left:0.7rem;">{{- block('form_widget_compound') -}}</div>
     {% else %}
         {{- block('form_widget_simple') -}}
     {% endif %}
@@ -214,7 +214,12 @@
 {%- endblock choice_widget_options -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <div class="checkbox">
+        <label for="{{ id }}">
+            <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+            Enable
+        </label>
+    </div>
 {%- endblock checkbox_widget -%}
 
 {%- block radio_widget -%}
@@ -351,6 +356,8 @@
     {% if label is not same as(false) -%}
         {% if not compound -%}
             {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- else -%}
+            {% set label_attr = label_attr|merge({ 'style': 'font-weight:bold;' ~ label_attr.style|default }) %}
         {%- endif -%}
         {% if required -%}
             {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
@@ -382,43 +389,47 @@
 {%- endblock repeated_row -%}
 
 {%- block form_row -%}
-    {% if compound and 'veneer_core_form_picker' not in block_prefixes and 3 == block_prefixes|length %}
-        <div class="row{% if errors|length > 0 %} has-error{% endif %}">
-            <div class="col-sm-12 col-md-3 form-control-label"{% if 'collection' not in block_prefixes %} style="font-weight:bold;"{% endif %}>
-                {{- form_label(form) -}}
-            </div>
-            <div class="col-sm-12 col-md-9" style="padding-top:0.45rem;">
-                {% if helptext %}
-                    <small class="text-muted">{{ helptext }}</small>
-                {% endif %}
-                {{ form_errors(form) }}
-            </div>
-        </div>
-        {% if 'collection' in block_prefixes %}
-            <div class="row">
-                <div class="col-sm-12 col-md-offset-3 col-md-9">
-                    {{ form_widget(form) }}
+    <fieldset class="form-group{% if errors|length > 0 %} has-error{% endif %}">
+        {{ form_label(form) }}
+        <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
+        {% if required %}
+            <small class="text-muted">Required</small>
+        {% elseif veneer_advanced %}
+            <small class="text-muted">Advanced</small>
+        {% else %}
+            <small class="text-muted">Optional</small>
+        {% endif %}
+        {% if veneer_help_html %}
+            &middot;
+            <a class="text-muted" href="#" data-toggle="modal" data-target="#{{ id }}-help"><small>Help</small></a>
+            <div id="{{ id }}-help" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title">{{ label }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{ veneer_help_html|raw }}
+                            {% if veneer_help_links %}
+                                <hr />
+                                {% for link in veneer_help_links %}
+                                    {% if loop.index0 %}&nbsp;&middot;&nbsp;{% endif %}
+                                    <a href="{{ link.url }}">{{ link.title }}</a>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
-        {% else %}
-            <div class="form-subform">
-                {{ form_widget(form) }}
-            </div>
         {% endif %}
-    {% else %}
-        <div class="form-group row{% if errors|length > 0 %} has-error{% endif %}">
-            <div class="col-sm-12 col-md-3 form-control-label">
-                {{- form_label(form) -}}
-            </div>
-            <div class="col-sm-12 col-md-9">
-                {{- form_errors(form) -}}
-                {{- form_widget(form) -}}
-                {% if helptext %}
-                    <small class="text-muted">{{ helptext }}</small>
-                {% endif %}
-            </div>
-        </div>
-    {% endif %}
+
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </fieldset>
 {%- endblock form_row -%}
 
 {%- block button_row -%}

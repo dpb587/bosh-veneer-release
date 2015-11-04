@@ -17,7 +17,7 @@ class DeploymentUpdateType extends AbstractType
                 'integer',
                 [
                     'label' => 'Canaries',
-                    'helptext' => 'The number of canary instances.',
+                    'veneer_help_html' => '<p>The number of canary instances.</p>',
                 ]
             )
             ->add(
@@ -25,7 +25,7 @@ class DeploymentUpdateType extends AbstractType
                 'integer',
                 [
                     'label' => 'Max In-Flight',
-                    'helptext' => 'The maximum number of non-canary instances to update in parallel.',
+                    'veneer_help_html' => '<p>The maximum number of non-canary instances to update in parallel.</p>',
                 ]
             )
             ->add(
@@ -33,7 +33,7 @@ class DeploymentUpdateType extends AbstractType
                 'text',
                 [
                     'label' => 'Canary Watch Time',
-                    'helptext' => 'If an integer, the Director sleeps for that many milliseconds, then checks whether the canary instances are healthy. If a range (low-high), the Director: waits for low milliseconds, then waits until instances are healthy or high milliseconds have passed since instances started updating.',
+                    'veneer_help_html' => '<p>If an integer, the Director sleeps for that many milliseconds, then checks whether the canary instances are healthy. If a range (low-high), the Director: waits for low milliseconds, then waits until instances are healthy or high milliseconds have passed since instances started updating.</p>',
                 ]
             )
             ->add(
@@ -41,7 +41,7 @@ class DeploymentUpdateType extends AbstractType
                 'text',
                 [
                     'label' => 'Canary Watch Time',
-                    'helptext' => 'If an integer, the Director sleeps for that many milliseconds, then checks whether the instances are healthy. If a range (low-high), the Director: waits for low milliseconds, then waits until instances are healthy or high milliseconds have passed since instances started updating.',
+                    'veneer_help_html' => '<p>If an integer, the Director sleeps for that many milliseconds, then checks whether the instances are healthy. If a range (low-high), the Director: waits for low milliseconds, then waits until instances are healthy or high milliseconds have passed since instances started updating.</p>',
                 ]
             )
             ->add(
@@ -49,7 +49,7 @@ class DeploymentUpdateType extends AbstractType
                 'checkbox',
                 [
                     'label' => 'Reuse Compilation VMs',
-                    'helptext' => 'If enabled, deployment jobs will be deployed in parallel. Instances within a deployment job will still follow Canaries and Max In-Flight configuration.',
+                    'veneer_help_html' => '<p>If enabled, deployment jobs will be deployed in parallel. Instances within a deployment job will still follow Canaries and Max In-Flight configuration.</p>',
                 ]
             )
             ;

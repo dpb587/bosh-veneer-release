@@ -17,7 +17,7 @@ class DeploymentResourcePoolEphemeralDiskType extends AbstractType
                 'integer',
                 [
                     'label' => 'Disk Size',
-                    'helptext' => 'Specifies the disk size in megabytes.',
+                    'veneer_help_html' => '<p>Specifies the disk size in megabytes.</p>',
                 ]
             )
             ->add(
@@ -25,7 +25,6 @@ class DeploymentResourcePoolEphemeralDiskType extends AbstractType
                 'choice',
                 [
                     'label' => 'Disk Type',
-                    'helptext' => 'Type of the disk',
                     'choices' => [
                         'standard' => 'Magnetic (standard)',
                         'gp2' => 'General Purpose SSD (gp2)',

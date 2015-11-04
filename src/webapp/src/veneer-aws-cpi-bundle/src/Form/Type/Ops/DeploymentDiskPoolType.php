@@ -17,7 +17,6 @@ class DeploymentDiskPoolType extends AbstractType
                 'choice',
                 [
                     'label' => 'Disk Type',
-                    'helptext' => 'Type of the disk',
                     'choices' => [
                         'standard' => 'Magnetic (standard)',
                         'gp2' => 'General Purpose SSD (gp2)',
@@ -31,7 +30,7 @@ class DeploymentDiskPoolType extends AbstractType
                 [
                     'label' => 'Turns on EBS volume encryption for this persistent disk.',
                     'required' => false,
-                    'helptext' => 'VM root and ephemeral disk are not encrypted.',
+                    'veneer_help_html' => '<p>VM root and ephemeral disk are not encrypted.</p>',
                 ]
             )
             ;

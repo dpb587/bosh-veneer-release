@@ -17,7 +17,7 @@ class DeploymentNetworkVipType extends AbstractType
                 $options['cpi']->getNetworkVipForm(),
                 [
                     'label' => 'Cloud Properties',
-                    'helptext' => 'IaaS-specific properties for the network.',
+                    'veneer_help_html' => '<p>IaaS-specific properties for the network.</p>',
                 ]
             )
             ;

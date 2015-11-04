@@ -24,7 +24,7 @@ class DeploymentDiskPoolType extends AbstractType
                 'text',
                 [
                     'label' => 'Disk Pool Name',
-                    'helptext' => 'A unique name used to identify and reference the disk pool.',
+                    'veneer_help_html' => '<p>A unique name used to identify and reference the disk pool.</p>',
                 ]
             )
             ->add(
@@ -32,7 +32,7 @@ class DeploymentDiskPoolType extends AbstractType
                 'integer',
                 [
                     'label' => 'Disk Size',
-                    'helptext' => 'Size of the disk in megabytes.',
+                    'veneer_help_html' => '<p>Size of the disk in megabytes.</p>',
                 ]
             )
             ->add(
@@ -40,7 +40,7 @@ class DeploymentDiskPoolType extends AbstractType
                 $this->cpi->getDeploymentDiskPoolFormType(),
                 [
                     'label' => 'Cloud Properties',
-                    'helptext' => 'IaaS-specific properties needed to create disk.',
+                    'veneer_help_html' => '<p>IaaS-specific properties needed to create disk.</p>',
                 ]
             )
             ;

@@ -23,7 +23,7 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                 'veneer_core_networking_cidr',
                 [
                     'label' => 'Subnet CIDR',
-                    'helptext' => 'Subnet IP range that includes all IPs from this subnet',
+                    'veneer_help_html' => '<p>Subnet IP range that includes all IPs from this subnet</p>',
                 ]
             )
             ->add(
@@ -31,7 +31,7 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                 'veneer_core_networking_ip',
                 [
                     'label' => 'Gateway',
-                    'helptext' => 'Subnet Gateway IP',
+                    'veneer_help_html' => '<p>Subnet Gateway IP</p>',
                 ]
             )
             ->add(
@@ -42,7 +42,7 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                     'label' => 'DNS',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'helptext' => 'DNS IP addresses for this subnet',
+                    'veneer_help_html' => '<p>DNS IP addresses for this subnet</p>',
                     'required' => false,
                 ]
             )
@@ -54,7 +54,7 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                     'label' => 'Reserved IPs',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'helptext' => 'Reserved IPs and/or IP ranges. BOSH does not assign IPs from this range to any VM',
+                    'veneer_help_html' => '<p>Reserved IPs and/or IP ranges. BOSH does not assign IPs from this range to any VM</p>',
                     'required' => false,
                 ]
             )
@@ -66,7 +66,7 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                     'label' => 'Static IPs',
                     'allow_add' => true,
                     'allow_delete' => true,
-                    'helptext' => 'Static IPs and/or IP ranges. BOSH assigns IPs from this range to jobs requesting static IPs. Only IPs specified here can be used for static IP reservations.',
+                    'veneer_help_html' => '<p>Static IPs and/or IP ranges. BOSH assigns IPs from this range to jobs requesting static IPs. Only IPs specified here can be used for static IP reservations.</p>',
                     'required' => false,
                 ]
             )
@@ -75,7 +75,7 @@ class DeploymentNetworkManualSubnetType extends AbstractType
                 $this->cpi->getDeploymentNetworkManualForm(),
                 [
                     'label' => 'Cloud Properties',
-                    'helptext' => 'IaaS-specific properties for the subnet.',
+                    'veneer_help_html' => '<p>IaaS-specific properties for the subnet.</p>',
                 ]
             )
             ;

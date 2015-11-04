@@ -18,7 +18,7 @@ class DeploymentNetworkType extends AbstractType
                 'text',
                 [
                     'label' => 'Network Name',
-                    'helptext' => 'DNS IP addresses for this network',
+                    'veneer_help_html' => '<p>DNS IP addresses for this network</p>',
                     'required' => false,
                 ]
             )

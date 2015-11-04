@@ -17,7 +17,7 @@ class DeploymentNetworkType extends AbstractType
                 'veneer_awscpi_api_vpc_subnet',
                 [
                     'label' => 'Subnet',
-                    'helptext' => 'Subnet ID in which instance will be created.',
+                    'veneer_help_html' => '<p>Subnet ID in which instance will be created.</p>',
                 ]
             )
 //            ->add(

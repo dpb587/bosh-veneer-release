@@ -25,7 +25,7 @@
             <tag name="form.type" alias="veneer_core_yaml" />
         </service>
 
-        <service id="veneer_core.form.extension.help" class="Veneer\CoreBundle\Form\Extension\HelpExtension">
+        <service id="veneer_core.form.extension.veneer" class="Veneer\CoreBundle\Form\Extension\VeneerFormExtension">
             <tag name="form.type_extension" alias="form" />
         </service>
 

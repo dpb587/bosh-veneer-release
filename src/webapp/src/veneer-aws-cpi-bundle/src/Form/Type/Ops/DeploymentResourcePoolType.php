@@ -17,7 +17,6 @@ class DeploymentResourcePoolType extends AbstractType
                 'veneer_awscpi_api_ec2_instancetype',
                 [
                     'label' => 'Instance Type',
-                    'helptext' => 'Type of the instance.',
                 ]
             )
             ->add(
@@ -25,7 +24,7 @@ class DeploymentResourcePoolType extends AbstractType
                 'veneer_awscpi_api_ec2_availabilityzone',
                 [
                     'label' => 'Availability Zone',
-                    'helptext' => 'Availability zone to use for creating instances.',
+                    'veneer_help_html' => '<p>Availability zone to use for creating instances.</p>',
                 ]
             )
             ->add(
@@ -33,7 +32,7 @@ class DeploymentResourcePoolType extends AbstractType
                 'veneer_awscpi_api_ec2_keypair',
                 [
                     'label' => 'Key Pair Name',
-                    'helptext' => 'Defaults to key pair name specified by default_key_name in global CPI settings.',
+                    'veneer_help_html' => '<p>Defaults to key pair name specified by default_key_name in global CPI settings.</p>',
                     'required' => false,
                 ]
             )
@@ -42,7 +41,6 @@ class DeploymentResourcePoolType extends AbstractType
                 'money',
                 [
                     'label' => 'Spot Bid Price',
-                    'helptext' => 'Bid price in dollars.',
                     'required' => false,
                 ]
             )
@@ -52,7 +50,7 @@ class DeploymentResourcePoolType extends AbstractType
                 [
                     'label' => 'ELB Names',
                     'type' => 'veneer_awscpi_api_ec2_elb',
-                    'helptext' => 'ELB names that should be attached to created VMs.',
+                    'veneer_help_html' => '<p>ELB names that should be attached to created VMs.</p>',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'required' => false,
@@ -63,7 +61,7 @@ class DeploymentResourcePoolType extends AbstractType
                 'veneer_awscpi_ops_deployment_resourcepool_ephemeraldisk',
                 [
                     'label' => 'Ephemeral Disk',
-                    'helptext' => 'EBS backed ephemeral disk of custom size for when instance storage is not large enough or not available for selected instance type.',
+                    'veneer_help_html' => '<p>EBS backed ephemeral disk of custom size for when instance storage is not large enough or not available for selected instance type.</p>',
                     'required' => false,
                 ]
             )
