@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 
-class MetricChartController extends AbstractController
+class MetricBrowseController extends AbstractController
 {
     public function indexAction(Request $request)
     {
@@ -36,7 +36,7 @@ class MetricChartController extends AbstractController
                         'statistic' => $series['statistic'],
                     ]
                 ),
-                'defaults' => array_merge(
+                'options' => array_merge(
                     $request->query->get('defaults', []),
                     isset($series['defaults']) ? $series['defaults'] : []
                 ),

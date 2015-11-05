@@ -18,7 +18,7 @@ class DeploymentFormHelper
         $this->deploymentPropertySpecHelper = $deploymentPropertySpecHelper;
     }
 
-    public function lookup(array $manifest, $path)
+    public function lookup(array $manifest, $manifestPath, $path)
     {
         $pathMatch = null;
 
@@ -76,7 +76,11 @@ class DeploymentFormHelper
             throw new \InvalidArgumentException('Invalid concept');
         }
 
-        $formBuilder = $this->formFactory->createNamedBuilder('data', $config['type'], null, isset($config['options']) ? $config['options'] : []);
+        $options = isset($config['options']) ? $config['options'] : [];
+        $options['manifest'] = $manifest;
+        $options['manifest_path'] = $manifestPath;
+
+        $formBuilder = $this->formFactory->createNamedBuilder('data', $config['type'], null, $options);
         $formBuilder->setData($config['data']);
 
         $subpath = isset($pathMatch['subpath']) ? explode('.', $pathMatch['subpath']) : [];

@@ -3,11 +3,14 @@
 namespace Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Context;
 
 use Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Source\CloudWatchSource;
-use Veneer\CoreBundle\Plugin\Metric\Context\AbstractContext;
+use Veneer\CoreBundle\Plugin\Metric\Context\ContextInterface;
+use Veneer\CoreBundle\Plugin\Metric\Context\ContextTrait;
 use Aws\CloudWatch\CloudWatchClient;
 
-class PersistentDiskContext extends AbstractContext
+class PersistentDiskContext implements ContextInterface
 {
+    use ContextTrait;
+
     protected static $config = [
         'read_bytes' => [
             'metric' => 'VolumeReadBytes',

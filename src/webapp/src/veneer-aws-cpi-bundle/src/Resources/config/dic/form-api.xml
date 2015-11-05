@@ -24,5 +24,9 @@
         <service id="veneer_awscpi.form.type.api.vpc_subnet" class="Veneer\AwsCpiBundle\Form\Type\Api\VpcSubnetType">
             <tag name="form.type" alias="veneer_awscpi_api_vpc_subnet" />
         </service>
+
+        <service id="veneer_awscpi.form.type.api.ec2_securitygroup" class="Veneer\AwsCpiBundle\Form\Type\Api\Ec2SecurityGroupType">
+            <tag name="form.type" alias="veneer_awscpi_api_ec2_securitygroup" />
+        </service>
     </services>
 </container>

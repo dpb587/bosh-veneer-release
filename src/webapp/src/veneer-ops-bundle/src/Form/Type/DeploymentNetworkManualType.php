@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentNetworkManualType extends AbstractType
+class DeploymentNetworkManualType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,6 +20,10 @@ class DeploymentNetworkManualType extends AbstractType
                     'type' => 'veneer_ops_deployment_network_manual_subnet',
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'options' => [
+                        'manifest' => $options['manifest'],
+                        'manifest_path' => $options['manifest_path'],
+                    ],
                 )
             )
             ;

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\DeploymentPropertyTransformer;
 
-class DeploymentPropertyType extends AbstractType
+class DeploymentPropertyType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,6 +24,8 @@ class DeploymentPropertyType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        parent::setDefaultOptions($resolver);
+
         $resolver->setDefaults([
             'value_options' => [],
         ]);

@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentUpdateType extends AbstractType
+class DeploymentUpdateType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -48,8 +48,8 @@ class DeploymentUpdateType extends AbstractType
                 'serial',
                 'checkbox',
                 [
-                    'label' => 'Reuse Compilation VMs',
-                    'veneer_help_html' => '<p>If enabled, deployment jobs will be deployed in parallel. Instances within a deployment job will still follow Canaries and Max In-Flight configuration.</p>',
+                    'label' => 'Serial Job Deployments',
+                    'veneer_help_html' => '<p>If disabled, deployment jobs will be deployed in parallel. Instances within a deployment job will still follow Canaries and Max In-Flight configuration.</p>',
                 ]
             )
             ;

@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentNetworkDynamicType extends AbstractType
+class DeploymentNetworkDynamicType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 

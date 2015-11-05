@@ -6,8 +6,10 @@ use Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Source\CloudWatchSource;
 use Veneer\CoreBundle\Plugin\Metric\Context\AbstractContext;
 use Aws\CloudWatch\CloudWatchClient;
 
-class VmContext extends AbstractContext
+class VmContext implements ContextInterface
 {
+    use ContextTrait;
+
     protected static $config = [
         'cpu_utilization' => [
             'metric' => 'CPUUtilization',

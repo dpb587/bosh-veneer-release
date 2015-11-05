@@ -116,3 +116,6 @@ properties:
     default: ~
   bosh_veneer.cloque.versioning.web_service.repo_name:
     default: ~
+
+  bosh_veneer.extra_config_yml:
+    default: ~

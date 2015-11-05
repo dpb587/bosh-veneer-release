@@ -27,7 +27,7 @@ class DeploymentController extends AbstractController
         $esResults = $es->request(
             $ds,
             $de,
-            'metric/_search',
+            'metric/_search?ignore_unavailable=true',
             [
                 'aggregations' => [
                     'status' => [

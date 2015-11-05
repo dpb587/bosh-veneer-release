@@ -59,7 +59,8 @@ CPUS=$(grep -c ^processor /proc/cpuinfo)
   cd libxml2-*
 
   ./configure \
-    --prefix=${BOSH_INSTALL_TARGET}/external/libxml2
+    --prefix=${BOSH_INSTALL_TARGET}/external/libxml2 \
+    --without-python
 
   make -j${CPUS}
   make install

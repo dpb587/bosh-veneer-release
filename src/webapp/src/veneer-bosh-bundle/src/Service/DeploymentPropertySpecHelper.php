@@ -5,6 +5,7 @@ namespace Veneer\BoshBundle\Service;
 use Symfony\Component\Yaml\Yaml;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\NoResultException;
 
 class DeploymentPropertySpecHelper
 {
@@ -22,19 +23,19 @@ class DeploymentPropertySpecHelper
         $specs = [];
 
         foreach ($templates as $template) {
-            $lookup = $er->createQueryBuilder('rvt')
-                ->addSelect('t')
-                ->join('rvt.releaseVersion', 'rv')
-                ->join('rvt.template', 't')
-                ->join('rv.release', 'r')
-                ->andWhere(new Expr\Comparison('r.name', '=', ':release'))->setParameter('release', $template['release'])
-                ->andWhere(new Expr\Comparison('rv.version', '=', ':version'))->setParameter('version', $template['release_version'])
-                ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template['template'])
-                ->getQuery()
-                ->getSingleResult()
-                ;
-
-            if (!$lookup) {
+            try {
+                $lookup = $er->createQueryBuilder('rvt')
+                    ->addSelect('t')
+                    ->join('rvt.releaseVersion', 'rv')
+                    ->join('rvt.template', 't')
+                    ->join('rv.release', 'r')
+                    ->andWhere(new Expr\Comparison('r.name', '=', ':release'))->setParameter('release', $template['release'])
+                    ->andWhere(new Expr\Comparison('rv.version', '=', ':version'))->setParameter('version', $template['release_version'])
+                    ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template['template'])
+                    ->getQuery()
+                    ->getSingleResult()
+                    ;
+            } catch (NoResultException $e) {
                 continue;
             }
 

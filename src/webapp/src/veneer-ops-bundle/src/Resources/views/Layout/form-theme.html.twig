@@ -1,0 +1,95 @@
+{# @todo please refactor these copies #}
+
+{% block veneer_ops_deployment_release_widget %}
+    <div class="form-group" id="{{ id }}-splitview" style="border:#DEDEDE inset 1px;">
+        <div class="row">
+            <div class="col-sm-7" style="border-right:#DEDEDE solid 1px;max-height:220px;overflow:auto;padding-right:0;">
+                <table class="table" style="margin-bottom:0;">
+                    <tbody>
+                        {% for name, versions in mapped_releases %}
+                            <tr{% if model_data.name|default == name %} class="table-info"{% endif %} data-splitview="{{ name }}" style="cursor:pointer;">
+                                <td>{{ name }}</td>
+                                <td class="text-right"><i class="fa fa-angle-right"></i></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% for name, versions in mapped_releases %}
+                <div class="col-sm-5" data-splitview="{{ name }}" style="{% if model_data.name|default != name %}display:none;{% endif %}max-height:220px;overflow:auto;padding-left:0;">
+                    <table class="table" style="margin-bottom:0;">
+                        <tbody>
+                            {% for version in form.children.picker.children if (name ~ '/' in version.vars.value) %}
+                                <tr>
+                                    <td style="padding-bottom:0.25rem;">{{ form_widget(version) }}&nbsp;{{ form_label(version) }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {{ block('splitview') }}
+{% endblock %}
+
+{% block veneer_ops_deployment_resourcepool_stemcell_widget %}
+    <div class="form-group" id="{{ id }}-splitview" style="border:#DEDEDE inset 1px;">
+        <div class="row">
+            <div class="col-sm-7" style="border-right:#DEDEDE solid 1px;max-height:220px;overflow:auto;padding-right:0;">
+                <table class="table" style="margin-bottom:0;">
+                    <tbody>
+                        {% for name, versions in mapped_stemcells %}
+                            <tr{% if model_data.name|default == name %} class="table-info"{% endif %} data-splitview="{{ name }}" style="cursor:pointer;">
+                                <td>{{ name }}</td>
+                                <td class="text-right"><i class="fa fa-angle-right"></i></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% for name, versions in mapped_stemcells %}
+                <div class="col-sm-5" data-splitview="{{ name }}" style="{% if model_data.name|default != name %}display:none;{% endif %}max-height:220px;overflow:auto;padding-left:0;">
+                    <table class="table" style="margin-bottom:0;">
+                        <tbody>
+                            {% for version in form.children.picker.children if (name ~ '/' in version.vars.value) %}
+                                <tr>
+                                    <td style="padding-bottom:0.25rem;">{{ form_widget(version) }}&nbsp;{{ form_label(version) }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {{ block('splitview') }}
+{% endblock %}
+
+{% block splitview %}
+    <script>
+        _postload.push(function () {
+            var primary = $('#{{ form.vars.id }}-splitview tr[data-splitview]');
+            var secondary = $('#{{ form.vars.id }}-splitview div[data-splitview]');
+
+            primary.bind('click', function (e) {
+                e.preventDefault();
+
+                primary.attr('class', null);
+                $(this).attr('class', 'table-info');
+
+                var name = $(this).attr('data-splitview');
+                console.log(name);
+                secondary.css('display', 'none');
+                secondary.each(function () {
+                    if (name != $(this).attr('data-splitview')) {
+                        return;
+                    }
+
+                    $(this).css('display', 'block');
+                    $('input[type = "radio"]', this)[0].click();
+                });
+            });
+        });
+    </script>
+{% endblock %}

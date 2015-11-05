@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\DeploymentNetworkTransformer;
 
-class DeploymentNetworkType extends AbstractType
+class DeploymentNetworkType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,12 +32,16 @@ class DeploymentNetworkType extends AbstractType
                             'veneer_ops_deployment_network_manual',
                             [
                                 'label' => 'Manual',
+                                'manifest' => $options['manifest'],
+                                'manifest_path' => $options['manifest_path'],
                             ],
                         ],
                         'dynamic' => [
                             'veneer_ops_deployment_network_dynamic',
                             [
                                 'label' => 'Dynamic',
+                                'manifest' => $options['manifest'],
+                                'manifest_path' => $options['manifest_path'],
                             ],
                         ],
                     ],

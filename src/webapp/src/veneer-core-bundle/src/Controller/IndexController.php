@@ -9,6 +9,11 @@ use Veneer\CoreBundle\Controller\AbstractController;
 
 class IndexController extends AbstractController
 {
+    public function indexAction()
+    {
+        return $this->redirectToRoute('veneer_core_summary');
+    }
+
     public function summaryAction(Request $request)
     {
         return $this->renderApi(

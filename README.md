@@ -26,26 +26,38 @@ You might need to rsync...
 
     vm$ chown -R vcap:vcap /var/vcap/packages/bosh-veneer-webapp/
     vm$ ln -s .. /var/vcap/packages/bosh-veneer-webapp/src/webapp
-     l$ rsync --exclude .git --progress -auze 'ssh -i bosh.pem' src/webapp/. vcap@192.0.2.1:/var/vcap/packages/directorweb-webapp/.
+     l$ rsync --exclude .git --progress -auze 'ssh -i bosh.pem' src/webapp/. vcap@192.0.2.1:/var/vcap/packages/bosh-veneer-webapp/.
 
 
 ## /cloque/repository.git
 
 You might need to set things up...
 
-    $ mkdir -p /var/vcap/store/bosh-veneer/repository
-    $ /var/vcap/packages/bosh-veneer-git/bin/git --git-dir /var/vcap/store/bosh-veneer/cloque/repository.git init --bare
-    $ cat << EOF > /var/vcap/store/bosh-veneer/cloque/repository.git/hooks/pre-receive
-    #!/bin/bash
+    $ /var/vcap/packages/bosh-veneer-git/bin/git init /var/vcap/store/bosh-veneer/repository/git-root
+    $ (cd /var/vcap/store/bosh-veneer/repository/git-root ; /var/vcap/packages/bosh-veneer-git/bin/git config http.receivepack true )
+    $ (cd /var/vcap/store/bosh-veneer/repository/git-root ; /var/vcap/packages/bosh-veneer-git/bin/git config receive.denyCurrentBranch ignore )
+    $ chown -R vcap:vcap /var/vcap/store/bosh-veneer/repository/git-root/
+    $ cat << EOF > /var/vcap/store/bosh-veneer/repository/git-root/.git/hooks/pre-update
+#!/bin/bash
 
-    set -e
-    set -u
+set -e
+set -u
 
-    while read "OLD" "NEW" "REV" ; do
-        /var/vcap/packages/bosh-veneer-webapp/app/console bosh:cloque:git-hook:pre-receive "$OLD" "$NEW" "$REV"
-    done
-    EOF
-    $ chmod +x /var/vcap/store/bosh-veneer/cloque/repository.git/hooks/pre-receive
+REF="$1"
+OLD="$2"
+NEW="$3"
+
+export PATH="/var/vcap/packages/bosh-veneer-php/bin:$PATH"
+export SYMFONY_ENV=dev
+export SYMFONY_DEBUG=true
+export SYMFONY_PARAMS=/var/vcap/jobs/bosh-veneer/etc/webapp.yml
+export LOGDIR=/var/vcap/sys/log/bosh-veneer
+export CACHEDIR=/var/vcap/jobs/bosh-veneer/cache
+
+/var/vcap/packages/bosh-veneer-webapp/app/console veneer:core:workspace:git-hook:update "$REF" "$OLD" "$NEW"
+
+EOF
+    $ chmod +x /var/vcap/store/bosh-veneer/repository/git-root/.git/hooks/pre-update
 
 
 ## export

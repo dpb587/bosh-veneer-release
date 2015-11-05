@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\ArrayToYamlTransformer;
 
-class DeploymentResourcePoolType extends AbstractType
+class DeploymentResourcePoolType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
@@ -28,14 +28,16 @@ class DeploymentResourcePoolType extends AbstractType
                     'veneer_help_html' => '<p>A unique name used to identify and reference the resource pool</p>',
                 ]
             )
-//            ->add(
-//                'network',
-//                'veneer_ops_deployment_network',
-//                [
-//                    'label' => 'Network',
-//                    'veneer_help_html' => '<p>References a valid network name defined in the Networks block. Newly created resource pool VMs use the described configuration.</p>',
-//                ]
-//            )
+            ->add(
+                'network',
+                'veneer_ops_deployment_network_manifestselector',
+                [
+                    'label' => 'Network',
+                    'veneer_help_html' => '<p>References a valid network name defined in the Networks block. Newly created resource pool VMs use the described configuration.</p>',
+                    'manifest' => $options['manifest'],
+                    'manifest_path' => $options['manifest_path'],
+                ]
+            )
             ->add(
                 'size',
                 'integer',

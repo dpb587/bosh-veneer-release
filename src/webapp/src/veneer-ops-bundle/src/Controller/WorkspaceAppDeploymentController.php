@@ -148,7 +148,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
 
         $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.deployment_property_spec_helper'));
-        $editorProfile = $editor->lookup($yaml, $property);
+        $editorProfile = $editor->lookup($yaml, $path, $property);
 
         $section = str_replace('_', '', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);

@@ -36,7 +36,6 @@ class UpdateCommand extends ContainerAwareCommand
         $watcher = $container->get('veneer_core.workspace.watcher');
 
         $changeset = $repository->diff($input->getArgument('old-commit'), $input->getArgument('new-commit'));
-
         $watcher->handleChangeset($input->getArgument('ref'), $changeset);
     }
 }

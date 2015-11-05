@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentCompilationType extends AbstractType
+class DeploymentCompilationType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
@@ -27,14 +27,16 @@ class DeploymentCompilationType extends AbstractType
                     'veneer_help_html' => '<p>The maximum number of compilation VMs.</p>',
                 ]
             )
-//            ->add(
-//                'network',
-//                'veneer_ops_deployment_network',
-//                [
-//                    'label' => 'Network',
-//                    'veneer_help_html' => '<p>References a valid network name defined in the Networks block. BOSH assigns network properties to compilation VMs according to the type and properties of the specified network.</p>',
-//                ]
-//            )
+            ->add(
+                'network',
+                'veneer_ops_deployment_network_manifestselector',
+                [
+                    'label' => 'Network',
+                    'veneer_help_html' => '<p>References a valid network name defined in the Networks block. BOSH assigns network properties to compilation VMs according to the type and properties of the specified network.</p>',
+                    'manifest' => $options['manifest'],
+                    'manifest_path' => $options['manifest_path'],
+                ]
+            )
             ->add(
                 'reuse_compilation_vms',
                 'checkbox',

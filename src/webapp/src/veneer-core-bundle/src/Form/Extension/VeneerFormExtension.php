@@ -17,9 +17,7 @@ class VeneerFormExtension extends AbstractTypeExtension
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'veneer_advanced' => function ($options) {
-                return !$options['required'];
-            },
+            'veneer_advanced' => false,
         ]);
 
         $resolver->setOptional([

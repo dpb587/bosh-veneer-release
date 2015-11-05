@@ -391,16 +391,20 @@
 {%- block form_row -%}
     <fieldset class="form-group{% if errors|length > 0 %} has-error{% endif %}">
         {{ form_label(form) }}
-        <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
-        {% if required %}
-            <small class="text-muted">Required</small>
-        {% elseif veneer_advanced %}
-            <small class="text-muted">Advanced</small>
-        {% else %}
-            <small class="text-muted">Optional</small>
+        {% if not compound or 'collection' in block_prefixes %}
+            <small class="pull-right text-muted" style="padding-top:3px;">
+                {% if required %}
+                    <span class="text-warning">Required</span>
+                {% elseif veneer_advanced %}
+                    Advanced
+                {% else %}
+                    Optional
+                {% endif %}
+            </small>
         {% endif %}
+        {% set prefix = '&nbsp;&ndash;&nbsp;' %}
         {% if veneer_help_html %}
-            &middot;
+            <small class="text-muted">{{ prefix|raw }}</small>
             <a class="text-muted" href="#" data-toggle="modal" data-target="#{{ id }}-help"><small>Help</small></a>
             <div id="{{ id }}-help" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm">

@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentDiskPoolType extends AbstractType
+class DeploymentDiskPoolType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 

@@ -4,6 +4,7 @@
     <h3>{{ title }}</h3>
 
     <form action="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : property }) }}" method="post">
+        {{ form_widget(form) }}
         {{ form_rest(form) }}
 
         <div>

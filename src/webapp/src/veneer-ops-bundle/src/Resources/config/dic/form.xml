@@ -26,7 +26,7 @@
         </service>
 
         <service id="veneer_ops.form.type.deployment_release" class="Veneer\OpsBundle\Form\Type\DeploymentReleaseType">
-            <argument type="service" id="cpi" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
             <tag name="form.type" alias="veneer_ops_deployment_release" />
         </service>
@@ -38,7 +38,7 @@
         </service>
 
         <service id="veneer_ops.form.type.deployment_resourcepool_stemcell" class="Veneer\OpsBundle\Form\Type\DeploymentResourcePoolStemcellType">
-            <argument type="service" id="cpi" />
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
             <tag name="form.type" alias="veneer_ops_deployment_resourcepool_stemcell" />
         </service>
@@ -63,6 +63,10 @@
             <argument type="service" id="cpi" />
 
             <tag name="form.type" alias="veneer_ops_deployment_network_manual_subnet" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_network_manifestselector" class="Veneer\OpsBundle\Form\Type\DeploymentNetworkManifestSelectorType">
+            <tag name="form.type" alias="veneer_ops_deployment_network_manifestselector" />
         </service>
 
         <service id="veneer_ops.form.type.deployment_diskpool" class="Veneer\OpsBundle\Form\Type\DeploymentDiskPoolType">
