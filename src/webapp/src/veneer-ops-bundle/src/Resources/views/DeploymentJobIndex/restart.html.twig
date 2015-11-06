@@ -1,0 +1,11 @@
+{% extends _layout %}
+
+{% block def_title 'Deployment Editor (' ~ manifest.name|default('unknown') ~ ')' %}
+
+{% block frag_content %}
+    <p>
+        Are you sure you want to restart <strong>{{ _veneer_bosh_context.job.job }}/{{ _veneer_bosh_context.index.index }}</strong>?
+    </p>
+
+    {% include 'VeneerCoreBundle:Layout:form.html.twig' %}
+{% endblock %}

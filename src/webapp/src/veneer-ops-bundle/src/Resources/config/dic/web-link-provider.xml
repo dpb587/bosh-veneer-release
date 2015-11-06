@@ -9,6 +9,8 @@
             <argument type="service" id="doctrine.orm.state_entity_manager" />
 
             <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_job_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_job_index_summary" />
         </service>
     </services>
 </container>

@@ -9,6 +9,7 @@ use Veneer\BoshBundle\Security\Core\Authentication\Token\AbstractToken;
 use Veneer\BoshBundle\Security\Core\Authentication\Token\BasicToken;
 use Veneer\BoshBundle\Security\Core\Authentication\Token\UaaToken;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
 
 class DirectorApiClient extends GuzzleClient
 {
@@ -37,14 +38,39 @@ class DirectorApiClient extends GuzzleClient
         parent::__construct($clientOptions);
     }
 
-    public function postForTaskId($uri, array $json = [])
+    public function sendForTaskId(RequestInterface $request)
     {
-        $response = $this->post(
-            $uri,
+        $response = $this->send(
+            $request,
             [
                 'allow_redirects' => false,
-                'json' => $json,
             ]
+        );
+
+        if (!in_array($response->getStatusCode(), [ 302, 303 ])) {
+            throw new \RuntimeException('A redirect was expected to a task, but received: ' . $response->getStatusCode());
+        }
+
+        $location = current($response->getHeader('location'));
+
+        if (!preg_match('#/tasks/\d+$#', $location)) {
+            throw new \RuntimeException('A location for task was expected, but received: ' . $location);
+        }
+
+        return basename($location);
+    }
+
+    public function postForTaskId($uri, array $payload)
+    {
+        $response = $this->sendForTaskId(
+            new Request(
+                'POST',
+                $uri,
+                [
+                        'content-type' => 'text/javascript',
+                ],
+                json_encode($payload)
+            )
         );
 
         if (!in_array($response->getStatusCode(), [ 302, 303 ])) {

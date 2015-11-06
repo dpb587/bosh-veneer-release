@@ -1,0 +1,17 @@
+<form id="{{ form.vars.id }}" class="js-web-form" action="{{ def_nav[-1].url }}" method="{% block form_method %}post{% endblock %}" {{ form_enctype(form) }}>
+    {{ form_errors(form) }}
+
+    {% block form_render %}{% endblock %}
+
+    {{ form_rest(form) }}
+
+    <div>
+        <button class="btn btn-success" type="submit">{% block submit_value %}Submit{% endblock %}</button>
+        {% if block('extra_actions') %}
+            &nbsp;
+            {{ block('extra_actions') }}
+        {% endif %}
+        &nbsp;
+        <a class="btn btn-warning-outline btn-sm" href="{{ def_nav[-2].url }}">cancel</a>
+    </div>
+</form>

@@ -65,6 +65,14 @@
             <tag name="form.type" alias="veneer_ops_deployment_network_manual_subnet" />
         </service>
 
+        <service id="veneer_ops.form.type.deployment_diskpool_manifestselector" class="Veneer\OpsBundle\Form\Type\DeploymentDiskPoolManifestSelectorType">
+            <tag name="form.type" alias="veneer_ops_deployment_diskpool_manifestselector" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_resourcepool_manifestselector" class="Veneer\OpsBundle\Form\Type\DeploymentResourcePoolManifestSelectorType">
+            <tag name="form.type" alias="veneer_ops_deployment_resourcepool_manifestselector" />
+        </service>
+
         <service id="veneer_ops.form.type.deployment_network_manifestselector" class="Veneer\OpsBundle\Form\Type\DeploymentNetworkManifestSelectorType">
             <tag name="form.type" alias="veneer_ops_deployment_network_manifestselector" />
         </service>
@@ -73,6 +81,24 @@
             <argument type="service" id="cpi" />
 
             <tag name="form.type" alias="veneer_ops_deployment_diskpool" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_job" class="Veneer\OpsBundle\Form\Type\DeploymentJobType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_deployment_job" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_job_network" class="Veneer\OpsBundle\Form\Type\DeploymentJobNetworkType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_deployment_job_network" />
+        </service>
+
+        <service id="veneer_ops.form.type.deployment_job_templates" class="Veneer\OpsBundle\Form\Type\DeploymentJobTemplatesType">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="form.type" alias="veneer_ops_deployment_job_templates" />
         </service>
     </services>
 </container>

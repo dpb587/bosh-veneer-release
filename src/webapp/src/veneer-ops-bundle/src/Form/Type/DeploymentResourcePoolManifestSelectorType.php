@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 use SYmfony\Component\OptionsResolver\Options;
 
-class DeploymentNetworkManifestSelectorType extends AbstractDeploymentManifestPathType
+class DeploymentResourcePoolManifestSelectorType extends AbstractDeploymentManifestPathType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -18,9 +18,15 @@ class DeploymentNetworkManifestSelectorType extends AbstractDeploymentManifestPa
             'choices' => function (Options $options) {
                 $opts = [];
 
-                if (isset($options['manifest']['networks'])) {
-                    foreach ($options['manifest']['networks'] as $network) {
-                        $opts[$network['name']] = sprintf('%s (%s)', $network['name'], $network['type']);
+                if (isset($options['manifest']['resource_pools'])) {
+                    foreach ($options['manifest']['resource_pools'] as $resourcepool) {
+                        $opts[$resourcepool['name']] = sprintf(
+                            '%s (%s/%s, %s)',
+                            $resourcepool['name'],
+                            $resourcepool['stemcell']['name'],
+                            $resourcepool['stemcell']['version'],
+                            $resourcepool['network']
+                        );
                     }
                 }
                 
@@ -36,6 +42,6 @@ class DeploymentNetworkManifestSelectorType extends AbstractDeploymentManifestPa
 
     public function getName()
     {
-        return 'veneer_ops_deployment_network_manifestselector';
+        return 'veneer_ops_deployment_resourcepool_manifestselector';
     }
 }

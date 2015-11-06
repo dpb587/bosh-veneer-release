@@ -55,8 +55,8 @@ class DeploymentVmController extends AbstractController
             'veneer_bosh_deployment_job_index_summary',
             [
                 'deployment' => $_bosh['deployment']['name'],
-                'job_name' => $instance['job'],
-                'job_index' => $instance['index'],
+                'job' => $instance['job'],
+                'index' => $instance['index'],
                 '_format' => $_format,
             ]
         );

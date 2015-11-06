@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\ArrayToYamlTransformer;
 
-class DeploymenJobType extends AbstractDeploymentManifestPathType
+class DeploymentJobType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
@@ -28,46 +28,53 @@ class DeploymenJobType extends AbstractDeploymentManifestPathType
                     'veneer_help_html' => '<p>A unique name used to identify and reference the resource pool</p>',
                 ]
             )
-//            ->add(
-//                'network',
-//                'veneer_ops_deployment_network',
-//                [
-//                    'label' => 'Network',
-//                    'helptext' => 'References a valid network name defined in the Networks block. Newly created resource pool VMs use the described configuration.',
-//                ]
-//            )
             ->add(
-                'size',
+                'instances',
                 'integer',
                 [
-                    'label' => 'Pool Size',
-                    'veneer_help_html' => '<p>The number of VMs in the resource pool. If you omit this value, BOSH calculates the resource pool size based on the total number of job instances that belong to this resource pool. If you specify this value, BOSH requires that the size be at least as large as the total number of job instances using it.</p>',
+                    'label' => 'Instances',
+                ]
+            )
+            ->add(
+                'resource_pool',
+                'veneer_ops_deployment_resourcepool_manifestselector',
+                [
+                    'label' => 'Resource Pool',
+                    'manifest' => $options['manifest'],
+                    'manifest_path' => $options['manifest_path'],
+                ]
+            )
+            ->add(
+                'persistent_disk_pool',
+                'veneer_ops_deployment_diskpool_manifestselector',
+                [
+                    'label' => 'Disk Pool',
                     'required' => false,
+                    'manifest' => $options['manifest'],
+                    'manifest_path' => $options['manifest_path'],
                 ]
             )
             ->add(
-                'stemcell',
-                'veneer_ops_deployment_resourcepool_stemcell',
+                'templates',
+                'veneer_ops_deployment_job_templates',
                 [
-                    'label' => 'Stemcell',
-                    'veneer_help_html' => '<p>The stemcell used to create resource pool VMs.</p>',
+                    'label' => 'Templates',
+                    'manifest' => $options['manifest'],
+                    'manifest_path' => $options['manifest_path'],
                 ]
             )
             ->add(
-                'cloud_properties',
-                $this->cpi->getDeploymentResourcePoolFormType(),
+                'networks',
+                'collection',
                 [
-                    'label' => 'Cloud Properties',
-                    'veneer_help_html' => '<p>IaaS-specific properties needed to create VMs.</p>',
-                ]
-            )
-            ->add(
-                'env',
-                'veneer_core_yaml',
-                [
-                    'label' => 'VM Environment',
-                    'veneer_help_html' => '<p>Describes the VM environment and provides a specific VM environment to the CPI create_stemcell call. Environment data is available to BOSH Agents as VM settings.</p>',
-                    'required' => false,
+                    'label' => 'Networks',
+                    'type' => 'veneer_ops_deployment_job_network',
+                    'options' => [
+                        'manifest' => $options['manifest'],
+                        'manifest_path' => $options['manifest_path'],
+                    ],
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 ]
             )
         ;
@@ -75,6 +82,6 @@ class DeploymenJobType extends AbstractDeploymentManifestPathType
 
     public function getName()
     {
-        return 'veneer_ops_deployment_resourcepool';
+        return 'veneer_ops_deployment_job';
     }
 }

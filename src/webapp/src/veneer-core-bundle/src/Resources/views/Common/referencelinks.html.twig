@@ -26,12 +26,20 @@
                 fontawesome: 'link',
             },
         } if _links[topic_name] is defined %}
-            {% for link in _links[topic_name] %}
-                <a class="list-group-item" href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}{% if link.note|default %} title="{{ link.note }}"{% endif %}>
-                    <i class="fa fa-{{ topic.fontawesome }} fa-fw"></i>
-                    {{ link.title }}
-                </a>
-            {% endfor %}
+            <strong>
+                <i class="fa fa-{{ topic.fontawesome }} fa-fw"></i>
+                {{ topic.title }}
+            </strong>
+            <ul class="list-unstyled">
+                {% for link in _links[topic_name] %}
+                    <li>
+                        <a href="{{ link.url }}"{% if '://' in link.url %} target="_blank"{% endif %}>{{ link.title }}</a>
+                        {% if link.note|default %}
+                            <small class="text-muted">&ndash; {{ link.note }}</small>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
         {% endfor %}
     </div>
 {% endif %}

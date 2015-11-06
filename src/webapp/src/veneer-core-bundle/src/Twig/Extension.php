@@ -9,6 +9,8 @@ class Extension extends \Twig_Extension
         return array(
             'veneer_core_appendqs' => new \Twig_Filter_Method($this, 'appendQsFilter'),
             'byte_format' => new \Twig_Filter_Method($this, 'byteFormatFilter'),
+            'pluralize' => new \Twig_Filter_Method($this, 'pluralize'),
+            'singularize' => new \Twig_Filter_Method($this, 'singularize'),
         );
     }
 
@@ -31,6 +33,16 @@ class Extension extends \Twig_Extension
     public function appendQsFilter($url, array $qs)
     {
         return $url . ((false === strpos($url, '?')) ? '?' : '&') . http_build_query($qs);
+    }
+
+    public function pluralize($text)
+    {
+        return \Doctrine\Common\Inflector\Inflector::pluralize($text);
+    }
+
+    public function singularize($text)
+    {
+        return \Doctrine\Common\Inflector\Inflector::singularize($text);
     }
 
     public function getName()

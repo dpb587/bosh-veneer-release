@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 use SYmfony\Component\OptionsResolver\Options;
 
-class DeploymentNetworkManifestSelectorType extends AbstractDeploymentManifestPathType
+class DeploymentDiskPoolManifestSelectorType extends AbstractDeploymentManifestPathType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -18,9 +18,13 @@ class DeploymentNetworkManifestSelectorType extends AbstractDeploymentManifestPa
             'choices' => function (Options $options) {
                 $opts = [];
 
-                if (isset($options['manifest']['networks'])) {
-                    foreach ($options['manifest']['networks'] as $network) {
-                        $opts[$network['name']] = sprintf('%s (%s)', $network['name'], $network['type']);
+                if (isset($options['manifest']['disk_pools'])) {
+                    foreach ($options['manifest']['disk_pools'] as $resourcepool) {
+                        $opts[$resourcepool['name']] = sprintf(
+                            '%s (%s MB)',
+                            $resourcepool['name'],
+                            $resourcepool['disk_size']
+                        );
                     }
                 }
                 
@@ -36,6 +40,6 @@ class DeploymentNetworkManifestSelectorType extends AbstractDeploymentManifestPa
 
     public function getName()
     {
-        return 'veneer_ops_deployment_network_manifestselector';
+        return 'veneer_ops_deployment_diskpool_manifestselector';
     }
 }

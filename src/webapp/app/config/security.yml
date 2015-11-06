@@ -22,4 +22,4 @@ security:
 
     access_control:
         - { path: ^/auth/, roles: [ IS_AUTHENTICATED_FULLY, IS_AUTHENTICATED_ANONYMOUSLY ] }
-        #- { path: ^/, roles: [ ROLE_USER ] }
+        - { path: ^/, roles: [ ROLE_USER ] }

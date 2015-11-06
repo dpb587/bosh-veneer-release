@@ -172,8 +172,12 @@
 {%- block choice_widget_expanded -%}
     <div {{ block('widget_container_attributes') }}>
     {%- for child in form %}
-        {{- form_widget(child) -}}
-        {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+        <div>
+            <label for="{{ child.vars.id }}">
+                <input id="{{ child.vars.id }}" type="checkbox"{% if child.vars.value is defined %} value="{{ child.vars.value }}"{% endif %}{% if child.vars.checked %} checked="checked"{% endif %} />
+                {{ child.vars.label }}
+            </label>
+        </div>
     {% endfor -%}
     </div>
 {%- endblock choice_widget_expanded -%}
@@ -388,48 +392,102 @@
     {{- block('form_rows') -}}
 {%- endblock repeated_row -%}
 
+{%- block collection_row -%}
+    <fieldset id="{{ form.vars.id }}" class="form-group{% if errors|length > 0 %} has-error{% endif %}"{% if prototype is defined %} data-collection-prototype="{{ form_row(prototype)|e }}"{% endif %}>
+        {{ block('form_group_header_pre') }}
+        <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
+        <a class="text-success" data-collection-add="{{ form.vars.id }}" href="#"><small>Add</small></a>
+        {{ block('form_group_header_post') }}
+
+        <div style="border-left:#DEDEDE solid 2px;padding:0.4rem 0 0.1rem 1rem;margin-left:0.7rem;">
+            {% for child in form %}
+                <fieldset class="form-group{% if child.vars.errors|length > 0 %} has-error{% endif %}">
+                    <label class="form-label">{{ form.vars.label|singularize }} #{{ loop.index }}</label>
+                    <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
+                    <a class="text-danger" data-collection-remove="{{ form.vars.id }}" href="#"><small>Remove</small></a>
+                    
+                    {{ form_widget(child) }}
+                </fieldset>
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <script>
+        _postload.push(function () {
+            var id = {{ form.vars.id|json_encode|raw }};
+            var collection = $('#' + id);
+            var protoScript, protoHtml = collection.attr('data-collection-prototype');
+
+            $('a[data-collection-add="' + id + '"]').bind('click', function (e) {
+                if (e) e.preventDefault();
+
+                var locid = new Date().getTime();
+
+                var form = $('<div/>');
+                form.append(protoHtml.replace(/__name__/g, locid));
+                var item = collection.append(form);
+
+                var anchor = $('<a class="btn btn-danger-outline btn-sm" href="#"><i class="fa fa-minus"></i></a>');
+                var btn = $('label[for="' + id + '_' + locid + '"]', form).replaceWith(anchor);
+                anchor.parent('.form-control-label').removeClass('form-control-label');
+                {#if (protoScript) {
+                    Browser.exec(protoScript.replace(/__name__/g, locid));
+                }#}
+            });
+
+            $('a[data-collection-remove="' + id + '"').bind('click', function (e) {
+                e.preventDefault();
+                $(this).parent('fieldset').remove();
+            });
+        });
+    </script>
+{%- endblock collection_row -%}
+
 {%- block form_row -%}
     <fieldset class="form-group{% if errors|length > 0 %} has-error{% endif %}">
-        {{ form_label(form) }}
-        {% if not compound or 'collection' in block_prefixes %}
-            <small class="pull-right text-muted" style="padding-top:3px;">
-                {% if required %}
-                    <span class="text-warning">Required</span>
-                {% elseif veneer_advanced %}
-                    Advanced
-                {% else %}
-                    Optional
-                {% endif %}
-            </small>
-        {% endif %}
-        {% set prefix = '&nbsp;&ndash;&nbsp;' %}
-        {% if veneer_help_html %}
-            <small class="text-muted">{{ prefix|raw }}</small>
-            <a class="text-muted" href="#" data-toggle="modal" data-target="#{{ id }}-help"><small>Help</small></a>
-            <div id="{{ id }}-help" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
-                            </button>
-                            <h4 class="modal-title">{{ label }}</h4>
-                        </div>
-                        <div class="modal-body">
-                            {{ veneer_help_html|raw }}
-                            {% if veneer_help_links %}
-                                <hr />
-                                {% for link in veneer_help_links %}
-                                    {% if loop.index0 %}&nbsp;&middot;&nbsp;{% endif %}
-                                    <a href="{{ link.url }}">{{ link.title }}</a>
-                                {% endfor %}
-                            {% endif %}
+        {% block form_group_header_pre %}
+            {% if not compound %}
+                <small class="pull-right text-muted" style="padding-top:3px;">
+                    {% if required %}
+                        <span class="text-warning">Required</span>
+                    {% elseif veneer_advanced %}
+                        Advanced
+                    {% else %}
+                        Optional
+                    {% endif %}
+                </small>
+            {% endif %}
+            {{ form_label(form) }}
+        {% endblock %}
+        {% block form_group_header_post %}
+            {% if veneer_help_html %}
+                <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
+                <a class="text-muted" href="#" data-toggle="modal" data-target="#{{ id }}-help"><small>Help</small></a>
+                <div id="{{ id }}-help" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                <h4 class="modal-title">{{ label }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                {{ veneer_help_html|raw }}
+                                {% if veneer_help_links %}
+                                    <hr />
+                                    {% for link in veneer_help_links %}
+                                        {% if loop.index0 %}&nbsp;&middot;&nbsp;{% endif %}
+                                        <a href="{{ link.url }}">{{ link.title }}</a>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
+        {% endblock %}
 
         {{- form_errors(form) -}}
         {{- form_widget(form) -}}
