@@ -9,6 +9,7 @@ use Veneer\CoreBundle\Service\Workspace\GitRepository;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\OpsBundle\Entity\DeploymentWorkspace;
 use Psr\Log\LoggerInterface;
+use Veneer\CoreBundle\Service\Workspace\Checkout\CheckoutInterface;
 
 class DeploymentApp implements AppInterface
 {
@@ -37,7 +38,12 @@ class DeploymentApp implements AppInterface
         return 'veneer_ops_workspace_app_deployment_summary';
     }
 
-    public function onManifestChange($branch, Changeset $changeset, $path)
+    public function onManifestCompile(CheckoutInterface $checkout, $path)
+    {
+        
+    }
+
+    public function onManifestCommit($branch, Changeset $changeset, $path)
     {
         $em = $this->container->get('doctrine.orm.state_entity_manager');
 

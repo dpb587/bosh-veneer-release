@@ -7,21 +7,58 @@ use Veneer\CoreBundle\Service\Workspace\Changeset;
 use TQ\Git\Repository\Repository;
 use TQ\Git\Cli\Binary;
 use TQ\Vcs\Gaufrette\Adapter;
+use Veneer\CoreBundle\Service\Workspace\Checkout\CheckoutInterface;
 
 class GitRepository extends Repository
 {
+    protected $binary;
     protected $pathPrefix;
 
     public function __construct($root, $pathPrefix, $git)
     {
         $this->pathPrefix = rtrim($pathPrefix, '/');
+        $this->binary = $git;
 
         parent::__construct($root, Binary::ensure($git));
     }
 
-    public function getGaufrette()
+    public function createCheckout($ref = 'master', $mode = 0)
     {
-        return new Adapter($this);
+        if ('master' == $ref) {
+            $checkout = new Checkout\PhysicalCheckout($this->getRepositoryPath(), $mode);
+        } else {
+            if (!$mode & CheckoutInterface::MODE_WRITABLE) {
+                $checkout = new Checkout\GitDirCheckout(
+                    $this->binary,
+                    $this->getRepositoryPath() . '/.git',
+                    $ref,
+                    $mode
+                );
+            } else {
+                $mode = $mode | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
+
+                $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
+
+                $call = $this->getGit()->createCall(
+                    $tmp,
+                    'clone',
+                    [
+                        '--no-checkout',
+                        $this->getRepositoryPath(),
+                        $tmp,
+                    ]
+                );
+
+                $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+                $p->mustRun();
+
+                $checkout = new Checkout\PhysicalCheckout($tmp, $mode);
+            }
+        }
+
+        $checkout->cd($this->pathPrefix);
+
+        return $checkout;
     }
 
     public function listDirectory($directory = '.', $ref = 'HEAD')
@@ -32,41 +69,6 @@ class GitRepository extends Repository
     public function showFile($file, $ref = 'HEAD')
     {
         return parent::showFile($this->getPrefixedPath($file), $ref);
-    }
-
-    public function writeFile($path, $data, $commitMsg = null, $fileMode = null, $dirMode = null, $recursive = true, $author = null)
-    {
-        return parent::writeFile(
-            $this->getPrefixedPath($path),
-            $data,
-            $commitMsg,
-            $fileMode,
-            $dirMode,
-            $recursive,
-            $author
-        );
-    }
-
-    public function removeFile($path, $commitMsg = null, $recursive = false, $force = false, $author = null)
-    {
-        return parent::removeFile(
-            $this->getPrefixedPath($path),
-            $commitMsg,
-            $recursive,
-            $force,
-            $author
-        );
-    }
-
-    public function renameFile($path, $commitMsg = null, $recursive = false, $force = false, $author = null)
-    {
-        return parent::renameFile(
-            $this->getPrefixedPath($path),
-            $commitMsg,
-            $recursive,
-            $force,
-            $author
-        );
     }
 
     public function getPrefixedPath($path)

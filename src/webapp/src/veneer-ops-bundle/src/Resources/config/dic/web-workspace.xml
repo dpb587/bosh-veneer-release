@@ -15,7 +15,8 @@
             <argument type="service" id="logger" />
 
             <tag name="veneer_core.workspace.app" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />
-            <tag name="veneer_core.workspace.watcher" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestChange" />
+            <tag name="veneer_core.workspace.watcher" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCommit" />
+            <tag name="veneer_core.workspace.compiler" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCompile" />
             <tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />
         </service>
     </services>

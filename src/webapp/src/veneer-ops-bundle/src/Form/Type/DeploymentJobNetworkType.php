@@ -36,6 +36,8 @@ class DeploymentJobNetworkType extends AbstractDeploymentManifestPathType
                     'label' => 'Static IPs',
                     'type' => 'veneer_core_networking_ip',
                     'required' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 ]
             )
         ;

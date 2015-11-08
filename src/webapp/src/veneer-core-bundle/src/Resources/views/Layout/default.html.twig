@@ -85,6 +85,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.min.js"></script>
 
         {% if block('javascripts') %}<script>_postload.push(function () { {{ block('javascripts') }} });</script>{% endif %}
-        <script>_postload.forEach(function (a){a.apply(window)})</script>
+        <script>_postload.forEach(function(a){a.apply(window);});_postload=[];</script>
     </body>
 </html>

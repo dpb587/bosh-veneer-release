@@ -392,22 +392,26 @@
     {{- block('form_rows') -}}
 {%- endblock repeated_row -%}
 
+{% macro collection_partial(form, child, index) %}
+    <fieldset class="form-group{% if child.vars.errors|length > 0 %} has-error{% endif %}">
+        <label class="form-label">{{ form.vars.label|singularize }} #<span class="collection-{{ form.vars.id }}-index">{{ index }}</span></label>
+        <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
+        <a class="text-danger" data-collection-remove="{{ form.vars.id }}" href="#"><small>Remove</small></a>
+
+        {{ form_widget(child) }}
+    </fieldset>
+{% endmacro %}
+
 {%- block collection_row -%}
-    <fieldset id="{{ form.vars.id }}" class="form-group{% if errors|length > 0 %} has-error{% endif %}"{% if prototype is defined %} data-collection-prototype="{{ form_row(prototype)|e }}"{% endif %}>
+    <fieldset id="{{ form.vars.id }}" class="form-group{% if errors|length > 0 %} has-error{% endif %}"{% if prototype is defined %} data-collection-prototype="{{ _self.collection_partial(form, prototype, 'prototype')|e }}"{% endif %}>
         {{ block('form_group_header_pre') }}
         <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
         <a class="text-success" data-collection-add="{{ form.vars.id }}" href="#"><small>Add</small></a>
         {{ block('form_group_header_post') }}
 
-        <div style="border-left:#DEDEDE solid 2px;padding:0.4rem 0 0.1rem 1rem;margin-left:0.7rem;">
+        <div class="collection-children" style="border-left:#DEDEDE solid 2px;padding:0.4rem 0 0.1rem 1rem;margin-left:0.7rem;">
             {% for child in form %}
-                <fieldset class="form-group{% if child.vars.errors|length > 0 %} has-error{% endif %}">
-                    <label class="form-label">{{ form.vars.label|singularize }} #{{ loop.index }}</label>
-                    <small class="text-muted">&nbsp;&ndash;&nbsp;</small>
-                    <a class="text-danger" data-collection-remove="{{ form.vars.id }}" href="#"><small>Remove</small></a>
-                    
-                    {{ form_widget(child) }}
-                </fieldset>
+                {{ _self.collection_partial(form, child, loop.index) }}
             {% endfor %}
         </div>
     </fieldset>
@@ -416,29 +420,45 @@
         _postload.push(function () {
             var id = {{ form.vars.id|json_encode|raw }};
             var collection = $('#' + id);
-            var protoScript, protoHtml = collection.attr('data-collection-prototype');
+            var children = $('> .collection-children', collection);
+            var protodata = '<' + 'script>var _postload=[];<' + '/script>' + collection.attr('data-collection-prototype') + '<' + 'script>_postload.forEach(function (a){a.apply($("__postload__scope__"));});_postload=[];<' + '/script>';
 
-            $('a[data-collection-add="' + id + '"]').bind('click', function (e) {
-                if (e) e.preventDefault();
+            function renumber() {
+                $('.collection-' + id + '-index').each(function (i) {
+                    $(this).text(1 + i);
+                });
+            }
 
-                var locid = new Date().getTime();
+            function binds(dom) {
+                $('a[data-collection-add="' + id + '"]', dom).bind('click', function (e) {
+                    if (e) e.preventDefault();
 
-                var form = $('<div/>');
-                form.append(protoHtml.replace(/__name__/g, locid));
-                var item = collection.append(form);
+                    var locid = new Date().getTime();
 
-                var anchor = $('<a class="btn btn-danger-outline btn-sm" href="#"><i class="fa fa-minus"></i></a>');
-                var btn = $('label[for="' + id + '_' + locid + '"]', form).replaceWith(anchor);
-                anchor.parent('.form-control-label').removeClass('form-control-label');
-                {#if (protoScript) {
-                    Browser.exec(protoScript.replace(/__name__/g, locid));
-                }#}
-            });
+                    var div = $('<div/>');
+                    children.append(div);
+                    div.append(jQuery.parseHTML(
+                        '<div id="postload' + locid + '">'
+                        + protodata
+                            .replace(/__name__/g, locid)
+                            .replace('__postload__scope__', 'postload' + locid)
+                        + '</div>'
+                        , document
+                        , true
+                    ));
 
-            $('a[data-collection-remove="' + id + '"').bind('click', function (e) {
-                e.preventDefault();
-                $(this).parent('fieldset').remove();
-            });
+                    renumber();
+                    binds(div);
+                });
+
+                $('a[data-collection-remove="' + id + '"]', dom).bind('click', function (e) {
+                    e.preventDefault();
+                    $(this).parent('fieldset').remove();
+                    renumber();
+                });
+            }
+
+            binds(collection);
         });
     </script>
 {%- endblock collection_row -%}

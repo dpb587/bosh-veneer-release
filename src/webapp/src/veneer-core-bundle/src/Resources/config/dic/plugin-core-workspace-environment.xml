@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_core.plugin.workspace.environment.json" class="Veneer\CoreBundle\Service\Workspace\Environment\JsonEnvironment">
+            <tag name="veneer_core.workspace.environment" alias="json" />
+        </service>
+
+        <service id="veneer_core.plugin.workspace.environment.yaml" class="Veneer\CoreBundle\Service\Workspace\Environment\YamlEnvironment">
+            <tag name="veneer_core.workspace.environment" alias="yaml" />
+        </service>
+
+        <service id="veneer_core.plugin.workspace.environment.file" class="Veneer\CoreBundle\Service\Workspace\Environment\FileEnvironment">
+            <tag name="veneer_core.workspace.environment" alias="file" />
+        </service>
+    </services>
+</container>

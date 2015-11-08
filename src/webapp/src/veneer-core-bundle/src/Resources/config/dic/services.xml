@@ -37,6 +37,11 @@
             <argument type="collection" /><!-- map -->
         </service>
 
+        <service id="veneer_core.workspace.environment" class="Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- map -->
+        </service>
+
         <service id="veneer_core.event_listener.json_response" class="Veneer\CoreBundle\EventListener\JsonResponseListener">
             <argument>%kernel.debug%</argument>
 

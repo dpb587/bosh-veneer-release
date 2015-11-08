@@ -17,6 +17,7 @@ class VeneerCoreExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/dic'));
 
         $loader->load('form.xml');
+        $loader->load('plugin-core-workspace-environment.xml');
         $loader->load('services.xml');
         $loader->load('twig.xml');
     }

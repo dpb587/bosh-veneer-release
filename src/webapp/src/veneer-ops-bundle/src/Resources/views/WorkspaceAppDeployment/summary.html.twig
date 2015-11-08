@@ -1,5 +1,81 @@
 {% extends 'VeneerOpsBundle:WorkspaceAppDeployment:layout.html.twig' %}
 
 {% block frag_content %}
-    <p>Imma summary</p>
+    <p>
+        <a href="{{ path('veneer_ops_workspace_app_deployment_section', { 'section' : 'releases', 'path' : path }) }}"><strong>Releases</strong></a>
+        &ndash;
+        {% if not manifest.releases|default %}
+            none (<a href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'releases[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.releases|length }} {{ 1 == manifest.releases|length ? 'release' : 'releases' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            A collection of configuration files, job definitions, source code, package definitions and accompanying information needed to make a software component deployable by BOSH.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_ops_workspace_app_deployment_section', { 'section' : 'networks', 'path' : path }) }}"><strong>Networks</strong></a>
+        &ndash;
+        {% if not manifest.networks|default %}
+            none (<a href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'networks[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.networks|length }} {{ 1 == manifest.networks|length ? 'release' : 'networks' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            Network is an IaaS-agnostic representation of the networking layer usually assigned at the boot of the VM and/or when network configuration changes in the deployment manifest.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_ops_workspace_app_deployment_section', { 'section' : 'resourcepools', 'path' : path }) }}"><strong>Resource Pools</strong></a>
+        &ndash;
+        {% if not manifest.resource_pools|default %}
+            none (<a href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'resource_pools[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.resource_pools|length }} {{ 1 == manifest.resource_pools|length ? 'resource pool' : 'resource pools' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            Resource pools are collections of VMs created from the same stemcell, with the same configuration, in a deployment.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_ops_workspace_app_deployment_section', { 'section' : 'diskpools', 'path' : path }) }}"><strong>Disk Pools</strong></a>
+        &ndash;
+        {% if not manifest.disk_pools|default %}
+            none (<a href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'disk_pools[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.disk_pools|length }} {{ 1 == manifest.disk_pools|length ? 'disk pool' : 'disk pools' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            Disk pools are logical collections of disks, in a deployment, each created with the same configuration.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_ops_workspace_app_deployment_section', { 'section' : 'releases', 'path' : path }) }}"><strong>Jobs</strong></a>
+        &ndash;
+        {% if not manifest.jobs|default %}
+            none (<a href="{{ path('veneer_ops_workspace_app_deployment_edit', { 'path' : path, 'property' : 'jobs[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.jobs|length }} {{ 1 == manifest.jobs|length ? 'job' : 'jobs' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            A job template is part of a release and populates VMs with packages, configuration files, and control scripts that tell the Agent what runs on the VM.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_ops_workspace_app_deployment_section', { 'section' : 'properties', 'path' : path }) }}"><strong>Properties</strong></a>
+        <br />
+        <span class="text-muted">
+            &hellip;
+        </span>
+    </p>
 {% endblock %}

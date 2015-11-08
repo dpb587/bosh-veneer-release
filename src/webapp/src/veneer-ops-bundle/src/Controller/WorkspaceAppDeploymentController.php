@@ -154,17 +154,38 @@ class WorkspaceAppDeploymentController extends AbstractController
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);
 
         if (in_array($section, [ 'compilation', 'update' ])) {
-            $nav->add($section);
-        } else {
             $nav->add(
                 $section,
                 [
-                    'veneer_ops_workspace_app_deployment_section' => [
+                    'veneer_ops_workspace_app_deployment_edit' => [
                         'section' => $section,
                         'path' => $path,
+                        'property' => $property,
                     ],
                 ]
             );
+        } else {
+            $nav
+                ->add(
+                    $section,
+                    [
+                        'veneer_ops_workspace_app_deployment_section' => [
+                            'section' => $section,
+                            'path' => $path,
+                        ],
+                    ]
+                )
+                ->add(
+                    $section,
+                    [
+                        'veneer_ops_workspace_app_deployment_edit' => [
+                            'section' => $section,
+                            'path' => $path,
+                            'property' => $property,
+                        ],
+                    ]
+                )
+                ;
         }
 
         if ($request->request->has($editorProfile['form']->getName())) {

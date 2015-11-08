@@ -30,7 +30,7 @@ class VeneerBoshBundle extends Bundle implements BundleInterface
 
     public function getVeneerDescription()
     {
-        return 'Browse the current state of your BOSH resources.';
+        return 'Browse the current state of BOSH resources.';
     }
 
     public function getVeneerRoute()

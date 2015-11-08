@@ -4,6 +4,7 @@ namespace Veneer\BoshBundle\Service\Workspace\Environment;
 
 use Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentInterface;
 use Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentContext;
+use Doctrine\ORM\EntityManager;
 
 class BoshEnvironment implements EnvironmentInterface
 {

@@ -3,14 +3,34 @@
 {% block def_title 'Repository' %}
 
 {% block frag_content %}
-    <div class="list-group">
-        {% for child in children %}
-            <a class="list-group-item" href="{{ path('veneer_core_workspace_repo_tree_index', { 'ref' : ref, 'path' : path ~ '/' ~ child }) }}">
-                <i class="fa fa-folder fa-fw"></i>
-                {{ child }}
-            </a>
-        {% endfor %}
-    </div>
+    <table class="table">
+        <tbody>
+            {% for item in ls %}
+                <tr>
+                    <td>
+                        {% if 'dir' == item.type %}
+                            <a href="{{ path('veneer_core_workspace_repo_tree_index', { 'ref' : ref, 'path' : path ~ '/' ~ item.name }) }}">
+                                <i class="fa fa-folder fa-fw"></i>
+                                {{ item.name }}
+                            </a>
+                        {% else %}
+                            <a href="{{ path('veneer_core_workspace_repo_blob_index', { 'ref' : ref, 'path' : path ~ '/' ~ item.name }) }}">
+                                <i class="fa fa-file fa-fw"></i>
+                                {{ item.name }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td class="text-right">
+                        {% if item.app|default %}
+                            <a href="{{ path(item.app.appRoute, { 'path' : path ~ '/' ~ item.name }) }}">{{ item.app.appTitle }}</a>
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
 {% block frag_sidebar %}
