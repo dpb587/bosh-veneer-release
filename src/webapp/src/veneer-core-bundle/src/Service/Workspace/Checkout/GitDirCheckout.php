@@ -8,11 +8,11 @@ class GitDirCheckout implements CheckoutInterface
 {
     protected $binary;
     protected $path;
-    protected $ref;
+    protected $head;
     protected $mode;
     protected $cwd = '/';
 
-    public function __construct($binary, $path, $ref, $mode = 0)
+    public function __construct($binary, $path, $head, $mode = 0)
     {
         if ($mode & CheckoutInterface::MODE_WRITABLE) {
             throw new \LogicException('Cannot write to git-dir checkout');
@@ -20,8 +20,13 @@ class GitDirCheckout implements CheckoutInterface
 
         $this->binary = $binary;
         $this->path = $path;
-        $this->ref = $ref;
+        $this->head = $head;
         $this->mode = $mode;
+    }
+
+    public function getHead()
+    {
+        return $this->head;
     }
 
     public function cd($path)
@@ -39,7 +44,7 @@ class GitDirCheckout implements CheckoutInterface
             '%s --git-dir=%s ls-tree %s %s',
             escapeshellarg($this->binary),
             escapeshellarg($this->path),
-            escapeshellarg($this->ref),
+            escapeshellarg($this->head),
             escapeshellarg($physical . '/')
         ));
 
@@ -67,7 +72,7 @@ class GitDirCheckout implements CheckoutInterface
             '%s --git-dir=%s show %s:%s',
             escapeshellarg($this->binary),
             escapeshellarg($this->path),
-            escapeshellarg($this->ref),
+            escapeshellarg($this->head),
             escapeshellarg($physical)
         ));
 
@@ -79,7 +84,7 @@ class GitDirCheckout implements CheckoutInterface
 
         $data = $p->getOutput();
 
-        if (preg_match('#^' . preg_quote(sprintf('tree %s:%s', $this->ref, $physical), '#') . '\n#', $data)) {
+        if (preg_match('#^' . preg_quote(sprintf('tree %s:%s', $this->head, $physical), '#') . '\n#', $data)) {
             throw new \InvalidArgumentException(sprintf('Path is not a file: %s', $physical));
         }
 

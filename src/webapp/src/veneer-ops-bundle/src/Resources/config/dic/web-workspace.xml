@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="veneer_ops.plugin.web_workspace_app.deployment.path">#/bosh(\-[^.]+)?\.yml$#</parameter>
+        <parameter key="veneer_ops.plugin.web_workspace_app.deployment.path">#/bosh(\-[^./]+)?\.yml$#</parameter>
     </parameters>
 
     <services>
@@ -17,6 +17,15 @@
             <tag name="veneer_core.workspace.app" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />
             <tag name="veneer_core.workspace.watcher" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCommit" />
             <tag name="veneer_core.workspace.compiler" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCompile" />
+            <tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />
+        </service>
+
+        <service id="veneer_ops.plugin.web_workspace_lifecycle.deployment" class="Veneer\OpsBundle\Service\Workspace\Lifecycle\ManifestLifecycle">
+            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="logger" />
+
+            <tag name="veneer_core.workspace.lifecycle" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />
             <tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />
         </service>
     </services>

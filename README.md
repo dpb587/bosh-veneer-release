@@ -68,6 +68,8 @@ EOF
     export SYMFONY_PARAMS=/var/vcap/jobs/bosh-veneer/etc/webapp.yml
     export LOGDIR=/var/vcap/sys/log/bosh-veneer
     export CACHEDIR=/var/vcap/jobs/bosh-veneer/cache
+    export GIT_AUTHOR_NAME="Danny Berger"
+    export GIT_AUTHOR_EMAIL="dpb587@gmail.com"
 
 
 ## License

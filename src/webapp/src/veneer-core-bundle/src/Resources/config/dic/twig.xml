@@ -5,6 +5,17 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="twig_string" class="Twig_Environment">
+            <argument type="service">
+                <service class="Twig_Loader_String" />
+            </argument>
+            <argument type="collection">
+                <argument key="autoescape">false</argument>
+                <argument key="debug">%kernel.debug%</argument>
+                <argument key="strict_variables">true</argument>
+            </argument>
+        </service>
+
         <service id="veneer_core.twig.extension" class="Veneer\CoreBundle\Twig\Extension" public="false">
             <tag name="twig.extension" />
         </service>

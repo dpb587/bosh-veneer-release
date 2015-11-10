@@ -21,6 +21,7 @@ class VeneerAwsCpiExtension extends Extension
         $loader->load('services.xml');
         $loader->load('twig.xml');
         $loader->load('web-link-provider.xml');
+        $loader->load('plugin-core-workspace-environment.xml');
         $loader->load('core-metric.xml');
         $loader->load('web-workspace.xml');
 

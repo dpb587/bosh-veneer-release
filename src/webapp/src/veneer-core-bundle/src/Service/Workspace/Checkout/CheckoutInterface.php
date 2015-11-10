@@ -8,6 +8,7 @@ interface CheckoutInterface
     const MODE_DESTROYABLE = 2;
     const MODE_DESTRUCT_DESTROY = 4;
 
+    public function getHead();
     public function cd($path);
     public function ls($path);
     public function get($path);

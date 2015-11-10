@@ -11,7 +11,9 @@ class VeneerCoreBundle extends Bundle
     {
         parent::build($builder);
 
+        $builder->addCompilerPass(new DependencyInjection\CompilerPass\TwigStringCompilerPass());
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\WorkspaceAppCompilerPass());
+        $builder->addCompilerPass(new DependencyInjection\CompilerPass\WorkspaceLifecycleCompilerPass());
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\ContainerMapCompilerPass('veneer_core.workspace.environment'));
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\WorkspaceWatcherCompilerPass());
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\RequestContextPluginCompilerPass());

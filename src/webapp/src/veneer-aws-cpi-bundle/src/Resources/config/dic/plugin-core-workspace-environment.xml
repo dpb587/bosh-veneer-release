@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_awscpi.plugin.core_workspace_environment.aws_cpi" class="Veneer\AwsCpiBundle\Service\Workspace\Environment\AwsCpiEnvironment">
+            <tag name="veneer_core.workspace.environment" alias="aws-cpi" />
+        </service>
+
+        <service id="veneer_awscpi.plugin.core_workspace_environment.cloudformation" class="Veneer\AwsCpiBundle\Service\Workspace\Environment\CloudFormationEnvironment">
+            <tag name="veneer_core.workspace.environment" alias="cloudformation" />
+        </service>
+    </services>
+</container>

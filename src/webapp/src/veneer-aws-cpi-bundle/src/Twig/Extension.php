@@ -13,6 +13,13 @@ class Extension extends \Twig_Extension
         $this->consoleHelper = $consoleHelper;
     }
 
+    public function getFilters()
+    {
+        return array(
+            'aws_subnet_gateway' => new \Twig_Filter_Method($this, 'filterSubnetGateway'),
+        );
+    }
+
     public function getFunctions()
     {
         return [
@@ -22,6 +29,14 @@ class Extension extends \Twig_Extension
             'aws_console_ec2_securitygroup' => new \Twig_Function_Function([ $this->consoleHelper, 'getEc2SecurityGroupSearch' ]),
             'aws_console_vpc_subnet' => new \Twig_Function_Function([ $this->consoleHelper, 'getVpcSubnetSearch' ]),
         ];
+    }
+
+    public function filterSubnetGateway($cidr)
+    {
+        list($network, $mask) = explode('/', $cidr, 2);
+
+        // @todo invalid assumptions here...
+        return preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', '$1.$2.$3.1', $network);
     }
 
     public function getName()

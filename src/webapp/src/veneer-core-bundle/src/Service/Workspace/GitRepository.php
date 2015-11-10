@@ -24,41 +24,124 @@ class GitRepository extends Repository
 
     public function createCheckout($ref = 'master', $mode = 0)
     {
-        if ('master' == $ref) {
-            $checkout = new Checkout\PhysicalCheckout($this->getRepositoryPath(), $mode);
+        if (!$mode & CheckoutInterface::MODE_WRITABLE) {
+            $checkout = new Checkout\GitDirCheckout(
+                $this->binary,
+                $this->getRepositoryPath() . '/.git',
+                $ref,
+                $mode
+            );
         } else {
-            if (!$mode & CheckoutInterface::MODE_WRITABLE) {
-                $checkout = new Checkout\GitDirCheckout(
-                    $this->binary,
-                    $this->getRepositoryPath() . '/.git',
-                    $ref,
-                    $mode
-                );
-            } else {
-                $mode = $mode | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
+            $mode = $mode | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
 
-                $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
+            $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
 
-                $call = $this->getGit()->createCall(
+            $call = $this->getGit()->createCall(
+                $tmp,
+                'clone',
+                [
+                    '--no-checkout',
+                    $this->getRepositoryPath(),
                     $tmp,
-                    'clone',
-                    [
-                        '--no-checkout',
-                        $this->getRepositoryPath(),
-                        $tmp,
-                    ]
-                );
+                ]
+            );
 
-                $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
-                $p->mustRun();
+            $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+            $p->mustRun();
 
-                $checkout = new Checkout\PhysicalCheckout($tmp, $mode);
-            }
+            $call = $this->getGit()->createCall(
+                $tmp,
+                'checkout',
+                [
+                    $ref,
+                ]
+            );
+
+            $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+            $p->mustRun();
+
+            $checkout = new Checkout\PhysicalCheckout($tmp, $ref, $mode);
         }
 
         $checkout->cd($this->pathPrefix);
 
         return $checkout;
+    }
+
+    public function commitCheckout(Checkout\PhysicalCheckout $checkout, $message, array $options = [])
+    {
+        $commitEnv = [
+            'GIT_AUTHOR_NAME' => $options['author']['name'],
+            'GIT_AUTHOR_EMAIL' => $options['author']['email'],
+            'GIT_COMMITTER_NAME' => $options['author']['name'],
+            'GIT_COMMITTER_EMAIL' => $options['author']['email'],
+        ];
+
+        // check if dirty
+
+        $call = $this->getGit()->createCall(
+            $checkout->getPhysicalPath(),
+            'status',
+            [
+                '--porcelain',
+            ]
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), array_merge($call->getEnv() ?: [], $commitEnv));
+        $p->mustRun();
+
+        if ('' == $p->getOutput()) {
+            return null;
+        }
+
+        // add all changes
+
+        $call = $this->getGit()->createCall(
+            $checkout->getPhysicalPath(),
+            'add',
+            [
+                '-A',
+            ]
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), array_merge($call->getEnv() ?: [], $commitEnv));
+        $p->mustRun();
+
+        // commit
+
+        $call = $this->getGit()->createCall(
+            $checkout->getPhysicalPath(),
+            'commit',
+            [
+                '-a',
+                '-m', $message,
+            ]
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), array_merge($call->getEnv() ?: [], $commitEnv));
+        $p->mustRun();
+
+        // push it back to the main workspace
+
+        $pushArgs = [
+            'origin',
+            $checkout->getHead() . (isset($options['branch']) ? (':' . $options['branch']) : ''),
+        ];
+
+        if (!empty($options['force'])) {
+            array_unshift($pushArgs, '--force');
+        }
+
+        $call = $this->getGit()->createCall(
+            $checkout->getPhysicalPath(),
+            'push',
+            $pushArgs
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+        $p->mustRun();
+
+        return true;
     }
 
     public function listDirectory($directory = '.', $ref = 'HEAD')

@@ -5,13 +5,25 @@ namespace Veneer\CoreBundle\Service\Workspace\Checkout;
 class PhysicalCheckout implements CheckoutInterface
 {
     protected $path;
+    protected $head;
     protected $mode;
     protected $cwd = '/';
 
-    public function __construct($path, $mode = 0)
+    public function __construct($path, $head, $mode = 0)
     {
         $this->path = $path;
+        $this->head = $head;
         $this->mode = $mode;
+    }
+
+    public function getHead()
+    {
+        return $this->head;
+    }
+
+    public function getPhysicalPath()
+    {
+        return $this->path;
     }
 
     public function cd($path)
@@ -59,7 +71,7 @@ class PhysicalCheckout implements CheckoutInterface
 
     public function put($path, $data, $mode = 0600)
     {
-        if ($this->mode & CheckoutInterface::MODE_WRITABLE) {
+        if (!$this->mode & CheckoutInterface::MODE_WRITABLE) {
             throw new \LogicException('Checkout is not writable.');
         }
 
@@ -78,7 +90,7 @@ class PhysicalCheckout implements CheckoutInterface
 
     public function delete($path)
     {
-        if ($this->mode & CheckoutInterface::MODE_WRITABLE) {
+        if (!$this->mode & CheckoutInterface::MODE_WRITABLE) {
             throw new \LogicException('Checkout is not writable.');
         }
 
@@ -118,7 +130,7 @@ class PhysicalCheckout implements CheckoutInterface
 
     public function destroy()
     {
-        if ($this->mode & CheckoutInterface::MODE_DESTROYABLE) {
+        if (!$this->mode & CheckoutInterface::MODE_DESTROYABLE) {
             throw new \LogicException('Checkout is not destroyable.');
         }
 
