@@ -53,6 +53,8 @@ class DeploymentResourcePoolType extends AbstractDeploymentManifestPathType
                 [
                     'label' => 'Stemcell',
                     'veneer_help_html' => '<p>The stemcell used to create resource pool VMs.</p>',
+                    'manifest' => $options['manifest'],
+                    'manifest_path' => $options['manifest_path'],
                 ]
             )
             ->add(

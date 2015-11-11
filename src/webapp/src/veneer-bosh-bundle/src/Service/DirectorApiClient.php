@@ -62,28 +62,16 @@ class DirectorApiClient extends GuzzleClient
 
     public function postForTaskId($uri, array $payload)
     {
-        $response = $this->sendForTaskId(
+        return $this->sendForTaskId(
             new Request(
                 'POST',
                 $uri,
                 [
-                        'content-type' => 'text/javascript',
+                        'content-type' => 'application/json',
                 ],
                 json_encode($payload)
             )
         );
-
-        if (!in_array($response->getStatusCode(), [ 302, 303 ])) {
-            throw new \RuntimeException('A redirect was expected to a task, but received: ' . $response->getStatusCode());
-        }
-        
-        $location = current($response->getHeader('location'));
-
-        if (!preg_match('#/tasks/\d+$#', $location)) {
-            throw new \RuntimeException('A location for task was expected, but received: ' . $location);
-        }
-
-        return basename($location);
     }
 
     public function getInfo()

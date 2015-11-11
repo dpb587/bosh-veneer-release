@@ -35,7 +35,7 @@
                                     {% endif %}
                                 </strong>
                             </td>
-                            <td class="text-right" width="20%">
+                            <td class="text-right" width="25%">
                                 {% if stage.time_end %}
                                     <span title="started {{ stage.time_begin|date('g:i a') }}">{{ stage.time_end - stage.time_begin }}s</span>
                                 {% else %}
@@ -60,7 +60,7 @@
                             {% else %}
                                 <td><strong>{{ task.name }}</strong></td>
                             {% endif %}
-                            <td class="text-right" width="20%">
+                            <td class="text-right" width="25%">
                                 {% if task.time_end %}
                                     <span title="started {{ task.time_begin|date('g:i a') }}">{{ task.time_end - task.time_begin }}s</span>
                                 {% elseif task.progress is defined %}

@@ -17,7 +17,8 @@
             spacingBottom: 4,
             spacingLeft: 4,
             spacingRight: 4,
-            spacingTop: 4
+            spacingTop: 4,
+            type: 'areaspline'
         },
         credits: {
             enabled: false
@@ -79,7 +80,6 @@
                     function (data) {
                         var series = {
                             fillOpacity: 0.4,
-                            type: 'areaspline',
                             zIndex: {{ loop.index0 }}
                         };
                         $.extend(series, data.meta.chart, {{ ref.defaults|default({})|json_encode|raw }});
@@ -96,6 +96,7 @@
                         {% endfor %}
 
                         chart.series.push(series);
+                        console.log(series);
                         tryDraw();
                     }
                 );
