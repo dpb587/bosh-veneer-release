@@ -8,7 +8,7 @@ use Veneer\CoreBundle\Plugin\Metric\Context\ContextInterface;
 use Veneer\CoreBundle\Plugin\Metric\Metric\AbstractMetric;
 use Veneer\LogsearchBundle\Service\ElasticsearchHelper;
 
-class DeploymentJobIndexMetricContext extends AbstractMetric implements ContextInterface
+class DeploymentInstanceGroupIndexMetricContext extends AbstractMetric implements ContextInterface
 {
     use ContextTrait;
 

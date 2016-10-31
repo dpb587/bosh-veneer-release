@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_aws_cpi.plugin.core_metric.context.deployment_job_index" class="Veneer\LogsearchBundle\Controller\Plugin\CoreMetric\Context\DeploymentJobIndexMetricContext" scope="prototype">
+        <service id="veneer_aws_cpi.plugin.core_metric.context.deployment_job_index" class="Veneer\LogsearchBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupIndexMetricContext" scope="prototype">
             <argument type="service" id="veneer_logsearch.elasticsearch_helper" />
 
             <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_job_index" alias="logsearch_metric" />

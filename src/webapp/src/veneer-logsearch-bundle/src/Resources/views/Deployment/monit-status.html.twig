@@ -17,7 +17,7 @@
                     <td width="60%">
                         {% for job_name, job_check in jobs.jobs %}
                             {% spaceless %}
-                                <a href="{{ path('veneer_bosh_deployment_job_index_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job': job_name|split('/')[0], 'index': job_name|split('/')[1] }) }}" title="{{ job_name }} @ {{ job_check.timestamp }}">
+                                <a href="{{ path('veneer_bosh_deployment_instancegroup_index_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job': job_name|split('/')[0], 'index': job_name|split('/')[1] }) }}" title="{{ job_name }} @ {{ job_check.timestamp }}">
                                     {% if 0 == job_check.status %}
                                         <span class="text-success"><span class="fa fa-fw fa-check"></span></span>
                                     {% else %}

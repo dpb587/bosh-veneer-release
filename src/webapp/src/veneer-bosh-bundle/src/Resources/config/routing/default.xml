@@ -47,50 +47,50 @@
         <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
-    <route id="veneer_bosh_deployment_jobALL_index" path="/bosh/deployment/{deployment}/job/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobALLController::indexAction</default>
+    <route id="veneer_bosh_deployment_jobALL_index" path="/bosh/deployment/{deployment}/instance-group/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job:all</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_summary" path="/bosh/deployment/{deployment}/job/{job}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobController::summaryAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_summary" path="/bosh/deployment/{deployment}/instance-group/{job}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupController::summaryAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_indexALL_index" path="/bosh/deployment/{deployment}/job/{job}/index/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobIndexALLController::indexAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_indexALL_index" path="/bosh/deployment/{deployment}/instance-group/{job}/index/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job/index:all</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_index_summary" path="/bosh/deployment/{deployment}/job/{job}/index/{index}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobIndexController::summaryAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_index_summary" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexController::summaryAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job/index</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_index_vm" path="/bosh/deployment/{deployment}/job/{job}/index/{index}/vm.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobIndexController::vmAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_index_vm" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/vm.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexController::vmAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job/index</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_index_persistentdiskALL_index" path="/bosh/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobIndexPersistentDiskALLController::indexAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_index_persistentdiskALL_index" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/persistent-disk/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexPersistentDiskALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk:all</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_index_persistentdisk_summary" path="/bosh/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobIndexPersistentDiskController::summaryAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_index_persistentdisk_summary" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/persistent-disk/{persistent_disk}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexPersistentDiskController::summaryAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
     </route>
 
-    <route id="veneer_bosh_deployment_job_index_persistentdisk_cpi" path="/bosh/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/cpi.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentJobIndexPersistentDiskController::cpiAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_index_persistentdisk_cpi" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/persistent-disk/{persistent_disk}/cpi.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexPersistentDiskController::cpiAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
     </route>

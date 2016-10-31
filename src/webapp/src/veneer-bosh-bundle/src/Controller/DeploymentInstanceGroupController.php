@@ -7,41 +7,35 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentJobALLController extends AbstractController
+class DeploymentInstanceGroupController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupALLController::defNav($nav, $_bosh)
             ->add(
-                'jobs',
+                $_bosh['job']['job'],
                 [
-                    'veneer_bosh_deployment_jobALL_index' => [
+                    'veneer_bosh_deployment_instancegroup_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
+                        'job' => $_bosh['job']['job'],
                     ],
+                ],
+                [
+                    'expanded' => true,
                 ]
             )
         ;
     }
 
-    public function indexAction($_bosh)
+    public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentJobALL:index.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroup:summary.html.twig',
             [
-                'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
-                    ->getRepository('VeneerBoshBundle:Instances')
-                    ->createQueryBuilder('i')
-                    ->distinct()
-                    ->select('i.job')
-                    ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
-                    ->addOrderBy('i.job', 'ASC')
-                    ->getQuery()
-                    ->getResult()
-                    ,
+                'data' => $_bosh['job'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),

@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Doctrine\ORM\Query\Expr;
 
-class DeploymentJobIndexPersistentDiskALLController extends AbstractController
+class DeploymentInstanceGroupIndexPersistentDiskALLController extends AbstractController
 {
     public function indexAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentJobIndexPersistentDiskALL:index.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupIndexPersistentDiskALL:index.html.twig',
             [
                 'results' => array_map(
                     function ($v) {

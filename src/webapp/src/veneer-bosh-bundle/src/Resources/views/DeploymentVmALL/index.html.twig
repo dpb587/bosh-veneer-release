@@ -15,7 +15,7 @@
             {% for result in results %}
                 <tr>
                     <td><a href="{{ path('veneer_bosh_deployment_vm_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'agent': result.agentId, '_format' : 'html' }) }}">{{ result.agentId }}</a></td>
-                    <td><a href="{{ path('veneer_bosh_deployment_job_index_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job_name' : result.applySpecJsonAsArray.job.name, 'job_index' : result.applySpecJsonAsArray.index }) }}">{{ result.applySpecJsonAsArray.job.name }}<span class="text-muted">/{{ result.applySpecJsonAsArray.index }}</span></a></td>
+                    <td><a href="{{ path('veneer_bosh_deployment_instancegroup_index_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job_name' : result.applySpecJsonAsArray.job.name, 'job_index' : result.applySpecJsonAsArray.index }) }}">{{ result.applySpecJsonAsArray.job.name }}<span class="text-muted">/{{ result.applySpecJsonAsArray.index }}</span></a></td>
                     <td>{{ result.cid }}</td>
                 </tr>
             {% endfor %}

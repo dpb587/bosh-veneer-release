@@ -10,21 +10,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentJobController extends AbstractController
+class DeploymentInstanceGroupIndexController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentJobALLController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupIndexALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['job']['job'],
+                $_bosh['index']['index'],
                 [
-                    'veneer_bosh_deployment_job_summary' => [
+                    'veneer_bosh_deployment_instancegroup_index_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
                         'job' => $_bosh['job']['job'],
+                        'index' => $_bosh['index']['index'],
                     ],
-                ],
-                [
-                    'expanded' => true,
                 ]
             )
         ;
@@ -33,12 +31,28 @@ class DeploymentJobController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentJob:summary.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupIndex:summary.html.twig',
             [
-                'data' => $_bosh['job'],
+                'data' => $_bosh['index'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
+            ]
+        );
+    }
+    
+    public function vmAction($_bosh, $_format)
+    {
+        if (!$_bosh['index']['vm']) {
+            throw new NotFoundHttpException();
+        }
+        
+        return $this->redirectToRoute(
+            'veneer_bosh_deployment_vm_summary',
+            [
+                'deployment' => $_bosh['deployment']['name'],
+                'agent' => $_bosh['index']['vm']['agentId'],
+                '_format' => $_format,
             ]
         );
     }

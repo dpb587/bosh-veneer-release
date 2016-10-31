@@ -5,7 +5,7 @@ namespace Veneer\OpsBundle\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class DeploymentJobTemplateTransformer implements DataTransformerInterface
+class DeploymentInstanceGroupTemplateTransformer implements DataTransformerInterface
 {
     public function transform($value)
     {

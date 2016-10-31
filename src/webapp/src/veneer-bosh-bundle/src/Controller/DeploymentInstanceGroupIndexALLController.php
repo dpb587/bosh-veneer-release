@@ -11,15 +11,15 @@ use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentJobIndexALLController extends AbstractController
+class DeploymentInstanceGroupIndexALLController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentJobController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupController::defNav($nav, $_bosh)
             ->add(
                 'index',
                 [
-                    'veneer_bosh_deployment_job_indexALL_index' => [
+                    'veneer_bosh_deployment_instancegroup_indexALL_index' => [
                         'deployment' => $_bosh['deployment']['name'],
                         'job' => $_bosh['job']['job'],
                     ],
@@ -31,7 +31,7 @@ class DeploymentJobIndexALLController extends AbstractController
     public function indexAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentJobIndexALL:index.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupIndexALL:index.html.twig',
             [
                 'results' => array_map(
                     function ($v) {

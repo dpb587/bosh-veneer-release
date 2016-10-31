@@ -56,24 +56,24 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_job_summary':
+            case 'veneer_bosh_deployment_instancegroup_summary':
                 return [
                     (new Link('indexALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_job_indexALL_index',
+                            'veneer_bosh_deployment_instancegroup_indexALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_job_index_summary':
+            case 'veneer_bosh_deployment_instancegroup_index_summary':
                 return [
                     (new Link('vm'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_job_index_vm',
+                            'veneer_bosh_deployment_instancegroup_index_vm',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],
@@ -83,7 +83,7 @@ class WidgetPlugin implements PluginInterface
                     (new Link('persistentdiskALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_job_index_persistentdiskALL_index',
+                            'veneer_bosh_deployment_instancegroup_index_persistentdiskALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],
@@ -91,12 +91,12 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_job_index_persistentdisk_summary':
+            case 'veneer_bosh_deployment_instancegroup_index_persistentdisk_summary':
                 return [
                     (new Link('cpi'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_job_index_persistentdisk_cpi',
+                            'veneer_bosh_deployment_instancegroup_index_persistentdisk_cpi',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 
-class DeploymentJobIndexController extends AbstractController
+class DeploymentInstanceGroupIndexController extends AbstractController
 {
     public function diskstatsAction(array $_bosh)
     {
@@ -168,7 +168,7 @@ class DeploymentJobIndexController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerLogsearchBundle:DeploymentJobIndex:diskstats.html.twig',
+            'VeneerLogsearchBundle:DeploymentInstanceGroupIndex:diskstats.html.twig',
             [
                 'start' => $ds->format('U') * 1000,
                 'start_string' => $ds->format('Y-m-d H:i:s'),

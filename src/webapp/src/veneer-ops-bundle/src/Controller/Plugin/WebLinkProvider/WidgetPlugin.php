@@ -21,7 +21,7 @@ class WidgetPlugin implements PluginInterface
         $_bosh = $request->attributes->get('_bosh');
 
         switch ($route) {
-            case 'veneer_bosh_deployment_job_summary':
+            case 'veneer_bosh_deployment_instancegroup_summary':
                 $deployment = $this->em->find('VeneerOpsBundle:DeploymentWorkspace', $_bosh['deployment']['name']);
 
                 if (!$deployment) {
@@ -60,7 +60,7 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_job_index_summary':
+            case 'veneer_bosh_deployment_instancegroup_index_summary':
                 $deployment = $this->em->find('VeneerOpsBundle:DeploymentWorkspace', $_bosh['deployment']['name']);
 
                 if (!$deployment) {

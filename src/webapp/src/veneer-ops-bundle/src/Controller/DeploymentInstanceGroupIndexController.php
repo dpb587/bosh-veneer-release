@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\OpsBundle\Form\Type\JobRestartType;
-use Veneer\BoshBundle\Controller\DeploymentJobIndexController as BoshDeploymentJobIndexController;
+use Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexController as BoshDeploymentInstanceGroupIndexController;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
-class DeploymentJobIndexController extends AbstractController
+class DeploymentInstanceGroupIndexController extends AbstractController
 {
     public function restartAction(Request $request, array $_bosh)
     {
@@ -72,12 +72,12 @@ class DeploymentJobIndexController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerOpsBundle:DeploymentJobIndex:restart.html.twig',
+            'VeneerOpsBundle:DeploymentInstanceGroupIndex:restart.html.twig',
             [
                 'form' => $form->createView(),
             ],
             [
-                'def_nav' => BoshDeploymentJobIndexController::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh)
+                'def_nav' => BoshDeploymentInstanceGroupIndexController::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh)
                     ->add(
                         'Restart',
                         [
@@ -150,12 +150,12 @@ class DeploymentJobIndexController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerOpsBundle:DeploymentJobIndex:recreate.html.twig',
+            'VeneerOpsBundle:DeploymentInstanceGroupIndex:recreate.html.twig',
             [
                 'form' => $form->createView(),
             ],
             [
-                'def_nav' => BoshDeploymentJobIndexController::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh)
+                'def_nav' => BoshDeploymentInstanceGroupIndexController::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh)
                     ->add(
                         'Recreate',
                         [

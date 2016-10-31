@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\ArrayToYamlTransformer;
 
-class DeploymentJobType extends AbstractDeploymentManifestPathType
+class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 

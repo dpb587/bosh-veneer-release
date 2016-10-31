@@ -83,19 +83,19 @@
             <tag name="form.type" alias="veneer_ops_deployment_diskpool" />
         </service>
 
-        <service id="veneer_ops.form.type.deployment_job" class="Veneer\OpsBundle\Form\Type\DeploymentJobType">
+        <service id="veneer_ops.form.type.deployment_job" class="Veneer\OpsBundle\Form\Type\DeploymentInstanceGroupType">
             <argument type="service" id="cpi" />
 
             <tag name="form.type" alias="veneer_ops_deployment_job" />
         </service>
 
-        <service id="veneer_ops.form.type.deployment_job_network" class="Veneer\OpsBundle\Form\Type\DeploymentJobNetworkType">
+        <service id="veneer_ops.form.type.deployment_job_network" class="Veneer\OpsBundle\Form\Type\DeploymentInstanceGroupNetworkType">
             <argument type="service" id="cpi" />
 
             <tag name="form.type" alias="veneer_ops_deployment_job_network" />
         </service>
 
-        <service id="veneer_ops.form.type.deployment_job_templates" class="Veneer\OpsBundle\Form\Type\DeploymentJobTemplatesType">
+        <service id="veneer_ops.form.type.deployment_job_templates" class="Veneer\OpsBundle\Form\Type\DeploymentInstanceGroupTemplatesType">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
             <tag name="form.type" alias="veneer_ops_deployment_job_templates" />

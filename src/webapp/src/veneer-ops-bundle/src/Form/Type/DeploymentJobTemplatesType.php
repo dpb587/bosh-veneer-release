@@ -9,11 +9,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\Options;
-use Veneer\OpsBundle\Form\DataTransformer\DeploymentJobTemplateTransformer;
+use Veneer\OpsBundle\Form\DataTransformer\DeploymentInstanceGroupTemplateTransformer;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
 
-class DeploymentJobTemplatesType extends AbstractDeploymentManifestPathType
+class DeploymentInstanceGroupTemplatesType extends AbstractDeploymentManifestPathType
 {
     protected $em;
 
@@ -24,7 +24,7 @@ class DeploymentJobTemplatesType extends AbstractDeploymentManifestPathType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new DeploymentJobTemplateTransformer());
+        $builder->addModelTransformer(new DeploymentInstanceGroupTemplateTransformer());
     }
 
     public function setDefaultOptions(OptionsResolverInterface $options)
