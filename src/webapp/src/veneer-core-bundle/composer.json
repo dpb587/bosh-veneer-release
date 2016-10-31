@@ -29,7 +29,7 @@
                 "name" : "yuilibrary/yuicompressor",
                 "version" : "2.4.7",
                 "dist" : {
-                    "url" : "http://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip",
+                    "url" : "https://yui.zenfs.com/releases/yuicompressor/yuicompressor-2.4.7.zip",
                     "type" : "zip",
                     "reference" : "885657c68"
                 }

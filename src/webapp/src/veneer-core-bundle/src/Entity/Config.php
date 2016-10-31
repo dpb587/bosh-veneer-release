@@ -5,8 +5,8 @@ namespace Veneer\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="web_config")
- * @ORM\Entity
+ * !ORM\Entity
+ * !ORM\Table(name="web_config")
  */
 class Config
 {

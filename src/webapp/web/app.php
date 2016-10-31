@@ -1,5 +1,7 @@
 <?php
 
+ini_set('date.timezone', 'UTC');
+
 $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
 require_once __DIR__.'/../app/AppKernel.php';
