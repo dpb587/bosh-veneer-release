@@ -42,7 +42,6 @@ class DeploymentInstanceGroupIndexALLController extends AbstractController
                     $this->container->get('doctrine.orm.bosh_entity_manager')
                         ->getRepository('VeneerBoshBundle:Instances')
                         ->createQueryBuilder('i')
-                        ->join('i.vm', 'v')
                         ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
                         ->andWhere(new Expr\Comparison('i.job', '=', ':job'))->setParameter('job', $_bosh['job']['job'])
                         ->orderBy('i.index', 'ASC')

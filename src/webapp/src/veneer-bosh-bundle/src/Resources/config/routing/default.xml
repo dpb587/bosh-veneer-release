@@ -9,6 +9,42 @@
         <default key="_format">html</default>
     </route>
 
+    <!-- cloud-config -->
+
+    <route id="veneer_bosh_cloudconfig_index" path="/bosh/cloud-config/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\CloudConfigController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/cloud-config</default>
+    </route>
+
+    <!-- runtime-config -->
+
+    <route id="veneer_bosh_runtimeconfig_index" path="/bosh/runtime-config/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\RuntimeConfigController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/runtime-config</default>
+    </route>
+
+    <!-- events -->
+
+    <route id="veneer_bosh_eventALL_index" path="/bosh/event/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/event:all</default>
+    </route>
+
+    <route id="veneer_bosh_event_data" path="/bosh/event/{event}/data.{_format}">
+        <default key="_controller">Veneer\CoreBundle\Controller\GenericObjectController::dataAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/event</default>
+    </route>
+
+    <route id="veneer_bosh_event_summary" path="/bosh/event/{event}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/event</default>
+    </route>
+
     <!-- deployment -->
 
     <route id="veneer_bosh_deploymentALL_index" path="/bosh/deployment/:all/index.{_format}">

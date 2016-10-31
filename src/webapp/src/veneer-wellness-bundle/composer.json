@@ -7,7 +7,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Veneer\\WellnessBundle\\Test": "test/"
+            "Veneer\\WellnessBundle\\Test\\": "test/"
         }
     }
 }
