@@ -1,0 +1,29 @@
+{% extends _layout %}
+
+{% block def_title data.name %}
+
+{% block frag_content %}
+    <div class="list-group">
+        <a class="list-group-item" href="{{ path('veneer_hub_hub_releaseALL_index', { 'hub' : data.name }) }}">
+            <span class="label label-default label-pill pull-right">{{ count.releases|number_format }}</span>
+            <i class="fa fa-leaf fa-fw"></i>
+            releases &raquo;
+        </a>
+        <a class="list-group-item" href="{{ path('veneer_hub_hub_stemcellALL_index', { 'hub' : data.name }) }}">
+            <span class="label label-default label-pill pull-right">{{ count.stemcells|number_format }}</span>
+            <i class="fa fa-archive fa-fw"></i>
+            stemcells &raquo;
+        </a>
+    </div>
+{% endblock %}
+
+{% block frag_sidebar %}
+    {% if data.details %}
+        <dl>
+            {% for k, v in data.details %}
+                <dt>{{ k }}</dt>
+                <dd>{{ v }}</dd>
+            {% endfor %}
+        </dl>
+    {% endif %}
+{% endblock %}

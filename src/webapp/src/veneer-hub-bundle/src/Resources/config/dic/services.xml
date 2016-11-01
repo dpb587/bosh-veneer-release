@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_hub.hubs" class="Veneer\HubBundle\Service\HubFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- configuration -->
+        </service>
+
+        <service id="veneer_hub.updater" class="Veneer\HubBundle\Service\Updater">
+            <argument type="service" id="veneer_hub.hubs" />
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+        </service>
+
+        <service id="veneer_hub.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
+            <factory service="service_container" method="get" />
+            <argument>veneer_core.breadcrumbs</argument>
+
+            <call method="add">
+                <argument>Hub</argument>
+                <argument type="collection">
+                    <argument key="veneer_hub_summary" type="collection"></argument>
+                </argument>
+                <argument type="collection">
+                    <argument key="fontawesome">gift</argument>
+                </argument>
+            </call>
+        </service>
+    </services>
+</container>

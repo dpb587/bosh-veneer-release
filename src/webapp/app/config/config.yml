@@ -98,7 +98,7 @@ doctrine:
                 naming_strategy: doctrine.orm.naming_strategy.underscore
                 mappings:
                     VeneerCoreBundle: ~
-                    VeneerMarketplaceBundle: ~
+                    VeneerHubBundle: ~
                     VeneerOpsBundle: ~
             bosh:
                 connection: bosh
@@ -114,7 +114,7 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-veneer_marketplace:
-    marketplaces:
+veneer_hub:
+    hubs:
         boshio:
             type: bosh-hub

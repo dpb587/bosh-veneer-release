@@ -6,8 +6,8 @@ veneer_bosh:
 #    resource: "@VeneerLogsearchBundle/Resources/config/routing/default.xml"
 #veneer_cloque:
 #    resource: "@VeneerCloqueBundle/Resources/config/routing/default.xml"
-veneer_marketplace:
-    resource: "@VeneerMarketplaceBundle/Resources/config/routing/default.xml"
+veneer_hub:
+    resource: "@VeneerHubBundle/Resources/config/routing/default.xml"
 veneer_ops:
     resource: "@VeneerOpsBundle/Resources/config/routing/default.xml"
 veneer_awscpi:

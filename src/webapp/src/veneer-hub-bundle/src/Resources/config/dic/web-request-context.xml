@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_hub.plugin.web_request_context.builtin" class="Veneer\HubBundle\Controller\Plugin\WebRequestContext\BuiltinPlugin">
+            <argument type="service" id="veneer_hub.hubs" />
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+
+            <tag name="veneer_core.request_context" context="hub/hub" />
+            <tag name="veneer_core.request_context" context="hub/hub/release:all" />
+            <tag name="veneer_core.request_context" context="hub/hub/release" />
+            <tag name="veneer_core.request_context" context="hub/hub/release/version:all" />
+            <tag name="veneer_core.request_context" context="hub/hub/release/version" />
+            <tag name="veneer_core.request_context" context="hub/hub/stemcell:all" />
+            <tag name="veneer_core.request_context" context="hub/hub/stemcell" />
+            <tag name="veneer_core.request_context" context="hub/hub/stemcell/version:all" />
+            <tag name="veneer_core.request_context" context="hub/hub/stemcell/version" />
+        </service>
+    </services>
+</container>

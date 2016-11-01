@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_hub_summary" path="/hub/summary.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- hub -->
+
+    <route id="veneer_hub_hubALL_index" path="/hub/hub/:all/index.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub:all</default>
+    </route>
+
+    <route id="veneer_hub_hub_summary" path="/hub/hub/{hub}/summary.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub</default>
+    </route>
+
+    <!-- release -->
+
+    <route id="veneer_hub_hub_releaseALL_index" path="/hub/hub/{hub}/release/:all/index.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubReleaseALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/release:all</default>
+    </route>
+
+    <route id="veneer_hub_hub_release_summary" path="/hub/hub/{hub}/release/{release}/summary.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubReleaseController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/release</default>
+    </route>
+
+    <route id="veneer_hub_hub_release_versionALL_index" path="/hub/hub/{hub}/release/{release}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubReleaseVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/release/version:all</default>
+    </route>
+
+    <route id="veneer_hub_hub_release_version_summary" path="/hub/hub/{hub}/release/{release}/version/{version}/summary.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubReleaseVersionController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/release/version</default>
+    </route>
+
+    <route id="veneer_hub_hub_release_version_upload" path="/hub/hub/{hub}/release/{release}/version/{version}/upload.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubReleaseVersionController::uploadAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/release/version</default>
+    </route>
+
+    <!-- stemcell -->
+
+    <route id="veneer_hub_hub_stemcellALL_index" path="/hub/hub/{hub}/stemcell/:all/index.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubStemcellALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/stemcell:all</default>
+    </route>
+
+    <route id="veneer_hub_hub_stemcell_summary" path="/hub/hub/{hub}/stemcell/{stemcell}/summary.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubStemcellController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/stemcell</default>
+    </route>
+
+    <route id="veneer_hub_hub_stemcell_versionALL_summary" path="/hub/hub/{hub}/stemcell/{stemcell}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubStemcellVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/stemcell/version:all</default>
+    </route>
+
+    <route id="veneer_hub_hub_stemcell_versionALL_index" path="/hub/hub/{hub}/stemcell/{stemcell}/version/:all/index.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubStemcellVersionALLController::indexAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/stemcell/version:all</default>
+    </route>
+
+    <route id="veneer_hub_hub_stemcell_version_summary" path="/hub/hub/{hub}/stemcell/{stemcell}/version/{version}/summary.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubStemcellVersionController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/stemcell/version</default>
+    </route>
+
+    <route id="veneer_hub_hub_stemcell_version_upload" path="/hub/hub/{hub}/stemcell/{stemcell}/version/{version}/upload.{_format}">
+        <default key="_controller">Veneer\HubBundle\Controller\HubStemcellVersionController::uploadAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">hub/hub/stemcell/version</default>
+    </route>
+
+</routes>

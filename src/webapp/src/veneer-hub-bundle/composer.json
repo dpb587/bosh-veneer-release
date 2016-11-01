@@ -1,0 +1,13 @@
+{
+    "name" : "dpb587/veneer-hub-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\HubBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\HubBundle\\Test\\": "test/"
+        }
+    }
+}
