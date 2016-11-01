@@ -67,6 +67,26 @@ class WidgetPlugin implements PluginInterface
                                 'job' => $_bosh['job']['job'],
                             ]
                         ),
+                    (new Link('restart'))
+                        ->setTopic(Link::TOPIC_CONFIG)
+                        ->setTitle('Restart')
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_restart',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'job' => $_bosh['job']['job'],
+                            ]
+                        ),
+                    (new Link('recreate'))
+                        ->setTopic(Link::TOPIC_CONFIG)
+                        ->setTitle('Recreate')
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_recreate',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'job' => $_bosh['job']['job'],
+                            ]
+                        ),
                 ];
             case 'veneer_bosh_deployment_instancegroup_index_summary':
                 return [
@@ -84,6 +104,28 @@ class WidgetPlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
                             'veneer_bosh_deployment_instancegroup_index_persistentdiskALL_index',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
+                            ]
+                        ),
+                    (new Link('restart'))
+                        ->setTopic(Link::TOPIC_CONFIG)
+                        ->setTitle('Restart')
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_index_restart',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'job' => $_bosh['job']['job'],
+                                'index' => $_bosh['index']['index'],
+                            ]
+                        ),
+                    (new Link('recreate'))
+                        ->setTopic(Link::TOPIC_CONFIG)
+                        ->setTitle('Recreate')
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_index_recreate',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],

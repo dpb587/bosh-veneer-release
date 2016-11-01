@@ -4,6 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="veneer.executable.git">/var/vcap/packages/bosh-veneer-git/bin/git</parameter>
+        <parameter key="veneer_core.workspace.repository_path">/var/vcap/store/bosh-veneer/repository/git-root</parameter>
+    </parameters>
+
     <services>
         <service id="veneer_core.plugin.bundle.factory" class="Veneer\CoreBundle\Plugin\Bundle\Factory">
             <argument type="service" id="kernel" />
@@ -22,9 +27,9 @@
         </service>
 
         <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">
-            <argument>/var/vcap/store/bosh-veneer/repository/git-root</argument>
+            <argument>%veneer_core.workspace.repository_path%</argument>
             <argument>%veneer_cloque.versioning.repository.path_prefix%</argument>
-            <argument>/var/vcap/packages/bosh-veneer-git/bin/git</argument>
+            <argument>%veneer.executable.git%</argument>
         </service>
 
         <service id="veneer_core.workspace.app" class="Veneer\CoreBundle\Service\Workspace\App\AppFactory">

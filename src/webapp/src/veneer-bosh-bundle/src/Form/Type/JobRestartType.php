@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\OpsBundle\Form\Type;
+namespace Veneer\BoshBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +33,6 @@ class JobRestartType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_ops_job_restart';
+        return 'veneer_bosh_job_restart';
     }
 }

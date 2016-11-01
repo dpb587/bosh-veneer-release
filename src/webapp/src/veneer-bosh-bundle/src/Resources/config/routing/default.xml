@@ -95,6 +95,16 @@
         <default key="_veneer_core_context">bosh/deployment/job</default>
     </route>
 
+    <route id="veneer_bosh_deployment_instancegroup_restart" path="/bosh/deployment/{deployment}/instance-group/{job}/restart">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupController::restartAction</default>
+        <default key="_veneer_core_context">bosh/deployment/job</default>
+    </route>
+
+    <route id="veneer_bosh_deployment_instancegroup_recreate" path="/bosh/deployment/{deployment}/instance-group/{job}/recreate">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupController::recreateAction</default>
+        <default key="_veneer_core_context">bosh/deployment/job</default>
+    </route>
+
     <route id="veneer_bosh_deployment_instancegroup_indexALL_index" path="/bosh/deployment/{deployment}/instance-group/{job}/index/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexALLController::indexAction</default>
         <default key="_format">html</default>
@@ -110,6 +120,16 @@
     <route id="veneer_bosh_deployment_instancegroup_index_vm" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/vm.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexController::vmAction</default>
         <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index</default>
+    </route>
+
+    <route id="veneer_bosh_deployment_instancegroup_index_restart" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/restart">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexController::restartAction</default>
+        <default key="_veneer_core_context">bosh/deployment/job/index</default>
+    </route>
+
+    <route id="veneer_bosh_deployment_instancegroup_index_recreate" path="/bosh/deployment/{deployment}/instance-group/{job}/index/{index}/recreate">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupIndexController::recreateAction</default>
         <default key="_veneer_core_context">bosh/deployment/job/index</default>
     </route>
 

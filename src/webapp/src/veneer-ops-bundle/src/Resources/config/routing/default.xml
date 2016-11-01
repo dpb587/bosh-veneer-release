@@ -4,26 +4,6 @@
     xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="veneer_ops_deployment_job_restart" path="/ops/deployment/{deployment}/job/{job}/restart">
-        <default key="_controller">Veneer\OpsBundle\Controller\DeploymentInstanceGroupController::restartAction</default>
-        <default key="_veneer_core_context">bosh/deployment/job</default>
-    </route>
-
-    <route id="veneer_ops_deployment_job_recreate" path="/ops/deployment/{deployment}/job/{job}/recreate">
-        <default key="_controller">Veneer\OpsBundle\Controller\DeploymentInstanceGroupController::recreateAction</default>
-        <default key="_veneer_core_context">bosh/deployment/job</default>
-    </route>
-
-    <route id="veneer_ops_deployment_job_index_restart" path="/ops/deployment/{deployment}/job/{job}/index/{index}/restart">
-        <default key="_controller">Veneer\OpsBundle\Controller\DeploymentInstanceGroupIndexController::restartAction</default>
-        <default key="_veneer_core_context">bosh/deployment/job/index</default>
-    </route>
-
-    <route id="veneer_ops_deployment_job_index_recreate" path="/ops/deployment/{deployment}/job/{job}/index/{index}/recreate">
-        <default key="_controller">Veneer\OpsBundle\Controller\DeploymentInstanceGroupIndexController::recreateAction</default>
-        <default key="_veneer_core_context">bosh/deployment/job/index</default>
-    </route>
-
     <!-- summary -->
 
     <route id="veneer_ops_summary" path="/ops/summary.{_format}">
