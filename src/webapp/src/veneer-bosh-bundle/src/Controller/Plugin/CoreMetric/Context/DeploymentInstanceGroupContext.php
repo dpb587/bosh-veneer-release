@@ -31,7 +31,7 @@ class DeploymentInstanceGroupContext extends SimpleContext
                 throw new \InvalidArgumentException('Invalid index key');
             }
 
-            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_job_index');
+            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance');
             $context->replaceContext($this->context);
             $context->addContext('job_index', $entity);
 

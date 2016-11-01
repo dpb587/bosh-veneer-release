@@ -38,6 +38,15 @@ class ConsoleHelper
         );
     }
 
+    public function getEc2EipAllocationSearch($search)
+    {
+        return $this->createSearchLinkV2(
+            'ec2',
+            'Addresses',
+            is_array($search) ? $search : [ 'publicIp' => $search ]
+        );
+    }
+
     public function getEc2SecurityGroupSearch($search)
     {
         return $this->createSearchLinkV2(

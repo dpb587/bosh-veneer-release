@@ -56,19 +56,12 @@ class BuiltinPlugin implements PluginInterface
                                 $veneerBoshContext['instance'],
                                 $request->attributes->get('persistent_disk')
                             );
+                        } elseif ('network' == $contextSplit[4]) {
+                            $veneerBoshContext['network'] = $this->loadDeploymentInstanceGroupInstanceNetwork(
+                                $veneerBoshContext['instance'],
+                                $request->attributes->get('network')
+                            );
                         }
-                    }
-                } elseif ('vm' == $contextSplit[2]) {
-                    $veneerBoshContext['vm'] = $this->loadDeploymentVm(
-                        $veneerBoshContext['deployment'],
-                        $request->attributes->get('agent')
-                    );
-
-                    if ('network' == $contextSplit[3]) {
-                        $veneerBoshContext['network'] = $this->loadDeploymentVmNetwork(
-                            $veneerBoshContext['vm'],
-                            $request->attributes->get('network')
-                        );
                     }
                 }
             } elseif ('release' == $contextSplit[1]) {
@@ -176,28 +169,13 @@ class BuiltinPlugin implements PluginInterface
         return $loaded;
     }
 
-    protected function loadDeploymentVm(Deployments $deployment, $agent)
+    protected function loadDeploymentInstanceGroupInstanceNetwork(Instances $instance, $network)
     {
-        $loaded = $this->em->getRepository('VeneerBoshBundle:Vms')
-            ->findOneBy([
-                'deployment' => $deployment,
-                'agentId' => $agent,
-            ]);
-
-        if (!$loaded) {
-            throw new NotFoundHttpException('Failed to find deployment vm');
+        if (!isset($instance['specJsonAsArray']['networks'][$network])) {
+            throw new NotFoundHttpException('Failed to find deployment instance group instance network');
         }
 
-        return $loaded;
-    }
-
-    protected function loadDeploymentVmNetwork(Vms $vm, $network)
-    {
-        if (!isset($vm['applySpecJsonAsArray']['networks'][$network])) {
-            throw new NotFoundHttpException('Failed to find deployment vm network');
-        }
-
-        $loaded = $vm['applySpecJsonAsArray']['networks'][$network];
+        $loaded = $instance['specJsonAsArray']['networks'][$network];
         $loaded['name'] = $network;
 
         return $loaded;

@@ -17,7 +17,7 @@ class DeploymentInstanceGroupInstanceALLController extends AbstractController
     {
         return DeploymentInstanceGroupController::defNav($nav, $_bosh)
             ->add(
-                'index',
+                'instance',
                 [
                     'veneer_bosh_deployment_instancegroup_instanceALL_index' => [
                         'deployment' => $_bosh['deployment']['name'],

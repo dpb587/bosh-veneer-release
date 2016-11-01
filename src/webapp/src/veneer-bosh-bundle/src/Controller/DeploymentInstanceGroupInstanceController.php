@@ -43,22 +43,62 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
             ]
         );
     }
-    
-    public function vmAction($_bosh, $_format)
+
+    public function specAction($_bosh)
     {
-        if (!$_bosh['instance']['vm']) {
-            throw new NotFoundHttpException();
-        }
-        
-        return $this->redirectToRoute(
-            'veneer_bosh_deployment_vm_summary',
+        return $this->renderApi(
+            'VeneerBoshBundle:DeploymentInstanceGroupInstance:spec.html.twig',
+            $_bosh['instance']['specJsonAsArray'],
             [
-                'deployment' => $_bosh['deployment']['name'],
-                'agent' => $_bosh['instance']['vm']['agentId'],
-                '_format' => $_format,
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }
+
+    public function packagesAction($_bosh)
+    {
+        $results = $_bosh['instance']['specJsonAsArray']['packages'];
+
+        usort(
+            $results,
+            function ($a, $b) {
+                return strcmp($a['name'], $b['name']);
+            }
+        );
+
+        return $this->renderApi(
+            'VeneerBoshBundle:DeploymentInstanceGroupInstance:packages.html.twig',
+            [
+                'results' => $results,
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
+            ]
+        );
+    }
+
+    public function templatesAction($_bosh)
+    {
+        $results = $_bosh['instance']['specJsonAsArray']['job']['templates'];
+
+        usort(
+            $results,
+            function ($a, $b) {
+                return strcmp($a['name'], $b['name']);
+            }
+        );
+
+        return $this->renderApi(
+            'VeneerBoshBundle:DeploymentInstanceGroupInstance:templates.html.twig',
+            [
+                'results' => $results,
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
+            ]
+        );
+    }
+
     public function restartAction(Request $request, array $_bosh)
     {
         $form = $this->container->get('form.factory')->createNamed(

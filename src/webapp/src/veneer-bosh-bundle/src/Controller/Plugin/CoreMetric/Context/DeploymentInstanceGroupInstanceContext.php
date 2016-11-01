@@ -31,7 +31,7 @@ class DeploymentInstanceGroupInstanceContext extends SimpleContext
                 throw new \InvalidArgumentException('Invalid persistent_disk key');
             }
 
-            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_job_index_persistent_disk');
+            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance_persistentdisk');
             $context->replaceContext($this->context);
             $context->addContext('persistent_disk', $entity);
 
@@ -41,7 +41,7 @@ class DeploymentInstanceGroupInstanceContext extends SimpleContext
                 throw new \InvalidArgumentException('No vm exists');
             }
 
-            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_vm');
+            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance');
             $context->replaceContext($this->context);
             $context->addContext('vm', $this->context['job_index']['vm']);
 

@@ -9,9 +9,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Doctrine\ORM\Query\Expr;
+use Veneer\CoreBundle\Service\Breadcrumbs;
 
 class DeploymentInstanceGroupInstancePersistentDiskALLController extends AbstractController
 {
+    public static function defNav(Breadcrumbs $nav, $_bosh)
+    {
+        return DeploymentInstanceGroupInstanceController::defNav($nav, $_bosh)
+            ->add(
+                'persistent disk',
+                [
+                    'veneer_bosh_deployment_instancegroup_instance_persistentdiskALL_index' => [
+                        'deployment' => $_bosh['deployment']['name'],
+                        'instance_group' => $_bosh['instance_group']['job'],
+                        'instance' => $_bosh['instance']['uuid'],
+                    ],
+                ],
+                [
+                    'fontawesome' => 'hdd-o',
+                ]
+            )
+            ;
+    }
+
     public function indexAction($_bosh)
     {
         return $this->renderApi(
@@ -31,6 +51,9 @@ class DeploymentInstanceGroupInstancePersistentDiskALLController extends Abstrac
                         ->getQuery()
                         ->getResult()
                 ),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

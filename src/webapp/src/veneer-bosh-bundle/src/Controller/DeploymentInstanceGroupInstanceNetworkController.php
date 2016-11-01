@@ -10,17 +10,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentVmNetworkController extends AbstractController
+class DeploymentInstanceGroupInstanceNetworkController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentVmNetworkALLController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupInstanceNetworkALLController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['network']['name'],
                 [
-                    'veneer_bosh_deployment_vm_network_summary' => [
+                    'veneer_bosh_deployment_instancegroup_instance_network_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'agent' => $_bosh['vm']['agentId'],
+                        'instance_group' => $_bosh['instance_group']['job'],
+                        'instance' => $_bosh['instance']['uuid'],
                         'network' => $_bosh['network']['name'],
                     ],
                 ]
@@ -30,7 +31,7 @@ class DeploymentVmNetworkController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentVmNetwork:summary.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstanceNetwork:summary.html.twig',
             [
                 'data' => $_bosh['network'],
             ],
@@ -43,7 +44,7 @@ class DeploymentVmNetworkController extends AbstractController
     public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
-            'VeneerAwsCpiBundle:CoreDeploymentVmNetwork:cpi',
+            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupInstanceNetwork:cpi',
             [
                 '_bosh' => $_bosh,
                 '_route' => $request->attributes->get('_route'),

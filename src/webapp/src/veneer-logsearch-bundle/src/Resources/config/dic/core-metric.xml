@@ -8,7 +8,7 @@
         <service id="veneer_aws_cpi.plugin.core_metric.context.deployment_job_index" class="Veneer\LogsearchBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupInstanceMetricContext" scope="prototype">
             <argument type="service" id="veneer_logsearch.elasticsearch_helper" />
 
-            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_job_index" alias="logsearch_metric" />
+            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance" alias="logsearch_metric" />
         </service>
     </services>
 </container>

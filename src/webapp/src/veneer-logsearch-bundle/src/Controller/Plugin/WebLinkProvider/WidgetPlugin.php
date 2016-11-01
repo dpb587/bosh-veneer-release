@@ -36,7 +36,7 @@ class WidgetPlugin implements PluginInterface
                     (new Link('diskstats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_job_index_diskstats',
+                            'veneer_logsearch_deployment_instancegroup_instance_diskstats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'instance_group' => $_bosh['instance_group']['job'],
@@ -100,7 +100,7 @@ class WidgetPlugin implements PluginInterface
                     (new Link('hoststats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_job_index_persistentdisk_hoststats',
+                            'veneer_logsearch_deployment_instancegroup_instance_persistentdisk_hoststats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'instance_group' => $_bosh['instance_group']['job'],
@@ -109,15 +109,16 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_vm_network_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_network_summary':
                 return [
                     (new Link('hoststats'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_logsearch_deployment_vm_network_hoststats',
+                            'veneer_logsearch_deployment_instancegroup_instance_network_hoststats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                                 'network' => $_bosh['network']['name'],
                             ]
                         ),

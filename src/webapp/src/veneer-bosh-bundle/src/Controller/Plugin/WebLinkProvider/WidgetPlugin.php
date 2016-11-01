@@ -90,10 +90,10 @@ class WidgetPlugin implements PluginInterface
                 ];
             case 'veneer_bosh_deployment_instancegroup_instance_summary':
                 return [
-                    (new Link('vm'))
+                    (new Link('networkALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_instance_vm',
+                            'veneer_bosh_deployment_instancegroup_instance_networkALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'instance_group' => $_bosh['instance_group']['job'],
@@ -132,6 +132,36 @@ class WidgetPlugin implements PluginInterface
                                 'instance' => $_bosh['instance']['uuid'],
                             ]
                         ),
+                    (new Link('spec'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_instance_spec',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
+                            ]
+                        ),
+                    (new Link('packages'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_instance_packages',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
+                            ]
+                        ),
+                    (new Link('templates'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute(
+                            'veneer_bosh_deployment_instancegroup_instance_templates',
+                            [
+                                'deployment' => $_bosh['deployment']['name'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
+                            ]
+                        ),
                 ];
             case 'veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary':
                 return [
@@ -147,72 +177,16 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_vm_summary':
-                return [
-                    (new Link('applyspec'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vm_applyspec',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
-                            ]
-                        ),
-                    (new Link('instance'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vm_instance',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
-                            ]
-                        ),
-                    (new Link('packages'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vm_packages',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
-                            ]
-                        ),
-                    (new Link('templates'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vm_templates',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
-                            ]
-                        ),
-                    (new Link('networkALL'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vm_networkALL_index',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
-                            ]
-                        ),
-                    (new Link('resourcepool_cpi'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vm_resourcepool_cpi',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
-                            ]
-                        ),
-                ];
-            case 'veneer_bosh_deployment_vm_network_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_network_summary':
                 return [
                     (new Link('cpi'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_vm_network_cpi',
+                            'veneer_bosh_deployment_instancegroup_instance_network_cpi',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'agent' => $_bosh['vm']['agentId'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                                 'network' => $_bosh['network']['name'],
                             ]
                         ),

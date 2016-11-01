@@ -18,10 +18,8 @@
             <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance:all" />
             <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/persistent_disk" />
             <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/persistent_disk:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/vm" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/vm:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/vm/network" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/vm/network:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/network" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/network:all" />
             <tag name="veneer_core.request_context" context="bosh/task" />
             <tag name="veneer_core.request_context" context="bosh/task:all" />
             <tag name="veneer_core.request_context" context="bosh/release" />

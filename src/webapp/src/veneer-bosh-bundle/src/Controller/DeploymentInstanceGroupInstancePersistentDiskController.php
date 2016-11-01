@@ -14,7 +14,7 @@ class DeploymentInstanceGroupInstancePersistentDiskController extends AbstractCo
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceGroupInstanceController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupInstancePersistentDiskALLController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['persistent_disk']['size'] . ' MB',
                 [
@@ -26,7 +26,6 @@ class DeploymentInstanceGroupInstancePersistentDiskController extends AbstractCo
                     ],
                 ],
                 [
-                    'fontawesome' => 'hdd',
                     'expanded' => true,
                 ]
             );

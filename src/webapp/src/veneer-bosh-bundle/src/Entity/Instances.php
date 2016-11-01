@@ -58,16 +58,6 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $id;
 
     /**
-     * @var \Veneer\BoshBundle\Entity\Vms
-     *
-     * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Vms")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="vm_id", referencedColumnName="id")
-     * })
-     */
-    protected $vm;
-
-    /**
      * @var \Veneer\BoshBundle\Entity\Deployments
      *
      * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Deployments")
@@ -76,6 +66,33 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $deployment;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="agent_id", type="text", nullable=false)
+     */
+    protected $agentId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vmCid", type="text", nullable=true)
+     */
+    protected $vmCid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="spec_json", type="text", nullable=true)
+     */
+    protected $specJson;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="credentials_json", type="text", nullable=true)
+     */
+    protected $credentialsJson;
 
 
 }

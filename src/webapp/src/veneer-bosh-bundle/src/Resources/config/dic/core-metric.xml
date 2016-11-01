@@ -17,26 +17,21 @@
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 
-        <service id="veneer_bosh.plugin.core_metric.context.deployment_job" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupContext" scope="prototype">
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_instancegroup" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupContext" scope="prototype">
             <argument type="service" id="service_container" />
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 
-        <service id="veneer_bosh.plugin.core_metric.context.deployment_job_index" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupInstanceContext" scope="prototype">
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupInstanceContext" scope="prototype">
             <argument type="service" id="service_container" />
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 
-        <service id="veneer_bosh.plugin.core_metric.context.deployment_job_index_persistent_disk" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext" scope="prototype">
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance_persistentdisk" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext" scope="prototype">
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="veneer_bosh.plugin.core_metric.context.deployment_vm" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentVmContext" scope="prototype">
-            <argument type="service" id="service_container" />
-            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
-        </service>
-
-        <service id="veneer_bosh.plugin.core_metric.context.deployment_vm_network" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext" scope="prototype">
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance_network" class="Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext" scope="prototype">
             <argument type="service" id="service_container" />
         </service>
     </services>

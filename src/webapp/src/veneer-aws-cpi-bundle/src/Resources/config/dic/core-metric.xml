@@ -8,13 +8,13 @@
         <service id="veneer_aws_cpi.plugin.core_metric.context.persistent_disk" class="Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Context\PersistentDiskContext" scope="prototype">
             <argument type="service" id="veneer_aws_cpi.api.cloudwatch" />
 
-            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_job_index_persistent_disk" alias="aws_cloudwatch" />
+            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance_persistentdisk" alias="aws_cloudwatch" />
         </service>
 
         <service id="veneer_aws_cpi.plugin.core_metric.context.vm" class="Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Context\VmContext" scope="prototype">
             <argument type="service" id="veneer_aws_cpi.api.cloudwatch" />
 
-            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_vm" alias="aws_cloudwatch" />
+            <tag name="veneer_core.plugin.metric.simple_context" parent="veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance" alias="aws_cloudwatch" />
         </service>
     </services>
 </container>

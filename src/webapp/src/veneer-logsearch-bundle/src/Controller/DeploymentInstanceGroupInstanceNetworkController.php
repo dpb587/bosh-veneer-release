@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 
-class DeploymentVmNetworkController extends AbstractController
+class DeploymentInstanceGroupInstanceNetworkController extends AbstractController
 {
     public function hoststatsAction(array $_bosh)
     {
@@ -99,7 +99,7 @@ class DeploymentVmNetworkController extends AbstractController
         );
 
         return $this->renderApi(
-            'VeneerLogsearchBundle:DeploymentVmNetwork:hoststats.html.twig',
+            'VeneerLogsearchBundle:DeploymentInstanceGroupInstanceNetwork:hoststats.html.twig',
             [
                 'start' => $ds->format('U') * 1000,
                 'start_string' => $ds->format('Y-m-d H:i:s'),

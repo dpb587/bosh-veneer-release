@@ -17,32 +17,32 @@
         <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_job_index_diskstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/diskstats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_diskstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/diskstats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceController::diskstatsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/job/index</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_job_index_memstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/memstats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_memstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/memstats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceController::memstatsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/job/index</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_job_index_loadstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/loadstats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_loadstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/loadstats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceController::loadstatsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/job/index</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_job_index_persistentdisk_hoststats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/hoststats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_persistentdisk_hoststats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/hoststats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstancePersistentDiskController::hoststatsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/job/index/persistent_disk</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/persistent_disk</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_vm_network_hoststats" path="/logsearch/deployment/{deployment}/vm/{agent}/network/{network}/hoststats.{_format}">
-        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentVmNetworkController::hoststatsAction</default>
+    <route id="veneer_logsearch_deployment_instancegroup_instance_network_hoststats" path="/logsearch/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/{network}/hoststats.{_format}">
+        <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceNetworkController::hoststatsAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment/vm/network</default>
     </route>

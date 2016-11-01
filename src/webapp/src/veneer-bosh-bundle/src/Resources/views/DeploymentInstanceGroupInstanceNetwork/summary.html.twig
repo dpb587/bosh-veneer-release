@@ -4,7 +4,7 @@
 
 {% block frag_content %}  
     {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-    {{ render(_links.widget.hoststats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {#{{ render(_links.widget.hoststats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}#}
 {% endblock %}
 
 {% block frag_sidebar %}
@@ -40,9 +40,6 @@
                 <dd>{{ v }}</dd>
             {% endfor %}
         {% endif %}
-    
-        <dt>DNS Record Name</dt>
-        <dd>{{ data.dns_record_name }}</dd>
     </dl>
 
     {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}

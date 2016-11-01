@@ -48,7 +48,7 @@
                                 <span style="color:#CFCFCF;">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
                             {% endif %}
                             {% if loop.first %}&nbsp;{% endif %}{#
-                            #}<a href="{{ nav.url }}" style="color:inherit;">{% if nav.options.fontawesome|default %}<i class="fa fa-{{ nav.options.fontawesome }}" aria-hidden="true"></i> {% endif %}{{ nav.title }}</a>
+                            #}<a href="{{ nav.url }}" style="color:inherit;">{% if nav.options.fontawesome|default %}<i class="fa fa-{{ nav.options.fontawesome }}" title="{{ nav.title }}"></i>{% endif %}{% if nav.options.fontawesome|default and (loop.last or nav.options.expanded|default(false)) %} {% endif %}{% if not nav.options.fontawesome|default or loop.last or nav.options.expanded|default(false) %}{{ nav.title }}{% endif %}</a>
                         {% endif %}
                     {% else %}
                         &nbsp;{{ block('def_title') }}

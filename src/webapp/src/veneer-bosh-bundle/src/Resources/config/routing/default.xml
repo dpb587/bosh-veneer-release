@@ -151,64 +151,40 @@
         <default key="_veneer_core_context">bosh/deployment/instance_group/instance/persistent_disk</default>
     </route>
 
-    <route id="veneer_bosh_deployment_vmALL_index" path="/bosh/deployment/{deployment}/vm/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmALLController::indexAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_instance_spec" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/spec.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::specAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm:all</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
-    <route id="veneer_bosh_deployment_vm_summary" path="/bosh/deployment/{deployment}/vm/{agent}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmController::summaryAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_instance_packages" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/packages.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::packagesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
-    <route id="veneer_bosh_deployment_vm_instance" path="/bosh/deployment/{deployment}/vm/{agent}/instance.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmController::instanceAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_instance_templates" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/templates.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::templatesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
-    <route id="veneer_bosh_deployment_vm_applyspec" path="/bosh/deployment/{deployment}/vm/{agent}/applyspec.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmController::applyspecAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_instance_networkALL_index" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceNetworkALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/network:all</default>
     </route>
 
-    <route id="veneer_bosh_deployment_vm_packages" path="/bosh/deployment/{deployment}/vm/{agent}/packages.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmController::packagesAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_instance_network_summary" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/{network}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceNetworkController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/network</default>
     </route>
 
-    <route id="veneer_bosh_deployment_vm_templates" path="/bosh/deployment/{deployment}/vm/{agent}/templates.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmController::templatesAction</default>
+    <route id="veneer_bosh_deployment_instancegroup_instance_network_cpi" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/{network}/cpi.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceNetworkController::cpiAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm</default>
-    </route>
-
-    <route id="veneer_bosh_deployment_vm_networkALL_index" path="/bosh/deployment/{deployment}/vm/{agent}/network/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmNetworkALLController::indexAction</default>
-        <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm/network:all</default>
-    </route>
-
-    <route id="veneer_bosh_deployment_vm_network_summary" path="/bosh/deployment/{deployment}/vm/{agent}/network/{network}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmNetworkController::summaryAction</default>
-        <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm/network</default>
-    </route>
-
-    <route id="veneer_bosh_deployment_vm_network_cpi" path="/bosh/deployment/{deployment}/vm/{agent}/network/{network}/cpi.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmNetworkController::cpiAction</default>
-        <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm/network</default>
-    </route>
-
-    <route id="veneer_bosh_deployment_vm_resourcepool_cpi" path="/bosh/deployment/{deployment}/vm/{agent}/resource-pool/cpi.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentVmResourcePoolController::cpiAction</default>
-        <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/vm</default>
+        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/network</default>
     </route>
 
     <!-- task -->

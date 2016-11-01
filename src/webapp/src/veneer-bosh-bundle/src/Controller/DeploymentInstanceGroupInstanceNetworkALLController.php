@@ -10,32 +10,36 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentVmNetworkALLController extends AbstractController
+class DeploymentInstanceGroupInstanceNetworkALLController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentVmController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupInstanceController::defNav($nav, $_bosh)
             ->add(
-                'networks',
+                'network',
                 [
-                    'veneer_bosh_deployment_vm_networkALL_index' => [
+                    'veneer_bosh_deployment_instancegroup_instance_networkALL_index' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'agent' => $_bosh['vm']['agentId'],
+                        'instance_group' => $_bosh['instance_group']['job'],
+                        'instance' => $_bosh['instance']['uuid'],
                     ],
+                ],
+                [
+                    'fontawesome' => 'exchange',
                 ]
             );
     }
 
     public function indexAction($_bosh)
     {
-        $results = $_bosh['vm']['applySpecJsonAsArray']['networks'];
+        $results = $_bosh['instance']['specJsonAsArray']['networks'];
         
         foreach ($results as $k => $v) {
             $results[$k]['name'] = $k;
         }
 
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentVmNetworkALL:index.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstanceNetworkALL:index.html.twig',
             [
                 'results' => array_values($results),
             ]

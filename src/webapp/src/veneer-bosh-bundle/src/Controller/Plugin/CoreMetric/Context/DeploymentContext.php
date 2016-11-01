@@ -31,7 +31,7 @@ class DeploymentContext extends SimpleContext
                 throw new \InvalidArgumentException('Invalid job key');
             }
 
-            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_job');
+            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup');
             $context->replaceContext($this->context);
             $context->addContext('job', [ 'job' => $entity['job'] ]);
 
@@ -46,7 +46,7 @@ class DeploymentContext extends SimpleContext
                 throw new \InvalidArgumentException('Invalid vm key');
             }
 
-            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_vm');
+            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance');
             $context->replaceContext($this->context);
             $context->addContext('vm', $entity);
 

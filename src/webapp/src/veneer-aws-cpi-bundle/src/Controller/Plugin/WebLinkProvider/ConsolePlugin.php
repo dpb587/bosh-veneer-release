@@ -40,11 +40,7 @@ class ConsolePlugin implements PluginInterface
                         ->setTopic(Link::TOPIC_CPI)
                         ->setTitle('AWS Console')
                         ->setNote('instance detail')
-                        ->setUrl($this->consoleHelper->getEc2InstanceSearch([
-                            'tag:director' => $this->directorName,
-                            'tag:deployment' => $_bosh['deployment']['name'],
-                            'tag:Name' => $_bosh['instance_group']['job'] . '/' . $_bosh['instance']['uuid'],
-                        ])),
+                        ->setUrl($this->consoleHelper->getEc2InstanceSearch($_bosh['instance']['vmCid'])),
                 ];
             case 'veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary':
                 return [
@@ -54,21 +50,20 @@ class ConsolePlugin implements PluginInterface
                         ->setNote('disk detail')
                         ->setUrl($this->consoleHelper->getEc2VolumeSearch($_bosh['persistent_disk']['diskCid'])),
                 ];
-            case 'veneer_bosh_deployment_vm_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_network_summary':
                 return [
-                    (new Link('awscpi_console'))
-                        ->setTopic(Link::TOPIC_CPI)
-                        ->setTitle('AWS Console')
-                        ->setNote('instance detail')
-                        ->setUrl($this->consoleHelper->getEc2InstanceSearch($_bosh['vm']['cid'])),
-                ];
-            case 'veneer_bosh_deployment_vm_network_summary':
-                return [
-                    (new Link('awscpi_console'))
-                        ->setTopic(Link::TOPIC_CPI)
-                        ->setTitle('AWS Console')
-                        ->setNote('instance detail')
-                        ->setUrl($this->consoleHelper->getEc2NicSearch([ 'search' => $_bosh['network']['ip'] ])),
+                    isset($_bosh['network']['type']) && ('eip' == $_bosh['network']['type'])
+                        ? (new Link('awscpi_console'))
+                            ->setTopic(Link::TOPIC_CPI)
+                            ->setTitle('AWS Console')
+                            ->setNote('allocation detail')
+                            ->setUrl($this->consoleHelper->getEc2EipAllocationSearch($_bosh['network']['ip']))
+                        : (new Link('awscpi_console'))
+                            ->setTopic(Link::TOPIC_CPI)
+                            ->setTitle('AWS Console')
+                            ->setNote('interface detail')
+                            ->setUrl($this->consoleHelper->getEc2NicSearch([ 'search' => $_bosh['network']['ip'] ]))
+                    ,
                 ];
         }
 
