@@ -13,15 +13,15 @@ use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
-class DeploymentInstanceGroupIndexController extends AbstractController
+class DeploymentInstanceGroupIdController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceGroupIndexALLController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupIdALLController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['index']['index'],
                 [
-                    'veneer_bosh_deployment_instancegroup_index_summary' => [
+                    'veneer_bosh_deployment_instancegroup_id_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
                         'job' => $_bosh['job']['job'],
                         'index' => $_bosh['index']['index'],
@@ -34,7 +34,7 @@ class DeploymentInstanceGroupIndexController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupIndex:summary.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupId:summary.html.twig',
             [
                 'data' => $_bosh['index'],
             ],
@@ -117,7 +117,7 @@ class DeploymentInstanceGroupIndexController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupIndex:restart.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupId:restart.html.twig',
             [
                 'form' => $form->createView(),
             ],
@@ -126,7 +126,7 @@ class DeploymentInstanceGroupIndexController extends AbstractController
                     ->add(
                         'Restart',
                         [
-                            'veneer_bosh_deployment_instancegroup_index_restart' => [
+                            'veneer_bosh_deployment_instancegroup_id_restart' => [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],
                                 'index' => $_bosh['index']['index'],
@@ -195,7 +195,7 @@ class DeploymentInstanceGroupIndexController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupIndex:recreate.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupId:recreate.html.twig',
             [
                 'form' => $form->createView(),
             ],
@@ -204,7 +204,7 @@ class DeploymentInstanceGroupIndexController extends AbstractController
                     ->add(
                         'Recreate',
                         [
-                            'veneer_bosh_deployment_instancegroup_index_recreate' => [
+                            'veneer_bosh_deployment_instancegroup_id_recreate' => [
                                 'deployment' => $_bosh['deployment']['name'],
                                 'job' => $_bosh['job']['job'],
                                 'index' => $_bosh['index']['index'],

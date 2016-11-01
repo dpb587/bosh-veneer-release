@@ -44,14 +44,14 @@ class BuiltinPlugin implements PluginInterface
                     );
 
                     if ('index' == $contextSplit[3]) {
-                        $veneerBoshContext['index'] = $this->loadDeploymentInstanceGroupIndex(
+                        $veneerBoshContext['index'] = $this->loadDeploymentInstanceGroupId(
                             $veneerBoshContext['deployment'],
                             $request->attributes->get('job'),
                             $request->attributes->get('index')
                         );
 
                         if ('persistent_disk' == $contextSplit[4]) {
-                            $veneerBoshContext['persistent_disk'] = $this->loadDeploymentInstanceGroupIndexPersistentDisk(
+                            $veneerBoshContext['persistent_disk'] = $this->loadDeploymentInstanceGroupIdPersistentDisk(
                                 $veneerBoshContext['deployment'],
                                 $veneerBoshContext['index'],
                                 $request->attributes->get('persistent_disk')
@@ -145,7 +145,7 @@ class BuiltinPlugin implements PluginInterface
         ];
     }
 
-    protected function loadDeploymentInstanceGroupIndex(Deployments $deployment, $jobName, $jobIndex)
+    protected function loadDeploymentInstanceGroupId(Deployments $deployment, $jobName, $jobIndex)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:Instances')
             ->findOneBy([
@@ -161,7 +161,7 @@ class BuiltinPlugin implements PluginInterface
         return $loaded;
     }
 
-    protected function loadDeploymentInstanceGroupIndexPersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
+    protected function loadDeploymentInstanceGroupIdPersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:PersistentDisks')
             ->findOneBy([

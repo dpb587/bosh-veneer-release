@@ -34,7 +34,7 @@ class ConsolePlugin implements PluginInterface
                             'tag:deployment' => $_bosh['deployment']['name'],
                         ])),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_index_summary':
+            case 'veneer_bosh_deployment_instancegroup_id_summary':
                 return [
                     (new Link('awscpi_console'))
                         ->setTopic(Link::TOPIC_CPI)
@@ -46,7 +46,7 @@ class ConsolePlugin implements PluginInterface
                             'tag:Name' => $_bosh['job']['job'] . '/' . $_bosh['index']['index'],
                         ])),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_index_persistentdisk_summary':
+            case 'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary':
                 return [
                     (new Link('awscpi_console'))
                         ->setTopic(Link::TOPIC_CPI)

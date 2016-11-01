@@ -24,7 +24,7 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_index_summary':
+            case 'veneer_bosh_deployment_instancegroup_id_summary':
                 $metricPrefix = sprintf(
                     'bosh.deployment[%s].job[%s].index[%s]',
                     $_bosh['deployment']['name'],
@@ -95,7 +95,7 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_index_persistentdisk_summary':
+            case 'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary':
                 return [
                     (new Link('hoststats'))
                         ->setTopic(Link::TOPIC_WIDGET)

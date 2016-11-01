@@ -22,7 +22,7 @@
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 
-        <service id="veneer_bosh.plugin.core_metric.context.deployment_job_index" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupIndexContext" scope="prototype">
+        <service id="veneer_bosh.plugin.core_metric.context.deployment_job_index" class="Veneer\BoshBundle\Controller\Plugin\CoreMetric\Context\DeploymentInstanceGroupIdContext" scope="prototype">
             <argument type="service" id="service_container" />
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>

@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Plugin\LinkProvider\PluginInterface;
 use Veneer\CoreBundle\Plugin\LinkProvider\Link;
 
-class DeploymentInstanceGroupIndexPlugin implements PluginInterface
+class DeploymentInstanceGroupIdPlugin implements PluginInterface
 {
     protected $kibanaUrl;
     protected $directorName;

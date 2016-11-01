@@ -6,7 +6,7 @@ use Veneer\CoreBundle\Plugin\Metric\Context\SimpleContext;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 
-class DeploymentInstanceGroupIndexContext extends SimpleContext
+class DeploymentInstanceGroupIdContext extends SimpleContext
 {
     protected $container;
     protected $em;

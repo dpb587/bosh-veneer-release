@@ -10,15 +10,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentInstanceGroupIndexPersistentDiskController extends AbstractController
+class DeploymentInstanceGroupIdPersistentDiskController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceGroupIndexController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupIdController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['persistent_disk']['size'] . ' MB',
                 [
-                    'veneer_bosh_deployment_instancegroup_index_persistentdisk_summary' => [
+                    'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
                         'job' => $_bosh['job']['job'],
                         'index' => $_bosh['index']['index'],
@@ -35,7 +35,7 @@ class DeploymentInstanceGroupIndexPersistentDiskController extends AbstractContr
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupIndexPersistentDisk:summary.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupIdPersistentDisk:summary.html.twig',
             [
                 'data' => $_bosh['persistent_disk'],
             ],
@@ -48,7 +48,7 @@ class DeploymentInstanceGroupIndexPersistentDiskController extends AbstractContr
     public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
-            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupIndexPersistentDisk:cpi',
+            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupIdPersistentDisk:cpi',
             [
                 '_bosh' => $_bosh,
                 '_route' => $request->attributes->get('_route'),

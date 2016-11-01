@@ -22,6 +22,9 @@ class DeploymentInstanceGroupALLController extends AbstractController
                     'veneer_bosh_deployment_jobALL_index' => [
                         'deployment' => $_bosh['deployment']['name'],
                     ],
+                ],
+                [
+                    'fontawesome' => 'cubes',
                 ]
             )
         ;
