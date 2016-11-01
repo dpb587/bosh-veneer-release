@@ -13,12 +13,12 @@ class WidgetPlugin implements PluginInterface
         $_bosh = $request->attributes->get('_bosh');
 
         switch ($route) {
-            case 'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary':
                 $metricPrefix = sprintf(
                     'bosh.deployment[%s].job[%s].index[%s].persistent_disk[%s]',
                     $_bosh['deployment']['name'],
-                    $_bosh['job']['job'],
-                    $_bosh['index']['index'],
+                    $_bosh['instance_group']['job'],
+                    $_bosh['instance']['uuid'],
                     $_bosh['persistent_disk']['id']
                 );
 

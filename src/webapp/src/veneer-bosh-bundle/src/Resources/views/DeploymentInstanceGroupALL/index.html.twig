@@ -12,7 +12,7 @@
         <tbody>
             {% for result in results %}
                 <tr>
-                    <td><a href="{{ path('veneer_bosh_deployment_instancegroup_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'job' : result.job }) }}">{{ result.job }}</a></td>
+                    <td><a href="{{ path('veneer_bosh_deployment_instancegroup_summary', { 'deployment' : _veneer_bosh_context.deployment.name, 'instance_group' : result.job }) }}">{{ result.job }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>

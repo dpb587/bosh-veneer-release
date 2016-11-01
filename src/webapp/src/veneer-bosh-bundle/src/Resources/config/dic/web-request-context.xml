@@ -12,12 +12,12 @@
             <tag name="veneer_core.request_context" context="bosh/deployment:all" />
             <tag name="veneer_core.request_context" context="bosh/deployment/property:all" />
             <tag name="veneer_core.request_context" context="bosh/deployment/property" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/job" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/job:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/job/index" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/job/index:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/job/index/persistent_disk" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/job/index/persistent_disk:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance:all" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/persistent_disk" />
+            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/persistent_disk:all" />
             <tag name="veneer_core.request_context" context="bosh/deployment/vm" />
             <tag name="veneer_core.request_context" context="bosh/deployment/vm:all" />
             <tag name="veneer_core.request_context" context="bosh/deployment/vm/network" />

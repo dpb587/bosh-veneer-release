@@ -13,18 +13,18 @@ use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
-class DeploymentInstanceGroupIdController extends AbstractController
+class DeploymentInstanceGroupInstanceController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceGroupIdALLController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupInstanceALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['index']['index'],
+                $_bosh['instance']['uuid'],
                 [
-                    'veneer_bosh_deployment_instancegroup_id_summary' => [
+                    'veneer_bosh_deployment_instancegroup_instance_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'job' => $_bosh['job']['job'],
-                        'index' => $_bosh['index']['index'],
+                        'instance_group' => $_bosh['instance_group']['job'],
+                        'instance' => $_bosh['instance']['uuid'],
                     ],
                 ]
             )
@@ -34,9 +34,9 @@ class DeploymentInstanceGroupIdController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupId:summary.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstance:summary.html.twig',
             [
-                'data' => $_bosh['index'],
+                'data' => $_bosh['instance'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
@@ -46,7 +46,7 @@ class DeploymentInstanceGroupIdController extends AbstractController
     
     public function vmAction($_bosh, $_format)
     {
-        if (!$_bosh['index']['vm']) {
+        if (!$_bosh['instance']['vm']) {
             throw new NotFoundHttpException();
         }
         
@@ -54,7 +54,7 @@ class DeploymentInstanceGroupIdController extends AbstractController
             'veneer_bosh_deployment_vm_summary',
             [
                 'deployment' => $_bosh['deployment']['name'],
-                'agent' => $_bosh['index']['vm']['agentId'],
+                'agent' => $_bosh['instance']['vm']['agentId'],
                 '_format' => $_format,
             ]
         );
@@ -91,8 +91,8 @@ class DeploymentInstanceGroupIdController extends AbstractController
                     sprintf(
                         '/deployments/%s/jobs/%s%s?%s',
                         $_bosh['deployment']['name'],
-                        $_bosh['job']['job'],
-                        isset($_bosh['index']) ? ('/' . $_bosh['index']['index']) : '',
+                        $_bosh['instance_group']['job'],
+                        isset($_bosh['instance']) ? ('/' . $_bosh['instance']['uuid']) : '',
                         http_build_query([
                             'state' => 'restart',
                             'skip_drain' => $payload['skip_drain'] ? 'true' : 'false',
@@ -117,7 +117,7 @@ class DeploymentInstanceGroupIdController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupId:restart.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstance:restart.html.twig',
             [
                 'form' => $form->createView(),
             ],
@@ -126,10 +126,10 @@ class DeploymentInstanceGroupIdController extends AbstractController
                     ->add(
                         'Restart',
                         [
-                            'veneer_bosh_deployment_instancegroup_id_restart' => [
+                            'veneer_bosh_deployment_instancegroup_instance_restart' => [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ],
                         ]
                     ),
@@ -169,8 +169,8 @@ class DeploymentInstanceGroupIdController extends AbstractController
                     sprintf(
                         '/deployments/%s/jobs/%s%s?%s',
                         $_bosh['deployment']['name'],
-                        $_bosh['job']['job'],
-                        isset($_bosh['index']) ? ('/' . $_bosh['index']['index']) : '',
+                        $_bosh['instance_group']['job'],
+                        isset($_bosh['instance']) ? ('/' . $_bosh['instance']['uuid']) : '',
                         http_build_query([
                             'state' => 'recreate',
                             'skip_drain' => $payload['skip_drain'] ? 'true' : 'false',
@@ -195,7 +195,7 @@ class DeploymentInstanceGroupIdController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupId:recreate.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstance:recreate.html.twig',
             [
                 'form' => $form->createView(),
             ],
@@ -204,10 +204,10 @@ class DeploymentInstanceGroupIdController extends AbstractController
                     ->add(
                         'Recreate',
                         [
-                            'veneer_bosh_deployment_instancegroup_id_recreate' => [
+                            'veneer_bosh_deployment_instancegroup_instance_recreate' => [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ],
                         ]
                     ),

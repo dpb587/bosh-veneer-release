@@ -11,7 +11,7 @@ use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentInstanceGroupIdALLController extends AbstractController
+class DeploymentInstanceGroupInstanceALLController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
@@ -19,9 +19,9 @@ class DeploymentInstanceGroupIdALLController extends AbstractController
             ->add(
                 'index',
                 [
-                    'veneer_bosh_deployment_instancegroup_idALL_index' => [
+                    'veneer_bosh_deployment_instancegroup_instanceALL_index' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'job' => $_bosh['job']['job'],
+                        'instance_group' => $_bosh['instance_group']['job'],
                     ],
                 ],
                 [
@@ -34,7 +34,7 @@ class DeploymentInstanceGroupIdALLController extends AbstractController
     public function indexAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupIdALL:index.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstanceALL:index.html.twig',
             [
                 'results' => array_map(
                     function ($v) {
@@ -46,7 +46,7 @@ class DeploymentInstanceGroupIdALLController extends AbstractController
                         ->getRepository('VeneerBoshBundle:Instances')
                         ->createQueryBuilder('i')
                         ->where(new Expr\Comparison('i.deployment', '=', ':deployment'))->setParameter('deployment', $_bosh['deployment'])
-                        ->andWhere(new Expr\Comparison('i.job', '=', ':job'))->setParameter('job', $_bosh['job']['job'])
+                        ->andWhere(new Expr\Comparison('i.job', '=', ':job'))->setParameter('job', $_bosh['instance_group']['job'])
                         ->orderBy('i.index', 'ASC')
                         ->getQuery()
                         ->getResult()

@@ -24,12 +24,12 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_id_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_summary':
                 $metricPrefix = sprintf(
-                    'bosh.deployment[%s].job[%s].index[%s]',
+                    'bosh.deployment[%s].instance_group[%s].instance[%s]',
                     $_bosh['deployment']['name'],
-                    $_bosh['job']['job'],
-                    $_bosh['index']['index']
+                    $_bosh['instance_group']['job'],
+                    $_bosh['instance']['uuid']
                 );
 
                 return [
@@ -39,8 +39,8 @@ class WidgetPlugin implements PluginInterface
                             'veneer_logsearch_deployment_job_index_diskstats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ]
                         ),
                     (new Link('loadstats'))
@@ -95,7 +95,7 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary':
                 return [
                     (new Link('hoststats'))
                         ->setTopic(Link::TOPIC_WIDGET)
@@ -103,8 +103,8 @@ class WidgetPlugin implements PluginInterface
                             'veneer_logsearch_deployment_job_index_persistentdisk_hoststats',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                                 'persistent_disk' => $_bosh['persistent_disk']['id'],
                             ]
                         ),

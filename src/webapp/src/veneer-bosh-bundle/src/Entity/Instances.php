@@ -29,6 +29,13 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(name="uuid", type="string", nullable=false)
+     */
+    protected $uuid;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="state", type="text", nullable=false)
      */
     protected $state;

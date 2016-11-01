@@ -10,18 +10,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class DeploymentInstanceGroupIdPersistentDiskController extends AbstractController
+class DeploymentInstanceGroupInstancePersistentDiskController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return DeploymentInstanceGroupIdController::defNav($nav, $_bosh)
+        return DeploymentInstanceGroupInstanceController::defNav($nav, $_bosh)
             ->add(
                 $_bosh['persistent_disk']['size'] . ' MB',
                 [
-                    'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary' => [
+                    'veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'job' => $_bosh['job']['job'],
-                        'index' => $_bosh['index']['index'],
+                        'instance_group' => $_bosh['instance_group']['job'],
+                        'instance' => $_bosh['instance']['uuid'],
                         'persistent_disk' => $_bosh['persistent_disk']['id'],
                     ],
                 ],
@@ -35,7 +35,7 @@ class DeploymentInstanceGroupIdPersistentDiskController extends AbstractControll
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:DeploymentInstanceGroupIdPersistentDisk:summary.html.twig',
+            'VeneerBoshBundle:DeploymentInstanceGroupInstancePersistentDisk:summary.html.twig',
             [
                 'data' => $_bosh['persistent_disk'],
             ],
@@ -48,7 +48,7 @@ class DeploymentInstanceGroupIdPersistentDiskController extends AbstractControll
     public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
-            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupIdPersistentDisk:cpi',
+            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupInstancePersistentDisk:cpi',
             [
                 '_bosh' => $_bosh,
                 '_route' => $request->attributes->get('_route'),

@@ -36,7 +36,7 @@ class WidgetPlugin implements PluginInterface
                             'veneer_ops_workspace_app_deployment_edit',
                             [
                                 'path' => $deployment->getSourcePath(),
-                                'property' => 'instance_groups[' . $_bosh['job']['job'] . ']',
+                                'property' => 'instance_groups[' . $_bosh['instance_group']['job'] . ']',
                             ]
                         ),
                 ];

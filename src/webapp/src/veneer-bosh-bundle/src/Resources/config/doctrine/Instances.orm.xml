@@ -12,6 +12,7 @@
     </id>
     <field name="job" type="text" column="job" nullable="false"/>
     <field name="index" type="integer" column="index" nullable="false"/>
+    <field name="uuid" type="string" column="uuid" nullable="false"/>
     <field name="state" type="text" column="state" nullable="false"/>
     <field name="resurrectionPaused" type="boolean" column="resurrection_paused" nullable="true"/>
     <many-to-one field="vm" target-entity="Vms">

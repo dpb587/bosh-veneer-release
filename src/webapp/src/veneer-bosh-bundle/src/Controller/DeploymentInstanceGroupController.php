@@ -16,11 +16,11 @@ class DeploymentInstanceGroupController extends AbstractController
     {
         return DeploymentInstanceGroupALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['job']['job'],
+                $_bosh['instance_group']['job'],
                 [
                     'veneer_bosh_deployment_instancegroup_summary' => [
                         'deployment' => $_bosh['deployment']['name'],
-                        'job' => $_bosh['job']['job'],
+                        'instance_group' => $_bosh['instance_group']['job'],
                     ],
                 ],
                 [
@@ -35,7 +35,7 @@ class DeploymentInstanceGroupController extends AbstractController
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstanceGroup:summary.html.twig',
             [
-                'data' => $_bosh['job'],
+                'data' => $_bosh['instance_group'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),

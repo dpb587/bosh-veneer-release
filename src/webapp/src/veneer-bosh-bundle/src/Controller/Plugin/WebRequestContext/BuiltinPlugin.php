@@ -37,23 +37,23 @@ class BuiltinPlugin implements PluginInterface
                     $request->attributes->get('deployment')
                 );
 
-                if ('job' == $contextSplit[2]) {
-                    $veneerBoshContext['job'] = $this->loadDeploymentInstanceGroup(
+                if ('instance_group' == $contextSplit[2]) {
+                    $veneerBoshContext['instance_group'] = $this->loadDeploymentInstanceGroup(
                         $veneerBoshContext['deployment'],
-                        $request->attributes->get('job')
+                        $request->attributes->get('instance_group')
                     );
 
-                    if ('index' == $contextSplit[3]) {
-                        $veneerBoshContext['index'] = $this->loadDeploymentInstanceGroupId(
+                    if ('instance' == $contextSplit[3]) {
+                        $veneerBoshContext['instance'] = $this->loadDeploymentInstanceGroupInstance(
                             $veneerBoshContext['deployment'],
-                            $request->attributes->get('job'),
-                            $request->attributes->get('index')
+                            $request->attributes->get('instance_group'),
+                            $request->attributes->get('instance')
                         );
 
                         if ('persistent_disk' == $contextSplit[4]) {
-                            $veneerBoshContext['persistent_disk'] = $this->loadDeploymentInstanceGroupIdPersistentDisk(
+                            $veneerBoshContext['persistent_disk'] = $this->loadDeploymentInstanceGroupInstancePersistentDisk(
                                 $veneerBoshContext['deployment'],
-                                $veneerBoshContext['index'],
+                                $veneerBoshContext['instance'],
                                 $request->attributes->get('persistent_disk')
                             );
                         }
@@ -137,7 +137,7 @@ class BuiltinPlugin implements PluginInterface
             ]);
 
         if (!$loaded) {
-            throw new NotFoundHttpException('Failed to find deployment job');
+            throw new NotFoundHttpException('Failed to find deployment instance group');
         }
 
         return [
@@ -145,23 +145,23 @@ class BuiltinPlugin implements PluginInterface
         ];
     }
 
-    protected function loadDeploymentInstanceGroupId(Deployments $deployment, $jobName, $jobIndex)
+    protected function loadDeploymentInstanceGroupInstance(Deployments $deployment, $instanceGroupName, $instanceGroupInstance)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:Instances')
             ->findOneBy([
                 'deployment' => $deployment,
-                'job' => $jobName,
-                'index' => $jobIndex,
+                'job' => $instanceGroupName,
+                'uuid' => $instanceGroupInstance,
             ]);
 
         if (!$loaded) {
-            throw new NotFoundHttpException('Failed to find deployment job index');
+            throw new NotFoundHttpException('Failed to find deployment instance group instance');
         }
 
         return $loaded;
     }
 
-    protected function loadDeploymentInstanceGroupIdPersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
+    protected function loadDeploymentInstanceGroupInstancePersistentDisk(Deployments $deployment, Instances $instance, $persistentDisk)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:PersistentDisks')
             ->findOneBy([

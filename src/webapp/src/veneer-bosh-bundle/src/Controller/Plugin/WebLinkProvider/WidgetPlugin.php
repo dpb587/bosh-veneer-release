@@ -61,10 +61,10 @@ class WidgetPlugin implements PluginInterface
                     (new Link('indexALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_idALL_index',
+                            'veneer_bosh_deployment_instancegroup_instanceALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
+                                'instance_group' => $_bosh['instance_group']['job'],
                             ]
                         ),
                     (new Link('restart'))
@@ -74,7 +74,7 @@ class WidgetPlugin implements PluginInterface
                             'veneer_bosh_deployment_instancegroup_restart',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
+                                'instance_group' => $_bosh['instance_group']['job'],
                             ]
                         ),
                     (new Link('recreate'))
@@ -84,65 +84,65 @@ class WidgetPlugin implements PluginInterface
                             'veneer_bosh_deployment_instancegroup_recreate',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
+                                'instance_group' => $_bosh['instance_group']['job'],
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_id_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_summary':
                 return [
                     (new Link('vm'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_id_vm',
+                            'veneer_bosh_deployment_instancegroup_instance_vm',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ]
                         ),
                     (new Link('persistentdiskALL'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_id_persistentdiskALL_index',
+                            'veneer_bosh_deployment_instancegroup_instance_persistentdiskALL_index',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ]
                         ),
                     (new Link('restart'))
                         ->setTopic(Link::TOPIC_CONFIG)
                         ->setTitle('Restart')
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_id_restart',
+                            'veneer_bosh_deployment_instancegroup_instance_restart',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ]
                         ),
                     (new Link('recreate'))
                         ->setTopic(Link::TOPIC_CONFIG)
                         ->setTitle('Recreate')
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_id_recreate',
+                            'veneer_bosh_deployment_instancegroup_instance_recreate',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                             ]
                         ),
                 ];
-            case 'veneer_bosh_deployment_instancegroup_id_persistentdisk_summary':
+            case 'veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary':
                 return [
                     (new Link('cpi'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_deployment_instancegroup_id_persistentdisk_cpi',
+                            'veneer_bosh_deployment_instancegroup_instance_persistentdisk_cpi',
                             [
                                 'deployment' => $_bosh['deployment']['name'],
-                                'job' => $_bosh['job']['job'],
-                                'index' => $_bosh['index']['index'],
+                                'instance_group' => $_bosh['instance_group']['job'],
+                                'instance' => $_bosh['instance']['uuid'],
                                 'persistent_disk' => $_bosh['persistent_disk']['id'],
                             ]
                         ),
