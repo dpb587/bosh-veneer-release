@@ -45,7 +45,7 @@ class DeploymentPropertySpecHelper
         return self::mergeSpecs($specs);
     }
 
-    static public function collectReleaseTemplates(array $manifest, $filterJob = null)
+    static public function collectReleaseJobs(array $manifest, $filterJob = null)
     {
         $releaseVersions = [];
 
@@ -55,16 +55,16 @@ class DeploymentPropertySpecHelper
 
         $collected = [];
 
-        foreach ($manifest['jobs'] as $job) {
-            if ((null !== $filterJob) && ($filterJob != $job['name'])) {
+        foreach ($manifest['instance_groups'] as $instanceGroup) {
+            if ((null !== $filterJob) && ($filterJob != $instanceGroup['name'])) {
                 continue;
             }
 
-            foreach ($job['templates'] as $template) {
-                $collected[$template['release'] . '/' . $template['name']] = [
-                    'release' => $template['release'],
-                    'release_version' => $releaseVersions[$template['release']],
-                    'template' => $template['name'],
+            foreach ($instanceGroup['jobs'] as $job) {
+                $collected[$job['release'] . '/' . $job['name']] = [
+                    'release' => $job['release'],
+                    'release_version' => $releaseVersions[$job['release']],
+                    'template' => $job['name'],
                 ];
             }
         }
@@ -180,10 +180,10 @@ class DeploymentPropertySpecHelper
 
         $yaml = '';
 
-        foreach ($properties as $name => $scope) {
+        foreach ($tree as $name => $scope) {
             if (isset($scope['children'])) {
                 $yaml .= $prefix . $name . ':' . "\n";
-                $yaml .= $this->createDocumentedYaml($scope['children'], $depth + 1);
+                $yaml .= static::createDocumentedYamlFromTree($scope['children'], $depth + 1);
             } elseif (isset($scope['value'])) {
                 $value = $scope['value'];
 

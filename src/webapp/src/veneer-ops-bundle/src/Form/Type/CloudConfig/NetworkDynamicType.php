@@ -1,13 +1,14 @@
 <?php
 
-namespace Veneer\OpsBundle\Form\Type;
+namespace Veneer\OpsBundle\Form\Type\CloudConfig;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
+use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
-class DeploymentNetworkDynamicType extends AbstractDeploymentManifestPathType
+class NetworkDynamicType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
@@ -44,6 +45,6 @@ class DeploymentNetworkDynamicType extends AbstractDeploymentManifestPathType
 
     public function getName()
     {
-        return 'veneer_ops_deployment_network_dynamic';
+        return 'veneer_ops_editor_cloudconfig_network_dynamic';
     }
 }

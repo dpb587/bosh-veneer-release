@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\OpsBundle\Service;
+namespace Veneer\OpsBundle\Service\Editor;
 
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,15 +22,7 @@ class DeploymentFormHelper
     {
         $pathMatch = null;
 
-        if (preg_match('/^compilation(\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $config = [
-                'isset' => isset($manifest['compilation']),
-                'path' => '[compilation]',
-                'type' => 'veneer_ops_deployment_compilation',
-                'data' => isset($manifest['compilation']) ? $manifest['compilation'] : [],
-                'title' => 'Compilation Settings',
-            ];
-        } elseif (preg_match('/^update(\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
+        if (preg_match('/^update(\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
             $config = [
                 'isset' => isset($manifest['update']),
                 'path' => '[update]',
@@ -38,22 +30,16 @@ class DeploymentFormHelper
                 'data' => isset($manifest['update']) ? $manifest['update'] : [],
                 'title' => 'Update Settings',
             ];
-        } elseif (preg_match('/^disk_pools\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $config = $this->lookupNamedIndex($manifest, 'disk_pools', $pathMatch['name'], 'veneer_ops_deployment_diskpool');
-        } elseif (preg_match('/^networks\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $config = $this->lookupNamedIndex($manifest, 'networks', $pathMatch['name'], 'veneer_ops_deployment_network');
-        } elseif (preg_match('/^resource_pools\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $config = $this->lookupNamedIndex($manifest, 'resource_pools', $pathMatch['name'], 'veneer_ops_deployment_resourcepool');
         } elseif (preg_match('/^releases\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
             $config = $this->lookupNamedIndex($manifest, 'releases', $pathMatch['name'], 'veneer_ops_deployment_release');
-        } elseif (preg_match('/^jobs\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
-            $config = $this->lookupNamedIndex($manifest, 'jobs', $pathMatch['name'], 'veneer_ops_deployment_job');
+        } elseif (preg_match('/^instance_groups\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
+            $config = $this->lookupNamedIndex($manifest, 'instance_groups', $pathMatch['name'], 'veneer_ops_deployment_instancegroup');
 
             if (isset($pathMatch['subpath']) && preg_match('/^properties(\.(?P<subpath>.+))?$/', $pathMatch['subpath'], $pathMatch)) {
                 $config = $this->lookupProperties(
                     new DeploymentProperties(isset($config['data']['properties']) ? $config['data']['properties'] : []),
                     $this->deploymentPropertySpecHelper->mergeTemplatePropertiesSpecs(
-                        DeploymentPropertySpecHelper::collectReleaseTemplates($manifest, $config['data']['name'])
+                        DeploymentPropertySpecHelper::collectReleaseJobs($manifest, $config['data']['name'])
                     ),
                     $config['path'] . '.properties',
                     $pathMatch['subpath']
@@ -65,7 +51,7 @@ class DeploymentFormHelper
             $config = $this->lookupProperties(
                 new DeploymentProperties($manifest['properties']),
                 $this->deploymentPropertySpecHelper->mergeTemplatePropertiesSpecs(
-                    DeploymentPropertySpecHelper::collectReleaseTemplates($manifest)
+                    DeploymentPropertySpecHelper::collectReleaseJobs($manifest)
                 ),
                 'properties',
                 $pathMatch['subpath']
@@ -165,7 +151,8 @@ class DeploymentFormHelper
                     'isset' => true,
                     'path' => '[' . $concept . '][' . $conceptIdx . ']',
                     'type' => $type,
-                    'title' => ucwords(strtr($concept, '_', ' ')) . ' (' . $name . ')',
+                    'title' => ucwords(strtr($concept, '_', ' ')),
+                    'subtitle' => $name,
                     'data' => $conceptData,
                 ];
             }
@@ -175,7 +162,8 @@ class DeploymentFormHelper
             'isset' => false,
             'path' => '[' . $concept . '][' . count($manifest[$concept]) . ']',
             'type' => $type,
-            'title' => 'New ' . ucwords(strtr($concept, '_', ' ')),
+            'title' => ucwords(strtr($concept, '_', ' ')),
+            'subtitle' => 'New',
             'data' => [
                 'name' => $name,
             ],

@@ -9,7 +9,7 @@ use TQ\Git\Cli\Binary;
 use TQ\Vcs\Gaufrette\Adapter;
 use Veneer\CoreBundle\Service\Workspace\Checkout\CheckoutInterface;
 
-class GitRepository extends Repository
+class GitRepository extends Repository implements RepositoryInterface
 {
     protected $binary;
     protected $pathPrefix;
@@ -197,7 +197,7 @@ class GitRepository extends Repository
         return new Changeset($this, $oldRef, $newRef, $changes);
     }
 
-    public function exec($command, array $arguments = [], $stdin = null)
+    protected function exec($command, array $arguments = [], $stdin = null)
     {
         $call = $this->git->createCall(
             $this->getRepositoryPath(),
@@ -215,5 +215,171 @@ class GitRepository extends Repository
         $p->mustRun();
 
         return $p->getOutput();
+    }
+
+    public function commit($profile, array $writes, $message = null)
+    {
+        $username = $this->security->getToken()->getUsername();
+        $commitEnv = [
+            'GIT_AUTHOR_NAME' => $username,
+            'GIT_AUTHOR_EMAIL' => $username . '@' . 'bosh-veneer.local',
+            'GIT_COMMITTER_NAME' => $username,
+            'GIT_COMMITTER_EMAIL' => $username . '@' . 'bosh-veneer.local',
+        ];
+
+        $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
+
+        // create a temporary workspace for committing
+
+        $call = $this->getGit()->createCall(
+            $tmp,
+            'clone',
+            [
+                '--no-checkout',
+                $this->getRepositoryPath(),
+                $tmp,
+            ]
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+        $p->mustRun();
+
+        // switch to our draft branch
+
+        if ($profile['draft_started']) {
+            // existing
+            $call = $this->getGit()->createCall(
+                $tmp,
+                'checkout',
+                [
+                    $profile['ref_write'],
+                ]
+            );
+
+            $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+            $p->mustRun();
+        } else {
+            // new branch
+            $call = $this->getGit()->createCall(
+                $tmp,
+                'checkout',
+                [
+                    '-b', $profile['ref_write'],
+                    $profile['ref_read'],
+                ]
+            );
+
+            $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+            $p->mustRun();
+        }
+
+        // write out changes
+
+        $updates = [];
+
+        foreach ($writes as $path => $data) {
+            $fullpath = $this->getPrefixedPath($path);
+
+            if (null !== $data) {
+                file_put_contents($tmp . '/' . $fullpath, $data);
+            }
+
+            $updates[] = $fullpath;
+        }
+
+        // write a commit
+
+        $call = $this->getGit()->createCall(
+            $tmp,
+            'commit',
+            array_merge(
+                [
+                    '-o',
+                    '-m', $message ?: 'bosh-veneer',
+                ],
+                $updates
+            )
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), array_merge($call->getEnv() ?: [], $commitEnv));
+        $p->mustRun();
+
+        // push it back to the main workspace
+
+        $call = $this->getGit()->createCall(
+            $tmp,
+            'push',
+            [
+                'origin',
+                $profile['ref_write'],
+            ]
+        );
+
+        $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
+        $p->mustRun();
+
+        // cleanup
+
+        $p = new Process('rm -fr ' . escapeshellarg($tmp));
+        $p->mustRun();
+    }
+
+    public function getDraftProfile($draft, $path)
+    {
+        $branch = 'veneer-draft-' . $draft;
+
+        try {
+            $this->showFile($path, $branch);
+
+            $draftStarted = true;
+            $refRead = $branch;
+
+            // draft branch exists
+            try {
+                $this->exec(
+                    'diff',
+                    [
+                        '--exit-code',
+                        'master',
+                        $branch,
+                        '--',
+                        $this->getPrefixedPath($path),
+                    ]
+                );
+
+                $pathTainted = false;
+            } catch (\Exception $e) {
+                $pathTainted = true;
+            }
+
+            $log = $this->exec(
+                'log',
+                [
+                    $branch,
+                    '-1',
+                    '--pretty=raw',
+                ]
+            );
+
+            preg_match('/^committer (.+) (\d+ [\-\+]\d+)$/m', $log, $committerMatch);
+
+            $draftLastAuthor = $committerMatch[1];
+            $draftLastDate = \DateTime::createFromFormat('U O', $committerMatch[2]);
+        } catch (\Exception $e) {
+            $refRead = 'master';
+            $draftStarted = false;
+            $pathTainted = false;
+            $draftLastDate = null;
+            $draftLastAuthor = null;
+        }
+
+        return [
+            'ref_read' => $refRead,
+            'ref_write' => $branch,
+            'draft_started' => $draftStarted,
+            'draft_last_author' => $draftLastAuthor,
+            'draft_last_date' => $draftLastDate,
+            'path_tainted' => $pathTainted,
+        ];
     }
 }

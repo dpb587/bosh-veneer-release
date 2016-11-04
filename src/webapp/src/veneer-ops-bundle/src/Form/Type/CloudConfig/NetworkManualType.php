@@ -1,13 +1,14 @@
 <?php
 
-namespace Veneer\OpsBundle\Form\Type;
+namespace Veneer\OpsBundle\Form\Type\CloudConfig;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
+use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
-class DeploymentNetworkManualType extends AbstractDeploymentManifestPathType
+class NetworkManualType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,7 +18,7 @@ class DeploymentNetworkManualType extends AbstractDeploymentManifestPathType
                 'collection',
                 array(
                     'label' => 'Subnets',
-                    'type' => 'veneer_ops_deployment_network_manual_subnet',
+                    'type' => 'veneer_ops_editor_cloudconfig_network_manual_subnet',
                     'allow_add' => true,
                     'allow_delete' => true,
                     'options' => [
@@ -31,6 +32,6 @@ class DeploymentNetworkManualType extends AbstractDeploymentManifestPathType
 
     public function getName()
     {
-        return 'veneer_ops_deployment_network_manual';
+        return 'veneer_ops_editor_cloudconfig_network_manual';
     }
 }

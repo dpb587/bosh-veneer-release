@@ -1,13 +1,14 @@
 <?php
 
-namespace Veneer\OpsBundle\Form\Type;
+namespace Veneer\OpsBundle\Form\Type\CloudConfig;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
+use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
-class DeploymentDiskPoolType extends AbstractDeploymentManifestPathType
+class DiskTypeType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
@@ -23,7 +24,7 @@ class DeploymentDiskPoolType extends AbstractDeploymentManifestPathType
                 'name',
                 'text',
                 [
-                    'label' => 'Disk Pool Name',
+                    'label' => 'Name',
                     'veneer_help_html' => '<p>A unique name used to identify and reference the disk pool.</p>',
                 ]
             )
@@ -48,6 +49,6 @@ class DeploymentDiskPoolType extends AbstractDeploymentManifestPathType
 
     public function getName()
     {
-        return 'veneer_ops_deployment_diskpool';
+        return 'veneer_ops_editor_cloudconfig_disktype';
     }
 }

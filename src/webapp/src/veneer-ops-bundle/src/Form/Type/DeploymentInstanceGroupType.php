@@ -55,8 +55,8 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
                 ]
             )
             ->add(
-                'templates',
-                'veneer_ops_deployment_job_templates',
+                'jobs',
+                'veneer_ops_deployment_instancegroup_templates',
                 [
                     'label' => 'Templates',
                     'manifest' => $options['manifest'],
@@ -68,7 +68,7 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
                 'collection',
                 [
                     'label' => 'Networks',
-                    'type' => 'veneer_ops_deployment_job_network',
+                    'type' => 'veneer_ops_deployment_instancegroup_network',
                     'options' => [
                         'manifest' => $options['manifest'],
                         'manifest_path' => $options['manifest_path'],
@@ -82,6 +82,6 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
 
     public function getName()
     {
-        return 'veneer_ops_deployment_job';
+        return 'veneer_ops_deployment_instancegroup';
     }
 }

@@ -15,13 +15,7 @@
             <tag name="form.type" alias="veneer_ops_deployment_property" />
         </service>
 
-        <service id="veneer_ops.form.type.deployment_compilation" class="Veneer\OpsBundle\Form\Type\DeploymentCompilationType">
-            <argument type="service" id="cpi" />
-
-            <tag name="form.type" alias="veneer_ops_deployment_compilation" />
-        </service>
-
-        <service id="veneer_ops.form.type.deployment_update" class="Veneer\OpsBundle\Form\Type\DeploymentUpdateType">
+        <service id="veneer_ops.form.type.deployment_update" class="Veneer\OpsBundle\Form\Type\Deployment\UpdateType">
             <tag name="form.type" alias="veneer_ops_deployment_update" />
         </service>
 
@@ -29,12 +23,6 @@
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
             <tag name="form.type" alias="veneer_ops_deployment_release" />
-        </service>
-
-        <service id="veneer_ops.form.type.deployment_resourcepool" class="Veneer\OpsBundle\Form\Type\DeploymentResourcePoolType">
-            <argument type="service" id="cpi" />
-
-            <tag name="form.type" alias="veneer_ops_deployment_resourcepool" />
         </service>
 
         <service id="veneer_ops.form.type.deployment_resourcepool_stemcell" class="Veneer\OpsBundle\Form\Type\DeploymentResourcePoolStemcellType">
@@ -77,28 +65,70 @@
             <tag name="form.type" alias="veneer_ops_deployment_network_manifestselector" />
         </service>
 
-        <service id="veneer_ops.form.type.deployment_diskpool" class="Veneer\OpsBundle\Form\Type\DeploymentDiskPoolType">
-            <argument type="service" id="cpi" />
-
-            <tag name="form.type" alias="veneer_ops_deployment_diskpool" />
-        </service>
-
         <service id="veneer_ops.form.type.deployment_job" class="Veneer\OpsBundle\Form\Type\DeploymentInstanceGroupType">
             <argument type="service" id="cpi" />
 
-            <tag name="form.type" alias="veneer_ops_deployment_job" />
+            <tag name="form.type" alias="veneer_ops_deployment_instancegroup" />
         </service>
 
         <service id="veneer_ops.form.type.deployment_job_network" class="Veneer\OpsBundle\Form\Type\DeploymentInstanceGroupNetworkType">
             <argument type="service" id="cpi" />
 
-            <tag name="form.type" alias="veneer_ops_deployment_job_network" />
+            <tag name="form.type" alias="veneer_ops_deployment_instancegroup_network" />
         </service>
 
         <service id="veneer_ops.form.type.deployment_job_templates" class="Veneer\OpsBundle\Form\Type\DeploymentInstanceGroupTemplatesType">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
-            <tag name="form.type" alias="veneer_ops_deployment_job_templates" />
+            <tag name="form.type" alias="veneer_ops_deployment_instancegroup_templates" />
+        </service>
+
+        <!-- cloud config -->
+
+        <service id="veneer_ops.form.type.cloudconfig_availabilityzone" class="Veneer\OpsBundle\Form\Type\CloudConfig\AvailabilityZoneType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_availabilityzone" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_disktype" class="Veneer\OpsBundle\Form\Type\CloudConfig\DiskTypeType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_disktype" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_compilation" class="Veneer\OpsBundle\Form\Type\CloudConfig\CompilationType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_compilation" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_vmtype" class="Veneer\OpsBundle\Form\Type\CloudConfig\VmTypeType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_vmtype" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_network" class="Veneer\OpsBundle\Form\Type\CloudConfig\NetworkType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_network" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_network_dynamic" class="Veneer\OpsBundle\Form\Type\CloudConfig\NetworkDynamicType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_network_dynamic" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_network_manual" class="Veneer\OpsBundle\Form\Type\CloudConfig\NetworkManualType">
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_network_manual" />
+        </service>
+
+        <service id="veneer_ops.form.type.cloudconfig_network_manual_subnet" class="Veneer\OpsBundle\Form\Type\CloudConfig\NetworkManualSubnetType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_editor_cloudconfig_network_manual_subnet" />
         </service>
     </services>
 </container>

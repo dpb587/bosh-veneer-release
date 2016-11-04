@@ -26,10 +26,14 @@
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
-        <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">
-            <argument>%veneer_core.workspace.repository_path%</argument>
-            <argument>%veneer_cloque.versioning.repository.path_prefix%</argument>
-            <argument>%veneer.executable.git%</argument>
+        <!--<service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">-->
+            <!--<argument>%veneer_core.workspace.repository_path%</argument>-->
+            <!--<argument>%veneer_cloque.versioning.repository.path_prefix%</argument>-->
+            <!--<argument>%veneer.executable.git%</argument>-->
+        <!--</service>-->
+
+        <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\LiveRepository">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 
         <service id="veneer_core.workspace.app" class="Veneer\CoreBundle\Service\Workspace\App\AppFactory">
@@ -56,12 +60,6 @@
             <argument>%kernel.debug%</argument>
 
             <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
-        </service>
-
-        <service id="veneer_core.workspace.repository.drafts" class="Veneer\CoreBundle\Service\Workspace\RepositoryDrafts" scope="request">
-            <argument type="service" id="veneer_core.workspace.repository" />
-            <argument type="service" id="request" />
-            <argument type="service" id="security.context" />
         </service>
 
         <service id="veneer_core.encryption" class="Veneer\CoreBundle\Service\EncryptionService">

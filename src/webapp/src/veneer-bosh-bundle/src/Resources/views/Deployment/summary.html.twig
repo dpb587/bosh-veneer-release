@@ -11,7 +11,6 @@
 {% block frag_sidebar %}
     <ul class="list-unstyled">
         <li><a href="{{ _links.widget.manifest.url }}">Manifest</a></li>
-        <li><a href="{{ _links.widget.vmALL.url }}">Virtual Machines</a></li>
     </ul>
     
     {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}

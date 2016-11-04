@@ -45,6 +45,6 @@ class DeploymentInstanceGroupNetworkType extends AbstractDeploymentManifestPathT
 
     public function getName()
     {
-        return 'veneer_ops_deployment_job_network';
+        return 'veneer_ops_deployment_instancegroup_network';
     }
 }

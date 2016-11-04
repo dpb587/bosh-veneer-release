@@ -9,7 +9,6 @@ use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
-use Veneer\OpsBundle\Service\DeploymentFormHelper;
 use Veneer\BoshBundle\Controller\DeploymentController;
 use Veneer\BoshBundle\Entity\Deployments;
 use Symfony\Component\PropertyAccess\PropertyAccess;

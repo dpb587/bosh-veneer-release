@@ -47,14 +47,6 @@ class WidgetPlugin implements PluginInterface
                                 'deployment' => $_bosh['deployment']['name'],
                             ]
                         ),
-                    (new Link('vmALL'))
-                        ->setTopic(Link::TOPIC_WIDGET)
-                        ->setRoute(
-                            'veneer_bosh_deployment_vmALL_index',
-                            [
-                                'deployment' => $_bosh['deployment']['name'],
-                            ]
-                        ),
                 ];
             case 'veneer_bosh_deployment_instancegroup_summary':
                 return [

@@ -1,13 +1,14 @@
 <?php
 
-namespace Veneer\OpsBundle\Form\Type;
+namespace Veneer\OpsBundle\Form\Type\Deployment;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
+use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
-class DeploymentUpdateType extends AbstractDeploymentManifestPathType
+class UpdateType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

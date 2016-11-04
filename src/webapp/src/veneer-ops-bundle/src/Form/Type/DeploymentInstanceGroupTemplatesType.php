@@ -83,6 +83,6 @@ class DeploymentInstanceGroupTemplatesType extends AbstractDeploymentManifestPat
 
     public function getName()
     {
-        return 'veneer_ops_deployment_job_templates';
+        return 'veneer_ops_deployment_instancegroup_templates';
     }
 }

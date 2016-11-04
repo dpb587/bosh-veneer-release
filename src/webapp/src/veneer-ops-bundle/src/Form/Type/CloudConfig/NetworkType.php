@@ -1,14 +1,15 @@
 <?php
 
-namespace Veneer\OpsBundle\Form\Type;
+namespace Veneer\OpsBundle\Form\Type\CloudConfig;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\DeploymentNetworkTransformer;
+use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
-class DeploymentNetworkType extends AbstractDeploymentManifestPathType
+class NetworkType extends AbstractDeploymentManifestPathType 
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,7 +30,7 @@ class DeploymentNetworkType extends AbstractDeploymentManifestPathType
                     'label' => 'Network Type',
                     'forms' => [
                         'manual' => [
-                            'veneer_ops_deployment_network_manual',
+                            'veneer_ops_editor_cloudconfig_network_manual',
                             [
                                 'label' => 'Manual',
                                 'manifest' => $options['manifest'],
@@ -37,7 +38,7 @@ class DeploymentNetworkType extends AbstractDeploymentManifestPathType
                             ],
                         ],
                         'dynamic' => [
-                            'veneer_ops_deployment_network_dynamic',
+                            'veneer_ops_editor_cloudconfig_network_dynamic',
                             [
                                 'label' => 'Dynamic',
                                 'manifest' => $options['manifest'],
@@ -54,6 +55,6 @@ class DeploymentNetworkType extends AbstractDeploymentManifestPathType
 
     public function getName()
     {
-        return 'veneer_ops_deployment_network';
+        return 'veneer_ops_editor_cloudconfig_network';
     }
 }
