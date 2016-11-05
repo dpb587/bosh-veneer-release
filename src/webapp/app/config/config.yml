@@ -41,6 +41,10 @@ twig:
     globals:
       veneer_bosh_director_name: "%veneer_bosh.director_name%"
       veneer_bosh_plugin_factory: "@veneer_core.plugin.bundle.factory"
+      veneer_core_build_tag: "%veneer_core.build.tag%"
+      veneer_core_build_tag_commit: "%veneer_core.build.tag_commit%"
+      veneer_core_build_commit: "%veneer_core.build.commit%"
+      veneer_core_build_dirty: "%veneer_core.build.dirty%"
 
 # Assetic Configuration
 assetic:

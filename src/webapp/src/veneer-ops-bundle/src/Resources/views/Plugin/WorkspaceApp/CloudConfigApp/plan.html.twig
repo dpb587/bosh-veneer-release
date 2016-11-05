@@ -1,0 +1,6 @@
+{% if plan.action == 'unchanged' %}
+    <span class="text-muted">No effective changes.</span>
+{% else %}
+    <pre><code>{% for line in plan.diff %}{{ line }}
+{% endfor %}</code></pre>
+{% endif %}

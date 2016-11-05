@@ -91,10 +91,29 @@ class BuiltinPlugin implements PluginInterface
                 $veneerBoshContext['task'] = $this->loadTask(
                     $request->attributes->get('task')
                 );
+            } elseif ('event' == $contextSplit[1]) {
+                $veneerBoshContext['event'] = $this->loadEvent(
+                    $request->attributes->get('event')
+                );
+            } elseif ('cloud-config' == $contextSplit[1]) {
+                $veneerBoshContext['cloudconfig'] = $this->em->getRepository('VeneerBoshBundle:CloudConfigs')
+                    ->findOneBy([], ['id' => 'desc']);
             }
         }
 
         $request->attributes->set('_bosh', $veneerBoshContext);
+    }
+
+    protected function loadEvent($event)
+    {
+        $loaded = $this->em->getRepository('VeneerBoshBundle:Events')
+            ->findOneById($event);
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find event');
+        }
+
+        return $loaded;
     }
 
     protected function loadTask($task)

@@ -10,24 +10,36 @@
     </parameters>
 
     <services>
-        <service id="veneer_ops.plugin.web_workspace_app.deployment" class="Veneer\OpsBundle\Service\Workspace\App\DeploymentApp">
-            <argument type="service" id="veneer_core.workspace.repository" />
-            <argument type="service" id="service_container" />
+        <!--<service id="veneer_ops.plugin.web_workspace_app.deployment" class="Veneer\OpsBundle\Service\Workspace\App\DeploymentApp">-->
+            <!--<argument type="service" id="veneer_core.workspace.repository" />-->
+            <!--<argument type="service" id="service_container" />-->
+            <!--<argument type="service" id="logger" />-->
+
+            <!--<tag name="veneer_core.workspace.app" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />-->
+            <!--<tag name="veneer_core.workspace.watcher" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCommit" />-->
+            <!--<tag name="veneer_core.workspace.compiler" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCompile" />-->
+            <!--<tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />-->
+        <!--</service>-->
+
+        <service id="veneer_ops.plugin.web_workspace_app.cloudconfig" class="Veneer\OpsBundle\Service\Workspace\App\CloudConfigApp">
+            <argument type="service" id="veneer_ops.manifest_builder.bosh" />
+            <argument type="service" id="veneer_bosh.api" />
             <argument type="service" id="logger" />
 
-            <tag name="veneer_core.workspace.app" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_cloudconfig_summary" />
+            <tag name="veneer_core.workspace.app" path=";bosh/cloud-config/manifest.yml;" />
             <tag name="veneer_core.workspace.watcher" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCommit" />
             <tag name="veneer_core.workspace.compiler" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" method="onManifestCompile" />
-            <tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />
+            <tag name="monolog.logger" channel="veneer_ops.workspace.app.cloudconfig" />
         </service>
 
-        <service id="veneer_ops.plugin.web_workspace_lifecycle.deployment" class="Veneer\OpsBundle\Service\Workspace\Lifecycle\ManifestLifecycle">
-            <argument type="service" id="veneer_core.workspace.repository" />
-            <argument type="service" id="service_container" />
-            <argument type="service" id="logger" />
+        <!--<service id="veneer_ops.plugin.web_workspace_lifecycle.deployment" class="Veneer\OpsBundle\Service\Workspace\Lifecycle\ManifestLifecycle">-->
+            <!--<argument type="service" id="veneer_core.workspace.repository" />-->
+            <!--<argument type="service" id="service_container" />-->
+            <!--<argument type="service" id="logger" />-->
 
-            <tag name="veneer_core.workspace.lifecycle" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />
-            <tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />
-        </service>
+            <!--<tag name="veneer_core.workspace.lifecycle" path="%veneer_ops.plugin.web_workspace_app.deployment.path%" />-->
+            <!--<tag name="monolog.logger" channel="veneer_ops.workspace.app.deployment" />-->
+        <!--</service>-->
     </services>
 </container>

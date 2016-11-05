@@ -33,6 +33,11 @@ class PhysicalCheckout implements CheckoutInterface
         return $this;
     }
 
+    public function exists($path)
+    {
+        return file_exists($path);
+    }
+
     public function ls($path)
     {
         $physical = $this->path . '/' . $this->resolvePath($path);

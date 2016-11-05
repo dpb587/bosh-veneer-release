@@ -1,0 +1,38 @@
+{% extends _layout %}
+
+{% block def_title 'Apply Changes' %}
+
+{% block frag_content %}
+    {% for change in mapped_changes %}
+        <div class="card">
+            {% if change.status == 'created' %}
+                <div class="card-header alert-success">
+                    <i class="fa fa-plus-square fa-fw"></i>
+            {% elseif change.status == 'deleted' %}
+                <div class="card-header alert-danger">
+                    <i class="fa fa-minus-square fa-fw"></i>
+            {% else %}
+                <div class="card-header alert-info">
+                    <i class="fa fa-minus-square fa-fw"></i>
+            {% endif %}
+                    {{ change.path }}
+                </div>
+
+            <div class="card-block">
+                stuff
+            </div>
+
+            {#{% if change.app|default %}
+                <div class="card-footer text-muted">
+                    via <a href="{{ path(change.app.appRoute, { 'path' : change.path }) }}">{{ change.app.appTitle }}</a>
+                </div>
+            {% endif %}#}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <div class="list-group">
+        Comparing <code>{{ changeset.newRef }}</code> to <code>{{ changeset.oldRef }}</code>.
+    </div>
+{% endblock %}

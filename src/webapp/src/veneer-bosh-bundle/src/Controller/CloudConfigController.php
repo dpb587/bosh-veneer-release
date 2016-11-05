@@ -44,7 +44,7 @@ class CloudConfigController extends AbstractController
         return $this->renderApi(
             'VeneerBoshBundle:CloudConfig:manifest.html.twig',
             [
-                'string' => $_bosh['cloudconfig']['manifest'],
+                'string' => $_bosh['cloudconfig']['properties'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),

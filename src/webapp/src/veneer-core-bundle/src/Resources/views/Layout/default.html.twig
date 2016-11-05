@@ -70,13 +70,13 @@
                 </div>
             {% endblock %}
 
-            <footer class="text-center" style="margin-top:2rem;">
+            <footer class="text-center" style="margin-top:2rem;padding-bottom:4px;">
                 <small class="text-muted">
-                    <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Running With"><i class="fa fa-trophy fa-fw"></i>veneer</a>
+                    <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Running with"><i class="fa fa-trophy fa-fw"></i>veneer</a>
                     &nbsp;&middot;&nbsp;
-                    <a class="text-muted" href="https://github.com/dpb587/bosh-veneer-release" title="Versioned At"><i class="fa fa-wrench fa-fw"></i>0.1.0+dev.{{ 'now'|date('Ym12') }}</a>
+                    <a class="text-muted" href="https://github.com/dpb587/bosh-veneer-release" title="Built from"><i class="fa fa-wrench fa-fw"></i>{{ veneer_core_build_tag }}{% if veneer_core_build_tag_commit != veneer_core_build_commit %}+dev.{{ veneer_core_build_commit }}{{ veneer_core_build_dirty ? '-dirty' : '' }}{% endif %}</a>
                     &nbsp;&middot;&nbsp;
-                    <a class="text-muted" href="https://dpb587.me/" target="_blank" title="Developed By"><i class="fa fa-hand-peace-o fa-fw"></i>dpb587</a>
+                    <a class="text-muted" href="https://dpb587.me/" target="_blank" title="Created by"><i class="fa fa-hand-peace-o fa-fw"></i>dpb587</a>
                 </small>
             </footer>
         {% endblock %}

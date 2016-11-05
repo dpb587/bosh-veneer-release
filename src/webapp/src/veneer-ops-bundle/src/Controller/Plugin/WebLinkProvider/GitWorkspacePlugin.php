@@ -14,18 +14,6 @@ class GitWorkspacePlugin implements PluginInterface
         $_bosh = $request->attributes->get('_bosh');
 
         switch ($route) {
-            case 'veneer_bosh_cloudconfig_summary':
-                return [
-                    (new Link('ops_edit'))
-                        ->setTopic(Link::TOPIC_CONFIG)
-                        ->setTitle('Edit Cloud Config')
-                        ->setRoute(
-                            'veneer_ops_workspace_app_cloudconfig_summary',
-                            [
-                                'path' => 'bosh/cloud-config/manifest.yml',
-                            ]
-                        ),
-                ];
             case 'veneer_bosh_runtimeconfig_summary':
                 return [
                     (new Link('ops_edit'))

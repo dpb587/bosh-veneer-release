@@ -8,6 +8,8 @@
         <service id="veneer_bosh.plugin.web_request_context.builtin" class="Veneer\BoshBundle\Controller\Plugin\WebRequestContext\BuiltinPlugin">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
+            <tag name="veneer_core.request_context" context="bosh/cloud-config" />
+            <tag name="veneer_core.request_context" context="bosh/runtime-config" />
             <tag name="veneer_core.request_context" context="bosh/deployment" />
             <tag name="veneer_core.request_context" context="bosh/deployment:all" />
             <tag name="veneer_core.request_context" context="bosh/deployment/property:all" />

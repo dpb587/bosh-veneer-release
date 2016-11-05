@@ -32,43 +32,15 @@ class GitRepository extends Repository implements RepositoryInterface
             $ref = 'master';
         }
 
-        if (!$mode & CheckoutInterface::MODE_WRITABLE) {
-            $checkout = new Checkout\GitDirCheckout(
-                $this->binary,
-                $this->getRepositoryPath() . '/.git',
-                $ref,
-                $mode
-            );
-        } else {
-            $mode = $mode | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
+        $checkout = new Checkout\GitDirCheckout(
+            $this->binary,
+            $this->getRepositoryPath() . '/.git',
+            $ref,
+            $mode & ~CheckoutInterface::MODE_WRITABLE
+        );
 
-            $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
-
-            $call = $this->getGit()->createCall(
-                $tmp,
-                'clone',
-                [
-                    '--no-checkout',
-                    $this->getRepositoryPath(),
-                    $tmp,
-                ]
-            );
-
-            $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
-            $p->mustRun();
-
-            $call = $this->getGit()->createCall(
-                $tmp,
-                'checkout',
-                [
-                    $ref,
-                ]
-            );
-
-            $p = new Process($call->getCmd(), $call->getCwd(), $call->getEnv());
-            $p->mustRun();
-
-            $checkout = new Checkout\PhysicalCheckout($tmp, $ref, $mode);
+        if ($mode & CheckoutInterface::MODE_WRITABLE) {
+            $checkout = $checkout->getPhysicalCheckout();
         }
 
         $checkout->cd($this->pathPrefix);
@@ -187,7 +159,7 @@ class GitRepository extends Repository implements RepositoryInterface
                 'diff',
                 [
                     '--name-status',
-                    $oldRef,
+                    ($oldRef == 'live') ? 'master' : $oldRef,
                     $newRef,
                     '--',
                     $prefixedPath,
@@ -203,7 +175,7 @@ class GitRepository extends Repository implements RepositoryInterface
 
         $changes = [];
 
-        if ((1 != count($lines)) && ('' != $lines[0])) {
+        if ((1 != count($lines)) || ('' != $lines[0])) {
             foreach ($lines as $line) {
                 $sp = preg_split('/\s+/', $line, 2);
 

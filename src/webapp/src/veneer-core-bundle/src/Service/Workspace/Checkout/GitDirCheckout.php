@@ -24,6 +24,37 @@ class GitDirCheckout implements CheckoutInterface
         $this->mode = $mode;
     }
 
+    public function getPhysicalCheckout()
+    {
+        $mode = $this->mode | CheckoutInterface::MODE_WRITABLE;# | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
+
+        $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
+
+        $p = new Process(
+            sprintf(
+                '%s clone --no-checkout %s %s',
+                $this->binary,
+                $this->path,
+                $tmp
+            )
+        );
+
+        $p->mustRun();
+
+        $p = new Process(
+            sprintf(
+                '%s checkout %s',
+                $this->binary,
+                $this->head
+            ),
+            $tmp
+        );
+
+        $p->mustRun();
+
+        return new PhysicalCheckout($tmp, $this->head, $mode);
+    }
+
     public function getHead()
     {
         return $this->head;
