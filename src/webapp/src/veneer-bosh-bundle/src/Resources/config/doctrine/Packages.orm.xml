@@ -14,8 +14,8 @@
     </id>
     <field name="name" type="text" column="name" nullable="false"/>
     <field name="version" type="text" column="version" nullable="false"/>
-    <field name="blobstoreId" type="text" column="blobstore_id" nullable="false"/>
-    <field name="sha1" type="text" column="sha1" nullable="false"/>
+    <field name="blobstoreId" type="text" column="blobstore_id" nullable="true"/>
+    <field name="sha1" type="text" column="sha1" nullable="true"/>
     <field name="dependencySetJson" type="text" column="dependency_set_json" nullable="false"/>
     <field name="fingerprint" type="text" column="fingerprint" nullable="true"/>
     <many-to-one field="release" target-entity="Releases">

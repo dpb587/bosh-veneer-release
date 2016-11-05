@@ -3,6 +3,7 @@
   <entity name="Veneer\BoshBundle\Entity\Deployments" table="deployments">
     <indexes>
       <index name="IDX_373C43D5DD12E1A4" columns="cloud_config_id"/>
+      <index name="IDX_373C43D51403E80C" columns="runtime_config_id"/>
     </indexes>
     <unique-constraints>
       <unique-constraint name="deployments_name_key" columns="name"/>
@@ -12,10 +13,26 @@
     </id>
     <field name="name" type="text" column="name" nullable="false"/>
     <field name="manifest" type="text" column="manifest" nullable="true"/>
+    <field name="linkSpecJson" type="text" column="link_spec_json" nullable="true"/>
     <many-to-one field="cloudConfig" target-entity="CloudConfigs">
       <join-columns>
         <join-column name="cloud_config_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
+    <many-to-one field="runtimeConfig" target-entity="RuntimeConfigs">
+      <join-columns>
+        <join-column name="runtime_config_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="team" target-entity="Teams" inversed-by="deployment">
+      <join-table name="deployments_teams">
+        <join-columns>
+          <join-column name="deployment_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="team_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
   </entity>
 </doctrine-mapping>

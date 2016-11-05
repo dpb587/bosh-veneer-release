@@ -5,12 +5,12 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CloudConfigs
+ * RuntimeConfigs
  *
- * @ORM\Table(name="cloud_configs", indexes={@ORM\Index(name="cloud_configs_created_at_index", columns={"created_at"})})
+ * @ORM\Table(name="runtime_configs", indexes={@ORM\Index(name="runtime_configs_created_at_index", columns={"created_at"})})
  * @ORM\Entity
  */
-class CloudConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
+class RuntimeConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
      * @var string
@@ -32,7 +32,7 @@ class CloudConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="cloud_configs_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="runtime_configs_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
 

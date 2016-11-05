@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CompiledPackages
  *
- * @ORM\Table(name="compiled_packages", uniqueConstraints={@ORM\UniqueConstraint(name="compiled_packages_package_id_stemcell_id_build_key", columns={"package_id", "stemcell_id", "build"}), @ORM\UniqueConstraint(name="package_stemcell_dependency_key_sha1_idx", columns={"package_id", "stemcell_id", "dependency_key_sha1"})}, indexes={@ORM\Index(name="IDX_4A96D06F44CABFF", columns={"package_id"}), @ORM\Index(name="IDX_4A96D06F8AAD739", columns={"stemcell_id"})})
+ * @ORM\Table(name="compiled_packages", uniqueConstraints={@ORM\UniqueConstraint(name="package_stemcell_build_idx", columns={"package_id", "stemcell_os", "stemcell_version", "build"}), @ORM\UniqueConstraint(name="package_stemcell_dependency_idx", columns={"package_id", "stemcell_os", "stemcell_version", "dependency_key_sha1"})}, indexes={@ORM\Index(name="IDX_4A96D06F44CABFF", columns={"package_id"})})
  * @ORM\Entity
  */
 class CompiledPackages extends \Veneer\BoshBundle\Service\AbstractEntity
@@ -48,6 +48,20 @@ class CompiledPackages extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $dependencyKeySha1;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="stemcell_os", type="text", nullable=true)
+     */
+    protected $stemcellOs;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="stemcell_version", type="text", nullable=true)
+     */
+    protected $stemcellVersion;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -56,16 +70,6 @@ class CompiledPackages extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="compiled_packages_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-    /**
-     * @var \Veneer\BoshBundle\Entity\Stemcells
-     *
-     * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Stemcells")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="stemcell_id", referencedColumnName="id")
-     * })
-     */
-    protected $stemcell;
 
     /**
      * @var \Veneer\BoshBundle\Entity\Packages

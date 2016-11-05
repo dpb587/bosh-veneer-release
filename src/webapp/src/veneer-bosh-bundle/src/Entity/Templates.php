@@ -69,6 +69,20 @@ class Templates extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $propertiesJson;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="consumes_json", type="text", nullable=true)
+     */
+    protected $consumesJson;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="provides_json", type="text", nullable=true)
+     */
+    protected $providesJson;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")

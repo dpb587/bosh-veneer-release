@@ -34,7 +34,7 @@ class RenderedTemplatesArchives extends \Veneer\BoshBundle\Service\AbstractEntit
     protected $contentSha1;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */

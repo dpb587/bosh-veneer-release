@@ -20,6 +20,8 @@
     <field name="logsJson" type="text" column="logs_json" nullable="true"/>
     <field name="fingerprint" type="text" column="fingerprint" nullable="true"/>
     <field name="propertiesJson" type="text" column="properties_json" nullable="true"/>
+    <field name="consumesJson" type="text" column="consumes_json" nullable="true"/>
+    <field name="providesJson" type="text" column="provides_json" nullable="true"/>
     <many-to-one field="release" target-entity="Releases">
       <join-columns>
         <join-column name="release_id" referenced-column-name="id"/>

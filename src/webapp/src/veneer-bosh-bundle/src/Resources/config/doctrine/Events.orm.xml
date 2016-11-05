@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\Events" table="events">
+    <indexes>
+      <index name="events_timestamp_index" columns="timestamp"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="parentId" type="integer" column="parent_id" nullable="true"/>
+    <field name="user" type="text" column="user" nullable="false"/>
+    <field name="timestamp" type="datetime" column="timestamp" nullable="false"/>
+    <field name="action" type="text" column="action" nullable="false"/>
+    <field name="objectType" type="text" column="object_type" nullable="false"/>
+    <field name="objectName" type="text" column="object_name" nullable="true"/>
+    <field name="error" type="text" column="error" nullable="true"/>
+    <field name="task" type="text" column="task" nullable="true"/>
+    <field name="deployment" type="text" column="deployment" nullable="true"/>
+    <field name="instance" type="text" column="instance" nullable="true"/>
+    <field name="contextJson" type="text" column="context_json" nullable="true"/>
+  </entity>
+</doctrine-mapping>

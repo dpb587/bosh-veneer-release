@@ -41,6 +41,13 @@ class Stemcells extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $sha1;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="operating_system", type="text", nullable=true)
+     */
+    protected $operatingSystem;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")

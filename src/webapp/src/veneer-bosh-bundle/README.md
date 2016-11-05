@@ -37,7 +37,12 @@ ResolvedMetric
 
 You might need to resync entities...
 
-    $ rm -fr src/veneer-bosh-bundle/src/Entity/*
+    # ALTER TABLE deployments_teams ADD PRIMARY KEY (deployment_id, team_id);
+    # ALTER TABLE tasks_teams ADD PRIMARY KEY (task_id, team_id);
+    $ rm -fr src/veneer-bosh-bundle/src/Entity src/veneer-bosh-bundle/src/Resources/config/doctrine
     $ php app/console doctrine:mapping:import --force VeneerBoshBundle xml
-    $ php app/console doctrine:mapping:convert --extend=Veneer\\BoshBundle\\Service\\AbstractEntity annotation ./src
-    $ find src/Bosh/CoreBundle/Entity -name *.php | xargs -I {} -- sed -i "" -e "s/    private /    protected /" {}
+    $ php app/console doctrine:mapping:convert --extend=Veneer\\BoshBundle\\Service\\AbstractEntity annotation tmp
+    $ mv tmp/Veneer/BoshBundle/Entity src/veneer-bosh-bundle/src/Entity
+    $ find src/veneer-bosh-bundle/src/Entity -name *.php | xargs -I {} -- sed -i "" -e "s/    private /    protected /" {}
+    $ find src/veneer-bosh-bundle/src/Entity -name *.php | xargs -I {} -- sed -i "" -e "s/vardatetime/datetime/" {}
+    $ find src/veneer-bosh-bundle/src/Resources/config/doctrine -name *.xml | xargs -I {} -- sed -i "" -e "s/vardatetime/datetime/" {}

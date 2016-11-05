@@ -3,11 +3,10 @@
   <entity name="Veneer\BoshBundle\Entity\CompiledPackages" table="compiled_packages">
     <indexes>
       <index name="IDX_4A96D06F44CABFF" columns="package_id"/>
-      <index name="IDX_4A96D06F8AAD739" columns="stemcell_id"/>
     </indexes>
     <unique-constraints>
-      <unique-constraint name="compiled_packages_package_id_stemcell_id_build_key" columns="package_id,stemcell_id,build"/>
-      <unique-constraint name="package_stemcell_dependency_key_sha1_idx" columns="package_id,stemcell_id,dependency_key_sha1"/>
+      <unique-constraint name="package_stemcell_build_idx" columns="package_id,stemcell_os,stemcell_version,build"/>
+      <unique-constraint name="package_stemcell_dependency_idx" columns="package_id,stemcell_os,stemcell_version,dependency_key_sha1"/>
     </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
@@ -17,11 +16,8 @@
     <field name="dependencyKey" type="text" column="dependency_key" nullable="false"/>
     <field name="build" type="integer" column="build" nullable="false"/>
     <field name="dependencyKeySha1" type="text" column="dependency_key_sha1" nullable="false"/>
-    <many-to-one field="stemcell" target-entity="Stemcells">
-      <join-columns>
-        <join-column name="stemcell_id" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
+    <field name="stemcellOs" type="text" column="stemcell_os" nullable="true"/>
+    <field name="stemcellVersion" type="text" column="stemcell_version" nullable="true"/>
     <many-to-one field="package" target-entity="Packages">
       <join-columns>
         <join-column name="package_id" referenced-column-name="id"/>

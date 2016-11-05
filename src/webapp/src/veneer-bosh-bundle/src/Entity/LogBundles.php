@@ -20,7 +20,7 @@ class LogBundles extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $blobstoreId;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */

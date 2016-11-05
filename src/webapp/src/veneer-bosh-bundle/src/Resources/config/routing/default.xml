@@ -34,19 +34,13 @@
     <!-- events -->
 
     <route id="veneer_bosh_eventALL_index" path="/bosh/event/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentALLController::indexAction</default>
+        <default key="_controller">Veneer\BoshBundle\Controller\EventALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/event:all</default>
     </route>
 
-    <route id="veneer_bosh_event_data" path="/bosh/event/{event}/data.{_format}">
-        <default key="_controller">Veneer\CoreBundle\Controller\GenericObjectController::dataAction</default>
-        <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/event</default>
-    </route>
-
     <route id="veneer_bosh_event_summary" path="/bosh/event/{event}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\DeploymentController::summaryAction</default>
+        <default key="_controller">Veneer\BoshBundle\Controller\EventController::summaryAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/event</default>
     </route>
@@ -57,12 +51,6 @@
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentALLController::indexAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/deployment:all</default>
-    </route>
-
-    <route id="veneer_bosh_deployment_data" path="/bosh/deployment/{deployment}/data.{_format}">
-        <default key="_controller">Veneer\CoreBundle\Controller\GenericObjectController::dataAction</default>
-        <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
     <route id="veneer_bosh_deployment_summary" path="/bosh/deployment/{deployment}/summary.{_format}">

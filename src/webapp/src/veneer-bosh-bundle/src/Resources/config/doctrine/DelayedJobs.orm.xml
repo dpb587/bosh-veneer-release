@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Veneer\BoshBundle\Entity\DelayedJobs" table="delayed_jobs">
+    <indexes>
+      <index name="delayed_jobs_priority" columns="priority,run_at"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="SEQUENCE"/>
+    </id>
+    <field name="priority" type="integer" column="priority" nullable="false"/>
+    <field name="attempts" type="integer" column="attempts" nullable="false"/>
+    <field name="handler" type="text" column="handler" nullable="false"/>
+    <field name="lastError" type="text" column="last_error" nullable="true"/>
+    <field name="runAt" type="datetime" column="run_at" nullable="true"/>
+    <field name="lockedAt" type="datetime" column="locked_at" nullable="true"/>
+    <field name="failedAt" type="datetime" column="failed_at" nullable="true"/>
+    <field name="lockedBy" type="text" column="locked_by" nullable="true"/>
+    <field name="queue" type="text" column="queue" nullable="true"/>
+  </entity>
+</doctrine-mapping>

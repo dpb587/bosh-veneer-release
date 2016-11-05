@@ -20,7 +20,7 @@ class Snapshots extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $clean;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */

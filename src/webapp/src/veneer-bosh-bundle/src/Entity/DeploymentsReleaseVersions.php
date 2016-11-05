@@ -23,16 +23,6 @@ class DeploymentsReleaseVersions extends \Veneer\BoshBundle\Service\AbstractEnti
     protected $id;
 
     /**
-     * @var \Veneer\BoshBundle\Entity\Deployments
-     *
-     * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Deployments")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="deployment_id", referencedColumnName="id")
-     * })
-     */
-    protected $deployment;
-
-    /**
      * @var \Veneer\BoshBundle\Entity\ReleaseVersions
      *
      * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\ReleaseVersions")
@@ -41,6 +31,16 @@ class DeploymentsReleaseVersions extends \Veneer\BoshBundle\Service\AbstractEnti
      * })
      */
     protected $releaseVersion;
+
+    /**
+     * @var \Veneer\BoshBundle\Entity\Deployments
+     *
+     * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Deployments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="deployment_id", referencedColumnName="id")
+     * })
+     */
+    protected $deployment;
 
 
 }

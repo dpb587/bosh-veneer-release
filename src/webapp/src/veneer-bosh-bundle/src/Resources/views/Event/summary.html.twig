@@ -1,0 +1,54 @@
+{% extends _layout %}
+
+{% block def_title '#' ~ _veneer_bosh_context.event.id %}
+
+{% block frag_content %}
+    <dl>
+        <dt>Object</dt>
+        <dd>{{ data.objectType }}</dd>
+        {% if data.objectName != '' %}
+            <dd>{{ data.objectName }}</dd>
+        {% endif %}
+
+        {% if data.deployment != '' %}
+            <dt>Deployment</dt>
+            <dd>{{ data.deployment }}</dd>
+        {% endif %}
+
+        {% if data.instance != '' %}
+            <dt>Instance</dt>
+            <dd>{{ data.instance }}</dd>
+        {% endif %}
+    </dl>
+
+    {% if data.contextJson and data.contextJson != '{}' %}
+        <hr />
+
+        <dl>
+            {% for key, value in data.contextJson %}
+                <dt><code>{{ key }}</code></dt>
+                <dd><pre><code>{{ value|json_encode(constant('JSON_PRETTY_PRINT') + constant('JSON_UNESCAPED_SLASHES')) }}</code></pre></dd>
+            {% endfor %}
+        </dl>
+    {% endif %}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <dl>
+        <dt>User</dt>
+        <dd>{{ data.user }}</dd>
+
+        <dt>Action</dt>
+        <dd>{{ data.action }}</dd>
+
+        {% if data.task %}
+            <dt>Task</dt>
+            <dd>{{ data.task }}</dd>
+        {% endif %}
+
+        <dt>Timestamp</dt>
+        <dd>{{ data.timestamp|date('c') }}</dd>
+    </dl>
+
+    {% include 'VeneerCoreBundle:Common:referencelinks.html.twig' with { '_links' : _links, 'divider' : true } only %}
+{% endblock %}

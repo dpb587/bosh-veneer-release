@@ -20,7 +20,7 @@ class Tasks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $state;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="timestamp", type="datetime", nullable=false)
      */
@@ -48,7 +48,7 @@ class Tasks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $output;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="checkpoint_time", type="datetime", nullable=true)
      */
@@ -69,6 +69,20 @@ class Tasks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $username;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="deployment_name", type="text", nullable=true)
+     */
+    protected $deploymentName;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="started_at", type="datetime", nullable=true)
+     */
+    protected $startedAt;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -78,5 +92,27 @@ class Tasks extends \Veneer\BoshBundle\Service\AbstractEntity
      */
     protected $id;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Veneer\BoshBundle\Entity\Teams", inversedBy="task")
+     * @ORM\JoinTable(name="tasks_teams",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="task_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     *   }
+     * )
+     */
+    protected $team;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->team = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 }

@@ -23,16 +23,6 @@ class DeploymentsStemcells extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $id;
 
     /**
-     * @var \Veneer\BoshBundle\Entity\Stemcells
-     *
-     * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Stemcells")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="stemcell_id", referencedColumnName="id")
-     * })
-     */
-    protected $stemcell;
-
-    /**
      * @var \Veneer\BoshBundle\Entity\Deployments
      *
      * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Deployments")
@@ -41,6 +31,16 @@ class DeploymentsStemcells extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $deployment;
+
+    /**
+     * @var \Veneer\BoshBundle\Entity\Stemcells
+     *
+     * @ORM\ManyToOne(targetEntity="Veneer\BoshBundle\Entity\Stemcells")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="stemcell_id", referencedColumnName="id")
+     * })
+     */
+    protected $stemcell;
 
 
 }

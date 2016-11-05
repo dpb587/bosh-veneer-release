@@ -1,0 +1,43 @@
+{% extends _layout %}
+
+{% block def_title 'Events' %}
+
+{% block frag_content %}
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th class="text-right">Event</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Object Name / Type</th>
+                <th class="text-right">Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td class="text-right"><a href="{{ path('veneer_bosh_event_summary', { 'event' : result.id, '_format' : 'html' }) }}">{{ result.id }}</a></td>
+                    <td>{{ result.user }}</td>
+                    <td>{{ result.action }}</td>
+                    <td>
+                        {% if '' != result.objectName %}
+                            {{ result.objectName }}<br />
+                            <span class="text-muted">{{ result.objectType }}</span>
+                        {% else %}
+                            {{ result.objectType }}
+                        {% endif %}
+                    </td>
+                    <td class="text-right">{{ result.timestamp|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        The basic unit of work performed by the Director. You can get the status and logs for any event. You can monitor
+        the event throughout its lifecycle, which progresses through states like started, running, done, and error.
+        &mdash; <a href="http://bosh.io/docs/terminology.html#director-event">bosh.io</a>
+    </p>
+{% endblock %}

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Veneer\BoshBundle\Entity\ReleaseVersionsTemplates" table="release_versions_templates">
+  <entity name="Veneer\BoshBundle\Entity\InstancesTemplates" table="instances_templates">
     <indexes>
-      <index name="IDX_8D933749265B2DBF" columns="release_version_id"/>
-      <index name="IDX_8D9337495DA0FB8" columns="template_id"/>
+      <index name="IDX_B4ED17033A51721D" columns="instance_id"/>
+      <index name="IDX_B4ED17035DA0FB8" columns="template_id"/>
     </indexes>
     <unique-constraints>
-      <unique-constraint name="release_versions_templates_release_version_id_template_id_key" columns="release_version_id,template_id"/>
+      <unique-constraint name="instances_templates_instance_id_template_id_key" columns="instance_id,template_id"/>
     </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <many-to-one field="releaseVersion" target-entity="ReleaseVersions">
+    <many-to-one field="instance" target-entity="Instances">
       <join-columns>
-        <join-column name="release_version_id" referenced-column-name="id"/>
+        <join-column name="instance_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="template" target-entity="Templates">

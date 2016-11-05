@@ -5,23 +5,39 @@
       <index name="IDX_7A2700699DF4CE98" columns="deployment_id"/>
     </indexes>
     <unique-constraints>
-      <unique-constraint name="vms_agent_id_key" columns="agent_id"/>
+      <unique-constraint name="instances_vm_id_key" columns="vm_id"/>
+      <unique-constraint name="instances_uuid_key" columns="uuid"/>
+      <unique-constraint name="instances_vm_cid_key" columns="vm_cid"/>
+      <unique-constraint name="instances_agent_id_key" columns="agent_id"/>
     </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
     <field name="job" type="text" column="job" nullable="false"/>
     <field name="index" type="integer" column="index" nullable="false"/>
-    <field name="uuid" type="string" column="uuid" nullable="false"/>
     <field name="state" type="text" column="state" nullable="false"/>
     <field name="resurrectionPaused" type="boolean" column="resurrection_paused" nullable="true"/>
-    <field name="agentId" type="text" column="agent_id" nullable="false"/>
-    <field name="vmCid" type="text" column="vm_cid" nullable="true"/>
+    <field name="uuid" type="text" column="uuid" nullable="true"/>
+    <field name="availabilityZone" type="text" column="availability_zone" nullable="true"/>
+    <field name="cloudProperties" type="text" column="cloud_properties" nullable="true"/>
+    <field name="compilation" type="boolean" column="compilation" nullable="true"/>
+    <field name="bootstrap" type="boolean" column="bootstrap" nullable="true"/>
+    <field name="dnsRecords" type="text" column="dns_records" nullable="true"/>
     <field name="specJson" type="text" column="spec_json" nullable="true"/>
+    <field name="vmCid" type="text" column="vm_cid" nullable="true"/>
+    <field name="agentId" type="text" column="agent_id" nullable="true"/>
     <field name="credentialsJson" type="text" column="credentials_json" nullable="true"/>
+    <field name="trustedCertsSha1" type="text" column="trusted_certs_sha1" nullable="true"/>
+    <field name="updateCompleted" type="boolean" column="update_completed" nullable="true"/>
+    <field name="ignore" type="boolean" column="ignore" nullable="true"/>
     <many-to-one field="deployment" target-entity="Deployments">
       <join-columns>
         <join-column name="deployment_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="vm" target-entity="Vms">
+      <join-columns>
+        <join-column name="vm_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

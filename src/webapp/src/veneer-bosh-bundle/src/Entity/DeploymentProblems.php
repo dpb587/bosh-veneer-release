@@ -41,14 +41,14 @@ class DeploymentProblems extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $dataJson;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
     protected $createdAt;
 
     /**
-     * @var \DateTime
+     * @var datetime
      *
      * @ORM\Column(name="last_seen_at", type="datetime", nullable=false)
      */

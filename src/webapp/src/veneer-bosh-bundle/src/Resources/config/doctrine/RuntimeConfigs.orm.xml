@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Veneer\BoshBundle\Entity\DnsSchema" table="dns_schema">
-    <id name="filename" type="text" column="filename">
+  <entity name="Veneer\BoshBundle\Entity\RuntimeConfigs" table="runtime_configs">
+    <indexes>
+      <index name="runtime_configs_created_at_index" columns="created_at"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
+    <field name="properties" type="text" column="properties" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
   </entity>
 </doctrine-mapping>

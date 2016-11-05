@@ -12,8 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Releases extends \Veneer\BoshBundle\Service\AbstractEntity
 {
-    protected $versions;
-    
     /**
      * @var string
      *

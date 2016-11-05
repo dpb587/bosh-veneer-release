@@ -24,6 +24,8 @@
             <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/network:all" />
             <tag name="veneer_core.request_context" context="bosh/task" />
             <tag name="veneer_core.request_context" context="bosh/task:all" />
+            <tag name="veneer_core.request_context" context="bosh/event" />
+            <tag name="veneer_core.request_context" context="bosh/event:all" />
             <tag name="veneer_core.request_context" context="bosh/release" />
             <tag name="veneer_core.request_context" context="bosh/release:all" />
             <tag name="veneer_core.request_context" context="bosh/release/package" />

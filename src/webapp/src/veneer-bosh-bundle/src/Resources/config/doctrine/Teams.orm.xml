@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Veneer\BoshBundle\Entity\Stemcells" table="stemcells">
+  <entity name="Veneer\BoshBundle\Entity\Teams" table="teams">
     <unique-constraints>
-      <unique-constraint name="stemcells_name_version_key" columns="name,version"/>
+      <unique-constraint name="teams_name_key" columns="name"/>
     </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
     <field name="name" type="text" column="name" nullable="false"/>
-    <field name="version" type="text" column="version" nullable="false"/>
-    <field name="cid" type="text" column="cid" nullable="false"/>
-    <field name="sha1" type="text" column="sha1" nullable="true"/>
-    <field name="operatingSystem" type="text" column="operating_system" nullable="true"/>
+    <many-to-many field="deployment" target-entity="Deployments" mapped-by="team"/>
+    <many-to-many field="task" target-entity="Tasks" mapped-by="team"/>
   </entity>
 </doctrine-mapping>

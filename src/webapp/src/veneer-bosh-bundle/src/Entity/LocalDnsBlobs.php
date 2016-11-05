@@ -5,19 +5,26 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CloudConfigs
+ * LocalDnsBlobs
  *
- * @ORM\Table(name="cloud_configs", indexes={@ORM\Index(name="cloud_configs_created_at_index", columns={"created_at"})})
+ * @ORM\Table(name="local_dns_blobs")
  * @ORM\Entity
  */
-class CloudConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
+class LocalDnsBlobs extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="properties", type="text", nullable=true)
+     * @ORM\Column(name="blobstore_id", type="text", nullable=false)
      */
-    protected $properties;
+    protected $blobstoreId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sha1", type="text", nullable=false)
+     */
+    protected $sha1;
 
     /**
      * @var datetime
@@ -32,7 +39,7 @@ class CloudConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="SEQUENCE")
-     * @ORM\SequenceGenerator(sequenceName="cloud_configs_id_seq", allocationSize=1, initialValue=1)
+     * @ORM\SequenceGenerator(sequenceName="local_dns_blobs_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
 

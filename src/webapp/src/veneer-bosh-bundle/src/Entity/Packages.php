@@ -29,14 +29,14 @@ class Packages extends \Veneer\BoshBundle\Service\AbstractEntity
     /**
      * @var string
      *
-     * @ORM\Column(name="blobstore_id", type="text", nullable=false)
+     * @ORM\Column(name="blobstore_id", type="text", nullable=true)
      */
     protected $blobstoreId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sha1", type="text", nullable=false)
+     * @ORM\Column(name="sha1", type="text", nullable=true)
      */
     protected $sha1;
 

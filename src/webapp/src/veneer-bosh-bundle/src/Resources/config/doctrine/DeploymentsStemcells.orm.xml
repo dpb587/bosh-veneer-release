@@ -11,14 +11,14 @@
     <id name="id" type="integer" column="id">
       <generator strategy="SEQUENCE"/>
     </id>
-    <many-to-one field="stemcell" target-entity="Stemcells">
-      <join-columns>
-        <join-column name="stemcell_id" referenced-column-name="id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="deployment" target-entity="Deployments">
       <join-columns>
         <join-column name="deployment_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="stemcell" target-entity="Stemcells">
+      <join-columns>
+        <join-column name="stemcell_id" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>

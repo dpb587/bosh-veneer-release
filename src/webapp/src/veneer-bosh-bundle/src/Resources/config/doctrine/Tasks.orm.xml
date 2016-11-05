@@ -17,5 +17,17 @@
     <field name="checkpointTime" type="datetime" column="checkpoint_time" nullable="true"/>
     <field name="type" type="text" column="type" nullable="false"/>
     <field name="username" type="text" column="username" nullable="true"/>
+    <field name="deploymentName" type="text" column="deployment_name" nullable="true"/>
+    <field name="startedAt" type="datetime" column="started_at" nullable="true"/>
+    <many-to-many field="team" target-entity="Teams" inversed-by="task">
+      <join-table name="tasks_teams">
+        <join-columns>
+          <join-column name="task_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="team_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
   </entity>
 </doctrine-mapping>
