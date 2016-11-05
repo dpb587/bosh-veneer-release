@@ -9,7 +9,7 @@ use Veneer\BoshBundle\Model\DeploymentProperties;
 
 class CloudConfigFormHelper extends AbstractFormHelper
 {
-    public function lookup(array $manifest, $manifestPath, $path, $raw)
+    public function lookup($manifest, $manifestPath, $path, $raw)
     {
         $pathMatch = null;
 

@@ -9,25 +9,36 @@ use Veneer\CoreBundle\Plugin\LinkProvider\Link;
 
 class GitWorkspacePlugin implements PluginInterface
 {
-    protected $em;
-
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
     public function getLinks(Request $request, $route)
     {
         $_bosh = $request->attributes->get('_bosh');
 
         switch ($route) {
+            case 'veneer_bosh_cloudconfig_summary':
+                return [
+                    (new Link('ops_edit'))
+                        ->setTopic(Link::TOPIC_CONFIG)
+                        ->setTitle('Edit Cloud Config')
+                        ->setRoute(
+                            'veneer_ops_workspace_app_cloudconfig_summary',
+                            [
+                                'path' => 'bosh/cloud-config/manifest.yml',
+                            ]
+                        ),
+                ];
+            case 'veneer_bosh_runtimeconfig_summary':
+                return [
+                    (new Link('ops_edit'))
+                        ->setTopic(Link::TOPIC_CONFIG)
+                        ->setTitle('Edit Runtime Config')
+                        ->setRoute(
+                            'veneer_ops_workspace_app_runtimeconfig_summary',
+                            [
+                                'path' => 'bosh/runtime-config/manifest.yml',
+                            ]
+                        ),
+                ];
             case 'veneer_bosh_deployment_instancegroup_summary':
-                $deployment = $this->em->find('VeneerOpsBundle:DeploymentWorkspace', $_bosh['deployment']['name']);
-
-                if (!$deployment) {
-                    break;
-                }
-
                 return [
                     (new Link('ops_edit'))
                         ->setTopic(Link::TOPIC_CONFIG)
@@ -35,18 +46,12 @@ class GitWorkspacePlugin implements PluginInterface
                         ->setRoute(
                             'veneer_ops_workspace_app_deployment_edit',
                             [
-                                'path' => $deployment->getSourcePath(),
+                                'path' => 'bosh/deployment/' . $_bosh['deployment']['name'] . '/manifest.yml',
                                 'property' => 'instance_groups[' . $_bosh['instance_group']['job'] . ']',
                             ]
                         ),
                 ];
             case 'veneer_bosh_deployment_summary':
-                $deployment = $this->em->find('VeneerOpsBundle:DeploymentWorkspace', $_bosh['deployment']['name']);
-
-                if (!$deployment) {
-                    break;
-                }
-
                 return [
                     (new Link('ops_edit'))
                         ->setTopic(Link::TOPIC_CONFIG)
@@ -54,7 +59,7 @@ class GitWorkspacePlugin implements PluginInterface
                         ->setRoute(
                             'veneer_core_workspace_repo_app',
                             [
-                                'path' => $deployment->getSourcePath(),
+                                'path' => 'bosh/deployment/' . $_bosh['deployment']['name'] . '/manifest.yml',
                             ]
                         ),
                 ];

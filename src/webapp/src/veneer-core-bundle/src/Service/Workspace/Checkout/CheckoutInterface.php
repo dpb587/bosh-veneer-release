@@ -11,6 +11,7 @@ interface CheckoutInterface
     public function getHead();
     public function cd($path);
     public function ls($path);
+    public function exists($path);
     public function get($path);
     public function put($path, $data, $mode = 0600);
     public function delete($path);

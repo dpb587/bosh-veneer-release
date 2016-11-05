@@ -91,6 +91,29 @@ class GitDirCheckout implements CheckoutInterface
         return $data;
     }
 
+    public function exists($path)
+    {
+        $physical = $this->resolvePath($path);
+
+        $p = new Process(sprintf(
+            '%s --git-dir=%s show %s:%s',
+            escapeshellarg($this->binary),
+            escapeshellarg($this->path),
+            escapeshellarg($this->head),
+            escapeshellarg($physical)
+        ));
+
+        $p->run();
+
+        if (0 == $p->getExitCode()) {
+            return true;
+        } elseif (128 == $p->getExitCode()) {
+            return false;
+        }
+
+        throw new \RuntimeException('Failed to check for file existence');
+    }
+
     public function put($path, $data, $mode = 0600)
     {
         throw new \LogicException('Checkout is not writable.');

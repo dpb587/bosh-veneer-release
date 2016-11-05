@@ -17,6 +17,10 @@ class WorkspaceRepoBlobController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $checkout = $repo->createCheckout($ref);
 
+        if (!$checkout->exists($path)) {
+            throw new NotFoundHttpException('File not found');
+        }
+
         return $this->renderApi(
             'VeneerCoreBundle:WorkspaceRepoBlob:index.html.twig',
             [

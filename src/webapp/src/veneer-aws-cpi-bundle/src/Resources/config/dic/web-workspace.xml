@@ -8,7 +8,7 @@
         <parameter key="veneer_awscpi.plugin.web_workspace_app.cloudformation.path">#/infrastructure(\-[^.]+)?\.json$#</parameter>
     </parameters>
 
-    <services>
+    <!--<services>
         <service id="veneer_awscpi.plugin.web_workspace_app.cloudformation" class="Veneer\AwsCpiBundle\Service\Workspace\App\CloudFormationApp">
             <argument type="service" id="veneer_core.workspace.repository" />
             <argument type="service" id="service_container" />
@@ -16,5 +16,5 @@
             <tag name="veneer_core.workspace.app" path="%veneer_awscpi.plugin.web_workspace_app.cloudformation.path%" />
             <tag name="veneer_core.workspace.watcher" path="%veneer_awscpi.plugin.web_workspace_app.cloudformation.path%" method="onTemplateChange" />
         </service>
-    </services>
+    </services>-->
 </container>

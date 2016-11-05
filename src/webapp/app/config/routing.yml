@@ -14,5 +14,5 @@ veneer_awscpi:
     resource: "@VeneerAwsCpiBundle/Resources/config/routing/default.xml"
 veneer_wardencpi:
     resource: "@VeneerWardenCpiBundle/Resources/config/routing/default.xml"
-veneer_wellness:
-    resource: "@VeneerWellnessBundle/Resources/config/routing/default.xml"
+#veneer_wellness:
+#    resource: "@VeneerWellnessBundle/Resources/config/routing/default.xml"

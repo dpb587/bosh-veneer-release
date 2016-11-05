@@ -10,6 +10,6 @@ interface RepositoryInterface
     public function showFile($file, $ref = 'HEAD');
     public function getPrefixedPath($path);
     public function diff($oldRef, $newRef);
-    public function commit($profile, array $writes, $message = null);
+    public function commitWrites($profile, array $writes, $message = null);
     public function getDraftProfile($draft, $path);
 }

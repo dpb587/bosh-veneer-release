@@ -46,7 +46,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
-        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceAppDeployment:summary.html.twig',
@@ -68,7 +68,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
-        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         $navSection = $section;
         $tplExtras = [];
@@ -144,7 +144,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
-        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.deployment_property_spec_helper'));
         $editorProfile = $editor->lookup($yaml, $path, $property, filter_var($raw, FILTER_VALIDATE_BOOLEAN));
@@ -195,18 +195,18 @@ class WorkspaceAppDeploymentController extends AbstractController
             if ($editorProfile['form']->isValid()) {
                 $data = $editorProfile['form']->getData();
 
-                if ($property === null) {
-                    $yaml = $data;
-                } else {
+                if ($property !== null) {
                     $accessor = PropertyAccess::createPropertyAccessor();
 
                     $accessor->setValue($yaml, $editorProfile['path'], $data);
+
+                    $data = Yaml::dump($yaml, 8);
                 }
 
-                $repo->commit(
+                $repo->commitWrites(
                     $draftProfile,
                     [
-                        $path => Yaml::dump($yaml, 8),
+                        $path => $data,
                     ],
                     'Update ' . $request->query->get('property')
                 );
@@ -230,5 +230,14 @@ class WorkspaceAppDeploymentController extends AbstractController
                 'sidenav_active' => $section,
             ]
         );
+    }
+
+    protected function loadData(RepositoryInterface $repo, $path, array $draftProfile)
+    {
+        if ($repo->fileExists($path, $draftProfile['ref_read'])) {
+            return Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
+        }
+
+        return null;
     }
 }

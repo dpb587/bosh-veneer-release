@@ -20,7 +20,7 @@
   <body>
         {% block html_body %}
             <nav class="navbar navbar-light bg-faded">
-                <a class="navbar-brand" href="{{ path('veneer_core_summary') }}">veneer</a>
+                <a class="navbar-brand" href="{{ path('veneer_core_summary') }}">{{ veneer_bosh_director_name }}</a>
                 <ul class="nav navbar-nav">
                     {% for bundle in veneer_bosh_plugin_factory.bundles if bundle.veneerRoute %}
                         <li class="nav-item{% if bundle.veneerRoute == def_nav[1].route[0]|default %} active{% endif %}">
@@ -72,7 +72,9 @@
 
             <footer class="text-center" style="margin-top:2rem;">
                 <small class="text-muted">
-                    <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Versioned At"><i class="fa fa-wrench fa-fw"></i>0.1.0+dev.{{ 'now'|date('Ym12') }}</a>
+                    <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Running With"><i class="fa fa-trophy fa-fw"></i>veneer</a>
+                    &nbsp;&middot;&nbsp;
+                    <a class="text-muted" href="https://github.com/dpb587/bosh-veneer-release" title="Versioned At"><i class="fa fa-wrench fa-fw"></i>0.1.0+dev.{{ 'now'|date('Ym12') }}</a>
                     &nbsp;&middot;&nbsp;
                     <a class="text-muted" href="https://dpb587.me/" target="_blank" title="Developed By"><i class="fa fa-hand-peace-o fa-fw"></i>dpb587</a>
                 </small>

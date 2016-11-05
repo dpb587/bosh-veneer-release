@@ -3,6 +3,8 @@
 namespace Veneer\CoreBundle\Service\Workspace;
 
 use Symfony\Component\Process\Process;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use TQ\Vcs\Cli\CallException;
 use Veneer\CoreBundle\Service\Workspace\Changeset;
 use TQ\Git\Repository\Repository;
 use TQ\Git\Cli\Binary;
@@ -13,11 +15,13 @@ class GitRepository extends Repository implements RepositoryInterface
 {
     protected $binary;
     protected $pathPrefix;
+    protected $security;
 
-    public function __construct($root, $pathPrefix, $git)
+    public function __construct($root, $pathPrefix, SecurityContextInterface $securityContext, $git)
     {
         $this->pathPrefix = rtrim($pathPrefix, '/');
         $this->binary = $git;
+        $this->securityContext = $securityContext;
 
         parent::__construct($root, Binary::ensure($git));
     }
@@ -158,6 +162,15 @@ class GitRepository extends Repository implements RepositoryInterface
         return parent::showFile($this->getPrefixedPath($file), $ref);
     }
 
+    public function fileExists($file, $ref = 'HEAD')
+    {
+        try {
+            return (Boolean) parent::showFile($this->getPrefixedPath($file), $ref);
+        } catch (CallException $e) {
+            return false;
+        }
+    }
+
     public function getPrefixedPath($path)
     {
         return ltrim($this->pathPrefix . '/' . $path, '/');
@@ -221,9 +234,9 @@ class GitRepository extends Repository implements RepositoryInterface
         return $p->getOutput();
     }
 
-    public function commit($profile, array $writes, $message = null)
+    public function commitWrites($profile, array $writes, $message = null)
     {
-        $username = $this->security->getToken()->getUsername();
+        $username = $this->securityContext->getToken()->getUsername();
         $commitEnv = [
             'GIT_AUTHOR_NAME' => $username,
             'GIT_AUTHOR_EMAIL' => $username . '@' . 'bosh-veneer.local',
@@ -285,8 +298,21 @@ class GitRepository extends Repository implements RepositoryInterface
             $fullpath = $this->getPrefixedPath($path);
 
             if (null !== $data) {
+                if (!file_exists(dirname($tmp . '/' . $fullpath))) {
+                    mkdir(dirname($tmp . '/' . $fullpath), 0700, true);
+                }
+
                 file_put_contents($tmp . '/' . $fullpath, $data);
             }
+
+            $call = $this->getGit()->createCall(
+                $tmp,
+                'add',
+                [$fullpath]
+            );
+
+            $p = new Process($call->getCmd(), $call->getCwd(), array_merge($call->getEnv() ?: [], $commitEnv));
+            $p->mustRun();
 
             $updates[] = $fullpath;
         }

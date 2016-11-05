@@ -12,6 +12,7 @@ use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
+use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
 use Veneer\OpsBundle\Service\Editor\CloudConfigFormHelper;
 use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
 use Veneer\BoshBundle\Controller\DeploymentController;
@@ -44,7 +45,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
-        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         return $this->renderApi(
             'VeneerOpsBundle:WorkspaceAppCloudConfig:summary.html.twig',
@@ -66,7 +67,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
-        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         $navSection = $section;
 
@@ -101,7 +102,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
-        $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         $editor = new CloudConfigFormHelper($this->container->get('form.factory'));
         $editorProfile = $editor->lookup($yaml, $path, $property, filter_var($raw, FILTER_VALIDATE_BOOLEAN));
@@ -151,20 +152,20 @@ class WorkspaceAppCloudConfigController extends AbstractController
             if ($editorProfile['form']->isValid()) {
                 $data = $editorProfile['form']->getData();
 
-                if ($property === null) {
-                    $yaml = $data;
-                } else {
+                if ($property !== null) {
                     $accessor = PropertyAccess::createPropertyAccessor();
 
                     $accessor->setValue($yaml, $editorProfile['path'], $data);
+
+                    $data = Yaml::dump($yaml, 8);
                 }
 
-                $repo->commit(
+                $repo->commitWrites(
                     $draftProfile,
                     [
-                        $path => Yaml::dump($yaml, 8),
+                        $path => $data,
                     ],
-                    'Update ' . $request->query->get('property')
+                    'Update cloud config' . (isset($property) ? (' (' . $property . ')') : '')
                 );
 
                 return $this->redirect($nav[-2]['url']);
@@ -186,5 +187,14 @@ class WorkspaceAppCloudConfigController extends AbstractController
                 'sidenav_active' => $section,
             ]
         );
+    }
+
+    protected function loadData(RepositoryInterface $repo, $path, array $draftProfile)
+    {
+        if ($repo->fileExists($path, $draftProfile['ref_read'])) {
+            return Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
+        }
+
+        return null;
     }
 }
