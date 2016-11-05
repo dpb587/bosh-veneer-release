@@ -1,0 +1,13 @@
+{
+  "name" : "dpb587/veneer-warden-cpi-bundle",
+  "autoload": {
+    "psr-4": {
+      "Veneer\\WardenCpiBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Veneer\\WardenCpiBundle\\Test\\": "test/"
+    }
+  }
+}

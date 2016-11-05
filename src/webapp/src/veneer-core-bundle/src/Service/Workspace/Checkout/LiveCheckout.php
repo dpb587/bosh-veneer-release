@@ -8,12 +8,14 @@ use Symfony\Component\Asset\Exception\LogicException;
 class LiveCheckout implements CheckoutInterface
 {
     protected $em;
+    protected $head;
     protected $mode;
     protected $cwd = '/';
 
-    public function __construct(EntityManager $em, $mode)
+    public function __construct(EntityManager $em, $head, $mode)
     {
         $this->em = $em;
+        $this->head = $head;
         $this->mode = $mode;
     }
 

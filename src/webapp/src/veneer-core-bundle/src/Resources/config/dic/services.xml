@@ -26,16 +26,6 @@
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
-        <!--<service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">-->
-            <!--<argument>%veneer_core.workspace.repository_path%</argument>-->
-            <!--<argument>%veneer_cloque.versioning.repository.path_prefix%</argument>-->
-            <!--<argument>%veneer.executable.git%</argument>-->
-        <!--</service>-->
-
-        <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\LiveRepository">
-            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
-        </service>
-
         <service id="veneer_core.workspace.app" class="Veneer\CoreBundle\Service\Workspace\App\AppFactory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- map -->

@@ -18,7 +18,7 @@ class CloudConfigController extends AbstractController
         return $nav->add(
             'cloud-config',
             [
-                'veneer_bosh_cloudconfig_index' => [],
+                'veneer_bosh_cloudconfig_summary' => [],
             ],
             [
                 'fontawesome' => 'cloud',

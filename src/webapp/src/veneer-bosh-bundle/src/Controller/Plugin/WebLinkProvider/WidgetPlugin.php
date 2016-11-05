@@ -13,6 +13,12 @@ class WidgetPlugin implements PluginInterface
         $_bosh = $request->attributes->get('_bosh');
 
         switch ($route) {
+            case 'veneer_bosh_cloudconfig_summary':
+                return [
+                    (new Link('manifest'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute('veneer_bosh_cloudconfig_manifest'),
+                ];
             case 'veneer_bosh_deployment_summary':
                 return [
                     (new Link('manifest'))

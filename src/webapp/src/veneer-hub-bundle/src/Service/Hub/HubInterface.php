@@ -12,4 +12,7 @@ interface HubInterface
 
     public function authenticateStemcellTarballUrl($tarballUrl);
     public function yieldStemcells();
+
+    public function authenticateSheafTarballUrl($tarballUrl);
+    public function yieldSheaves();
 }

@@ -1,0 +1,13 @@
+{% extends _layout %}
+
+{% block def_title 'Cloud Config' %}
+
+{% block frag_content %}
+    <pre><code>{{ yaml }}</code></pre>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        A sample cloud config for use with Warden.
+    </p>
+{% endblock %}

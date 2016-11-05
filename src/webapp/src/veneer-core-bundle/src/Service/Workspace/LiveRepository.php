@@ -9,15 +9,17 @@ use Veneer\CoreBundle\Service\Workspace\Checkout\LiveCheckout;
 class LiveRepository implements RepositoryInterface
 {
     protected $em;
+    protected $draftsRoot;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, $draftsRoot = null)
     {
         $this->em = $em;
+        $this->draftsRoot = $draftsRoot;
     }
 
-    public function createCheckout($ref = 'master', $mode = 0)
+    public function createCheckout($ref = 'HEAD', $mode = 0)
     {
-        return new LiveCheckout($this->em, $mode);
+        return new LiveCheckout($this->em, $this->draftsRoot, $mode);
     }
 
     public function commitCheckout(Checkout\PhysicalCheckout $checkout, $message, array $options = [])

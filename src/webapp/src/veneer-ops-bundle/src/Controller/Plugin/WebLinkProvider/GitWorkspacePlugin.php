@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Plugin\LinkProvider\PluginInterface;
 use Veneer\CoreBundle\Plugin\LinkProvider\Link;
 
-class WidgetPlugin implements PluginInterface
+class GitWorkspacePlugin implements PluginInterface
 {
     protected $em;
 

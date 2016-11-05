@@ -22,8 +22,12 @@ class GitRepository extends Repository implements RepositoryInterface
         parent::__construct($root, Binary::ensure($git));
     }
 
-    public function createCheckout($ref = 'master', $mode = 0)
+    public function createCheckout($ref = 'HEAD', $mode = 0)
     {
+        if ($ref == 'HEAD') {
+            $ref = 'master';
+        }
+
         if (!$mode & CheckoutInterface::MODE_WRITABLE) {
             $checkout = new Checkout\GitDirCheckout(
                 $this->binary,

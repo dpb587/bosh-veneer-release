@@ -140,18 +140,19 @@ class WorkspaceAppDeploymentController extends AbstractController
     {
         $path = $request->query->get('path');
         $property = $request->query->get('property');
+        $raw = $request->query->get('raw');
         $repo = $this->container->get('veneer_core.workspace.repository');
         $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
 
         $yaml = Yaml::parse($repo->showFile($path, $draftProfile['ref_read']));
 
         $editor = new DeploymentFormHelper($this->container->get('form.factory'), $this->container->get('veneer_bosh.deployment_property_spec_helper'));
-        $editorProfile = $editor->lookup($yaml, $path, $property);
+        $editorProfile = $editor->lookup($yaml, $path, $property, filter_var($raw, FILTER_VALIDATE_BOOLEAN));
 
         $section = str_replace('_', '-', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);
 
-        if (in_array($section, [ 'compilation', 'update' ])) {
+        if (($property === null) || in_array($section, [ 'compilation', 'update' ])) {
             $nav->add(
                 $editorProfile['title'],
                 [
@@ -159,6 +160,7 @@ class WorkspaceAppDeploymentController extends AbstractController
                         'section' => $section,
                         'path' => $path,
                         'property' => $property,
+                        'raw' => $raw,
                     ],
                 ]
             );
@@ -180,6 +182,7 @@ class WorkspaceAppDeploymentController extends AbstractController
                             'section' => $section,
                             'path' => $path,
                             'property' => $property,
+                            'raw' => $raw,
                         ],
                     ]
                 )
@@ -190,9 +193,15 @@ class WorkspaceAppDeploymentController extends AbstractController
             $editorProfile['form']->bind($request);
 
             if ($editorProfile['form']->isValid()) {
-                $accessor = PropertyAccess::createPropertyAccessor();
+                $data = $editorProfile['form']->getData();
 
-                $accessor->setValue($yaml, $editorProfile['path'], $editorProfile['form']->getData());
+                if ($property === null) {
+                    $yaml = $data;
+                } else {
+                    $accessor = PropertyAccess::createPropertyAccessor();
+
+                    $accessor->setValue($yaml, $editorProfile['path'], $data);
+                }
 
                 $repo->commit(
                     $draftProfile,

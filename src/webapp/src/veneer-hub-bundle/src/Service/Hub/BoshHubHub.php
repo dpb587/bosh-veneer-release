@@ -144,4 +144,14 @@ class BoshHubHub implements HubInterface
 
         return $this->client->get($path);
     }
+
+    public function authenticateSheafTarballUrl($tarballUrl)
+    {
+        throw new \LogicException('Not supported');
+    }
+
+    public function yieldSheaves()
+    {
+        return;
+    }
 }

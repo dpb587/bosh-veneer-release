@@ -180,4 +180,14 @@ class AwsS3Hub implements HubInterface
             $extra,
         ];
     }
+
+    public function authenticateSheafTarballUrl($tarballUrl)
+    {
+        throw new \LogicException('Not supported');
+    }
+
+    public function yieldSheaves()
+    {
+        return;
+    }
 }

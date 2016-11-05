@@ -7,16 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 use Veneer\BoshBundle\Model\DeploymentProperties;
 
-class CloudConfigFormHelper
+class CloudConfigFormHelper extends AbstractFormHelper
 {
-    protected $formFactory;
-
-    public function __construct(FormFactoryInterface $formFactory)
-    {
-        $this->formFactory = $formFactory;
-    }
-
-    public function lookup(array $manifest, $manifestPath, $path)
+    public function lookup(array $manifest, $manifestPath, $path, $raw)
     {
         $pathMatch = null;
 
@@ -38,20 +31,32 @@ class CloudConfigFormHelper
             $config = $this->lookupNamedIndex($manifest, 'vm_extensions', $pathMatch['name'], 'veneer_ops_editor_cloudconfig_vmextension');
         } elseif (preg_match('/^networks\[(?P<name>[^\]]*)\](\.(?P<subpath>.+))?$/', $path, $pathMatch)) {
             $config = $this->lookupNamedIndex($manifest, 'networks', $pathMatch['name'], 'veneer_ops_editor_cloudconfig_network');
+        } elseif ($raw) {
+            $config = [
+                'isset' => isset($manifest),
+                'path' => '',
+                'type' => 'veneer_ops_raw',
+                'data' => $manifest,
+                'title' => 'root',
+            ];
         } else {
             throw new \InvalidArgumentException('Invalid concept');
         }
 
-        $options = isset($config['options']) ? $config['options'] : [];
-        $options['manifest'] = $manifest;
-        $options['manifest_path'] = $manifestPath;
+        if ($raw) {
+            $formBuilder = $this->formFactory->createNamedBuilder('data', 'veneer_ops_raw');
+        } else {
+            $options = isset($config['options']) ? $config['options'] : [];
+            $options['manifest'] = $manifest;
+            $options['manifest_path'] = $manifestPath;
 
-        $formBuilder = $this->formFactory->createNamedBuilder('data', $config['type'], null, $options);
+            $formBuilder = $this->formFactory->createNamedBuilder('data', $config['type'], null, $options);
+
+            $subpath = isset($pathMatch['subpath']) ? explode('.', $pathMatch['subpath']) : [];
+            $this->filterFormBuilder($formBuilder, $subpath);
+        }
+
         $formBuilder->setData($config['data']);
-
-        $subpath = isset($pathMatch['subpath']) ? explode('.', $pathMatch['subpath']) : [];
-        $this->filterFormBuilder($formBuilder, $subpath);
-
         $form = $formBuilder->getForm();
 
         return [
@@ -60,71 +65,6 @@ class CloudConfigFormHelper
             'path' => $config['path'],
             'data' => $config['data'],
             'title' => $config['title'],
-        ];
-    }
-
-    protected function filterFormBuilder(FormBuilderInterface $formBuilder, array $path)
-    {
-        if (0 == count($path)) {
-            return;
-        }
-
-        $found = false;
-
-        foreach ($formBuilder->all() as $name => $formBuilderChild) {
-            if ($path[0] == $name) {
-                $this->filterFormBuilder($formBuilderChild, array_slice($path, 1));
-                $found = true;
-            } else {
-                $formBuilder->remove($name);
-            }
-        }
-
-        if (!$found) {
-            throw new \InvalidArgumentException(sprintf('Subpath "%s" does not exist', $path[0]));
-        }
-    }
-
-    protected function lookupNamedIndex(array $manifest, $concept, $name, $type)
-    {
-        if (!isset($manifest[$concept])) {
-            return [
-                'isset' => false,
-                'path' => '[' . $concept . '][0]',
-                'type' => $type,
-                'title' => ucwords(strtr($concept, '_', ' ')),
-                'data' => [
-                    'name' => $name,
-                ],
-            ];
-        }
-
-        if ('' != $name) {
-            foreach ($manifest[$concept] as $conceptIdx => $conceptData) {
-                if ($name != $conceptData['name']) {
-                    continue;
-                }
-
-                return [
-                    'isset' => true,
-                    'path' => '[' . $concept . '][' . $conceptIdx . ']',
-                    'type' => $type,
-                    'title' => ucwords(strtr($concept, '_', ' ')),
-                    'subtitle' => $name,
-                    'data' => $conceptData,
-                ];
-            }
-        }
-
-        return [
-            'isset' => false,
-            'path' => '[' . $concept . '][' . count($manifest[$concept]) . ']',
-            'type' => $type,
-            'title' => ucwords(strtr($concept, '_', ' ')),
-            'subtitle' => 'New',
-            'data' => [
-                'name' => $name,
-            ],
         ];
     }
 }

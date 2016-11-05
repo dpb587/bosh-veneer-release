@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="veneer_wardencpi_summary" path="/warden-cpi/summary.{_format}">
+        <default key="_controller">Veneer\WardenCpiBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_wardencpi_generator_cloudconfig_summary" path="/warden-cpi/generator/cloud-config/summary.{_format}">
+        <default key="_controller">Veneer\WardenCpiBundle\Controller\GeneratorCloudConfigController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_wardencpi_generator_cloudconfig_raw" path="/warden-cpi/generator/cloud-config/raw.{_format}">
+        <default key="_controller">Veneer\WardenCpiBundle\Controller\GeneratorCloudConfigController::rawAction</default>
+        <default key="_format">yml</default>
+    </route>
+</routes>

@@ -11,8 +11,14 @@
 
     <!-- cloud-config -->
 
-    <route id="veneer_bosh_cloudconfig_index" path="/bosh/cloud-config/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\CloudConfigController::indexAction</default>
+    <route id="veneer_bosh_cloudconfig_summary" path="/bosh/cloud-config/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\CloudConfigController::summaryAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/cloud-config</default>
+    </route>
+
+    <route id="veneer_bosh_cloudconfig_manifest" path="/bosh/cloud-config/manifest.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\CloudConfigController::manifestAction</default>
         <default key="_format">html</default>
         <default key="_veneer_core_context">bosh/cloud-config</default>
     </route>

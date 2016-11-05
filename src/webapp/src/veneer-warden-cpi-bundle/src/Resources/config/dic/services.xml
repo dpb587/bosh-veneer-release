@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_warden_cpi.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
+            <factory service="service_container" method="get" />
+            <argument>veneer_core.breadcrumbs</argument>
+
+            <call method="add">
+                <argument>Warden CPI</argument>
+                <argument type="collection">
+                    <argument key="veneer_wardencpi_summary" type="collection"></argument>
+                </argument>
+                <argument type="collection">
+                    <argument key="fontawesome">cloud</argument>
+                </argument>
+            </call>
+        </service>
+    </services>
+</container>

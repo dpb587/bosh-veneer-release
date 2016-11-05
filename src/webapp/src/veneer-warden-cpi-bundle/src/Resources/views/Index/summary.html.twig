@@ -1,0 +1,18 @@
+{% extends _layout %}
+
+{% block def_title 'Warden CPI' %}
+
+{% block frag_content %}
+    <div class="list-group">
+        <a class="list-group-item" href="{{ path('veneer_wardencpi_generator_cloudconfig_summary') }}">
+            <i class="fa fa-anchor fa-fw"></i>
+            generator &raquo; cloud-config &raquo;
+        </a>
+    </div>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p class="text-muted">
+        Warden
+    </p>
+{% endblock %}

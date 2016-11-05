@@ -130,5 +130,11 @@
 
             <tag name="form.type" alias="veneer_ops_editor_cloudconfig_network_manual_subnet" />
         </service>
+
+        <service id="veneer_ops.form.type.raw" class="Veneer\OpsBundle\Form\Type\RawType">
+            <argument type="service" id="cpi" />
+
+            <tag name="form.type" alias="veneer_ops_raw" />
+        </service>
     </services>
 </container>
