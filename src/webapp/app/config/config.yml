@@ -104,6 +104,7 @@ doctrine:
                     VeneerCoreBundle: ~
                     VeneerHubBundle: ~
                     VeneerOpsBundle: ~
+                    VeneerSheafBundle: ~
             bosh:
                 connection: bosh
                 naming_strategy: doctrine.orm.naming_strategy.underscore

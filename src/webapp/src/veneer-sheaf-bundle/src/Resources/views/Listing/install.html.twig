@@ -1,11 +1,11 @@
 {% extends _layout %}
 
-{% block def_title 'Deployment Editor (' ~ manifest.name|default('unknown') ~ ')' %}
+{% block def_title spec.title %}
 
 {% block frag_content %}
-    <form action="" method="post">
+    <form action="{{ path('veneer_sheaf_listing_install', { 'listing': sheaf.id }) }}" method="post">
         <p>
-            To create a new {{ spec.title }} installation, start by electing a few features for it.
+            To create a new {{ spec.title }} installation, start by giving it a name and electing a few base options.
         </p>
 
         {% if form.name %}
@@ -63,7 +63,7 @@
 
     <div class="text-muted">
         <ul class="list-unstyled">
-            <li><small><i class="fa fa-building fa-fw"></i> <a href="{{ spec.publisher.website }}">{{ spec.publisher.name }}</a></small></li>
+            <li><small><i class="fa fa-building fa-fw"></i> <a class="text-muted" href="{{ spec.publisher.website }}">{{ spec.publisher.name }}</a></small></li>
             <li><small><i class="fa fa-balance-scale fa-fw"></i> {{ spec.license }}</a></small></li>
             <li><small><i class="fa fa-wrench fa-fw"></i> {{ spec.name }}/{{ spec.version }}</a></small></li>
         </ul>

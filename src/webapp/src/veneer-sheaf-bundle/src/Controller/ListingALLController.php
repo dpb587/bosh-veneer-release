@@ -1,103 +1,96 @@
 <?php
 
-namespace Veneer\OpsBundle\Controller;
+namespace Veneer\SheafBundle\Controller;
 
+use GuzzleHttp\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Veneer\BoshBundle\Controller\CloudConfigController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\ORM\Query\Expr;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Yaml;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Veneer\CoreBundle\Controller\WorkspaceRepoController;
-use Symfony\Component\Yaml\Yaml;
-use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
-use Veneer\BoshBundle\Controller\DeploymentController;
-use Veneer\BoshBundle\Entity\Deployments;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
+use Veneer\SheafBundle\Entity\Sheaf;
 
-class ListingController extends AbstractController
+class ListingALLController extends AbstractController
 {
-    public function defNav(Breadcrumbs $nav, $path)
+    public static function defNav(Breadcrumbs $nav)
     {
-        return CloudConfigController::defNav($nav)
+        return $nav
             ->add(
-                'editor',
+                'sheaves',
                 [
-                    'veneer_ops_workspace_app_cloudconfig_summary' => [
-                        'path' => $path,
-                    ],
-                ],
-                [
-                    'fontawesome' => 'pencil',
+                    'veneer_sheaf_listingALL_index' => [],
                 ]
             )
             ;
     }
 
-    public function summaryAction(Request $request)
+    public function indexAction()
     {
-        $path = $request->query->get('path', 'test.yml');
-        $sheaf = __DIR__ . '/../../../../../../valise-test/sheaf/concourse/0.0.1';
+        $results = $this->container->get('doctrine.orm.state_entity_manager')
+            ->getRepository('VeneerSheafBundle:Sheaf')
+            ->createQueryBuilder('v')
+            ->addOrderBy('v.sheaf', 'ASC')
+            ->addOrderBy('v.semverMajor', 'DESC')
+            ->addOrderBy('v.semverMinor', 'DESC')
+            ->addOrderBy('v.semverPatch', 'DESC')
+            ->addOrderBy('v.semverExtra', 'DESC')
+            ->addOrderBy('v.version', 'DESC')
+            ->getQuery()
+            ->getResult();
 
-        $logo = base64_encode(file_get_contents($sheaf . '/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheaf . '/spec.yml'));
-
-        $bulkFormBuilder = $this->container->get('form.factory')->createNamedBuilder('data');
-        $bulkFormBuilder->add(
-            'name',
-            'text',
+        return $this->renderApi(
+            'VeneerSheafBundle:ListingALL:index.html.twig',
             [
-                'label' => 'Name',
-                'veneer_help_html' => 'This name will become a prefix for all installed components.'
+                'results' => $results,
+            ],
+            [
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs')),
             ]
         );
+    }
 
-        foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheaf . '/' . $component['name'] . '/spec.yml'));
-            $componentSpec['name'] = $component['name'];
-            $spec['components'][$componentIndex] = $componentSpec;
+    public function importAction(Request $request)
+    {
+        $formBuilder = $this->container->get('form.factory')->createNamedBuilder('data');
+        $formBuilder->add(
+            'tarball',
+            'url',
+            [
+                'label' => 'Tarball URL',
+                'veneer_help_html' => 'A URL to a valid Sheaf tarball',
+            ]
+        );
+        $form = $formBuilder->getForm();
 
-            $componentForm = $bulkFormBuilder->add($component['name'], 'form')->get($component['name']);
+        if ($request->request->has($form->getName())) {
+            $form->bind($request);
 
-            foreach ($componentSpec['features'] as $feature) {
-                $choices = [];
+            if ($form->isValid()) {
+                $listing = $this->container->get('veneer_sheaf.listing_helper')->importTarball($form->get('tarball')->getData());
 
-                foreach ($feature['choices'] as $choice) {
-                    $choices[$choice['name']] = $choice['title'];
-                }
-
-                $componentForm->add(
-                    $feature['name'],
-                    'choice',
+                return $this->redirectToRoute(
+                    'veneer_sheaf_listing_summary',
                     [
-                        'choices' => $choices,
-                        'expanded' => true,
-                        'required' => isset($feature['required']) ? $feature['required'] : true,
-                        'multiple' => isset($feature['multiple']) ? $feature['multiple'] : false,
+                        'listing' => $listing->getId(),
                     ]
                 );
             }
         }
 
-        $bulkForm = $bulkFormBuilder->getForm();
-
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceAppSheaf:summary.html.twig',
+            'VeneerSheafBundle:ListingALL:import.html.twig',
             [
-                'logo' => $logo,
-                'spec' => $spec,
+                'form' => $form->createView(),
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path),
-                'form' => $bulkForm->createView(),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'))
+                    ->add('Import', [ 'veneer_sheaf_listingALL_import' => [] ]),
             ]
         );
-    }
-
-    public function createAction(Request $request, $section)
-    {
-        die(print_r($request->request->all(), true));
     }
 }

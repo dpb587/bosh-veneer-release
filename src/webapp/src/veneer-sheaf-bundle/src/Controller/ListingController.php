@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\OpsBundle\Controller;
+namespace Veneer\SheafBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -38,13 +38,94 @@ class ListingController extends AbstractController
 
     public function summaryAction(Request $request)
     {
-        $path = $request->query->get('path', 'test.yml');
-        $sheaf = __DIR__ . '/../../../../../../valise-test/sheaf/concourse/0.0.1';
+        $sheaf = $this->container->get('doctrine.orm.state_entity_manager')->find('VeneerSheafBundle:Sheaf', $request->attributes->get('listing'));
 
-        $logo = base64_encode(file_get_contents($sheaf . '/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheaf . '/spec.yml'));
+        if (!$sheaf) {
+            throw new NotFoundHttpException();
+        }
+
+        $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
+
+        $logo = base64_encode(file_get_contents($sheafPath . '/logo.png'));
+        $spec = Yaml::parse(file_get_contents($sheafPath . '/spec.yml'));
+
+        foreach ($spec['components'] as $componentIndex => $component) {
+            $componentSpec = Yaml::parse(file_get_contents($sheafPath . '/' . $component['name'] . '/spec.yml'));
+            $componentSpec['name'] = $component['name'];
+            $spec['components'][$componentIndex] = $componentSpec;
+        }
+
+        return $this->renderApi(
+            'VeneerSheafBundle:Listing:summary.html.twig',
+            [
+                'sheaf' => $sheaf,
+                'logo' => $logo,
+                'spec' => $spec,
+            ],
+            [
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+            ]
+        );
+    }
+
+    public function installationsAction(Request $request)
+    {
+        $sheaf = $this->container->get('doctrine.orm.state_entity_manager')->find('VeneerSheafBundle:Sheaf', $request->attributes->get('listing'));
+
+        if (!$sheaf) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->renderApi(
+            'VeneerSheafBundle:Listing:installations.html.twig',
+            [
+                'sheaf' => $sheaf,
+            ],
+            [
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+            ]
+        );
+    }
+
+    public function readmeAction(Request $request)
+    {
+        $sheaf = $this->container->get('doctrine.orm.state_entity_manager')->find('VeneerSheafBundle:Sheaf', $request->attributes->get('listing'));
+
+        if (!$sheaf) {
+            throw new NotFoundHttpException();
+        }
+
+        $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
+
+        return $this->renderApi(
+            'VeneerSheafBundle:Listing:readme.html.twig',
+            [
+                'sheaf' => $sheaf,
+                'readme' => file_exists($sheafPath . '/README.md') ? file_get_contents($sheafPath . '/README.md') : null,
+            ],
+            [
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+            ]
+        );
+    }
+
+    public function installAction(Request $request)
+    {
+        $sheaf = $this->container->get('doctrine.orm.state_entity_manager')->find('VeneerSheafBundle:Sheaf', $request->attributes->get('listing'));
+
+        if (!$sheaf) {
+            throw new NotFoundHttpException();
+        }
+
+        $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
+
+        $logo = base64_encode(file_get_contents($sheafPath . '/logo.png'));
+        $spec = Yaml::parse(file_get_contents($sheafPath . '/spec.yml'));
 
         $bulkFormBuilder = $this->container->get('form.factory')->createNamedBuilder('data');
+        $bulkFormBuilder->setData([
+            'name' => $spec['name'],
+        ]);
         $bulkFormBuilder->add(
             'name',
             'text',
@@ -55,7 +136,7 @@ class ListingController extends AbstractController
         );
 
         foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheaf . '/' . $component['name'] . '/spec.yml'));
+            $componentSpec = Yaml::parse(file_get_contents($sheafPath . '/' . $component['name'] . '/spec.yml'));
             $componentSpec['name'] = $component['name'];
             $spec['components'][$componentIndex] = $componentSpec;
 
@@ -83,21 +164,40 @@ class ListingController extends AbstractController
 
         $bulkForm = $bulkFormBuilder->getForm();
 
+        if ($request->request->has($bulkForm->getName())) {
+            $bulkForm->bind($request);
+
+            if ($bulkForm->isValid()) {
+                $data = $bulkForm->getData();
+                $name = $data['name'];
+
+                $path = $this->container->get('veneer_sheaf.listing_helper')->createInstallation(
+                    $sheaf,
+                    $name,
+                    $data,
+                    $this->container->get('veneer_core.workspace.repository')
+                );
+
+                return $this->redirectToRoute(
+                    'veneer_sheaf_workspace_app_sheaf_summary',
+                    [
+                        'path' => $path,
+                    ]
+                );
+            }
+        }
+
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceAppSheaf:summary.html.twig',
+            'VeneerSheafBundle:Listing:install.html.twig',
             [
+                'sheaf' => $sheaf,
                 'logo' => $logo,
                 'spec' => $spec,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
                 'form' => $bulkForm->createView(),
             ]
         );
-    }
-
-    public function createAction(Request $request, $section)
-    {
-        die(print_r($request->request->all(), true));
     }
 }

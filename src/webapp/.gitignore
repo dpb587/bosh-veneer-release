@@ -4,6 +4,7 @@
 /app/logs
 /app/phpunit.xml
 /app/state.sqlite
+/app/sheaf-storage
 /vendor/
 /bin/
 /composer.phar

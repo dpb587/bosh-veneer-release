@@ -1,0 +1,35 @@
+{% extends _layout %}
+
+{% block def_title spec.title %}
+
+{% block frag_content %}
+    {{ render(path('veneer_sheaf_listing_installations', { 'listing': sheaf.id })|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {{ render(path('veneer_sheaf_listing_readme', { 'listing': sheaf.id })|veneer_core_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <div class="text-center" style="margin:18px 0 28px;">
+        <img height="128" src="data:image/png;base64,{{ logo }}" width="128" />
+
+        <h1>{{ spec.title }}</h1>
+
+        {% if spec.summary|default %}
+            <p>{{ spec.summary }}</p>
+        {% endif %}
+    </div>
+
+    {% if spec.description %}
+        <hr />
+        {{ spec.description }}
+    {% endif %}
+
+    <hr />
+
+    <div class="text-muted">
+        <ul class="list-unstyled">
+            <li><small><i class="fa fa-building fa-fw"></i> <a class="text-muted" href="{{ spec.publisher.website }}">{{ spec.publisher.name }}</a></small></li>
+            <li><small><i class="fa fa-balance-scale fa-fw"></i> {{ spec.license }}</a></small></li>
+            <li><small><i class="fa fa-wrench fa-fw"></i> {{ spec.name }}/{{ spec.version }}</a></small></li>
+        </ul>
+    </div>
+{% endblock %}

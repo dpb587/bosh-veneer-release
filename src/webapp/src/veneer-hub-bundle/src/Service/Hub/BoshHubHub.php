@@ -72,8 +72,8 @@ class BoshHubHub implements HubInterface
                 $entity = new ReleaseVersion();
                 $entity->setRelease($releaseName);
                 $entity->setVersion($anchorNodes->item(0)->textContent);
-                $entity->setDetailUrl((string) Uri::resolve($baseUri, $anchorNodes->item(0)->attributes->getNamedItem('href')->nodeValue));
-                $entity->setTarballUrl((string) Uri::resolve($baseUri, $anchorNodes->item(1)->attributes->getNamedItem('href')->nodeValue));
+                $entity->setDetailUrl((string) Uri::resolve($baseUri, $anchorNodes->item(1)->attributes->getNamedItem('href')->nodeValue));
+                $entity->setTarballUrl((string) Uri::resolve($baseUri, $anchorNodes->item(2)->attributes->getNamedItem('href')->nodeValue));
                 $entity->setTarballChecksum(preg_replace('/\s+/', '', $xpath->query('./span', $versionNode)->item(0)->textContent));
 
                 yield $entity;

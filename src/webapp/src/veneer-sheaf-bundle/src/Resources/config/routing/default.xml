@@ -17,13 +17,23 @@
         <default key="_format">html</default>
     </route>
 
-    <route id="veneer_sheaf_listingALL_download" path="/sheaf/listing/:all/download.{_format}">
-        <default key="_controller">Veneer\SheafBundle\Controller\ListingALLController::downloadAction</default>
+    <route id="veneer_sheaf_listingALL_import" path="/sheaf/listing/:all/import.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingALLController::importAction</default>
         <default key="_format">html</default>
     </route>
 
     <route id="veneer_sheaf_listing_summary" path="/sheaf/listing/{listing}/summary.{_format}">
         <default key="_controller">Veneer\SheafBundle\Controller\ListingController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_sheaf_listing_installations" path="/sheaf/listing/{listing}/installations.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingController::installationsAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_sheaf_listing_readme" path="/sheaf/listing/{listing}/readme.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingController::readmeAction</default>
         <default key="_format">html</default>
     </route>
 

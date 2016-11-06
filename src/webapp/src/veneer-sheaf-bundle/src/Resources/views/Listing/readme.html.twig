@@ -1,0 +1,11 @@
+{% extends _layout %}
+
+{% block def_title 'Readme' %}
+
+{% block frag_content %}
+    {% if readme %}
+        <pre><code>{{ readme }}</code></pre>
+    {% else %}
+        <span class="text-muted">No information available.</span>
+    {% endif %}
+{% endblock %}

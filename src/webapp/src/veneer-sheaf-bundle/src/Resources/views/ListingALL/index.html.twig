@@ -1,0 +1,32 @@
+{% extends _layout %}
+
+{% block def_title 'Sheaves' %}
+
+{% block frag_content %}
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Sheaf</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td><a href="{{ path('veneer_sheaf_listing_summary', { 'listing' : result.id }) }}">{{ result.sheaf }}/{{ result.version }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <p>
+        Preset installations and guided configuration.
+    </p>
+
+    <hr />
+
+    <ul class="list-unstyled">
+        <li><a href="{{ path('veneer_sheaf_listingALL_import') }}"><i class="fa fa-download fa-fw"></i> Manual Import</a></li>
+    </ul>
+{% endblock %}

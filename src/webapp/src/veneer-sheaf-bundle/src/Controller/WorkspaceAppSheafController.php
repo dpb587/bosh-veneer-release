@@ -1,6 +1,6 @@
 <?php
 
-namespace Veneer\OpsBundle\Controller;
+namespace Veneer\SheafBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,6 +11,7 @@ use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
+use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
 use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
 use Veneer\BoshBundle\Controller\DeploymentController;
 use Veneer\BoshBundle\Entity\Deployments;
@@ -38,66 +39,32 @@ class WorkspaceAppSheafController extends AbstractController
 
     public function summaryAction(Request $request)
     {
-        $path = $request->query->get('path', 'test.yml');
-        $sheaf = __DIR__ . '/../../../../../../valise-test/sheaf/concourse/0.0.1';
+        $path = $request->query->get('path');
+        $repo = $this->container->get('veneer_core.workspace.repository');
+        $draftProfile = $repo->getDraftProfile('sheaf-install-' . substr(md5($path), 0, 8), $path);
 
-        $logo = base64_encode(file_get_contents($sheaf . '/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheaf . '/spec.yml'));
-
-        $bulkFormBuilder = $this->container->get('form.factory')->createNamedBuilder('data');
-        $bulkFormBuilder->add(
-            'name',
-            'text',
-            [
-                'label' => 'Name',
-                'veneer_help_html' => 'This name will become a prefix for all installed components.'
-            ]
-        );
-
-        foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheaf . '/' . $component['name'] . '/spec.yml'));
-            $componentSpec['name'] = $component['name'];
-            $spec['components'][$componentIndex] = $componentSpec;
-
-            $componentForm = $bulkFormBuilder->add($component['name'], 'form')->get($component['name']);
-
-            foreach ($componentSpec['features'] as $feature) {
-                $choices = [];
-
-                foreach ($feature['choices'] as $choice) {
-                    $choices[$choice['name']] = $choice['title'];
-                }
-
-                $componentForm->add(
-                    $feature['name'],
-                    'choice',
-                    [
-                        'choices' => $choices,
-                        'expanded' => true,
-                        'required' => isset($feature['required']) ? $feature['required'] : true,
-                        'multiple' => isset($feature['multiple']) ? $feature['multiple'] : false,
-                    ]
-                );
-            }
-        }
-
-        $bulkForm = $bulkFormBuilder->getForm();
+        $yaml = $this->loadData($repo, $path, $draftProfile);
 
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceAppSheaf:summary.html.twig',
+            'VeneerOpsBundle:WorkspaceAppCloudConfig:summary.html.twig',
             [
-                'logo' => $logo,
-                'spec' => $spec,
+                'draft_profile' => $draftProfile,
+                'path' => $path,
+                'manifest' => $yaml,
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path),
-                'form' => $bulkForm->createView(),
+                'sidenav_active' => 'summary',
             ]
         );
     }
 
-    public function createAction(Request $request, $section)
+    protected function loadData(RepositoryInterface $repo, $path, array $draftProfile)
     {
-        die(print_r($request->request->all(), true));
+        if ($repo->fileExists($path, $draftProfile['ref_read'])) {
+            return Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
+        }
+
+        return null;
     }
 }

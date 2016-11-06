@@ -1,0 +1,17 @@
+{% extends _layout %}
+
+{% block def_title 'Installations' %}
+
+{% block frag_content %}
+    <a class="btn btn-success" href="{{ path('veneer_sheaf_listing_install', { 'listing': sheaf.id }) }}">New Installation</a>
+
+    <hr />
+
+    <table>
+        <tbody>
+            <tr>
+                <td>No installations found</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
