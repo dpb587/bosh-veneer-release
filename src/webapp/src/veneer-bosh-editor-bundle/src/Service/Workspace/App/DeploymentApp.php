@@ -18,6 +18,6 @@ class DeploymentApp implements AppInterface
 
     public function getAppRoute()
     {
-        return 'veneer_bosh_editor_workspace_app_deployment_summary';
+        return 'veneer_bosh_editor_app_deployment_summary';
     }
 }

@@ -34,10 +34,19 @@
 {% endblock %}
 
 {% block frag_sidebar %}
+    <p class="text-muted">
+        <strong>veneer</strong><br />
+        noun. a thin decorative covering of [UX] applied to a coarser [BOSH].
+    </p>
+
     <div class="list-group">
-        <a class="list-group-item" href="https://github.com/dpb587/bosh-veneer-release" target="_blank">
+        <a class="list-group-item" href="https://github.com/dpb587/bosh-veneer-release/{% if veneer_core_build_tag_commit != veneer_core_build_commit %}commit/{{ veneer_core_build_commit }}{% else %}releases/tag/{{ veneer_core_build_tag }}{% endif %}" target="_blank">
+            <i class="fa fa-wrench fa-fw"></i>
+            {{ veneer_core_build_tag }}{% if veneer_core_build_tag_commit != veneer_core_build_commit %}+dev.{{ veneer_core_build_commit }}{{ veneer_core_build_dirty ? '-dirty' : '' }}{% endif %}
+        </a>
+        <a class="list-group-item" href="https://github.com/dpb587/bosh-veneer-release/issues" target="_blank">
             <i class="fa fa-github fa-fw"></i>
-            GitHub
+            Report an Issue
         </a>
     </div>
 {% endblock %}

@@ -1,28 +1,28 @@
-{% extends 'VeneerBoshEditorBundle:WorkspaceAppCloudConfig:layout.html.twig' %}
+{% extends 'VeneerBoshEditorBundle:AppCloudConfig:layout.html.twig' %}
 
 {% block frag_content %}
     <table class="table table-hover" width="100%">
         <thead>
             <tr>
                 <th style="border-top:0;">
-                    <h3 style="margin-bottom:0;">Networks</h3>
+                    <h3 style="margin-bottom:0;">VM Types</h3>
                 </th>
                 <th class="text-right" style="border-top:0;">
-                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'networks[]' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
+                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'path' : path, 'property' : 'vm_types[]' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
                 </th>
             </tr>
         </thead>
-        {% if manifest.networks|default %}
+        {% if manifest.vm_types|default %}
             <tbody>
-                {% for network in manifest.networks %}
+                {% for vm_type in manifest.vm_types %}
                     <tr>
                         <td>
-                            <strong>{{ network.name }}</strong><br />
-                            <small>{{ network.type }}</small>
+                            <strong>{{ vm_type.name }}</strong><br />
+                            <small>default</small>
                         </td>
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="Actions">
-                                <a class="btn btn-primary-outline btn-sm" href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'networks[' ~ network.name ~ ']' }) }}" title="Change" type="button"><i class="fa fa-pencil fa-fw"></i></a>
+                                <a class="btn btn-primary-outline btn-sm" href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'path' : path, 'property' : 'vm_types[' ~ vm_type.name ~ ']' }) }}" title="Change" type="button"><i class="fa fa-pencil fa-fw"></i></a>
                                 <a class="btn btn-danger-outline btn-sm" title="Remove" type="button"><i class="fa fa-remove fa-fw"></i></a>
                             </div>
                         </td>
@@ -34,12 +34,12 @@
                 <tr>
                     <td colspan="2">
                         <p>
-                            No networks configured &mdash; <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'networks[]' }) }}">add one&hellip;</a>
+                            No VM types configured &mdash; <a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'path' : path, 'property' : 'vm_types[]' }) }}">add one&hellip;</a>
                         </p>
                         <p class="text-muted">
                             <span class="text-primary"><i class="fa fa-question-circle"></i></span>
-                            Each sub-block listed in the Networks block specifies a network configuration that jobs can
-                            reference.
+                            Specifies the resource pools a deployment uses. A deployment manifest can describe multiple
+                            resource pools and uses unique names to identify and reference them.
                         </p>
                     </td>
                 </tr>

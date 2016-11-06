@@ -14,6 +14,12 @@
             <argument>%veneer_sheaf.listing_helper.storage_path%</argument>
         </service>
 
+        <service id="veneer_sheaf.installation_helper" class="Veneer\SheafBundle\Service\InstallationHelper">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="veneer_bosh_editor.manifest_builder.bosh" />
+        </service>
+
         <service id="veneer_sheaf.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
             <factory service="service_container" method="get" />
             <argument>veneer_core.breadcrumbs</argument>

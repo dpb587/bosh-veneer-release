@@ -7,4 +7,6 @@ interface CpiInterface
     public function getName();
     public function getTitle();
     public function getEditorFormType($name);
+
+    public function supportsVipNetwork();
 }

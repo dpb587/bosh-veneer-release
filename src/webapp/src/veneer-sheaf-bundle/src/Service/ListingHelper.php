@@ -70,28 +70,82 @@ class ListingHelper
         return $this->storagePath.'/'.$sheaf->getId();
     }
 
+    public function loadFullSpec(Sheaf $sheaf)
+    {
+        $spec = Yaml::parse(file_get_contents($this->getStoragePath($sheaf).'/spec.yml'));
+
+        foreach ($spec['components'] as $componentIndex => $component) {
+            $componentSpec = Yaml::parse(file_get_contents($this->getStoragePath($sheaf).'/'.$component['path'].'/spec.yml'));
+            $componentSpec['path'] = $component['path'];
+            $componentSpec['required'] = isset($componentSpec['required']) ? $componentSpec['required'] : true;
+
+            $componentSpec['features'] = isset($componentSpec['features']) ? $componentSpec['features'] : [];
+
+            foreach ($componentSpec['features'] as $featureIdx => $feature) {
+                $feature['required'] = isset($feature['required']) ? $feature['required'] : true;
+                $feature['multiple'] = isset($feature['multiple']) ? $feature['multiple'] : false;
+
+                $componentSpec['features'][$featureIdx] = $feature;
+            }
+
+            $spec['components'][$componentIndex] = $componentSpec;
+        }
+
+        return $spec;
+    }
+
     public function createInstallation(Sheaf $sheaf, $name, $data, RepositoryInterface $repository)
     {
         $path = 'sheaf/'.$name.'/installation.yml';
         $draftProfile = $repository->getDraftProfile('sheaf-install-'.substr(md5($path), 0, 8), $path);
 
+        $sheafSpec = $this->loadFullSpec($sheaf);
+
         $writes = [
-            'sheaf/'.$name.'/installation.yml' => Yaml::dump(array_merge(
-                $data,
-                [
-                    'installation' => [
-                        'name' => $sheaf->getSheaf(),
-                        'version' => $sheaf->getVersion(),
-                    ],
-                ]
-            )),
+            'sheaf/'.$name.'/installation.yml' => Yaml::dump(
+                array_merge(
+                    $sheafSpec,
+                    [
+                        'installation' => $data,
+                    ]
+                ),
+                8,
+                2
+            ),
+            'sheaf/'.$name.'/logo.png' => file_get_contents($this->getStoragePath($sheaf).'/logo.png'),
         ];
 
-        foreach ((new Finder())->in($this->getStoragePath($sheaf))->notName('*.tgz')->files() as $path) {
-            $writes['sheaf/'.$name.'/'.$path->getRelativePathname()] = file_get_contents($path);
+        foreach ($sheafSpec['components'] as $component) {
+            $componentEnabled = isset($component['enabled']) ? $component['enabled'] : true;
+
+            if (!$componentEnabled) {
+                continue;
+            }
+
+            if ($component['type'] == 'deployment') {
+                $basedir = 'bosh/deployment/'.$name.'-'.$component['name'];
+
+                $writes[$basedir.'/manifest.yml'] = file_get_contents($this->getStoragePath($sheaf).'/'.$component['path'].'/manifest.yml');
+
+                foreach ($data['components'][$component['name']]['features'] as $featureName => $featureChoice) {
+                    foreach ((array) $featureChoice as $choice) {
+                        $src = $this->getStoragePath($sheaf).'/'.$component['path'].'/ops/'.$choice.'.yml';
+
+                        if (file_exists($src)) {
+                            $writes[$basedir.'/ops/'.$choice.'.yml'] = file_get_contents($src);
+                        }
+
+                        $src = $this->getStoragePath($sheaf).'/'.$component['path'].'/vars/'.$choice.'.yml';
+
+                        if (file_exists($src)) {
+                            $writes[$basedir.'/vars/'.$choice.'.yml'] = file_get_contents($src);
+                        }
+                    }
+                }
+            }
         }
 
-        $repository->commitWrites($draftProfile, $writes);
+        $repository->commitWrites($draftProfile, $writes, $name . ': prepare installation');
 
         return $path;
     }

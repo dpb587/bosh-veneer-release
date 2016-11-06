@@ -1,10 +1,10 @@
 {% extends _layout %}
 
-{% block def_title veneer_bosh_director_name %}
+{% block def_title 'Welcome to BOSH Veneer' %}
 
 {% block frag_content %}
     <p>
-        The following components are installed and configured. Please pick one to get started&hellip;
+        The following features are installed&hellip;
     </p>
 
     <div class="list-group">
@@ -20,8 +20,8 @@
 {% endblock %}
 
 {% block frag_sidebar %}
-    <p class="text-muted">
-        <strong>veneer</strong> (noun)<br />
-        a thin decorative covering of [UX] applied to a coarser [BOSH].
+    <p>
+        <strong>User</strong><br />
+        {{ app.security.token.username }}
     </p>
 {% endblock %}

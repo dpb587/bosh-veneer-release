@@ -20,4 +20,9 @@ class Cpi implements CpiInterface
     {
         return sprintf('veneer_aws_cpi_editor_%s', $name);
     }
+
+    public function supportsVipNetwork()
+    {
+        return true;
+    }
 }

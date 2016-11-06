@@ -21,13 +21,13 @@
 
 {% block frag_sidebar %}
     <ul class="nav">
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_summary', { 'path' : path }), 'Summary', 'info', 'summary', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'azs', 'path' : path }), 'Availability Zones', 'building', 'azs', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'networks', 'path' : path }), 'Networks', 'exchange', 'networks', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'vm-types', 'path' : path }), 'VM Types', 'cubes', 'vmtypes', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'vm-extensions', 'path' : path }), 'VM Extensions', 'puzzle-piece', 'vmextensions', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'disk-types', 'path' : path }), 'Disk Types', 'database', 'disktypes', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'compilation' }), 'Compilation', 'wrench', 'compilation', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_summary', { 'path' : path }), 'Summary', 'info', 'summary', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'azs', 'path' : path }), 'Availability Zones', 'building', 'azs', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'networks', 'path' : path }), 'Networks', 'exchange', 'networks', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'vm-types', 'path' : path }), 'VM Types', 'cubes', 'vmtypes', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'vm-extensions', 'path' : path }), 'VM Extensions', 'puzzle-piece', 'vmextensions', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'disk-types', 'path' : path }), 'Disk Types', 'database', 'disktypes', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_cloudconfig_edit', { 'path' : path, 'property' : 'compilation' }), 'Compilation', 'wrench', 'compilation', sidenav_active) }}
     </ul>
 
     <hr />

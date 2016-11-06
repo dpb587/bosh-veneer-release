@@ -21,15 +21,15 @@
 
 {% block frag_sidebar %}
     <ul class="nav">
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_summary', { 'path' : path }), 'Summary', 'info', 'summary', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'releases', 'path' : path }), 'Releases', 'leaf', 'releases', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'networks', 'path' : path }), 'Networks', 'exchange', 'networks', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'resourcepools', 'path' : path }), 'Resource Pools', 'cubes', 'resourcepools', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'diskpools', 'path' : path }), 'Disk Pools', 'database', 'diskpools', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'instance-groups', 'path' : path }), 'Instance Groups', 'server', 'instance-groups', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'properties', 'path' : path }), 'Properties', 'cogs', 'properties', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'compilation' }), 'Compilation', 'wrench', 'compilation', sidenav_active) }}
-        {{ _self.navlink(path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'update' }), 'Update', 'cog', 'update', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_summary', { 'path' : path }), 'Summary', 'info', 'summary', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_section', { 'section' : 'releases', 'path' : path }), 'Releases', 'leaf', 'releases', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_section', { 'section' : 'networks', 'path' : path }), 'Networks', 'exchange', 'networks', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_section', { 'section' : 'resourcepools', 'path' : path }), 'Resource Pools', 'cubes', 'resourcepools', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_section', { 'section' : 'diskpools', 'path' : path }), 'Disk Pools', 'database', 'diskpools', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_section', { 'section' : 'instance-groups', 'path' : path }), 'Instance Groups', 'server', 'instance-groups', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_section', { 'section' : 'properties', 'path' : path }), 'Properties', 'cogs', 'properties', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'compilation' }), 'Compilation', 'wrench', 'compilation', sidenav_active) }}
+        {{ _self.navlink(path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'update' }), 'Update', 'cog', 'update', sidenav_active) }}
     </ul>
 
     <hr />

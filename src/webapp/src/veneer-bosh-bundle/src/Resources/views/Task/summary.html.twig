@@ -4,7 +4,7 @@
 
 {% block frag_container %}
     {% if data.state in [ 'queued', 'started', 'processing' ] and continue|default %}
-        <div class="bg-primary" style="margin:-16px 0 16px;padding:7px 16px 8px 16px;">
+        <div class="bg-warning" style="margin:-16px 0 16px;padding:7px 16px 8px 16px;">
             <div style="padding:6px 0;">
                 You will be redirected once this task completes successfully.
             </div>

@@ -3,7 +3,7 @@
 {% block def_title spec.title %}
 
 {% block frag_content %}
-    <form action="{{ path('veneer_sheaf_listing_install', { 'listing': sheaf.id }) }}" method="post">
+    <form action="{{ def_nav[-1].url }}" method="post">
         <p>
             To create a new {{ spec.title }} installation, start by giving it a name and electing a few base options.
         </p>
@@ -22,7 +22,7 @@
                     {% endif %}
                 </div>
                 <div class="card-block">
-                    {% for feature in form[component.name] %}
+                    {% for feature in form.children.components[component.name].features %}
                         {{ form_row(feature) }}
                     {% endfor %}
                 </div>

@@ -8,21 +8,19 @@ use Veneer\BoshBundle\Controller\CloudConfigController;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Symfony\Component\Yaml\Yaml;
+use Veneer\SheafBundle\Entity\Sheaf;
 
 class ListingController extends AbstractController
 {
-    public function defNav(Breadcrumbs $nav, $path)
+    public function defNav(Breadcrumbs $nav, Sheaf $sheaf)
     {
-        return CloudConfigController::defNav($nav)
+        return ListingALLController::defNav($nav)
             ->add(
-                'editor',
+                $sheaf->getSheaf(),
                 [
-                    'veneer_ops_workspace_app_cloudconfig_summary' => [
-                        'path' => $path,
+                    'veneer_sheaf_listing_summary' => [
+                        'listing' => $sheaf->getId(),
                     ],
-                ],
-                [
-                    'fontawesome' => 'pencil',
                 ]
             )
             ;
@@ -39,13 +37,7 @@ class ListingController extends AbstractController
         $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
 
         $logo = base64_encode(file_get_contents($sheafPath.'/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheafPath.'/spec.yml'));
-
-        foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheafPath.'/'.$component['name'].'/spec.yml'));
-            $componentSpec['name'] = $component['name'];
-            $spec['components'][$componentIndex] = $componentSpec;
-        }
+        $spec = $this->container->get('veneer_sheaf.listing_helper')->loadFullSpec($sheaf);
 
         return $this->renderApi(
             'VeneerSheafBundle:Listing:summary.html.twig',
@@ -55,7 +47,7 @@ class ListingController extends AbstractController
                 'spec' => $spec,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $sheaf),
             ]
         );
     }
@@ -74,7 +66,7 @@ class ListingController extends AbstractController
                 'sheaf' => $sheaf,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $sheaf),
             ]
         );
     }
@@ -96,7 +88,7 @@ class ListingController extends AbstractController
                 'readme' => file_exists($sheafPath.'/README.md') ? file_get_contents($sheafPath.'/README.md') : null,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $sheaf),
             ]
         );
     }
@@ -112,7 +104,7 @@ class ListingController extends AbstractController
         $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
 
         $logo = base64_encode(file_get_contents($sheafPath.'/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheafPath.'/spec.yml'));
+        $spec = $this->container->get('veneer_sheaf.listing_helper')->loadFullSpec($sheaf);
 
         $bulkFormBuilder = $this->container->get('form.factory')->createNamedBuilder('data');
         $bulkFormBuilder->setData([
@@ -127,28 +119,27 @@ class ListingController extends AbstractController
             ]
         );
 
-        foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheafPath.'/'.$component['name'].'/spec.yml'));
-            $componentSpec['name'] = $component['name'];
-            $spec['components'][$componentIndex] = $componentSpec;
+        $bulkFormBuilder->add('components', 'form');
 
-            $componentForm = $bulkFormBuilder->add($component['name'], 'form')->get($component['name']);
+        foreach ($spec['components'] as $component) {
+            $componentForm = $bulkFormBuilder->get('components')->add($component['name'], 'form')->get($component['name']);
+            $componentForm->add('features', 'form');
 
-            foreach ($componentSpec['features'] as $feature) {
+            foreach ($component['features'] as $feature) {
                 $choices = [];
 
                 foreach ($feature['choices'] as $choice) {
                     $choices[$choice['name']] = $choice['title'];
                 }
 
-                $componentForm->add(
+                $componentForm->get('features')->add(
                     $feature['name'],
                     'choice',
                     [
                         'choices' => $choices,
                         'expanded' => true,
-                        'required' => isset($feature['required']) ? $feature['required'] : true,
-                        'multiple' => isset($feature['multiple']) ? $feature['multiple'] : false,
+                        'required' => $feature['required'],
+                        'multiple' => $feature['multiple'],
                     ]
                 );
             }
@@ -171,7 +162,7 @@ class ListingController extends AbstractController
                 );
 
                 return $this->redirectToRoute(
-                    'veneer_sheaf_workspace_app_sheaf_summary',
+                    'veneer_sheaf_app_summary',
                     [
                         'path' => $path,
                     ]
@@ -187,7 +178,15 @@ class ListingController extends AbstractController
                 'spec' => $spec,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $sheaf)
+                    ->add(
+                        'New Installation',
+                        [
+                            'veneer_sheaf_listing_install' => [
+                                'listing' => $sheaf->getId(),
+                            ],
+                        ]
+                    ),
                 'form' => $bulkForm->createView(),
             ]
         );

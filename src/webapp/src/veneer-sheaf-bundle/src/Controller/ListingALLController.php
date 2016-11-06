@@ -16,6 +16,9 @@ class ListingALLController extends AbstractController
                 'sheaves',
                 [
                     'veneer_sheaf_listingALL_index' => [],
+                ],
+                [
+                    'fontawesome' => 'object-group',
                 ]
             )
             ;

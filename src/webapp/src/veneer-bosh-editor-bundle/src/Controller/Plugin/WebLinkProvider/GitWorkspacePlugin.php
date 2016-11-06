@@ -15,11 +15,11 @@ class GitWorkspacePlugin implements PluginInterface
         switch ($route) {
             case 'veneer_bosh_runtimeconfig_summary':
                 return [
-                    (new Link('ops_edit'))
+                    (new Link('editor'))
                         ->setTopic(Link::TOPIC_CONFIG)
                         ->setTitle('Edit Runtime Config')
                         ->setRoute(
-                            'veneer_bosh_editor_workspace_app_runtimeconfig_summary',
+                            'veneer_bosh_editor_app_runtimeconfig_summary',
                             [
                                 'path' => 'bosh/runtime-config/manifest.yml',
                             ]
@@ -27,11 +27,11 @@ class GitWorkspacePlugin implements PluginInterface
                 ];
             case 'veneer_bosh_deployment_instancegroup_summary':
                 return [
-                    (new Link('ops_edit'))
+                    (new Link('editor'))
                         ->setTopic(Link::TOPIC_CONFIG)
                         ->setTitle('Edit Instance Group')
                         ->setRoute(
-                            'veneer_bosh_editor_workspace_app_deployment_edit',
+                            'veneer_bosh_editor_app_deployment_edit',
                             [
                                 'path' => 'bosh/deployment/'.$_bosh['deployment']['name'].'/manifest.yml',
                                 'property' => 'instance_groups['.$_bosh['instance_group']['job'].']',
@@ -40,7 +40,7 @@ class GitWorkspacePlugin implements PluginInterface
                 ];
             case 'veneer_bosh_deployment_summary':
                 return [
-                    (new Link('ops_edit'))
+                    (new Link('editor'))
                         ->setTopic(Link::TOPIC_CONFIG)
                         ->setTitle('Edit Deployment')
                         ->setRoute(

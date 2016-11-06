@@ -1,0 +1,68 @@
+{% extends 'VeneerSheafBundle:App:layout.html.twig' %}
+
+{% block frag_content %}
+    <h4>Releases</h4>
+
+    {% if dependencies.releases %}
+        <p>
+            The following releases are required by this installation.
+        </p>
+
+        <table class="table">
+            {% for release in dependencies.releases %}
+                <tr>
+                    <td>
+                        <strong>{{ release.name }}</strong><br />
+                        <span class="text-muted">{{ release.version }}</span>
+                    </td>
+                    <td class="text-right">
+                        {% if release.installed %}
+                            <a class="btn btn-link" href="{{ path('veneer_bosh_release_version_summary', { 'release': release.name, 'version': release.version }) }}"><i class="fa fa-check"></i> Installed</a>
+                        {% elseif release.url %}
+                            <form action="{{ path('veneer_sheaf_app_dependencies_install', { 'path': path, 'install': 'release', 'name': release.name }) }}" method="post"><button class="btn btn-link"><i class="fa fa-download"></i> Download</button></form>
+                        {% else %}
+                            <i class="fa fa-exclamation"></i> Not Found
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>
+            No releases are required by this installation.
+        </p>
+    {% endif %}
+
+
+    <h4>Stemcells</h4>
+
+    {% if dependencies.stemcells %}
+        <p>
+            The following stemcells are required by this installation.
+        </p>
+
+        <table class="table">
+            {% for release in dependencies.releases %}
+                <tr>
+                    <td>
+                        <strong>{{ release.name }}</strong><br />
+                        <span class="text-muted">{{ release.version }}</span>
+                    </td>
+                    <td class="text-right">
+                        {% if release.installed %}
+                            <i class="fa fa-check"></i> Installed
+                        {% elseif release.url %}
+                            <form action="" method="post"><button class="btn btn-link"><i class="fa fa-download"></i> Download</button></form>
+                        {% else %}
+                            <i class="fa fa-exclamation"></i> Not Found
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>
+            No stemcells are required by this installation.
+        </p>
+    {% endif %}
+{% endblock %}

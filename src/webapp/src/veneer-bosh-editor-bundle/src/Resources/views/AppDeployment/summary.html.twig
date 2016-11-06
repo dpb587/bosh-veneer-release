@@ -1,11 +1,11 @@
-{% extends 'VeneerBoshEditorBundle:WorkspaceAppDeployment:layout.html.twig' %}
+{% extends 'VeneerBoshEditorBundle:AppDeployment:layout.html.twig' %}
 
 {% block frag_content %}
     <p>
-        <a href="{{ path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'releases', 'path' : path }) }}"><strong>Releases</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'releases', 'path' : path }) }}"><strong>Releases</strong></a>
         &ndash;
         {% if not manifest.releases|default %}
-            none (<a href="{{ path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'releases[]' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'releases[]' }) }}">add one</a>)
         {% else %}
             {{ manifest.releases|length }} {{ 1 == manifest.releases|length ? 'release' : 'releases' }}
         {% endif %}
@@ -16,10 +16,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'networks', 'path' : path }) }}"><strong>Networks</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'networks', 'path' : path }) }}"><strong>Networks</strong></a>
         &ndash;
         {% if not manifest.networks|default %}
-            none (<a href="{{ path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'networks[]' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'networks[]' }) }}">add one</a>)
         {% else %}
             {{ manifest.networks|length }} {{ 1 == manifest.networks|length ? 'release' : 'networks' }}
         {% endif %}
@@ -30,10 +30,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'resourcepools', 'path' : path }) }}"><strong>Resource Pools</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'resourcepools', 'path' : path }) }}"><strong>Resource Pools</strong></a>
         &ndash;
         {% if not manifest.resource_pools|default %}
-            none (<a href="{{ path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'resource_pools[]' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'resource_pools[]' }) }}">add one</a>)
         {% else %}
             {{ manifest.resource_pools|length }} {{ 1 == manifest.resource_pools|length ? 'resource pool' : 'resource pools' }}
         {% endif %}
@@ -44,10 +44,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'diskpools', 'path' : path }) }}"><strong>Disk Pools</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'diskpools', 'path' : path }) }}"><strong>Disk Pools</strong></a>
         &ndash;
         {% if not manifest.disk_pools|default %}
-            none (<a href="{{ path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'disk_pools[]' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'disk_pools[]' }) }}">add one</a>)
         {% else %}
             {{ manifest.disk_pools|length }} {{ 1 == manifest.disk_pools|length ? 'disk pool' : 'disk pools' }}
         {% endif %}
@@ -58,10 +58,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'instance-groups', 'path' : path }) }}"><strong>Instance Groups</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'instance-groups', 'path' : path }) }}"><strong>Instance Groups</strong></a>
         &ndash;
         {% if not manifest.instance_groups|default %}
-            none (<a href="{{ path('veneer_bosh_editor_workspace_app_deployment_edit', { 'path' : path, 'property' : 'jobs[]' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'path' : path, 'property' : 'jobs[]' }) }}">add one</a>)
         {% else %}
             {{ manifest.instance_groups|length }} {{ 1 == manifest.instance_groups|length ? 'instance group' : 'instance groups' }}
         {% endif %}
@@ -72,7 +72,7 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_workspace_app_deployment_section', { 'section' : 'properties', 'path' : path }) }}"><strong>Properties</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'properties', 'path' : path }) }}"><strong>Properties</strong></a>
         <br />
         <span class="text-muted">
             &hellip;

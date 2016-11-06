@@ -37,7 +37,7 @@ class CloudConfigApp implements AppInterface, PluginInterface, LifecycleInterfac
 
     public function getAppRoute()
     {
-        return 'veneer_bosh_editor_workspace_app_cloudconfig_summary';
+        return 'veneer_bosh_editor_app_cloudconfig_summary';
     }
 
     public function getLinks(Request $request, $route)
@@ -45,7 +45,7 @@ class CloudConfigApp implements AppInterface, PluginInterface, LifecycleInterfac
         switch ($route) {
             case 'veneer_bosh_cloudconfig_summary':
                 return [
-                    (new Link('ops_edit'))
+                    (new Link('editor'))
                         ->setTopic(Link::TOPIC_CONFIG)
                         ->setTitle('Edit Cloud Config')
                         ->setRoute(
