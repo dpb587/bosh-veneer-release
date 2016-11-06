@@ -174,7 +174,7 @@
     {%- for child in form %}
         <div>
             <label for="{{ child.vars.id }}">
-                <input id="{{ child.vars.id }}" type="checkbox"{% if child.vars.value is defined %} value="{{ child.vars.value }}"{% endif %}{% if child.vars.checked %} checked="checked"{% endif %} />
+                <input {{ block('widget_attributes') }} type="{{ multiple ? 'checkbox' : 'radio' }}"{% if child.vars.value is defined %} value="{{ child.vars.value }}"{% endif %}{% if child.vars.checked %} checked="checked"{% endif %} />
                 {{ child.vars.label }}
             </label>
         </div>

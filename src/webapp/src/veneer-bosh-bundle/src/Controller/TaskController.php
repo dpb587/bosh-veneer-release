@@ -27,7 +27,7 @@ class TaskController extends AbstractController
         ;
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Request $request, $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Task:summary.html.twig',
@@ -36,6 +36,7 @@ class TaskController extends AbstractController
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
+                'continue' => $request->query->get('continue'),
             ]
         );
     }

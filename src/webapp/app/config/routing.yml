@@ -16,3 +16,5 @@ veneer_wardencpi:
     resource: "@VeneerWardenCpiBundle/Resources/config/routing/default.xml"
 #veneer_wellness:
 #    resource: "@VeneerWellnessBundle/Resources/config/routing/default.xml"
+veneer_sheaf:
+    resource: "@VeneerSheafBundle/Resources/config/routing/default.xml"

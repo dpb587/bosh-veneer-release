@@ -107,5 +107,6 @@
 
     $('strong[data-stage-toggle]').bind('click', function (e) {
         toggle($(this));
+        return false;
     });
 {% endblock %}

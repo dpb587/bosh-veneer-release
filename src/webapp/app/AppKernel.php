@@ -30,6 +30,7 @@ class AppKernel extends Kernel
 //            new Veneer\WellnessBundle\VeneerWellnessBundle(),
             //new Veneer\CloqueBundle\VeneerCloqueBundle(),
             new Veneer\WardenCpiBundle\VeneerWardenCpiBundle(),
+            new Veneer\SheafBundle\VeneerSheafBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

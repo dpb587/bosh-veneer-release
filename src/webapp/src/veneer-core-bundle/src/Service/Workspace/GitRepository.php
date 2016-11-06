@@ -124,6 +124,11 @@ class GitRepository extends Repository implements RepositoryInterface
         return true;
     }
 
+    public function commitMerge($base, $head, $message, array $options = [])
+    {
+
+    }
+
     public function listDirectory($directory = '.', $ref = 'HEAD')
     {
         return parent::listDirectory($this->getPrefixedPath($directory), $ref);

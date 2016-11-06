@@ -1,0 +1,13 @@
+{
+    "name" : "dpb587/veneer-sheaf-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\SheafBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\SheafBundle\\Test\\": "test/"
+        }
+    }
+}

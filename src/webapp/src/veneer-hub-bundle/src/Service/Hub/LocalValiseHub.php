@@ -79,27 +79,4 @@ class LocalValiseHub implements HubInterface
     {
         return $tarballUrl;
     }
-
-    public function yieldSheaves()
-    {
-        foreach ((new Finder())->in($this->options['path'] . '/sheaf')->name('*.json') as $path) {
-            $json = json_decode(file_get_contents($path), true);
-
-            foreach ($json['versions'] as $stemcellVersion) {
-                $entity = new StemcellVersion();
-                $entity->setStemcell($stemcellVersion['name']);
-                $entity->setVersion($stemcellVersion['version']);
-                $entity->setTarballUrl($stemcellVersion['url']);
-                $entity->setTarballSize($stemcellVersion['checksum']['size']);
-                $entity->setTarballChecksum('sha1:' . $stemcellVersion['checksum']['sha1']);
-
-                yield $entity;
-            }
-        }
-    }
-
-    public function authenticateSheafTarballUrl($tarballUrl)
-    {
-        throw new \LogicException('Not supported');
-    }
 }

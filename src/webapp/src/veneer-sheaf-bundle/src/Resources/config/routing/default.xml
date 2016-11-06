@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <!-- summary -->
+
+    <route id="veneer_sheaf_summary" path="/sheaf/summary.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+
+    <route id="veneer_sheaf_listingALL_index" path="/sheaf/listing/:all/index.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingALLController::indexAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_sheaf_listingALL_download" path="/sheaf/listing/:all/download.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingALLController::downloadAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_sheaf_listing_summary" path="/sheaf/listing/{listing}/summary.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_sheaf_listing_install" path="/sheaf/listing/{listing}/install.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\ListingController::installAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- app -->
+
+    <route id="veneer_sheaf_workspace_app_sheaf_summary" path="/sheaf/workspace/app/sheaf/summary.{_format}">
+        <default key="_controller">Veneer\SheafBundle\Controller\WorkspaceAppSheafController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+</routes>

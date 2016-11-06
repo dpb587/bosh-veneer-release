@@ -1,0 +1,71 @@
+{% extends _layout %}
+
+{% block def_title 'Deployment Editor (' ~ manifest.name|default('unknown') ~ ')' %}
+
+{% block frag_content %}
+    <form action="" method="post">
+        <p>
+            To create a new {{ spec.title }} installation, start by electing a few features for it.
+        </p>
+
+        {% if form.name %}
+            {{ form_row(form.name) }}
+        {% endif %}
+
+        {% for component in spec.components %}
+            <div class="card">
+                <div class="card-header">
+                    <strong>{{ component.title }}</strong>
+                    {% if component.summary %}
+                        <br />
+                        <span class="text-muted">{{ component.summary }}</span>
+                    {% endif %}
+                </div>
+                <div class="card-block">
+                    {% for feature in form[component.name] %}
+                        {{ form_row(feature) }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ form_rest(form) }}
+
+        <p>
+            Once you are satisfied with the features, the next step will start configuring settings.
+        </p>
+
+        <div>
+            <button class="btn btn-success" type="submit">Continue</button>
+            &nbsp;
+            <a class="btn btn-warning-outline btn-sm" href="{{ def_nav[-2].url }}">cancel</a>
+        </div>
+    </form>
+{% endblock %}
+
+{% block frag_sidebar %}
+    <div class="text-center" style="margin:18px 0 28px;">
+        <img height="128" src="data:image/png;base64,{{ logo }}" width="128" />
+
+        <h1>{{ spec.title }}</h1>
+
+        {% if spec.summary|default %}
+            <p>{{ spec.summary }}</p>
+        {% endif %}
+    </div>
+
+    {% if spec.description %}
+        <hr />
+        {{ spec.description }}
+    {% endif %}
+
+    <hr />
+
+    <div class="text-muted">
+        <ul class="list-unstyled">
+            <li><small><i class="fa fa-building fa-fw"></i> <a href="{{ spec.publisher.website }}">{{ spec.publisher.name }}</a></small></li>
+            <li><small><i class="fa fa-balance-scale fa-fw"></i> {{ spec.license }}</a></small></li>
+            <li><small><i class="fa fa-wrench fa-fw"></i> {{ spec.name }}/{{ spec.version }}</a></small></li>
+        </ul>
+    </div>
+{% endblock %}
