@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="veneer.executable.git">/var/vcap/packages/bosh-veneer-git/bin/git</parameter>
+        <parameter key="veneer_core.workspace.repository_path">/var/vcap/store/bosh-veneer/repository/git-root</parameter>
+        <parameter key="veneer_cloque.versioning.repository.path_prefix" />
+    </parameters>
+
+    <services>
+        <service id="veneer_core.workspace.repository" class="Veneer\CoreBundle\Service\Workspace\GitRepository">
+            <argument>%veneer_core.workspace.repository_path%</argument>
+            <argument>%veneer_cloque.versioning.repository.path_prefix%</argument>
+            <argument type="service" id="security.context" />
+            <argument>%veneer.executable.git%</argument>
+        </service>
+
+        <service id="veneer_bosh_editor.plugin.web_link_provider.workspace" class="Veneer\BoshEditorBundle\Controller\Plugin\WebLinkProvider\GitWorkspacePlugin">
+            <tag name="veneer_core.link_provider" route="veneer_bosh_cloudconfig_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_runtimeconfig_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_instancegroup_summary" />
+        </service>
+    </services>
+</container>

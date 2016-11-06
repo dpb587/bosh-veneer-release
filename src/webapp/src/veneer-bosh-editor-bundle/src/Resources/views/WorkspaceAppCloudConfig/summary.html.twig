@@ -1,0 +1,85 @@
+{% extends 'VeneerBoshEditorBundle:WorkspaceAppCloudConfig:layout.html.twig' %}
+
+{% block frag_content %}
+    <p>
+        The cloud config is a YAML file that defines IaaS specific configuration used by the Director and all deployments. It allows to separate IaaS specific configuration into its own file and keep deployment manifests IaaS agnostic.
+    </p>
+
+    <hr />
+
+    <p>
+        <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'azs', 'path' : path }) }}"><strong>Availability Zones</strong></a>
+        &ndash;
+        {% if not manifest.azs|default %}
+            none (<a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'azs[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.azs|length }} {{ 1 == manifest.azs|length ? 'availability zone' : 'availability zones' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            An availability zone represents a separated set of cloud resources (typically compute, networking and storage) such that failures in one AZ cause minimal impact in a different AZ.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'networks', 'path' : path }) }}"><strong>Networks</strong></a>
+        &ndash;
+        {% if not manifest.networks|default %}
+            none (<a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'networks[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.networks|length }} {{ 1 == manifest.networks|length ? 'network' : 'networks' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            Network is an IaaS-agnostic representation of the networking layer usually assigned at the boot of the VM and/or when network configuration changes in the deployment manifest.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'vm-types', 'path' : path }) }}"><strong>VM Types</strong></a>
+        &ndash;
+        {% if not manifest.vm_types|default %}
+            none (<a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'vm_types[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.vm_types|length }} {{ 1 == manifest.vm_types|length ? 'VM types' : 'VM types' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            VM type is a named Virtual Machine size configuration in the cloud config.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'vm-extensions', 'path' : path }) }}"><strong>VM Extensions</strong></a>
+        &ndash;
+        {% if not manifest.vm_extensions|default %}
+            none (<a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'vm_extensions[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.vm_extensions|length }} {{ 1 == manifest.vm_extensions|length ? 'VM extension' : 'VM extensions' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            VM extension is a named Virtual Machine configuration in the cloud config that allows to specify arbitrary IaaS specific configuration such as associated security groups and load balancers.
+        </span>
+    </p>
+
+    <p>
+        <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_section', { 'section' : 'disk-types', 'path' : path }) }}"><strong>Disk Types</strong></a>
+        &ndash;
+        {% if not manifest.disk_types|default %}
+            none (<a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path' : path, 'property' : 'disk_types[]' }) }}">add one</a>)
+        {% else %}
+            {{ manifest.disk_types|length }} {{ 1 == manifest.disk_types|length ? 'disk type' : 'disk types' }}
+        {% endif %}
+        <br />
+        <span class="text-muted">
+            Disk pools are logical collections of disks, in a deployment, each created with the same configuration.
+        </span>
+    </p>
+
+    <hr />
+
+    <p>
+        <a href="{{ path('veneer_bosh_editor_workspace_app_cloudconfig_edit', { 'path': path, 'raw': true }) }}">raw editor</a>
+    </p>
+{% endblock %}

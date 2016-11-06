@@ -1705,16 +1705,16 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "2.11.1",
+            "version": "2.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00"
+                "reference": "0b427134a6868050fd9a95cc5eae3df85e5c759b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
-                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/0b427134a6868050fd9a95cc5eae3df85e5c759b",
+                "reference": "0b427134a6868050fd9a95cc5eae3df85e5c759b",
                 "shasum": ""
             },
             "require": {
@@ -1761,7 +1761,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-04-13 16:21:01"
+            "time": "2016-10-19 07:54:05"
         },
         {
             "name": "symfony/polyfill-apcu",

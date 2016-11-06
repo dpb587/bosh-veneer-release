@@ -1,0 +1,13 @@
+{
+    "name" : "dpb587/veneer-bosh-editor-bundle",
+    "autoload": {
+        "psr-4": {
+            "Veneer\\BoshEditorBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Veneer\\BoshEditorBundle\\Test\\": "test/"
+        }
+    }
+}

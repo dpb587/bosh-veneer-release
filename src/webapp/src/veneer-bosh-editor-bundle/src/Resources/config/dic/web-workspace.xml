@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <!--<parameter key="veneer_bosh_editor.plugin.web_workspace_app.deployment.path">#/bosh(\-[^./]+)?\.yml$#</parameter>-->
+        <parameter key="veneer_bosh_editor.plugin.web_workspace_app.deployment.path">#deployments/([^\.]+)\.yml$#</parameter>
+    </parameters>
+
+    <services>
+        <!--<service id="veneer_bosh_editor.plugin.web_workspace_app.deployment" class="Veneer\BoshEditorBundle\Service\Workspace\App\DeploymentApp">-->
+            <!--<argument type="service" id="veneer_core.workspace.repository" />-->
+            <!--<argument type="service" id="service_container" />-->
+            <!--<argument type="service" id="logger" />-->
+
+            <!--<tag name="veneer_core.workspace.app" path="%veneer_bosh_editor.plugin.web_workspace_app.deployment.path%" />-->
+            <!--<tag name="veneer_core.workspace.watcher" path="%veneer_bosh_editor.plugin.web_workspace_app.deployment.path%" method="onManifestCommit" />-->
+            <!--<tag name="veneer_core.workspace.compiler" path="%veneer_bosh_editor.plugin.web_workspace_app.deployment.path%" method="onManifestCompile" />-->
+            <!--<tag name="monolog.logger" channel="veneer_bosh_editor.workspace.app.deployment" />-->
+        <!--</service>-->
+
+        <service id="veneer_bosh_editor.plugin.web_workspace_app.cloudconfig" class="Veneer\BoshEditorBundle\Service\Workspace\App\CloudConfigApp">
+            <argument type="service" id="veneer_bosh_editor.manifest_builder.bosh" />
+            <argument type="service" id="veneer_bosh.api" />
+            <argument type="service" id="logger" />
+
+            <tag name="veneer_core.link_provider" route="veneer_bosh_cloudconfig_summary" />
+            <tag name="veneer_core.workspace.app" path=";bosh/cloud-config/manifest.yml;" />
+            <tag name="veneer_core.workspace.watcher" path="%veneer_bosh_editor.plugin.web_workspace_app.deployment.path%" method="onManifestCommit" />
+            <tag name="veneer_core.workspace.compiler" path="%veneer_bosh_editor.plugin.web_workspace_app.deployment.path%" method="onManifestCompile" />
+            <tag name="monolog.logger" channel="veneer_bosh_editor.workspace.app.cloudconfig" />
+        </service>
+
+        <!--<service id="veneer_bosh_editor.plugin.web_workspace_lifecycle.deployment" class="Veneer\BoshEditorBundle\Service\Workspace\Lifecycle\ManifestLifecycle">-->
+            <!--<argument type="service" id="veneer_core.workspace.repository" />-->
+            <!--<argument type="service" id="service_container" />-->
+            <!--<argument type="service" id="logger" />-->
+
+            <!--<tag name="veneer_core.workspace.lifecycle" path="%veneer_bosh_editor.plugin.web_workspace_app.deployment.path%" />-->
+            <!--<tag name="monolog.logger" channel="veneer_bosh_editor.workspace.app.deployment" />-->
+        <!--</service>-->
+    </services>
+</container>

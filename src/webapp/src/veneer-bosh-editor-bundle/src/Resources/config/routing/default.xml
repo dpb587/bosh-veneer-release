@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <!-- summary -->
+
+    <route id="veneer_bosh_editor_summary" path="/bosh-editor/summary.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\IndexController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- deployment -->
+
+    <route id="veneer_bosh_editor_workspace_app_deployment_summary" path="/bosh-editor/workspace/app/deployment/summary.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppDeploymentController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_bosh_editor_workspace_app_deployment_section" path="/bosh-editor/workspace/app/deployment/{section}.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppDeploymentController::sectionAction</default>
+        <default key="_format">html</default>
+        <requirement key="section">releases|networks|diskpools|resourcepools|instance-groups|properties</requirement>
+    </route>
+
+    <route id="veneer_bosh_editor_workspace_app_deployment_edit" path="/bosh-editor/workspace/app/deployment/edit.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppDeploymentController::editAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_bosh_editor_workspace_app_deployment_remove" path="/bosh-editor/workspace/app/deployment/remove.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppDeploymentController::removeAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <!-- cloud config -->
+
+    <route id="veneer_bosh_editor_workspace_app_cloudconfig_summary" path="/bosh-editor/workspace/app/cloud-config/summary.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppCloudConfigController::summaryAction</default>
+        <default key="_format">html</default>
+    </route>
+
+    <route id="veneer_bosh_editor_workspace_app_cloudconfig_section" path="/bosh-editor/workspace/app/cloud-config/{section}.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppCloudConfigController::sectionAction</default>
+        <default key="_format">html</default>
+        <requirement key="section">azs|networks|disk-types|vm-types|vm-extensions</requirement>
+    </route>
+
+    <route id="veneer_bosh_editor_workspace_app_cloudconfig_edit" path="/bosh-editor/workspace/app/cloud-config/edit.{_format}">
+        <default key="_controller">Veneer\BoshEditorBundle\Controller\WorkspaceAppCloudConfigController::editAction</default>
+        <default key="_format">html</default>
+    </route>
+
+</routes>
