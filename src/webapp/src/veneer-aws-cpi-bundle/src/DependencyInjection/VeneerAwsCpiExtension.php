@@ -17,7 +17,7 @@ class VeneerAwsCpiExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config/dic'));
 
         $loader->load('form-api.xml');
-        $loader->load('form-ops.xml');
+        $loader->load('form-cpi.xml');
         $loader->load('services.xml');
         $loader->load('twig.xml');
         $loader->load('web-link-provider.xml');

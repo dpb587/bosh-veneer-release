@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_warden_cpi.form.type.editor_disktype" class="Veneer\WardenCpiBundle\Form\Type\Editor\DiskTypeType">
+            <tag name="form.type" alias="veneer_warden_cpi_editor_disktype" />
+        </service>
+
+        <service id="veneer_warden_cpi.form.type.editor_vmtype" class="Veneer\WardenCpiBundle\Form\Type\Editor\VmTypeType">
+            <tag name="form.type" alias="veneer_warden_cpi_editor_vmtype" />
+        </service>
+
+        <service id="veneer_warden_cpi.form.type.editor_network" class="Veneer\WardenCpiBundle\Form\Type\Editor\NetworkType">
+            <tag name="form.type" alias="veneer_warden_cpi_editor_network" />
+        </service>
+    </services>
+</container>

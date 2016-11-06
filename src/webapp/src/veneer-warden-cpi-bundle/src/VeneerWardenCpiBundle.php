@@ -26,24 +26,4 @@ class VeneerWardenCpiBundle extends Bundle implements BundleInterface
     {
         return 'veneer_wardencpi_summary';
     }
-
-    public function getDeploymentResourcePoolFormType()
-    {
-        return 'veneer_wardencpi_ops_deployment_resourcepool';
-    }
-
-    public function getDeploymentDiskPoolFormType()
-    {
-        return 'veneer_wardencpi_ops_deployment_diskpool';
-    }
-
-    public function getDeploymentNetworkDynamicFormType()
-    {
-        return 'veneer_wardencpi_ops_deployment_network';
-    }
-
-    public function getDeploymentNetworkManualForm()
-    {
-        return 'veneer_wardencpi_ops_deployment_network';
-    }
 }

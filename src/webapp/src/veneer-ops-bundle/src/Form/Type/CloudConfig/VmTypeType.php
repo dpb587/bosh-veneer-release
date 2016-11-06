@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
+use Veneer\BoshBundle\Service\Cpi\CpiFactory;
 use Veneer\OpsBundle\Form\DataTransformer\ArrayToYamlTransformer;
 use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
@@ -13,7 +14,7 @@ class VmTypeType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
-    public function __construct($cpi)
+    public function __construct(CpiFactory $cpi)
     {
         $this->cpi = $cpi;
     }
@@ -31,7 +32,7 @@ class VmTypeType extends AbstractDeploymentManifestPathType
             )
             ->add(
                 'cloud_properties',
-                $this->cpi->getDeploymentResourcePoolFormType(),
+                $this->cpi->lookup()->getEditorFormType('vmtype'),
                 [
                     'label' => 'Cloud Properties',
                     'veneer_help_html' => '<p>IaaS-specific properties needed to create VMs.</p>',

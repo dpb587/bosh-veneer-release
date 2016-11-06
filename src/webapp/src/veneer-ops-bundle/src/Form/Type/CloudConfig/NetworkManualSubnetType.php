@@ -5,13 +5,14 @@ namespace Veneer\OpsBundle\Form\Type\CloudConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
+use Veneer\BoshBundle\Service\Cpi\CpiFactory;
 use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
 class NetworkManualSubnetType extends AbstractDeploymentManifestPathType
 {
     protected $cpi;
 
-    public function __construct($cpi)
+    public function __construct(CpiFactory $cpi)
     {
         $this->cpi = $cpi;
     }
@@ -73,7 +74,7 @@ class NetworkManualSubnetType extends AbstractDeploymentManifestPathType
             )
             ->add(
                 'cloud_properties',
-                $this->cpi->getDeploymentNetworkManualForm(),
+                $this->cpi->lookup()->getEditorFormType('network'),
                 [
                     'label' => 'Cloud Properties',
                     'veneer_help_html' => '<p>IaaS-specific properties for the subnet.</p>',

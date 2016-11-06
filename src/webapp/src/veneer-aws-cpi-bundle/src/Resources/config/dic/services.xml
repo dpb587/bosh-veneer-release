@@ -9,6 +9,10 @@
             <argument>%veneer_aws_cpi.region%</argument>
         </service>
 
+        <service id="veneer_aws_cpi.cpi" class="Veneer\AwsCpiBundle\Service\Cpi">
+            <tag name="veneer_bosh.cpi" alias="aws" />
+        </service>
+
         <service id="veneer_aws_cpi.api.cloudwatch" class="Aws\CloudWatch\CloudWatchClient">
             <argument type="collection">
                 <argument key="version">2010-08-01</argument>

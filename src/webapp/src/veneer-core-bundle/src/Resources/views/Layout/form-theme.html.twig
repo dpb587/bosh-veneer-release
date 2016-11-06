@@ -568,6 +568,9 @@
 
 {%- block form_rest -%}
     {% for child in form -%}
+        {% if child.vars.compound and child.children|length == 0 %}
+            {% do child.setRendered(true) %}
+        {% endif %}
         {% if not child.rendered %}
             {{- form_row(child) -}}
         {% endif %}
@@ -577,7 +580,7 @@
 {# Support #}
 
 {%- block form_rows -%}
-    {% for child in form %}
+    {% for child in form if not child.vars.compound or child.children|length > 0 %}
         {{- form_row(child) -}}
     {% endfor %}
 {%- endblock form_rows -%}

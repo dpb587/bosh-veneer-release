@@ -1,5 +1,5 @@
 {% if plan.action == 'unchanged' %}
-    <span class="text-muted">No effective changes.</span>
+    <span class="text-muted">The director's cloud config appears to already be up to date.</span>
 {% else %}
     <pre><code>{% for line in plan.diff %}{{ line }}
 {% endfor %}</code></pre>

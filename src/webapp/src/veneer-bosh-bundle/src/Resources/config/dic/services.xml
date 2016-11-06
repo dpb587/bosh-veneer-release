@@ -45,6 +45,11 @@
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
         </service>
 
+        <service id="veneer_bosh.cpi" class="Veneer\BoshBundle\Service\Cpi\CpiFactory">
+            <argument type="service" id="service_container" />
+            <argument type="collection" /><!-- compiler -->
+        </service>
+
         <service id="veneer_bosh.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
             <factory service="service_container" method="get" />
             <argument>veneer_core.breadcrumbs</argument>

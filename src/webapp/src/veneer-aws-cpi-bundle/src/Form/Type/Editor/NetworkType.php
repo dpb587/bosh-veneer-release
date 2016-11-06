@@ -1,13 +1,13 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\Ops;
+namespace Veneer\AwsCpiBundle\Form\Type\Editor;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentNetworkType extends AbstractType
+class NetworkType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,6 +35,6 @@ class DeploymentNetworkType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_awscpi_ops_deployment_network';
+        return 'veneer_aws_cpi_editor_network';
     }
 }

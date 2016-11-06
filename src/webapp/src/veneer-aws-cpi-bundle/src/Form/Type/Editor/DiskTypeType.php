@@ -1,25 +1,17 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\Ops;
+namespace Veneer\AwsCpiBundle\Form\Type\Editor;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentResourcePoolEphemeralDiskType extends AbstractType
+class DiskTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'size',
-                'integer',
-                [
-                    'label' => 'Disk Size',
-                    'veneer_help_html' => '<p>Specifies the disk size in megabytes.</p>',
-                ]
-            )
             ->add(
                 'type',
                 'choice',
@@ -32,11 +24,20 @@ class DeploymentResourcePoolEphemeralDiskType extends AbstractType
                     'required' => false,
                 ]
             )
+            ->add(
+                'encrypted',
+                'checkbox',
+                [
+                    'label' => 'Turns on EBS volume encryption for this persistent disk.',
+                    'required' => false,
+                    'veneer_help_html' => '<p>VM root and ephemeral disk are not encrypted.</p>',
+                ]
+            )
             ;
     }
 
     public function getName()
     {
-        return 'veneer_awscpi_ops_deployment_resourcepool_ephemeraldisk';
+        return 'veneer_aws_cpi_editor_disktype';
     }
 }

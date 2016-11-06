@@ -1,13 +1,13 @@
 <?php
 
-namespace Veneer\AwsCpiBundle\Form\Type\Ops;
+namespace Veneer\AwsCpiBundle\Form\Type\Editor;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DeploymentResourcePoolType extends AbstractType
+class VmTypeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -58,10 +58,33 @@ class DeploymentResourcePoolType extends AbstractType
             )
             ->add(
                 'ephemeral_disk',
-                'veneer_awscpi_ops_deployment_resourcepool_ephemeraldisk',
+                'form',
                 [
                     'label' => 'Ephemeral Disk',
                     'veneer_help_html' => '<p>EBS backed ephemeral disk of custom size for when instance storage is not large enough or not available for selected instance type.</p>',
+                    'required' => false,
+                ]
+            )
+            ;
+
+        $builder->get('ephemeral_disk')
+            ->add(
+                'size',
+                'integer',
+                [
+                    'label' => 'Disk Size',
+                    'veneer_help_html' => '<p>Specifies the disk size in megabytes.</p>',
+                ]
+            )
+            ->add(
+                'type',
+                'choice',
+                [
+                    'label' => 'Disk Type',
+                    'choices' => [
+                        'standard' => 'Magnetic (standard)',
+                        'gp2' => 'General Purpose SSD (gp2)',
+                    ],
                     'required' => false,
                 ]
             )
@@ -70,6 +93,6 @@ class DeploymentResourcePoolType extends AbstractType
 
     public function getName()
     {
-        return 'veneer_awscpi_ops_deployment_resourcepool';
+        return 'veneer_aws_cpi_editor_vmtype';
     }
 }

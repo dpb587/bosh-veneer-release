@@ -5,6 +5,11 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+
+        <service id="veneer_warden_cpi.cpi" class="Veneer\WardenCpiBundle\Service\Cpi">
+            <tag name="veneer_bosh.cpi" alias="warden" />
+        </service>
+
         <service id="veneer_warden_cpi.breadcrumbs" class="Veneer\CoreBundle\Service\Breadcrumbs">
             <factory service="service_container" method="get" />
             <argument>veneer_core.breadcrumbs</argument>
