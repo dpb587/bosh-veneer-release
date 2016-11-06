@@ -73,10 +73,10 @@ class BuiltinPlugin implements PluginInterface
                         $veneerBoshContext['release'],
                         $request->attributes->get('version')
                     );
-                } elseif ('template' == $contextSplit[2]) {
-                    $veneerBoshContext['template'] = $this->loadReleaseTemplate(
+                } elseif ('job' == $contextSplit[2]) {
+                    $veneerBoshContext['job'] = $this->loadReleaseJob(
                         $veneerBoshContext['release'],
-                        $request->attributes->get('template'),
+                        $request->attributes->get('job'),
                         $request->attributes->get('version')
                     );
                 } elseif ('package' == $contextSplit[2]) {
@@ -230,18 +230,18 @@ class BuiltinPlugin implements PluginInterface
         return $loaded;
     }
 
-    protected function loadReleaseTemplate(Releases $release, $template, $version)
+    protected function loadReleaseJob(Releases $release, $job, $version)
     {
         $loaded = $this->em->getRepository('VeneerBoshBundle:Templates')
             ->createQueryBuilder('t')
             ->andWhere(new Expr\Comparison('t.release', '=', ':release'))->setParameter('release', $release)
-            ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $template)
+            ->andWhere(new Expr\Comparison('t.name', '=', ':name'))->setParameter('name', $job)
             ->andWhere(new Expr\Comparison('t.version', '=', ':version'))->setParameter('version', $version)
             ->getQuery()
             ->getSingleResult();
 
         if (!$loaded) {
-            throw new NotFoundHttpException('Failed to find release package');
+            throw new NotFoundHttpException('Failed to find release job');
         }
 
         return $loaded;

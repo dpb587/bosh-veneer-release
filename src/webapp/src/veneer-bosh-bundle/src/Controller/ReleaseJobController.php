@@ -5,18 +5,18 @@ namespace Veneer\BoshBundle\Controller;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class ReleaseTemplateController extends AbstractController
+class ReleaseJobController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return ReleaseTemplateALLController::defNav($nav, $_bosh)
+        return ReleaseJobALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['template']['name'].'/'.$_bosh['template']['version'],
+                $_bosh['job']['name'].'/'.$_bosh['job']['version'],
                 [
-                    'veneer_bosh_release_template_summary' => [
+                    'veneer_bosh_release_job_summary' => [
                         'release' => $_bosh['release']['name'],
-                        'template' => $_bosh['template']['name'],
-                        'version' => $_bosh['template']['version'],
+                        'job' => $_bosh['job']['name'],
+                        'version' => $_bosh['job']['version'],
                     ],
                 ],
                 [
@@ -29,9 +29,9 @@ class ReleaseTemplateController extends AbstractController
     public function summaryAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:ReleaseTemplate:summary.html.twig',
+            'VeneerBoshBundle:ReleaseJob:summary.html.twig',
             [
-                'data' => $_bosh['template'],
+                'data' => $_bosh['job'],
             ],
             [
                 'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
@@ -42,9 +42,9 @@ class ReleaseTemplateController extends AbstractController
     public function propertiesAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:ReleaseTemplate:properties.html.twig',
+            'VeneerBoshBundle:ReleaseJob:properties.html.twig',
             [
-                'properties' => $_bosh['template']['propertiesJsonAsArray'],
+                'properties' => $_bosh['job']['propertiesJsonAsArray'],
             ]
         );
     }

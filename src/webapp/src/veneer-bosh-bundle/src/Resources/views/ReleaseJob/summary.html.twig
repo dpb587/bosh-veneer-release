@@ -1,6 +1,6 @@
 {% extends _layout %}
 
-{% block def_title _veneer_bosh_context.template.name ~ '/' ~ _veneer_bosh_context.template.version %}
+{% block def_title _veneer_bosh_context.job.name ~ '/' ~ _veneer_bosh_context.job.version %}
 
 {% block frag_content %}  
     {{ render(_links.widget.properties.url|veneer_core_appendqs({ '_frag' : 'content' })) }}

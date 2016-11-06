@@ -219,16 +219,16 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
-            case 'veneer_bosh_release_template_summary':
+            case 'veneer_bosh_release_job_summary':
                 return [
                     (new Link('properties'))
                         ->setTopic(Link::TOPIC_WIDGET)
                         ->setRoute(
-                            'veneer_bosh_release_template_properties',
+                            'veneer_bosh_release_job_properties',
                             [
                                 'release' => $_bosh['release']['name'],
-                                'template' => $_bosh['template']['name'],
-                                'version' => $_bosh['template']['version'],
+                                'job' => $_bosh['job']['name'],
+                                'version' => $_bosh['job']['version'],
                             ]
                         ),
                 ];

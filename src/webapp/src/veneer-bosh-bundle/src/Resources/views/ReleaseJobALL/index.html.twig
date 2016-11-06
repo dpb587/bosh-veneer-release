@@ -12,7 +12,7 @@
         <tbody>
             {% for result in results %}
                 <tr>
-                    <td><a href="{{ path('veneer_bosh_release_job_summary', { 'release' : _veneer_bosh_context.release.name, 'job' : result.name, 'version' : result.version }) }}">{{ result.name }}<span class="text-muted">/{{ result.version }}</span></a></td>
+                    <td><a href="{{ path('veneer_bosh_release_job_summary', { 'release' : _veneer_bosh_context.release.name, 'job' : result.name, 'version' : result.version }) }}">{{ result.name }}/<span class="text-muted">{{ result.version }}</span></a></td>
                 </tr>
             {% endfor %}
         </tbody>

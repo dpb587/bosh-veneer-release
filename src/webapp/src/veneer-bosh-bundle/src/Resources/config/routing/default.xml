@@ -263,22 +263,22 @@
         <default key="_veneer_core_context">bosh/release/package</default>
     </route>
 
-    <route id="veneer_bosh_release_templateALL_index" path="/bosh/release/{release}/template/:all/index.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\ReleaseTemplateALLController::indexAction</default>
+    <route id="veneer_bosh_release_jobALL_index" path="/bosh/release/{release}/job/:all/index.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\ReleaseJobALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/template:all</default>
+        <default key="_veneer_core_context">bosh/release/job:all</default>
     </route>
 
-    <route id="veneer_bosh_release_template_summary" path="/bosh/release/{release}/template/{template}/{version}/summary.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\ReleaseTemplateController::summaryAction</default>
+    <route id="veneer_bosh_release_job_summary" path="/bosh/release/{release}/job/{job}/{version}/summary.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\ReleaseJobController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/template</default>
+        <default key="_veneer_core_context">bosh/release/job</default>
     </route>
 
-    <route id="veneer_bosh_release_template_properties" path="/bosh/release/{release}/template/{template}/{version}/properties.{_format}">
-        <default key="_controller">Veneer\BoshBundle\Controller\ReleaseTemplateController::propertiesAction</default>
+    <route id="veneer_bosh_release_job_properties" path="/bosh/release/{release}/job/{job}/{version}/properties.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\ReleaseJobController::propertiesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/template</default>
+        <default key="_veneer_core_context">bosh/release/job</default>
     </route>
 
     <!-- stemcell -->

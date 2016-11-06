@@ -6,15 +6,15 @@ use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class ReleaseTemplateALLController extends AbstractController
+class ReleaseJobALLController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
         return ReleaseController::defNav($nav, $_bosh)
             ->add(
-                'template',
+                'job',
                 [
-                    'veneer_bosh_release_templateALL_index' => [
+                    'veneer_bosh_release_jobALL_index' => [
                         'release' => $_bosh['release']['name'],
                     ],
                 ]
@@ -24,7 +24,7 @@ class ReleaseTemplateALLController extends AbstractController
     public function indexAction($_bosh)
     {
         return $this->renderApi(
-            'VeneerBoshBundle:ReleaseTemplateALL:index.html.twig',
+            'VeneerBoshBundle:ReleaseJobALL:index.html.twig',
             [
                 'results' => $this->container->get('doctrine.orm.bosh_entity_manager')
                     ->getRepository('VeneerBoshBundle:Templates')

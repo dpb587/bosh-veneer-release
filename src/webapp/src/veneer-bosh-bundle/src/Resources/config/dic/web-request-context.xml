@@ -30,8 +30,8 @@
             <tag name="veneer_core.request_context" context="bosh/release:all" />
             <tag name="veneer_core.request_context" context="bosh/release/package" />
             <tag name="veneer_core.request_context" context="bosh/release/package:all" />
-            <tag name="veneer_core.request_context" context="bosh/release/template" />
-            <tag name="veneer_core.request_context" context="bosh/release/template:all" />
+            <tag name="veneer_core.request_context" context="bosh/release/job" />
+            <tag name="veneer_core.request_context" context="bosh/release/job:all" />
             <tag name="veneer_core.request_context" context="bosh/release/version" />
             <tag name="veneer_core.request_context" context="bosh/release/version:all" />
             <tag name="veneer_core.request_context" context="bosh/stemcell" />
