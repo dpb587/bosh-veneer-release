@@ -2,11 +2,6 @@
 
 namespace Veneer\BoshBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
@@ -44,7 +39,7 @@ class ReleaseVersionController extends AbstractController
             ]
         );
     }
-    
+
     public function packagesAction($_bosh)
     {
         return $this->renderApi(
@@ -69,7 +64,7 @@ class ReleaseVersionController extends AbstractController
             ]
         );
     }
-    
+
     public function deploymentsAction($_bosh)
     {
         return $this->renderApi(
@@ -94,7 +89,7 @@ class ReleaseVersionController extends AbstractController
             ]
         );
     }
-    
+
     public function templatesAction($_bosh)
     {
         return $this->renderApi(

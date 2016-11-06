@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stemcells
+ * Stemcells.
  *
  * @ORM\Table(name="stemcells", uniqueConstraints={@ORM\UniqueConstraint(name="stemcells_name_version_key", columns={"name", "version"})})
  * @ORM\Entity
@@ -48,7 +48,7 @@ class Stemcells extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $operatingSystem;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -56,6 +56,4 @@ class Stemcells extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="stemcells_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

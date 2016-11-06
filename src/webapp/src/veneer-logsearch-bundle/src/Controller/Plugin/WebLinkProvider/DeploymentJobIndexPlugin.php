@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Plugin\LinkProvider\PluginInterface;
 use Veneer\CoreBundle\Plugin\LinkProvider\Link;
 
-class DeploymentInstanceGroupInstancePlugin implements PluginInterface
+class DeploymentJobIndexPlugin implements PluginInterface
 {
     protected $kibanaUrl;
     protected $directorName;
@@ -31,7 +31,7 @@ class DeploymentInstanceGroupInstancePlugin implements PluginInterface
                     $this->kibanaUrl,
                     rawurlencode($this->directorName),
                     rawurlencode($_bosh['deployment']['name']),
-                    rawurlencode($_bosh['instance_group']['job'] . '/' . $_bosh['instance']['uuid'])
+                    rawurlencode($_bosh['instance_group']['job'].'/'.$_bosh['instance']['uuid'])
                 )),
         ];
     }

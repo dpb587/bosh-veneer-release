@@ -7,7 +7,7 @@ use Veneer\CoreBundle\Plugin\Metric\Metric\AbstractMetric;
 
 class CloudWatchSource extends AbstractMetric
 {
-    static $statisticMap = [
+    public static $statisticMap = [
         'avg' => 'Average',
         'max' => 'Maximum',
         'min' => 'Minimum',
@@ -40,12 +40,12 @@ class CloudWatchSource extends AbstractMetric
         $statisticName = self::$statisticMap[$statistic];
 
         $result = $this->client->getMetricStatistics([
-            'Namespace'  => $this->namespace,
+            'Namespace' => $this->namespace,
             'MetricName' => $this->metric,
             'Dimensions' => $this->dimensions,
-            'StartTime'  => $start->format('c'),
-            'EndTime'    => $end->format('c'),
-            'Period'     => $intervalSeconds,
+            'StartTime' => $start->format('c'),
+            'EndTime' => $end->format('c'),
+            'Period' => $intervalSeconds,
             'Statistics' => [
                 $statisticName,
             ],

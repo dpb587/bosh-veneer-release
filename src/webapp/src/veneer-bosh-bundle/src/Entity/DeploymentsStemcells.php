@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DeploymentsStemcells
+ * DeploymentsStemcells.
  *
  * @ORM\Table(name="deployments_stemcells", uniqueConstraints={@ORM\UniqueConstraint(name="deployments_stemcells_deployment_id_stemcell_id_key", columns={"deployment_id", "stemcell_id"})}, indexes={@ORM\Index(name="IDX_552730EB9DF4CE98", columns={"deployment_id"}), @ORM\Index(name="IDX_552730EBF8AAD739", columns={"stemcell_id"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class DeploymentsStemcells extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -41,6 +41,4 @@ class DeploymentsStemcells extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $stemcell;
-
-
 }

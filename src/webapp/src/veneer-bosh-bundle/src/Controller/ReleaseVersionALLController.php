@@ -2,10 +2,6 @@
 
 namespace Veneer\BoshBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
@@ -34,10 +30,10 @@ class ReleaseVersionALLController extends AbstractController
             ->addOrderBy('v.version')
             ->getQuery()
             ->getResult();
-        
+
         usort(
             $results,
-            function($a, $b) {
+            function ($a, $b) {
                 return -1 * version_compare($a['version'], $b['version']);
             }
         );

@@ -4,9 +4,7 @@ namespace Veneer\OpsBundle\Form\Type;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\DeploymentReleaseTransformer;
 use Doctrine\ORM\EntityManager;
@@ -39,7 +37,7 @@ class DeploymentReleaseType extends AbstractDeploymentManifestPathType
 
         foreach ($installed as $choice) {
             $mapped[$choice['name']][$choice['version']] = $choice;
-            $choices[$choice['name'] . '/' . $choice['version']] = $choice['version'];
+            $choices[$choice['name'].'/'.$choice['version']] = $choice['version'];
         }
 
         $builder

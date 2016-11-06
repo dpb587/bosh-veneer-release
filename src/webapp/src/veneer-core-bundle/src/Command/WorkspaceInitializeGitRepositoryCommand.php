@@ -2,16 +2,10 @@
 
 namespace Veneer\CoreBundle\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Doctrine\DBAL\Connection;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentContext;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Yaml\Yaml;
@@ -28,7 +22,6 @@ class WorkspaceInitializeGitRepositoryCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $container = $this->getContainer();
         $env = new EnvironmentContext(
             $container->get('veneer_core.workspace.repository')->createCheckout($input->getOption('ref')),
@@ -42,7 +35,7 @@ class WorkspaceInitializeGitRepositoryCommand extends ContainerAwareCommand
         if ($input->getArgument('key')) {
             $accessor = PropertyAccess::createPropertyAccessor();
 
-            $key = '[' . implode('][', explode('.', $input->getArgument('key'))) . ']';
+            $key = '['.implode('][', explode('.', $input->getArgument('key'))).']';
             $value = $accessor->getValue($context, $key);
         } else {
             $value = $context;

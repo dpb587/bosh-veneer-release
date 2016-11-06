@@ -23,7 +23,7 @@ class DeploymentInstanceGroupInstanceContext extends SimpleContext
     {
         if (preg_match('/^persistent_disk\[([^]]+)\]$/', $name, $match)) {
             $entity = $this->em->getRepository('VeneerBoshBundle:PersistentDisks')->findOneBy([
-                #'instance' => $this->context['job_index'],
+                //'instance' => $this->context['job_index'],
                 'id' => $match[1],
             ]);
 

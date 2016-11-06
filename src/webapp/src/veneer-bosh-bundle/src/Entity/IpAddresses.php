@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IpAddresses
+ * IpAddresses.
  *
  * @ORM\Table(name="ip_addresses", uniqueConstraints={@ORM\UniqueConstraint(name="ip_addresses_address_key", columns={"address"})}, indexes={@ORM\Index(name="IDX_F1D07E783A51721D", columns={"instance_id"})})
  * @ORM\Entity
@@ -20,14 +20,14 @@ class IpAddresses extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $networkName;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="address", type="bigint", nullable=true)
      */
     protected $address;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="static", type="boolean", nullable=true)
      */
@@ -48,7 +48,7 @@ class IpAddresses extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $taskId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -66,6 +66,4 @@ class IpAddresses extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $instance;
-
-
 }

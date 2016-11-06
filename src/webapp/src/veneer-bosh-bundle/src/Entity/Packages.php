@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Packages
+ * Packages.
  *
  * @ORM\Table(name="packages", uniqueConstraints={@ORM\UniqueConstraint(name="packages_release_id_name_version_key", columns={"release_id", "name", "version"})}, indexes={@ORM\Index(name="packages_fingerprint_index", columns={"fingerprint"}), @ORM\Index(name="packages_sha1_index", columns={"sha1"}), @ORM\Index(name="IDX_9BB5C0A7B12A727D", columns={"release_id"})})
  * @ORM\Entity
@@ -55,7 +55,7 @@ class Packages extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $fingerprint;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -73,6 +73,4 @@ class Packages extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $release;
-
-
 }

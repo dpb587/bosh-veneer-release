@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Instances
+ * Instances.
  *
  * @ORM\Table(name="instances", uniqueConstraints={@ORM\UniqueConstraint(name="instances_vm_id_key", columns={"vm_id"}), @ORM\UniqueConstraint(name="instances_uuid_key", columns={"uuid"}), @ORM\UniqueConstraint(name="instances_vm_cid_key", columns={"vm_cid"}), @ORM\UniqueConstraint(name="instances_agent_id_key", columns={"agent_id"})}, indexes={@ORM\Index(name="IDX_7A2700699DF4CE98", columns={"deployment_id"})})
  * @ORM\Entity
@@ -20,7 +20,7 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $job;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="index", type="integer", nullable=false)
      */
@@ -34,7 +34,7 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $state;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="resurrection_paused", type="boolean", nullable=true)
      */
@@ -62,14 +62,14 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $cloudProperties;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="compilation", type="boolean", nullable=true)
      */
     protected $compilation;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="bootstrap", type="boolean", nullable=true)
      */
@@ -118,21 +118,21 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $trustedCertsSha1;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="update_completed", type="boolean", nullable=true)
      */
     protected $updateCompleted;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="ignore", type="boolean", nullable=true)
      */
     protected $ignore;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -160,6 +160,4 @@ class Instances extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $vm;
-
-
 }

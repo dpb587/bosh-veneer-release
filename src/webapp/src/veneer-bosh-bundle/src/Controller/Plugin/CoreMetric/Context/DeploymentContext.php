@@ -33,7 +33,7 @@ class DeploymentContext extends SimpleContext
 
             $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup');
             $context->replaceContext($this->context);
-            $context->addContext('job', [ 'job' => $entity['job'] ]);
+            $context->addContext('job', ['job' => $entity['job']]);
 
             return $context;
         } elseif (preg_match('/^vm\[([^]]+)\]$/', $name, $match)) {

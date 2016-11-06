@@ -32,12 +32,12 @@ class WidgetPlugin implements PluginInterface
                                 'series' => [
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.aws_cloudwatch.write_bytes',
+                                        'metric' => $metricPrefix.'.aws_cloudwatch.write_bytes',
                                         'transform' => 'flipY',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.aws_cloudwatch.read_bytes',
+                                        'metric' => $metricPrefix.'.aws_cloudwatch.read_bytes',
                                     ],
                                 ],
                             ]
@@ -51,12 +51,12 @@ class WidgetPlugin implements PluginInterface
                                 'series' => [
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.aws_cloudwatch.write_ops',
+                                        'metric' => $metricPrefix.'.aws_cloudwatch.write_ops',
                                         'transform' => 'flipY',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.aws_cloudwatch.read_ops',
+                                        'metric' => $metricPrefix.'.aws_cloudwatch.read_ops',
                                     ],
                                 ],
                             ]
@@ -70,7 +70,7 @@ class WidgetPlugin implements PluginInterface
                                 'series' => [
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.aws_cloudwatch.queue_length',
+                                        'metric' => $metricPrefix.'.aws_cloudwatch.queue_length',
                                     ],
                                 ],
                             ]
@@ -84,7 +84,7 @@ class WidgetPlugin implements PluginInterface
                                 'series' => [
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.aws_cloudwatch.idle_time',
+                                        'metric' => $metricPrefix.'.aws_cloudwatch.idle_time',
                                     ],
                                 ],
                             ]

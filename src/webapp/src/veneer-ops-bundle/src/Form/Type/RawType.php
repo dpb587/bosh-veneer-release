@@ -4,9 +4,6 @@ namespace Veneer\OpsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints;
-use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
-use SYmfony\Component\OptionsResolver\Options;
 use Veneer\OpsBundle\Form\DataTransformer\RawTransformer;
 
 class RawType extends AbstractType

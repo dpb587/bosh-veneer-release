@@ -2,11 +2,7 @@
 
 namespace Veneer\LogsearchBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 
 class DeploymentInstanceGroupInstanceController extends AbstractController
@@ -19,10 +15,10 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         $dies = '5m';
 
         $ds = new \DateTime('-6 hours');
-        $ds->sub(new \DateInterval('PT' . ($ds->format('i') % 5) . 'M' . $ds->format('s') . 'S'));
+        $ds->sub(new \DateInterval('PT'.($ds->format('i') % 5).'M'.$ds->format('s').'S'));
 
         $de = new \DateTime('now');
-        $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
+        $de->sub(new \DateInterval('PT'.$de->format('s').'S'));
 
         $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);
@@ -35,7 +31,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                 '',
                 array_map(
                     function ($v) {
-                        return '{"ignore_unavailable":true}' . "\n" . json_encode($v) . "\n";
+                        return '{"ignore_unavailable":true}'."\n".json_encode($v)."\n";
                     },
                     array_map(
                         function ($metric) use ($contextFilters, $timestampFilters, $dies) {
@@ -109,7 +105,6 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
             }
         }
 
-
         $ephemeralUsed = $es->reduceDateHistogram(
             $ds,
             $de,
@@ -179,7 +174,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                     'system_pct' => $systemUsed,
                     'ephemeral_pct' => $ephemeralUsed,
                     'persistent_pct' => $persistentUsedF,
-                ]
+                ],
             ]
         );
     }

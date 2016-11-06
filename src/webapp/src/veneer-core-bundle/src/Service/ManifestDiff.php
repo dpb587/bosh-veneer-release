@@ -13,12 +13,12 @@ class ManifestDiff
         $dumpB = Yaml::dump($b, 8, 2);
 
         $fileA = tempnam(sys_get_temp_dir(), 'diffa');
-        file_put_contents($fileA, rtrim($dumpA) . "\n");
+        file_put_contents($fileA, rtrim($dumpA)."\n");
 
         $fileB = tempnam(sys_get_temp_dir(), 'diffb');
-        file_put_contents($fileB, rtrim($dumpB) . "\n");
+        file_put_contents($fileB, rtrim($dumpB)."\n");
 
-        $p = new Process('diff ' . escapeshellarg($fileA) . ' ' . escapeshellarg($fileB));
+        $p = new Process('diff '.escapeshellarg($fileA).' '.escapeshellarg($fileB));
         $p->run();
 
         unlink($fileA);

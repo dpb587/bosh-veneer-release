@@ -8,10 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Doctrine\DBAL\Connection;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
 use Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentContext;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Yaml\Yaml;
@@ -45,7 +41,7 @@ class WorkspaceEnvironmentReadCommand extends ContainerAwareCommand
         if ($input->getArgument('key')) {
             $accessor = PropertyAccess::createPropertyAccessor();
 
-            $key = '[' . implode('][', explode('.', $input->getArgument('key'))) . ']';
+            $key = '['.implode('][', explode('.', $input->getArgument('key'))).']';
             $value = $accessor->getValue($context, $key);
         } else {
             $value = $context;

@@ -17,7 +17,7 @@ abstract class AbstractMetric implements MetricInterface
     protected function normalizeEarly(\DateTime $start, \DateTime $end, \DateInterval $interval, array $data)
     {
         $intervalSeconds = $this->convertIntervalToSeconds($interval);
-        $offset = new \DateInterval('PT' . ($start->format('U') % $intervalSeconds) . 'S');
+        $offset = new \DateInterval('PT'.($start->format('U') % $intervalSeconds).'S');
 
         $dn = clone $start;
         $dn->sub($offset);

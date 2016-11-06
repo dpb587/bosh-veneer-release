@@ -64,9 +64,8 @@ class ContainerMap implements \ArrayAccess
     }
 
     /**
-     * ArrayAccess
+     * ArrayAccess.
      */
-
     public function offsetExists($offset)
     {
         return isset($this->map[$offset]);

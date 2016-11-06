@@ -47,7 +47,7 @@ class Breadcrumbs implements ArrayAccess, Countable, IteratorAggregate
             } elseif (is_string($crumb['primary'])) {
                 $crumb['url'] = $crumb['primary'];
             } else {
-                $crumb['route'] = [ key($crumb['primary']), current($crumb['primary']) ];
+                $crumb['route'] = [key($crumb['primary']), current($crumb['primary'])];
                 $crumb['url'] = $this->router->generate(key($crumb['primary']), current($crumb['primary']));
             }
         }

@@ -2,11 +2,7 @@
 
 namespace Veneer\BoshBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
@@ -40,7 +36,7 @@ class DeploymentInstanceGroupInstanceNetworkController extends AbstractControlle
             ]
         );
     }
-    
+
     public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(

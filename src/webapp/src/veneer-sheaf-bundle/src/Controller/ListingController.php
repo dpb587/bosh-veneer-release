@@ -2,20 +2,12 @@
 
 namespace Veneer\SheafBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Veneer\BoshBundle\Controller\CloudConfigController;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
-use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
-use Veneer\BoshBundle\Controller\DeploymentController;
-use Veneer\BoshBundle\Entity\Deployments;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
 class ListingController extends AbstractController
 {
@@ -46,11 +38,11 @@ class ListingController extends AbstractController
 
         $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
 
-        $logo = base64_encode(file_get_contents($sheafPath . '/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheafPath . '/spec.yml'));
+        $logo = base64_encode(file_get_contents($sheafPath.'/logo.png'));
+        $spec = Yaml::parse(file_get_contents($sheafPath.'/spec.yml'));
 
         foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheafPath . '/' . $component['name'] . '/spec.yml'));
+            $componentSpec = Yaml::parse(file_get_contents($sheafPath.'/'.$component['name'].'/spec.yml'));
             $componentSpec['name'] = $component['name'];
             $spec['components'][$componentIndex] = $componentSpec;
         }
@@ -101,7 +93,7 @@ class ListingController extends AbstractController
             'VeneerSheafBundle:Listing:readme.html.twig',
             [
                 'sheaf' => $sheaf,
-                'readme' => file_exists($sheafPath . '/README.md') ? file_get_contents($sheafPath . '/README.md') : null,
+                'readme' => file_exists($sheafPath.'/README.md') ? file_get_contents($sheafPath.'/README.md') : null,
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), 'asdf'),
@@ -119,8 +111,8 @@ class ListingController extends AbstractController
 
         $sheafPath = $this->container->get('veneer_sheaf.listing_helper')->getStoragePath($sheaf);
 
-        $logo = base64_encode(file_get_contents($sheafPath . '/logo.png'));
-        $spec = Yaml::parse(file_get_contents($sheafPath . '/spec.yml'));
+        $logo = base64_encode(file_get_contents($sheafPath.'/logo.png'));
+        $spec = Yaml::parse(file_get_contents($sheafPath.'/spec.yml'));
 
         $bulkFormBuilder = $this->container->get('form.factory')->createNamedBuilder('data');
         $bulkFormBuilder->setData([
@@ -131,12 +123,12 @@ class ListingController extends AbstractController
             'text',
             [
                 'label' => 'Name',
-                'veneer_help_html' => 'This name will become a prefix for all installed components.'
+                'veneer_help_html' => 'This name will become a prefix for all installed components.',
             ]
         );
 
         foreach ($spec['components'] as $componentIndex => $component) {
-            $componentSpec = Yaml::parse(file_get_contents($sheafPath . '/' . $component['name'] . '/spec.yml'));
+            $componentSpec = Yaml::parse(file_get_contents($sheafPath.'/'.$component['name'].'/spec.yml'));
             $componentSpec['name'] = $component['name'];
             $spec['components'][$componentIndex] = $componentSpec;
 

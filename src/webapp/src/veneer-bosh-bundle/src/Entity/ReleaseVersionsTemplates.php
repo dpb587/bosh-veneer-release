@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ReleaseVersionsTemplates
+ * ReleaseVersionsTemplates.
  *
  * @ORM\Table(name="release_versions_templates", uniqueConstraints={@ORM\UniqueConstraint(name="release_versions_templates_release_version_id_template_id_key", columns={"release_version_id", "template_id"})}, indexes={@ORM\Index(name="IDX_8D933749265B2DBF", columns={"release_version_id"}), @ORM\Index(name="IDX_8D9337495DA0FB8", columns={"template_id"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ReleaseVersionsTemplates extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -41,6 +41,4 @@ class ReleaseVersionsTemplates extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $template;
-
-
 }

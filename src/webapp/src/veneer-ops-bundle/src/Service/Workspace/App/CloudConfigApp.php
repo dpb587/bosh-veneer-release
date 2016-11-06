@@ -2,24 +2,17 @@
 
 namespace Veneer\OpsBundle\Service\Workspace\App;
 
-use GuzzleHttp\Exception\RequestException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\BoshBundle\Service\DirectorApiClient;
 use Veneer\CoreBundle\Plugin\LinkProvider\Link;
 use Veneer\CoreBundle\Plugin\LinkProvider\PluginInterface;
 use Veneer\CoreBundle\Service\ManifestDiff;
 use Veneer\CoreBundle\Service\Workspace\App\AppInterface;
-use Veneer\CoreBundle\Service\Workspace\Changeset;
-use Veneer\CoreBundle\Service\Workspace\GitRepository;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\CoreBundle\Service\Workspace\Lifecycle\LifecycleInterface;
-use Veneer\OpsBundle\Entity\DeploymentWorkspace;
 use Psr\Log\LoggerInterface;
 use Veneer\CoreBundle\Service\Workspace\Checkout\CheckoutInterface;
-use Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentContext;
 use Veneer\OpsBundle\Service\ManifestBuilder\ManifestBuilderInterface;
-use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 class CloudConfigApp implements AppInterface, PluginInterface, LifecycleInterface
 {
@@ -114,7 +107,7 @@ class CloudConfigApp implements AppInterface, PluginInterface, LifecycleInterfac
                 ]
             );
         } else {
-            throw new \LogicException('Unexpected action: ' . $compiled['action']);
+            throw new \LogicException('Unexpected action: '.$compiled['action']);
         }
     }
 }

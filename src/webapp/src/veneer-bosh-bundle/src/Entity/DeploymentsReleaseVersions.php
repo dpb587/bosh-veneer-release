@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DeploymentsReleaseVersions
+ * DeploymentsReleaseVersions.
  *
  * @ORM\Table(name="deployments_release_versions", uniqueConstraints={@ORM\UniqueConstraint(name="deployments_release_versions_release_version_id_deployment__key", columns={"release_version_id", "deployment_id"})}, indexes={@ORM\Index(name="IDX_AFD791A3265B2DBF", columns={"release_version_id"}), @ORM\Index(name="IDX_AFD791A39DF4CE98", columns={"deployment_id"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class DeploymentsReleaseVersions extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -41,6 +41,4 @@ class DeploymentsReleaseVersions extends \Veneer\BoshBundle\Service\AbstractEnti
      * })
      */
     protected $deployment;
-
-
 }

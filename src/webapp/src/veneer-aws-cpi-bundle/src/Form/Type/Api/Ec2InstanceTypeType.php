@@ -8,12 +8,12 @@ use Symfony\Component\Yaml\Yaml;
 
 class Ec2InstanceTypeType extends AbstractType
 {
-    static private $config;
+    private static $config;
 
     public function __construct()
     {
         if (null === static::$config) {
-            static::$config = Yaml::parse(file_get_contents(__DIR__ . '/../../../Resources/aws/instance-types.yml'));
+            static::$config = Yaml::parse(file_get_contents(__DIR__.'/../../../Resources/aws/instance-types.yml'));
         }
     }
 

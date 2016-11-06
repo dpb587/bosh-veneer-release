@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Events
+ * Events.
  *
  * @ORM\Table(name="events", indexes={@ORM\Index(name="events_timestamp_index", columns={"timestamp"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Events extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
@@ -90,7 +90,7 @@ class Events extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $contextJson;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -98,6 +98,4 @@ class Events extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="events_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

@@ -25,7 +25,6 @@ class VeneerBoshBundle extends Bundle implements BundleInterface
         return 'bosh';
     }
 
-
     public function getVeneerTitle()
     {
         return 'BOSH';

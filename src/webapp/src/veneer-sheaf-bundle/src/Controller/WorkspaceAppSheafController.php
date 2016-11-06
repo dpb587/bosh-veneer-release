@@ -2,21 +2,12 @@
 
 namespace Veneer\SheafBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Veneer\BoshBundle\Controller\CloudConfigController;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
-use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
-use Veneer\BoshBundle\Controller\DeploymentController;
-use Veneer\BoshBundle\Entity\Deployments;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
 class WorkspaceAppSheafController extends AbstractController
 {
@@ -41,7 +32,7 @@ class WorkspaceAppSheafController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('sheaf-install-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('sheaf-install-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 

@@ -106,7 +106,7 @@ class BoshHubHub implements HubInterface
         }
 
         foreach ($stemcells as $stemcellName => $stemcellPage) {
-            $response = $this->request('api/v1/stemcells/' . $stemcellName);
+            $response = $this->request('api/v1/stemcells/'.$stemcellName);
 
             $versions = json_decode($response->getBody(), true);
 
@@ -124,7 +124,7 @@ class BoshHubHub implements HubInterface
                 $entity->setDetailUrl((string) Uri::resolve($baseUri, $stemcellPage));
                 $entity->setTarballUrl($version[$entity->getSourceType()]['url']);
                 $entity->setTarballSize($version[$entity->getSourceType()]['size']);
-                $entity->setTarballChecksum('md5:' . $version[$entity->getSourceType()]['md5']);
+                $entity->setTarballChecksum('md5:'.$version[$entity->getSourceType()]['md5']);
 
                 yield $entity;
             }

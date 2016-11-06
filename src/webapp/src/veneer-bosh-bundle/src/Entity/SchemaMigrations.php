@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SchemaMigrations
+ * SchemaMigrations.
  *
  * @ORM\Table(name="schema_migrations")
  * @ORM\Entity
@@ -21,6 +21,4 @@ class SchemaMigrations extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="schema_migrations_filename_seq", allocationSize=1, initialValue=1)
      */
     protected $filename;
-
-
 }

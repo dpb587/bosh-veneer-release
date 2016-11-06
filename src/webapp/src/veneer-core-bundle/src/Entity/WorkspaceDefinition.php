@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * !ORM\Entity
- * !ORM\Table(name="core_workspace_definition")
+ * !ORM\Table(name="core_workspace_definition").
  */
 class WorkspaceDefinition
 {

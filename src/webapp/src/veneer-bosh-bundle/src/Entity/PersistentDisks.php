@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PersistentDisks
+ * PersistentDisks.
  *
  * @ORM\Table(name="persistent_disks", uniqueConstraints={@ORM\UniqueConstraint(name="persistent_disks_disk_cid_key", columns={"disk_cid"})}, indexes={@ORM\Index(name="IDX_668636903A51721D", columns={"instance_id"})})
  * @ORM\Entity
@@ -20,14 +20,14 @@ class PersistentDisks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $diskCid;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="size", type="integer", nullable=true)
      */
     protected $size;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="active", type="boolean", nullable=true)
      */
@@ -41,7 +41,7 @@ class PersistentDisks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $cloudPropertiesJson;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -59,6 +59,4 @@ class PersistentDisks extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $instance;
-
-
 }

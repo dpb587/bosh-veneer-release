@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Vms
+ * Vms.
  *
  * @ORM\Table(name="vms", uniqueConstraints={@ORM\UniqueConstraint(name="vms_agent_id_key", columns={"agent_id"})})
  * @ORM\Entity
@@ -27,7 +27,7 @@ class Vms extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $cid;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="deployment_id", type="integer", nullable=false)
      */
@@ -55,7 +55,7 @@ class Vms extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $trustedCertsSha1;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -63,6 +63,4 @@ class Vms extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="vms_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

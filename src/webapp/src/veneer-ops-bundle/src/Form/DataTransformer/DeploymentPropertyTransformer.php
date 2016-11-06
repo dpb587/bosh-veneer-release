@@ -3,7 +3,6 @@
 namespace Veneer\OpsBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Yaml\Yaml;
 
 class DeploymentPropertyTransformer implements DataTransformerInterface
 {

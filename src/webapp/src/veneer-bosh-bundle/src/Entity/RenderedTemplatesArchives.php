@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RenderedTemplatesArchives
+ * RenderedTemplatesArchives.
  *
  * @ORM\Table(name="rendered_templates_archives", indexes={@ORM\Index(name="rendered_templates_archives_created_at_index", columns={"created_at"}), @ORM\Index(name="IDX_CE4FD63A51721D", columns={"instance_id"})})
  * @ORM\Entity
@@ -41,7 +41,7 @@ class RenderedTemplatesArchives extends \Veneer\BoshBundle\Service\AbstractEntit
     protected $createdAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -59,6 +59,4 @@ class RenderedTemplatesArchives extends \Veneer\BoshBundle\Service\AbstractEntit
      * })
      */
     protected $instance;
-
-
 }

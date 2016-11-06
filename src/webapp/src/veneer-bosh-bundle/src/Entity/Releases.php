@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Releases
+ * Releases.
  *
  * @ORM\Table(name="releases", uniqueConstraints={@ORM\UniqueConstraint(name="releases_name_key", columns={"name"})})
  * @ORM\Entity
@@ -20,7 +20,7 @@ class Releases extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $name;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,6 +28,4 @@ class Releases extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="releases_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

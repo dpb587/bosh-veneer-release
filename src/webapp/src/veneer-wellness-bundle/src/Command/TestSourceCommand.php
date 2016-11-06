@@ -34,18 +34,18 @@ class TestSourceCommand extends ContainerAwareCommand
             $check->setSourceConfig($sourceConfig);
 
             foreach ($sourceFactory->get($sourceName)->load($check) as $check) {
-                $output->writeln('<info>' . $check['context.source_path'] . '</info>');
+                $output->writeln('<info>'.$check['context.source_path'].'</info>');
 
                 foreach ($check['context'] as $key => $value) {
                     if (in_array($key, ['source_path'])) {
                         continue;
                     }
 
-                    $output->writeln('  with <comment>' . $key . '</comment>: ' . $value);
+                    $output->writeln('  with <comment>'.$key.'</comment>: '.$value);
                 }
 
                 foreach ($check['source'] as $key => $value) {
-                    $output->writeln('  <comment>' . $key . '</comment>: ' . $value);
+                    $output->writeln('  <comment>'.$key.'</comment>: '.$value);
                 }
             }
         }

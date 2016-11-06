@@ -7,24 +7,24 @@ use GuzzleHttp\Psr7\Response;
 use Veneer\HubBundle\Entity\ReleaseVersion;
 use Veneer\HubBundle\Entity\StemcellVersion;
 
-class BoshHubHubTest extends \PHPUnit_Framework_TestCase
+class BoshHubMarketplaceTest extends \PHPUnit_Framework_TestCase
 {
     public function testReleases()
     {
         $stub = $this->getMockBuilder(BoshHubHub::class)
-            ->setMethods([ 'request' ])
+            ->setMethods(['request'])
             ->getMock();
 
         $stub->method('request')
             ->withConsecutive(
-                [ $this->equalTo('releases') ],
-                [ $this->equalTo('/releases/github.com/logsearch/logsearch-boshrelease') ],
-                [ $this->equalTo('/releases/github.com/logsearch/logsearch-shipper-boshrelease') ]
+                [$this->equalTo('releases')],
+                [$this->equalTo('/releases/github.com/logsearch/logsearch-boshrelease')],
+                [$this->equalTo('/releases/github.com/logsearch/logsearch-shipper-boshrelease')]
             )
             ->will($this->onConsecutiveCalls(
-                new Response(200, [], file_get_contents(__DIR__ . '/_data/BoshHub/releases-index.html')),
-                new Response(200, [], file_get_contents(__DIR__ . '/_data/BoshHub/releases-logsearch.html')),
-                new Response(200, [], file_get_contents(__DIR__ . '/_data/BoshHub/releases-logsearch-shipper.html'))
+                new Response(200, [], file_get_contents(__DIR__.'/_data/BoshHub/releases-index.html')),
+                new Response(200, [], file_get_contents(__DIR__.'/_data/BoshHub/releases-logsearch.html')),
+                new Response(200, [], file_get_contents(__DIR__.'/_data/BoshHub/releases-logsearch-shipper.html'))
             ))
             ;
 
@@ -52,19 +52,19 @@ class BoshHubHubTest extends \PHPUnit_Framework_TestCase
     public function testStemcells()
     {
         $stub = $this->getMockBuilder(BoshHubHub::class)
-            ->setMethods([ 'request' ])
+            ->setMethods(['request'])
             ->getMock();
 
         $stub->method('request')
             ->withConsecutive(
-                [ $this->equalTo('stemcells') ],
-                [ $this->equalTo('api/v1/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent') ],
-                [ $this->equalTo('api/v1/stemcells/bosh-openstack-kvm-centos-7-go_agent') ]
+                [$this->equalTo('stemcells')],
+                [$this->equalTo('api/v1/stemcells/bosh-aws-xen-hvm-ubuntu-trusty-go_agent')],
+                [$this->equalTo('api/v1/stemcells/bosh-openstack-kvm-centos-7-go_agent')]
             )
             ->will($this->onConsecutiveCalls(
-                new Response(200, [], file_get_contents(__DIR__ . '/_data/BoshHub/stemcells-index.html')),
-                new Response(200, [], file_get_contents(__DIR__ . '/_data/BoshHub/stemcells-ubuntu.json')),
-                new Response(200, [], file_get_contents(__DIR__ . '/_data/BoshHub/stemcells-centos.json'))
+                new Response(200, [], file_get_contents(__DIR__.'/_data/BoshHub/stemcells-index.html')),
+                new Response(200, [], file_get_contents(__DIR__.'/_data/BoshHub/stemcells-ubuntu.json')),
+                new Response(200, [], file_get_contents(__DIR__.'/_data/BoshHub/stemcells-centos.json'))
             ))
             ;
 

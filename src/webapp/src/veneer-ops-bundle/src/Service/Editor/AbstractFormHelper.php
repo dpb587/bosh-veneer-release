@@ -4,8 +4,6 @@ namespace Veneer\OpsBundle\Service\Editor;
 
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
-use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
-use Veneer\BoshBundle\Model\DeploymentProperties;
 
 abstract class AbstractFormHelper
 {
@@ -43,7 +41,7 @@ abstract class AbstractFormHelper
         if (!isset($manifest[$concept])) {
             return [
                 'isset' => false,
-                'path' => '[' . $concept . '][0]',
+                'path' => '['.$concept.'][0]',
                 'type' => $type,
                 'title' => ucwords(strtr($concept, '_', ' ')),
                 'data' => [
@@ -60,7 +58,7 @@ abstract class AbstractFormHelper
 
                 return [
                     'isset' => true,
-                    'path' => '[' . $concept . '][' . $conceptIdx . ']',
+                    'path' => '['.$concept.']['.$conceptIdx.']',
                     'type' => $type,
                     'title' => ucwords(strtr($concept, '_', ' ')),
                     'subtitle' => $name,
@@ -71,7 +69,7 @@ abstract class AbstractFormHelper
 
         return [
             'isset' => false,
-            'path' => '[' . $concept . '][' . count($manifest[$concept]) . ']',
+            'path' => '['.$concept.']['.count($manifest[$concept]).']',
             'type' => $type,
             'title' => ucwords(strtr($concept, '_', ' ')),
             'subtitle' => 'New',

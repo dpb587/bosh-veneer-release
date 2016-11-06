@@ -3,12 +3,7 @@
 namespace Veneer\CoreBundle\Controller;
 
 use Monolog\Logger;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Veneer\CoreBundle\Service\Workspace\Lifecycle\LifecycleInterface;
 
 class WorkspaceRepoApplyController extends AbstractController
@@ -28,7 +23,6 @@ class WorkspaceRepoApplyController extends AbstractController
         $mappedChanges = [];
 
         $apps = $this->container->get('veneer_core.workspace.app');
-
 
         foreach ($changeset as $path => $status) {
             $mappedChanges[$path] = [

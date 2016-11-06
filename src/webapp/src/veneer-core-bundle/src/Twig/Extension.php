@@ -20,21 +20,21 @@ class Extension extends \Twig_Extension
 
     public function cidrNetworkFilter($cidr)
     {
-        list($network, ) = explode('/', $cidr, 2);
+        list($network) = explode('/', $cidr, 2);
 
         return $network;
     }
 
     public function cidrNetmaskFilter($cidr)
     {
-        list( , $mask) = explode('/', $cidr, 2);
+        list(, $mask) = explode('/', $cidr, 2);
 
         return $mask;
     }
 
     public function cidrNetmaskExtFilter($cidr)
     {
-        list( , $mask) = explode('/', $cidr, 2);
+        list(, $mask) = explode('/', $cidr, 2);
 
         $netmask = [
             '0' => '0.0.0.0',
@@ -84,19 +84,19 @@ class Extension extends \Twig_Extension
         $si = true;
         $unit = $si ? 1000 : 1024;
         if ($bytes <= $unit) {
-            return $bytes . ' B';
+            return $bytes.' B';
         }
 
         $exp = intval((log($bytes) / log($unit)));
-        $pre = ($si ? "kMGTPE" : "KMGTPE");
-        $pre = $pre[$exp - 1] . ($si ? '' : 'i');
+        $pre = ($si ? 'kMGTPE' : 'KMGTPE');
+        $pre = $pre[$exp - 1].($si ? '' : 'i');
 
-        return sprintf('%.' . $round . 'f %sB', $bytes / pow($unit, $exp), $pre);
+        return sprintf('%.'.$round.'f %sB', $bytes / pow($unit, $exp), $pre);
     }
 
     public function appendQsFilter($url, array $qs)
     {
-        return $url . ((false === strpos($url, '?')) ? '?' : '&') . http_build_query($qs);
+        return $url.((false === strpos($url, '?')) ? '?' : '&').http_build_query($qs);
     }
 
     public function pluralize($text)

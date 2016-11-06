@@ -2,10 +2,6 @@
 
 namespace Veneer\BoshBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
@@ -38,7 +34,7 @@ class DeploymentALLController extends AbstractController
                     },
                     $this->container->get('doctrine.orm.bosh_entity_manager')
                         ->getRepository('VeneerBoshBundle:Deployments')
-                        ->findBy([], [ 'name' => 'ASC' ])
+                        ->findBy([], ['name' => 'ASC'])
                 ),
             ],
             [

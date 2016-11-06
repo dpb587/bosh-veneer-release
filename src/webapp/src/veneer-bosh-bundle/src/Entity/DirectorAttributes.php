@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DirectorAttributes
+ * DirectorAttributes.
  *
  * @ORM\Table(name="director_attributes", uniqueConstraints={@ORM\UniqueConstraint(name="unique_attribute_name", columns={"name"})})
  * @ORM\Entity
@@ -27,7 +27,7 @@ class DirectorAttributes extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $name;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,6 +35,4 @@ class DirectorAttributes extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="director_attributes_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

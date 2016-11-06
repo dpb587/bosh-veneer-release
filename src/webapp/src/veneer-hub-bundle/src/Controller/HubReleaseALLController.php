@@ -2,10 +2,6 @@
 
 namespace Veneer\HubBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
@@ -41,8 +37,7 @@ class HubReleaseALLController extends AbstractController
                         '
                     )
                     ->setParameter('hub', $_bosh['hub']['name'])
-                    ->getArrayResult()
-                ,
+                    ->getArrayResult(),
                 'uploaded_locally' => array_map(
                     'current',
                     $this->container->get('doctrine.orm.bosh_entity_manager')

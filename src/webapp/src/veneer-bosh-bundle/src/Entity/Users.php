@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Users
+ * Users.
  *
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="users_username_key", columns={"username"})})
  * @ORM\Entity
@@ -27,7 +27,7 @@ class Users extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $password;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,6 +35,4 @@ class Users extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="users_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

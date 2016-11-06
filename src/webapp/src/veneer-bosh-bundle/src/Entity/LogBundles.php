@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LogBundles
+ * LogBundles.
  *
  * @ORM\Table(name="log_bundles", uniqueConstraints={@ORM\UniqueConstraint(name="log_bundles_blobstore_id_key", columns={"blobstore_id"})}, indexes={@ORM\Index(name="log_bundles_timestamp_index", columns={"timestamp"})})
  * @ORM\Entity
@@ -27,7 +27,7 @@ class LogBundles extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $timestamp;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,6 +35,4 @@ class LogBundles extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="log_bundles_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

@@ -24,7 +24,7 @@ class TaskTracker
 
         if (!isset($this->state[$event['stage']])) {
             $this->state[$event['stage']] = [
-                'id' => 'stage-' . substr(md5($event['stage']), 0, 12),
+                'id' => 'stage-'.substr(md5($event['stage']), 0, 12),
                 'name' => $event['stage'],
                 'time_begin' => $event['time'],
                 'time_end' => null,
@@ -40,7 +40,7 @@ class TaskTracker
                 $existingTask['state'] = $event['state'];
                 $existingTask['progress'] = $event['progress'];
 
-                if (in_array($event['state'], [ 'failed', 'finished' ])) {
+                if (in_array($event['state'], ['failed', 'finished'])) {
                     $existingTask['time_end'] = $event['time'];
 
                     $this->state[$event['stage']]['tasks_ended'] += 1;

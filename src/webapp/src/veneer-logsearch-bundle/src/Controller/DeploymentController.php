@@ -2,11 +2,7 @@
 
 namespace Veneer\LogsearchBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 
 class DeploymentController extends AbstractController
@@ -16,10 +12,10 @@ class DeploymentController extends AbstractController
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 
         $ds = new \DateTime('-12 hours');
-        $ds->sub(new \DateInterval('PT' . ($ds->format('i') % 5) . 'M' . $ds->format('s') . 'S'));
+        $ds->sub(new \DateInterval('PT'.($ds->format('i') % 5).'M'.$ds->format('s').'S'));
 
         $de = new \DateTime('now');
-        $de->sub(new \DateInterval('PT' . $de->format('s') . 'S'));
+        $de->sub(new \DateInterval('PT'.$de->format('s').'S'));
 
         $contextFilters = $es->generateContextFilters($_bosh);
         $timestampFilters = $es->generateTimestampFilters($ds, $de);

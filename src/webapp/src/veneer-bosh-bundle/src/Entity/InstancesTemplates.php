@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * InstancesTemplates
+ * InstancesTemplates.
  *
  * @ORM\Table(name="instances_templates", uniqueConstraints={@ORM\UniqueConstraint(name="instances_templates_instance_id_template_id_key", columns={"instance_id", "template_id"})}, indexes={@ORM\Index(name="IDX_B4ED17033A51721D", columns={"instance_id"}), @ORM\Index(name="IDX_B4ED17035DA0FB8", columns={"template_id"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class InstancesTemplates extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -41,6 +41,4 @@ class InstancesTemplates extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $template;
-
-
 }

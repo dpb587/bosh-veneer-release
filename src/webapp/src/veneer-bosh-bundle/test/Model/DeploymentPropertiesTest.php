@@ -28,7 +28,7 @@ class DeploymentPropertiesTest extends \PHPUnit_Framework_TestCase
     public function testOffsetGet()
     {
         $this->assertEquals('Level', $this->sut['first.second.third']);
-        $this->assertEquals([ 'third' => 'Level' ], $this->sut['first.second']);
+        $this->assertEquals(['third' => 'Level'], $this->sut['first.second']);
         $this->assertEquals(42, $this->sut['topical']);
     }
 

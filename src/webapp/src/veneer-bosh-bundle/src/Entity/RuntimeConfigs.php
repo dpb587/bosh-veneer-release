@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * RuntimeConfigs
+ * RuntimeConfigs.
  *
  * @ORM\Table(name="runtime_configs", indexes={@ORM\Index(name="runtime_configs_created_at_index", columns={"created_at"})})
  * @ORM\Entity
@@ -27,7 +27,7 @@ class RuntimeConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $createdAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,6 +35,4 @@ class RuntimeConfigs extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="runtime_configs_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

@@ -3,7 +3,6 @@
 namespace Veneer\OpsBundle\Service\Editor;
 
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormBuilderInterface;
 use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 use Veneer\BoshBundle\Model\DeploymentProperties;
 
@@ -41,7 +40,7 @@ class DeploymentFormHelper extends AbstractFormHelper
                     $this->deploymentPropertySpecHelper->mergeTemplatePropertiesSpecs(
                         DeploymentPropertySpecHelper::collectReleaseJobs($manifest, $config['data']['name'])
                     ),
-                    $config['path'] . '.properties',
+                    $config['path'].'.properties',
                     $pathMatch['subpath']
                 );
 

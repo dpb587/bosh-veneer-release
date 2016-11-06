@@ -4,7 +4,6 @@ namespace Veneer\OpsBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Symfony\Component\Yaml\Yaml;
 
 class RawTransformer implements DataTransformerInterface
 {

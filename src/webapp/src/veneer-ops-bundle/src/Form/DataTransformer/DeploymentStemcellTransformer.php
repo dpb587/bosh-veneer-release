@@ -16,7 +16,7 @@ class DeploymentStemcellTransformer implements DataTransformerInterface
         }
 
         return [
-            'picker' => (isset($value['name']) ? $value['name'] : '') . '/' . (isset($value['version']) ? $value['version'] : ''),
+            'picker' => (isset($value['name']) ? $value['name'] : '').'/'.(isset($value['version']) ? $value['version'] : ''),
         ];
     }
 

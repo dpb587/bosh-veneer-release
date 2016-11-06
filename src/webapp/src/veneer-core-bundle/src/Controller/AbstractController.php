@@ -4,7 +4,6 @@ namespace Veneer\CoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -79,7 +78,7 @@ abstract class AbstractController extends Controller
             $response
         );
     }
-    
+
     protected function getRenderParameters(array $parameters)
     {
         $request = $this->container->get('request');

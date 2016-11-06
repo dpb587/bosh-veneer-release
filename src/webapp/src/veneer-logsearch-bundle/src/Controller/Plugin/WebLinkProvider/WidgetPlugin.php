@@ -52,15 +52,15 @@ class WidgetPlugin implements PluginInterface
                                 'series' => [
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.load.load.longterm',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.load.load.longterm',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.load.load.midterm',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.load.load.midterm',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.load.load.shortterm',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.load.load.shortterm',
                                     ],
                                 ],
                             ]
@@ -77,19 +77,19 @@ class WidgetPlugin implements PluginInterface
                                 'series' => [
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_used',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.memory.memory_used',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_buffered',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.memory.memory_buffered',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_cached',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.memory.memory_cached',
                                     ],
                                     [
                                         'statistic' => 'avg',
-                                        'metric' => $metricPrefix . '.logsearch_metric.host.memory.memory_free',
+                                        'metric' => $metricPrefix.'.logsearch_metric.host.memory.memory_free',
                                     ],
                                 ],
                             ]

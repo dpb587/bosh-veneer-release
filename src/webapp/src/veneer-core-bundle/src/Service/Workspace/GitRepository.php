@@ -5,10 +5,8 @@ namespace Veneer\CoreBundle\Service\Workspace;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use TQ\Vcs\Cli\CallException;
-use Veneer\CoreBundle\Service\Workspace\Changeset;
 use TQ\Git\Repository\Repository;
 use TQ\Git\Cli\Binary;
-use TQ\Vcs\Gaufrette\Adapter;
 use Veneer\CoreBundle\Service\Workspace\Checkout\CheckoutInterface;
 
 class GitRepository extends Repository implements RepositoryInterface
@@ -34,7 +32,7 @@ class GitRepository extends Repository implements RepositoryInterface
 
         $checkout = new Checkout\GitDirCheckout(
             $this->binary,
-            $this->getRepositoryPath() . '/.git',
+            $this->getRepositoryPath().'/.git',
             $ref,
             $mode & ~CheckoutInterface::MODE_WRITABLE
         );
@@ -105,7 +103,7 @@ class GitRepository extends Repository implements RepositoryInterface
 
         $pushArgs = [
             'origin',
-            $checkout->getHead() . (isset($options['branch']) ? (':' . $options['branch']) : ''),
+            $checkout->getHead().(isset($options['branch']) ? (':'.$options['branch']) : ''),
         ];
 
         if (!empty($options['force'])) {
@@ -126,7 +124,6 @@ class GitRepository extends Repository implements RepositoryInterface
 
     public function commitMerge($base, $head, $message, array $options = [])
     {
-
     }
 
     public function listDirectory($directory = '.', $ref = 'HEAD')
@@ -142,7 +139,7 @@ class GitRepository extends Repository implements RepositoryInterface
     public function fileExists($file, $ref = 'HEAD')
     {
         try {
-            return (Boolean) parent::showFile($this->getPrefixedPath($file), $ref);
+            return (bool) parent::showFile($this->getPrefixedPath($file), $ref);
         } catch (CallException $e) {
             return false;
         }
@@ -150,7 +147,7 @@ class GitRepository extends Repository implements RepositoryInterface
 
     public function getPrefixedPath($path)
     {
-        return ltrim($this->pathPrefix . '/' . $path, '/');
+        return ltrim($this->pathPrefix.'/'.$path, '/');
     }
 
     public function diff($oldRef, $newRef)
@@ -216,12 +213,12 @@ class GitRepository extends Repository implements RepositoryInterface
         $username = $this->securityContext->getToken()->getUsername();
         $commitEnv = [
             'GIT_AUTHOR_NAME' => $username,
-            'GIT_AUTHOR_EMAIL' => $username . '@' . 'bosh-veneer.local',
+            'GIT_AUTHOR_EMAIL' => $username.'@'.'bosh-veneer.local',
             'GIT_COMMITTER_NAME' => $username,
-            'GIT_COMMITTER_EMAIL' => $username . '@' . 'bosh-veneer.local',
+            'GIT_COMMITTER_EMAIL' => $username.'@'.'bosh-veneer.local',
         ];
 
-        $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
+        $tmp = uniqid('/tmp/gitrepo-'.microtime(true).'-');
 
         // create a temporary workspace for committing
 
@@ -275,11 +272,11 @@ class GitRepository extends Repository implements RepositoryInterface
             $fullpath = $this->getPrefixedPath($path);
 
             if (null !== $data) {
-                if (!file_exists(dirname($tmp . '/' . $fullpath))) {
-                    mkdir(dirname($tmp . '/' . $fullpath), 0700, true);
+                if (!file_exists(dirname($tmp.'/'.$fullpath))) {
+                    mkdir(dirname($tmp.'/'.$fullpath), 0700, true);
                 }
 
-                file_put_contents($tmp . '/' . $fullpath, $data);
+                file_put_contents($tmp.'/'.$fullpath, $data);
             }
 
             $call = $this->getGit()->createCall(
@@ -327,13 +324,13 @@ class GitRepository extends Repository implements RepositoryInterface
 
         // cleanup
 
-        $p = new Process('rm -fr ' . escapeshellarg($tmp));
+        $p = new Process('rm -fr '.escapeshellarg($tmp));
         $p->mustRun();
     }
 
     public function getDraftProfile($draft, $path)
     {
-        $branch = 'veneer-draft-' . $draft;
+        $branch = 'veneer-draft-'.$draft;
 
         try {
             $this->showFile($path, $branch);

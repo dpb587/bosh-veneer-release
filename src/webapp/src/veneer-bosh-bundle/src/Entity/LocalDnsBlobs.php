@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LocalDnsBlobs
+ * LocalDnsBlobs.
  *
  * @ORM\Table(name="local_dns_blobs")
  * @ORM\Entity
@@ -34,7 +34,7 @@ class LocalDnsBlobs extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $createdAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,6 +42,4 @@ class LocalDnsBlobs extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="local_dns_blobs_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

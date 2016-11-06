@@ -27,14 +27,14 @@ class CheckState
      * @ORM\Column(name="context_ref", type="string", length=32)
      */
     protected $contextRef;
-    
+
     public function setContextRef($contextRef)
     {
         $this->contextRef = $contextRef;
-        
+
         return $this;
     }
-    
+
     public function getContextRef()
     {
         return $this->contextRef;
@@ -44,14 +44,14 @@ class CheckState
      * @ORM\Column(name="source", type="array", nullable=true)
      */
     protected $source;
-    
+
     public function setSource($source)
     {
         $this->source = $source;
-        
+
         return $this;
     }
-    
+
     public function getSource()
     {
         return $this->source;

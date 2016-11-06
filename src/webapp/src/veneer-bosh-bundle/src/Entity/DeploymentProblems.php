@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DeploymentProblems
+ * DeploymentProblems.
  *
  * @ORM\Table(name="deployment_problems", indexes={@ORM\Index(name="deployment_problems_deployment_id_type_state_index", columns={"deployment_id", "type", "state"}), @ORM\Index(name="deployment_problems_deployment_id_state_created_at_index", columns={"deployment_id", "state", "created_at"}), @ORM\Index(name="IDX_B104A72E9DF4CE98", columns={"deployment_id"})})
  * @ORM\Entity
@@ -20,7 +20,7 @@ class DeploymentProblems extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $state;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="resource_id", type="integer", nullable=false)
      */
@@ -55,14 +55,14 @@ class DeploymentProblems extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $lastSeenAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="counter", type="integer", nullable=false)
      */
     protected $counter;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -80,6 +80,4 @@ class DeploymentProblems extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $deployment;
-
-
 }

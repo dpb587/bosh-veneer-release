@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Veneer\CoreBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;

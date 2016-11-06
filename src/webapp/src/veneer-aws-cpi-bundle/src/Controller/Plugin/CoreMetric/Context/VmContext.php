@@ -3,7 +3,6 @@
 namespace Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Context;
 
 use Veneer\AwsCpiBundle\Controller\Plugin\CoreMetric\Source\CloudWatchSource;
-use Veneer\CoreBundle\Plugin\Metric\Context\AbstractContext;
 use Aws\CloudWatch\CloudWatchClient;
 
 class VmContext implements ContextInterface

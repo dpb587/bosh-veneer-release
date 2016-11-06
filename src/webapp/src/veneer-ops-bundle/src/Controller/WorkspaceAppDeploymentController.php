@@ -2,13 +2,10 @@
 
 namespace Veneer\OpsBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
 use Veneer\BoshBundle\Controller\DeploymentController;
@@ -25,7 +22,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $refl->setAccessible(true);
         $refl->setValue($mock, $name);
 
-        return DeploymentController::defNav($nav, [ 'deployment' => $mock ])
+        return DeploymentController::defNav($nav, ['deployment' => $mock])
             ->add(
                 'editor',
                 [
@@ -44,7 +41,7 @@ class WorkspaceAppDeploymentController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 
@@ -66,7 +63,7 @@ class WorkspaceAppDeploymentController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 
@@ -96,7 +93,7 @@ class WorkspaceAppDeploymentController extends AbstractController
 
                 $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseJobs($yaml, $filterJob);
                 $tplExtras['properties_configured'] = isset($job['properties']) ? $job['properties'] : null;
-                $tplExtras['properties_editpath'] = 'instance_groups[' . $filterJob . '].properties.';
+                $tplExtras['properties_editpath'] = 'instance_groups['.$filterJob.'].properties.';
                 $navSection = 'instance-groups';
             } else {
                 $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseJobs($yaml);
@@ -111,7 +108,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         }
 
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceAppDeployment:section-' . $section . '.html.twig',
+            'VeneerOpsBundle:WorkspaceAppDeployment:section-'.$section.'.html.twig',
             array_merge(
                 [
                     'draft_profile' => $draftProfile,
@@ -142,7 +139,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $property = $request->query->get('property');
         $raw = $request->query->get('raw');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 
@@ -152,7 +149,7 @@ class WorkspaceAppDeploymentController extends AbstractController
         $section = str_replace('_', '-', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path, $yaml['name']);
 
-        if (($property === null) || in_array($section, [ 'compilation', 'update' ])) {
+        if (($property === null) || in_array($section, ['compilation', 'update'])) {
             $nav->add(
                 $editorProfile['title'],
                 [
@@ -208,7 +205,7 @@ class WorkspaceAppDeploymentController extends AbstractController
                     [
                         $path => $data,
                     ],
-                    'Update ' . $request->query->get('property')
+                    'Update '.$request->query->get('property')
                 );
 
                 return $this->redirect($nav[-2]['url']);

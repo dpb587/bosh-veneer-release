@@ -36,7 +36,7 @@ class VeneerCoreBundle extends Bundle
             if ('v0.0.0' == $builder->getParameter('veneer_core.build.tag')) {
                 $builder->setParameter('veneer_core.build.tag_commit', '0000000');
             } else {
-                $p = new Process('git rev-parse --short ' . escapeshellarg($builder->getParameter('veneer_core.build.tag')), __DIR__);
+                $p = new Process('git rev-parse --short '.escapeshellarg($builder->getParameter('veneer_core.build.tag')), __DIR__);
                 $p->run();
 
                 $builder->setParameter('veneer_core.build.tag_commit', trim($p->getOutput()));

@@ -5,17 +5,14 @@ namespace Veneer\CoreBundle\Service\Workspace\Repository\GitRepository;
 use Symfony\Component\Process\Process;
 use Veneer\CoreBundle\Service\Workspace\Repository\Changeset;
 use Veneer\CoreBundle\Service\Workspace\Repository\BlobInterface;
-use Veneer\CoreBundle\Service\Workspace\Repository\GitRepository\Blob;
-use Veneer\CoreBundle\Service\Workspace\Repository\GitRepository\Tree;
-use Veneer\CoreBundle\Service\Workspace\Repository\GitRepository\Repository;
 
-class ComprehensiveTest extends \PHPUnit_Framework_TestCase
+class GitRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     protected $repo;
 
     public function setUp()
     {
-        $tmpdir = sys_get_temp_dir() . '/gitrepo-' . str_replace('.', '', microtime(true));
+        $tmpdir = sys_get_temp_dir().'/gitrepo-'.str_replace('.', '', microtime(true));
 
         foreach ([
             'mkdir {cwd}',
@@ -49,7 +46,7 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
             $p->mustRun();
         }
 
-        $this->repo = new Repository($tmpdir . '/.git');
+        $this->repo = new Repository($tmpdir.'/.git');
     }
 
     public function tearDown()
@@ -61,7 +58,7 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
 
     public function testRepositoryRoot()
     {
-        $this->assertStringStartsWith(sys_get_temp_dir() . '/gitrepo-', $this->repo->getRoot());
+        $this->assertStringStartsWith(sys_get_temp_dir().'/gitrepo-', $this->repo->getRoot());
     }
 
     public function testBlobFile()
@@ -73,7 +70,7 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('file3', $blob->getPath());
         $this->assertEquals(BlobInterface::TYPE_FILE, $blob->type());
         $this->assertEquals('644', $blob->mode());
-        $this->assertEquals('file3b' . "\n", $blob->data());
+        $this->assertEquals('file3b'."\n", $blob->data());
         $this->assertFalse($blob->isModified());
 
         $blob->mode('777');
@@ -119,8 +116,8 @@ class ComprehensiveTest extends \PHPUnit_Framework_TestCase
             $changes
         );
 
-        $this->assertEquals('file3' . "\n", $changeset->getOldBlob('file3')->data());
-        $this->assertEquals('file3b' . "\n", $changeset->getNewBlob('file3')->data());
+        $this->assertEquals('file3'."\n", $changeset->getOldBlob('file3')->data());
+        $this->assertEquals('file3b'."\n", $changeset->getNewBlob('file3')->data());
     }
 
     public function testTreeTagResolution()

@@ -2,12 +2,6 @@
 
 namespace Veneer\BoshBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
@@ -17,7 +11,7 @@ class ReleaseTemplateController extends AbstractController
     {
         return ReleaseTemplateALLController::defNav($nav, $_bosh)
             ->add(
-                $_bosh['template']['name'] . '/' . $_bosh['template']['version'],
+                $_bosh['template']['name'].'/'.$_bosh['template']['version'],
                 [
                     'veneer_bosh_release_template_summary' => [
                         'release' => $_bosh['release']['name'],
@@ -44,7 +38,7 @@ class ReleaseTemplateController extends AbstractController
             ]
         );
     }
-    
+
     public function propertiesAction($_bosh)
     {
         return $this->renderApi(

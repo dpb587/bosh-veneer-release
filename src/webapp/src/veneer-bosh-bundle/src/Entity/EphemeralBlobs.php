@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * EphemeralBlobs
+ * EphemeralBlobs.
  *
  * @ORM\Table(name="ephemeral_blobs")
  * @ORM\Entity
@@ -34,7 +34,7 @@ class EphemeralBlobs extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $createdAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,6 +42,4 @@ class EphemeralBlobs extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="ephemeral_blobs_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

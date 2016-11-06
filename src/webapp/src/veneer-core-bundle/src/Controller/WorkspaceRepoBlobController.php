@@ -2,10 +2,6 @@
 
 namespace Veneer\CoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

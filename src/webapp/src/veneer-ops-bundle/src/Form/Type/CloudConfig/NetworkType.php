@@ -2,14 +2,11 @@
 
 namespace Veneer\OpsBundle\Form\Type\CloudConfig;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Veneer\OpsBundle\Form\DataTransformer\DeploymentNetworkTransformer;
 use Veneer\OpsBundle\Form\Type\AbstractDeploymentManifestPathType;
 
-class NetworkType extends AbstractDeploymentManifestPathType 
+class NetworkType extends AbstractDeploymentManifestPathType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

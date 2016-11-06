@@ -40,7 +40,7 @@ class EncryptionService
         return base64_encode(
             mcrypt_encrypt(
                 $this->options['cipher'],
-                md5($this->options['key'] . $salt),
+                md5($this->options['key'].$salt),
                 base64_encode($data),
                 $this->options['mode'],
                 $this->getIV()
@@ -53,7 +53,7 @@ class EncryptionService
         return base64_decode(
             mcrypt_decrypt(
                 $this->options['cipher'],
-                md5($this->options['key'] . $salt),
+                md5($this->options['key'].$salt),
                 base64_decode($data),
                 $this->options['mode'],
                 $this->getIV()

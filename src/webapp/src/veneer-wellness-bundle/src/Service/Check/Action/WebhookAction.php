@@ -2,7 +2,6 @@
 
 namespace Veneer\WellnessBundle\Service\Check\Action;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Veneer\WellnessBundle\Service\Check\Check;
 

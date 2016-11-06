@@ -64,7 +64,7 @@ class Check implements \ArrayAccess
                 return;
         }
     }
-    
+
     public function offsetExists($offset)
     {
         return null !== $this[$offset];

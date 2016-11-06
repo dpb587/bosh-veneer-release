@@ -26,9 +26,9 @@ class GitDirCheckout implements CheckoutInterface
 
     public function getPhysicalCheckout()
     {
-        $mode = $this->mode | CheckoutInterface::MODE_WRITABLE;# | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
+        $mode = $this->mode | CheckoutInterface::MODE_WRITABLE; // | CheckoutInterface::MODE_DESTROYABLE | CheckoutInterface::MODE_DESTRUCT_DESTROY;
 
-        $tmp = uniqid('/tmp/gitrepo-' . microtime(true) . '-');
+        $tmp = uniqid('/tmp/gitrepo-'.microtime(true).'-');
 
         $p = new Process(
             sprintf(
@@ -76,7 +76,7 @@ class GitDirCheckout implements CheckoutInterface
             escapeshellarg($this->binary),
             escapeshellarg($this->path),
             escapeshellarg($this->head),
-            escapeshellarg($physical . '/')
+            escapeshellarg($physical.'/')
         ));
 
         $p->mustRun();
@@ -115,7 +115,7 @@ class GitDirCheckout implements CheckoutInterface
 
         $data = $p->getOutput();
 
-        if (preg_match('#^' . preg_quote(sprintf('tree %s:%s', $this->head, $physical), '#') . '\n#', $data)) {
+        if (preg_match('#^'.preg_quote(sprintf('tree %s:%s', $this->head, $physical), '#').'\n#', $data)) {
             throw new \InvalidArgumentException(sprintf('Path is not a file: %s', $physical));
         }
 
@@ -171,7 +171,7 @@ class GitDirCheckout implements CheckoutInterface
 
                 $resolved = dirname($resolved);
             } else {
-                $resolved .= '/' . $dir;
+                $resolved .= '/'.$dir;
             }
         }
 

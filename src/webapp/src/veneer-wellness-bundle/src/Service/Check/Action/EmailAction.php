@@ -54,7 +54,5 @@ class EmailAction implements ActionInterface
     public function execute(Check $check)
     {
         $mailer = $this->container->get($check['_action.mailer']);
-
-        
     }
 }

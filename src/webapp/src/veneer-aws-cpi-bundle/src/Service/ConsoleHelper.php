@@ -16,7 +16,7 @@ class ConsoleHelper
         return $this->createSearchLinkV2(
             'ec2',
             'Instances',
-            is_array($search) ? $search : [ 'instanceId' => $search ]
+            is_array($search) ? $search : ['instanceId' => $search]
         );
     }
 
@@ -25,7 +25,7 @@ class ConsoleHelper
         return $this->createSearchLinkV2(
             'ec2',
             'Volumes',
-            is_array($search) ? $search : [ 'volumeId' => $search ]
+            is_array($search) ? $search : ['volumeId' => $search]
         );
     }
 
@@ -34,7 +34,7 @@ class ConsoleHelper
         return $this->createSearchLinkV2(
             'ec2',
             'NIC',
-            is_array($search) ? $search : [ 'interfaceId' => $search ]
+            is_array($search) ? $search : ['interfaceId' => $search]
         );
     }
 
@@ -43,7 +43,7 @@ class ConsoleHelper
         return $this->createSearchLinkV2(
             'ec2',
             'Addresses',
-            is_array($search) ? $search : [ 'publicIp' => $search ]
+            is_array($search) ? $search : ['publicIp' => $search]
         );
     }
 
@@ -52,7 +52,7 @@ class ConsoleHelper
         return $this->createSearchLinkV2(
             'ec2',
             'SecurityGroups',
-            is_array($search) ? $search : [ 'groupId' => $search ]
+            is_array($search) ? $search : ['groupId' => $search]
         );
     }
 
@@ -61,7 +61,7 @@ class ConsoleHelper
         return $this->createSearchLinkV1(
             'vpc',
             'subnets',
-            is_array($search) ? $search : [ 'subnetId' => $search ]
+            is_array($search) ? $search : ['subnetId' => $search]
         );
     }
 
@@ -72,7 +72,7 @@ class ConsoleHelper
             $this->region,
             $product,
             $this->region,
-            $context . ':filter=' . implode(';', $search)
+            $context.':filter='.implode(';', $search)
         );
     }
 
@@ -81,7 +81,7 @@ class ConsoleHelper
         $fragment = [];
 
         foreach ($search as $searchIdx => $searchTerm) {
-            $fragment[] = $searchIdx . '=' . $searchTerm;
+            $fragment[] = $searchIdx.'='.$searchTerm;
         }
 
         return sprintf(
@@ -89,7 +89,7 @@ class ConsoleHelper
             $this->region,
             $product,
             $this->region,
-            $context . ':' . implode(';', $fragment)
+            $context.':'.implode(';', $fragment)
         );
     }
 }

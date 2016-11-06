@@ -41,7 +41,7 @@ class ManifestLifecycle implements LifecycleInterface
         if (!$plan->getDetails()) {
             return;
         }
-        
+
         return $plan;
     }
 
@@ -66,7 +66,7 @@ class ManifestLifecycle implements LifecycleInterface
                     'release',
                     (0 > version_compare($release['version'], $changedManifest['releases'][$releaseName]['version'])) ? 'upgrade' : 'downgrade',
                     $releaseName,
-                    'to ' . $changedManifest['releases'][$releaseName]['version']
+                    'to '.$changedManifest['releases'][$releaseName]['version']
                 );
             }
 
@@ -90,7 +90,7 @@ class ManifestLifecycle implements LifecycleInterface
 
     protected function buildDiffIndexManifest(array $manifest)
     {
-        foreach ([ 'jobs', 'networks', 'releases', 'resource_pools' ] as $key) {
+        foreach (['jobs', 'networks', 'releases', 'resource_pools'] as $key) {
             if (isset($manifest[$key])) {
                 $manifest[$key] = array_combine(
                     array_map(
@@ -113,12 +113,12 @@ class ManifestLifecycle implements LifecycleInterface
     {
         foreach ($base as $key => $value) {
             if (!isset($changed[$key])) {
-                $plan->addDetail('property', 'remove', ltrim($path . '.' . $key, '.'));
+                $plan->addDetail('property', 'remove', ltrim($path.'.'.$key, '.'));
             } elseif ($changed[$key] != $value) {
                 if (is_array($value) && is_string(key($value))) {
-                    $this->createPlanProperties($plan, $value, $changed[$key], ltrim($path . '.' . $key, '.'));
+                    $this->createPlanProperties($plan, $value, $changed[$key], ltrim($path.'.'.$key, '.'));
                 } else {
-                    $plan->addDetail('property', 'change', ltrim($path . '.' . $key, '.'));
+                    $plan->addDetail('property', 'change', ltrim($path.'.'.$key, '.'));
                 }
             }
 
@@ -126,7 +126,7 @@ class ManifestLifecycle implements LifecycleInterface
         }
 
         foreach ($changed as $key => $value) {
-            $plan->addDetail('property', 'add', ltrim($path . '.' . $key, '.'));
+            $plan->addDetail('property', 'add', ltrim($path.'.'.$key, '.'));
         }
     }
 
@@ -208,7 +208,7 @@ class ManifestLifecycle implements LifecycleInterface
         foreach ($manifest as $key => $value) {
             if (is_string($value)) {
                 if (false !== strpos($value, '{{')) {
-                    $manifest[$key] = $twig->render($value, [ 'env' => $env ]);
+                    $manifest[$key] = $twig->render($value, ['env' => $env]);
                 }
             } elseif (is_array($value)) {
                 $manifest[$key] = $this->compileHash($value, $twig, $env);
@@ -220,6 +220,6 @@ class ManifestLifecycle implements LifecycleInterface
 
     protected function getCompiledPath($path)
     {
-        return dirname($path) . '/.' . basename($path);
+        return dirname($path).'/.'.basename($path);
     }
 }

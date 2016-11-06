@@ -16,7 +16,7 @@ class FormPickerTransformer implements DataTransformerInterface
 
         return [
             'via' => key($value),
-            'via_' . key($value) => current($value),
+            'via_'.key($value) => current($value),
         ];
     }
 
@@ -27,7 +27,7 @@ class FormPickerTransformer implements DataTransformerInterface
         }
 
         return [
-            $value['via'] => $value['via_' . $value['via']],
+            $value['via'] => $value['via_'.$value['via']],
         ];
     }
 }

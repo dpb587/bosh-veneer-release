@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Deployments
+ * Deployments.
  *
  * @ORM\Table(name="deployments", uniqueConstraints={@ORM\UniqueConstraint(name="deployments_name_key", columns={"name"})}, indexes={@ORM\Index(name="IDX_373C43D5DD12E1A4", columns={"cloud_config_id"}), @ORM\Index(name="IDX_373C43D51403E80C", columns={"runtime_config_id"})})
  * @ORM\Entity
@@ -34,7 +34,7 @@ class Deployments extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $linkSpecJson;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -79,11 +79,10 @@ class Deployments extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $team;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->team = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }

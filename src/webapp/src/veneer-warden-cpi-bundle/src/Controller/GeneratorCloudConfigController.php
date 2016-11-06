@@ -2,10 +2,6 @@
 
 namespace Veneer\WardenCpiBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
@@ -24,7 +20,7 @@ class GeneratorCloudConfigController extends AbstractController
 
     public function summaryAction()
     {
-        $yaml = $this->forward(__CLASS__ . '::rawAction');
+        $yaml = $this->forward(__CLASS__.'::rawAction');
 
         return $this->renderApi(
             'VeneerWardenCpiBundle:GeneratorCloudConfig:summary.html.twig',
@@ -49,7 +45,7 @@ class GeneratorCloudConfigController extends AbstractController
             [
                 'content-type' => 'application/x-yaml',
                 'content-disposition' => 'attachment; filename=cloud-config.yml',
-                'content-checksum' => 'sha1 ' . sha1($content),
+                'content-checksum' => 'sha1 '.sha1($content),
             ]
         );
     }

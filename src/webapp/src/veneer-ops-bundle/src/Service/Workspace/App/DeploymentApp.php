@@ -2,15 +2,7 @@
 
 namespace Veneer\OpsBundle\Service\Workspace\App;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Veneer\CoreBundle\Service\Workspace\App\AppInterface;
-use Veneer\CoreBundle\Service\Workspace\Changeset;
-use Veneer\CoreBundle\Service\Workspace\GitRepository;
-use Symfony\Component\Yaml\Yaml;
-use Veneer\OpsBundle\Entity\DeploymentWorkspace;
-use Psr\Log\LoggerInterface;
-use Veneer\CoreBundle\Service\Workspace\Checkout\CheckoutInterface;
-use Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentContext;
 
 class DeploymentApp implements AppInterface
 {

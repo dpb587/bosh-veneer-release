@@ -44,19 +44,19 @@ class ElasticsearchHelper
             if (isset($context['vm'])) {
                 $filters[] = [
                     'term' => [
-                        '@source.bosh_job' => $context['vm']['applySpecJsonAsArray']['job']['name'] . '/' . $context['vm']['applySpecJsonAsArray']['index'],
+                        '@source.bosh_job' => $context['vm']['applySpecJsonAsArray']['job']['name'].'/'.$context['vm']['applySpecJsonAsArray']['index'],
                     ],
                 ];
             } elseif (isset($context['instance'])) {
                 $filters[] = [
                     'term' => [
-                        '@source.bosh_job' => $context['instance']['job'] . '/' . $context['instance']['index'],
+                        '@source.bosh_job' => $context['instance']['job'].'/'.$context['instance']['index'],
                     ],
                 ];
             }
         }
 
-        return [ 'and' => $filters ];
+        return ['and' => $filters];
     }
 
     public function getPathIndices(\DateTime $ds, \DateTime $de)
@@ -87,7 +87,7 @@ class ElasticsearchHelper
     public function request(\DateTime $ds, \DateTime $de, $url, $data = null)
     {
         return $this->elasticsearch->request(
-            $this->getPathIndices($ds, $de) . '/' . $url,
+            $this->getPathIndices($ds, $de).'/'.$url,
             'POST',
             $data
         )->getData();
@@ -102,7 +102,7 @@ class ElasticsearchHelper
                     'y' => $v['value']['value'],
                 ];
             },
-            $this->fillDateHistogram($ds, $de, $di, $buckets, [ 'value' => $default ])
+            $this->fillDateHistogram($ds, $de, $di, $buckets, ['value' => $default])
         );
     }
 

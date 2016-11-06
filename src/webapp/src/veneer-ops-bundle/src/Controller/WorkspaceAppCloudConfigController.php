@@ -2,23 +2,14 @@
 
 namespace Veneer\OpsBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Veneer\BoshBundle\Controller\CloudConfigController;
-use Veneer\BoshBundle\Controller\IndexController;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Veneer\CoreBundle\Controller\WorkspaceRepoController;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
 use Veneer\OpsBundle\Service\Editor\CloudConfigFormHelper;
-use Veneer\OpsBundle\Service\Editor\DeploymentFormHelper;
-use Veneer\BoshBundle\Controller\DeploymentController;
-use Veneer\BoshBundle\Entity\Deployments;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
 class WorkspaceAppCloudConfigController extends AbstractController
 {
@@ -43,7 +34,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 
@@ -65,14 +56,14 @@ class WorkspaceAppCloudConfigController extends AbstractController
     {
         $path = $request->query->get('path');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 
         $navSection = $section;
 
         return $this->renderApi(
-            'VeneerOpsBundle:WorkspaceAppCloudConfig:section-' . $section . '.html.twig',
+            'VeneerOpsBundle:WorkspaceAppCloudConfig:section-'.$section.'.html.twig',
             [
                 'draft_profile' => $draftProfile,
                 'path' => $path,
@@ -100,7 +91,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
         $property = $request->query->get('property');
         $raw = $request->query->get('raw');
         $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-' . substr(md5($path), 0, 8), $path);
+        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
         $yaml = $this->loadData($repo, $path, $draftProfile);
 
@@ -110,7 +101,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
         $section = str_replace('_', '-', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
         $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path);
 
-        if (($property === null) || in_array($section, [ 'compilation', 'update' ])) {
+        if (($property === null) || in_array($section, ['compilation', 'update'])) {
             $nav->add(
                 $editorProfile['title'],
                 [
@@ -165,7 +156,7 @@ class WorkspaceAppCloudConfigController extends AbstractController
                     [
                         $path => $data,
                     ],
-                    'Update cloud config' . (isset($property) ? (' (' . $property . ')') : '')
+                    'Update cloud config'.(isset($property) ? (' ('.$property.')') : '')
                 );
 
                 return $this->redirect($nav[-2]['url']);

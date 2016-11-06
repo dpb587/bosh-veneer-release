@@ -62,8 +62,7 @@ class ConsolePlugin implements PluginInterface
                             ->setTopic(Link::TOPIC_CPI)
                             ->setTitle('AWS Console')
                             ->setNote('interface detail')
-                            ->setUrl($this->consoleHelper->getEc2NicSearch([ 'search' => $_bosh['network']['ip'] ]))
-                    ,
+                            ->setUrl($this->consoleHelper->getEc2NicSearch(['search' => $_bosh['network']['ip']])),
                 ];
         }
 

@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Snapshots
+ * Snapshots.
  *
  * @ORM\Table(name="snapshots", uniqueConstraints={@ORM\UniqueConstraint(name="snapshots_snapshot_cid_key", columns={"snapshot_cid"})}, indexes={@ORM\Index(name="IDX_4D91463D3095A1D1", columns={"persistent_disk_id"})})
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Snapshots extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="clean", type="boolean", nullable=true)
      */
@@ -34,7 +34,7 @@ class Snapshots extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $snapshotCid;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -52,6 +52,4 @@ class Snapshots extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $persistentDisk;
-
-
 }

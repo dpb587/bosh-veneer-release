@@ -2,12 +2,8 @@
 
 namespace Veneer\BoshBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\BoshBundle\Form\Type\JobRestartType;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
@@ -132,7 +128,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                         '/deployments/%s/jobs/%s%s?%s',
                         $_bosh['deployment']['name'],
                         $_bosh['instance_group']['job'],
-                        isset($_bosh['instance']) ? ('/' . $_bosh['instance']['uuid']) : '',
+                        isset($_bosh['instance']) ? ('/'.$_bosh['instance']['uuid']) : '',
                         http_build_query([
                             'state' => 'restart',
                             'skip_drain' => $payload['skip_drain'] ? 'true' : 'false',
@@ -142,7 +138,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                         'content-type' => 'text/yaml',
                     ],
                     $this->container->get('veneer_core.workspace.repository')->showFile(
-                        dirname($state->getSourcePath()) . '/.' . basename($state->getSourcePath()),
+                        dirname($state->getSourcePath()).'/.'.basename($state->getSourcePath()),
                         'master'
                     )
                 )
@@ -210,7 +206,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                         '/deployments/%s/jobs/%s%s?%s',
                         $_bosh['deployment']['name'],
                         $_bosh['instance_group']['job'],
-                        isset($_bosh['instance']) ? ('/' . $_bosh['instance']['uuid']) : '',
+                        isset($_bosh['instance']) ? ('/'.$_bosh['instance']['uuid']) : '',
                         http_build_query([
                             'state' => 'recreate',
                             'skip_drain' => $payload['skip_drain'] ? 'true' : 'false',
@@ -220,7 +216,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                         'content-type' => 'text/yaml',
                     ],
                     $this->container->get('veneer_core.workspace.repository')->showFile(
-                        dirname($state->getSourcePath()) . '/.' . basename($state->getSourcePath()),
+                        dirname($state->getSourcePath()).'/.'.basename($state->getSourcePath()),
                         'master'
                     )
                 )

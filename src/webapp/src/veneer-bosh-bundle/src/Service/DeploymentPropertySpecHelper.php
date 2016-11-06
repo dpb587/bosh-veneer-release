@@ -45,7 +45,7 @@ class DeploymentPropertySpecHelper
         return self::mergeSpecs($specs);
     }
 
-    static public function collectReleaseJobs(array $manifest, $filterJob = null)
+    public static function collectReleaseJobs(array $manifest, $filterJob = null)
     {
         $releaseVersions = [];
 
@@ -61,7 +61,7 @@ class DeploymentPropertySpecHelper
             }
 
             foreach ($instanceGroup['jobs'] as $job) {
-                $collected[$job['release'] . '/' . $job['name']] = [
+                $collected[$job['release'].'/'.$job['name']] = [
                     'release' => $job['release'],
                     'release_version' => $releaseVersions[$job['release']],
                     'template' => $job['name'],
@@ -75,20 +75,20 @@ class DeploymentPropertySpecHelper
     /**
      * Convert a spec-like list of property keys-values into a tree.
      */
-    static public function convertSpecToTree(array $spec, $context = '')
+    public static function convertSpecToTree(array $spec, $context = '')
     {
         $scope = [];
 
         foreach ($spec as $property => $value) {
-            if (preg_match('/^' . preg_quote($context) . '(.+)/', $property, $match)) {
+            if (preg_match('/^'.preg_quote($context).'(.+)/', $property, $match)) {
                 $propcont = $match[1];
             } else {
                 continue;
             }
 
             if (preg_match('/^([^\.]+)\..+$/', $propcont, $match)) {
-                $scope[$match[1]]['property'] = $context . $match[1];
-                $scope[$match[1]]['children'] = static::convertSpecToTree($spec, $context . $match[1] . '.');
+                $scope[$match[1]]['property'] = $context.$match[1];
+                $scope[$match[1]]['children'] = static::convertSpecToTree($spec, $context.$match[1].'.');
             } else {
                 $scope[$propcont]['property'] = $property;
                 $scope[$propcont]['value'] = $value;
@@ -103,7 +103,7 @@ class DeploymentPropertySpecHelper
     /**
      * Convert a tree list of properties into a spec-like list of property key-values.
      */
-    static public function convertTreeToSpec(array $tree)
+    public static function convertTreeToSpec(array $tree)
     {
         $scope = [];
 
@@ -141,10 +141,10 @@ class DeploymentPropertySpecHelper
                     $merged[$name]['_ref'][] = $ref;
                 }
 
-                foreach ([ 'description', 'example', 'default', 'type' ] as $key) {
+                foreach (['description', 'example', 'default', 'type'] as $key) {
                     if (array_key_exists($key, $property)) {
-                        if (!in_array($property[$key], $merged[$name]['_' . $key])) {
-                            $merged[$name]['_' . $key][] = $property[$key];
+                        if (!in_array($property[$key], $merged[$name]['_'.$key])) {
+                            $merged[$name]['_'.$key][] = $property[$key];
                         }
 
                         unset($property[$key]);
@@ -160,9 +160,9 @@ class DeploymentPropertySpecHelper
         // consolidate singletons in case we pretend this is a regular property tree
 
         foreach ($merged as $name => $property) {
-            foreach ([ 'description', 'example', 'default', 'type' ] as $key) {
-                if (1 == count($property['_' . $key])) {
-                    $merged[$name][$key] = $property['_' . $key][0];
+            foreach (['description', 'example', 'default', 'type'] as $key) {
+                if (1 == count($property['_'.$key])) {
+                    $merged[$name][$key] = $property['_'.$key][0];
                 }
             }
         }
@@ -170,7 +170,8 @@ class DeploymentPropertySpecHelper
         return $merged;
     }
 
-    public static function createDocumentedYaml(array $spec) {
+    public static function createDocumentedYaml(array $spec)
+    {
         return self::createDocumentedYamlFromTree(DeploymentPropertyHelper::convertSpecToTree($spec));
     }
 
@@ -182,33 +183,33 @@ class DeploymentPropertySpecHelper
 
         foreach ($tree as $name => $scope) {
             if (isset($scope['children'])) {
-                $yaml .= $prefix . $name . ':' . "\n";
+                $yaml .= $prefix.$name.':'."\n";
                 $yaml .= static::createDocumentedYamlFromTree($scope['children'], $depth + 1);
             } elseif (isset($scope['value'])) {
                 $value = $scope['value'];
 
                 if (isset($value['description'])) {
-                    $yaml .= $prefix . '# ' . wordwrap($value['description'], 78 - (2 * $depth), "\n" . str_repeat('  ', $depth) . '# ') . "\n";
+                    $yaml .= $prefix.'# '.wordwrap($value['description'], 78 - (2 * $depth), "\n".str_repeat('  ', $depth).'# ')."\n";
                 }
 
                 if (isset($value['example'])) {
                     if (isset($value['description'])) {
-                        $yaml .= $prefix . '#' . "\n";
+                        $yaml .= $prefix.'#'."\n";
                     }
 
-                    $yaml .= $prefix . '# Example:' . "\n";
-                    $yaml .= $prefix . '# ' . str_replace("\n", "\n" . $prefix . '# ', trim(Yaml::dump([ $name => $value['example'] ], 8, 2))) . "\n";
+                    $yaml .= $prefix.'# Example:'."\n";
+                    $yaml .= $prefix.'# '.str_replace("\n", "\n".$prefix.'# ', trim(Yaml::dump([$name => $value['example']], 8, 2)))."\n";
                 }
 
                 if (array_key_exists('default', $value)) {
                     if (null === $value['default']) {
                         // easier to read
-                        $yaml .= $prefix . $name . ': ~' . "\n";
+                        $yaml .= $prefix.$name.': ~'."\n";
                     } else {
-                        $yaml .= $prefix . str_replace("\n", "\n" . $prefix, trim(Yaml::dump([ $name => $value['default'] ], 8, 2))) . "\n";
+                        $yaml .= $prefix.str_replace("\n", "\n".$prefix, trim(Yaml::dump([$name => $value['default']], 8, 2)))."\n";
                     }
                 } else {
-                    $yaml .= $prefix . $name . ': @todo' . "\n";
+                    $yaml .= $prefix.$name.': @todo'."\n";
                 }
 
                 $yaml .= "\n";

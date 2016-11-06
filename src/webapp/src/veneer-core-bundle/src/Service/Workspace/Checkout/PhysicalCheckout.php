@@ -40,7 +40,7 @@ class PhysicalCheckout implements CheckoutInterface
 
     public function ls($path)
     {
-        $physical = $this->path . '/' . $this->resolvePath($path);
+        $physical = $this->path.'/'.$this->resolvePath($path);
 
         $dh = opendir($physical);
         $ls = [];
@@ -52,7 +52,7 @@ class PhysicalCheckout implements CheckoutInterface
 
             $ls[] = [
                 'name' => $name,
-                'type' => is_link($physical . '/' . $name) ? 'link' : (is_dir($physical . '/' . $name) ? 'dir' : 'file'),
+                'type' => is_link($physical.'/'.$name) ? 'link' : (is_dir($physical.'/'.$name) ? 'dir' : 'file'),
             ];
         }
 
@@ -63,7 +63,7 @@ class PhysicalCheckout implements CheckoutInterface
 
     public function get($path)
     {
-        $physical = $this->path . '/' . $this->resolvePath($path);
+        $physical = $this->path.'/'.$this->resolvePath($path);
 
         if (!file_exists($physical)) {
             throw new \InvalidArgumentException(sprintf('Path does not exist: %s', $physical));
@@ -80,7 +80,7 @@ class PhysicalCheckout implements CheckoutInterface
             throw new \LogicException('Checkout is not writable.');
         }
 
-        $physical = $this->path . '/' . $this->resolvePath($path);
+        $physical = $this->path.'/'.$this->resolvePath($path);
         $dir = dirname($physical);
 
         if (!file_exists($dir)) {
@@ -99,7 +99,7 @@ class PhysicalCheckout implements CheckoutInterface
             throw new \LogicException('Checkout is not writable.');
         }
 
-        $physical = $this->path . '/' . $this->resolvePath($path);
+        $physical = $this->path.'/'.$this->resolvePath($path);
 
         if (is_dir($physical)) {
             exec(sprintf('rm -fr %s', $physical));
@@ -126,7 +126,7 @@ class PhysicalCheckout implements CheckoutInterface
 
                 $resolved = dirname($resolved);
             } else {
-                $resolved .= '/' . $dir;
+                $resolved .= '/'.$dir;
             }
         }
 

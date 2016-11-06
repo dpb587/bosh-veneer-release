@@ -2,7 +2,6 @@
 
 namespace Veneer\HubBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -29,13 +28,14 @@ class Configuration implements ConfigurationInterface
                         ->performNoDeepMerging()
                         ->children()
                             ->scalarNode('type')
-                                ->info('class name or one of: ' . implode(', ', array_keys(Configuration::MARKETPLACE_TYPE_ALIAS)))
+                                ->info('class name or one of: '.implode(', ', array_keys(self::MARKETPLACE_TYPE_ALIAS)))
                                 ->beforeNormalization()
                                     ->ifTrue(function ($v) {
                                         return array_key_exists($v, self::MARKETPLACE_TYPE_ALIAS);
                                     })
                                     ->then(function ($v) {
                                         $m = self::MARKETPLACE_TYPE_ALIAS;
+
                                         return $m[$v];
                                     })
                                     ->end()

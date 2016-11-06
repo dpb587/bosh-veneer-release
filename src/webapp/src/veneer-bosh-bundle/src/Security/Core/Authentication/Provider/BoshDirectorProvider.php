@@ -2,10 +2,8 @@
 
 namespace Veneer\BoshBundle\Security\Core\Authentication\Provider;
 
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Veneer\BoshBundle\Service\DirectorApiClient;
@@ -60,7 +58,7 @@ class BoshDirectorProvider implements AuthenticationProviderInterface
         );
 
         $authenticatedToken->setAttributes($token->getAttributes());
-        $authenticatedToken->setAttribute('auth.expires', new \DateTime('+' . $this->cacheDuration . ' seconds'));
+        $authenticatedToken->setAttribute('auth.expires', new \DateTime('+'.$this->cacheDuration.' seconds'));
 
         return $authenticatedToken;
     }

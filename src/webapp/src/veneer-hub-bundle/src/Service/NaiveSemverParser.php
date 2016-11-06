@@ -6,7 +6,7 @@ use Veneer\HubBundle\Entity\ParsedSemverTrait;
 
 class NaiveSemverParser
 {
-    static public function parse(/* ParsedSemverTrait */ $semver)
+    public static function parse(/* ParsedSemverTrait */ $semver)
     {
         if (!preg_match('/^(?P<major>\d+)(\.(?P<minor>\d+)(\.(\d+))?)?(?P<extra>.*)$/', $semver->getVersion(), $match)) {
             $semver->setSemverMajor(null);

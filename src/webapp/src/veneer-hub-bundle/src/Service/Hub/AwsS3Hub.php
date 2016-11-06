@@ -5,7 +5,6 @@ namespace Veneer\HubBundle\Service\Hub;
 use Veneer\HubBundle\Entity\ReleaseVersion;
 use Veneer\HubBundle\Entity\StemcellVersion;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
 use Aws\S3\S3Client;
 
 class AwsS3Hub implements HubInterface
@@ -78,7 +77,7 @@ class AwsS3Hub implements HubInterface
                 0
             )->getUri());
             $entity->setTarballSize($object['Size']);
-            $entity->setTarballChecksum('md5:' . $object['ETag']);
+            $entity->setTarballChecksum('md5:'.$object['ETag']);
 
             yield $entity;
         }
@@ -122,7 +121,7 @@ class AwsS3Hub implements HubInterface
                 0
             )->getUri());
             $entity->setTarballSize($object['Size']);
-            $entity->setTarballChecksum('md5:' . $object['ETag']);
+            $entity->setTarballChecksum('md5:'.$object['ETag']);
 
             yield $entity;
         }
@@ -140,8 +139,8 @@ class AwsS3Hub implements HubInterface
                 'version' => '2006-03-01',
                 'region' => $this->options['region'],
                 'credentials' => [
-                    'key'    => $this->options['access_key_id'],
-                    'secret'    => $this->options['secret_access_key'],
+                    'key' => $this->options['access_key_id'],
+                    'secret' => $this->options['secret_access_key'],
                 ],
             ]);
         }

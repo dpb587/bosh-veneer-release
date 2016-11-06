@@ -48,9 +48,9 @@ class ShipperMetricSource implements SourceInterface
                 ->end()
             ->arrayNode('stats')
                 ->info('Which stats to collect')
-                ->defaultValue([ 'avg' ])
+                ->defaultValue(['avg'])
                 ->prototype('scalar')
-                    #->enum([ 'min', 'max', 'avg' ])
+                    //->enum([ 'min', 'max', 'avg' ])
                     ->end()
                 ->end()
             ->scalarNode('metric')
@@ -75,7 +75,7 @@ class ShipperMetricSource implements SourceInterface
                             [
                                 'range' => [
                                     '@timestamp' => [
-                                        'gte' => 'now-' . $check['_source.duration'],
+                                        'gte' => 'now-'.$check['_source.duration'],
                                     ],
                                 ],
                             ],
@@ -90,7 +90,7 @@ class ShipperMetricSource implements SourceInterface
             $request['query']['filtered']['query'] = $check['_source.query'];
         }
 
-        $aggregation =& $request['aggregations'];
+        $aggregation = &$request['aggregations'];
 
         if (isset($check['_source.segment'])) {
             foreach ($check['_source.segment'] as $segmentName => $segmentAggregation) {
@@ -101,7 +101,7 @@ class ShipperMetricSource implements SourceInterface
                     ],
                 ];
                 $aggregation[$segmentName]['aggregations'] = [];
-                $aggregation =& $aggregation[$segmentName]['aggregations'];
+                $aggregation = &$aggregation[$segmentName]['aggregations'];
             }
         }
 
@@ -125,7 +125,7 @@ class ShipperMetricSource implements SourceInterface
                 ],
                 'aggregations' => [],
             ];
-            $aggregation =& $aggregation['metric_match']['aggregations'];
+            $aggregation = &$aggregation['metric_match']['aggregations'];
         }
 
         foreach ($check['_source.stats'] as $stat) {
@@ -140,13 +140,15 @@ class ShipperMetricSource implements SourceInterface
         $now = new \DateTime('now', new \DateTimezone('UTC'));
 
         $response = $this->client->request(
-            'logstash-' . $now->format('Y.m.d') . '/metric/_search',
+            'logstash-'.$now->format('Y.m.d').'/metric/_search',
             'POST',
             $request
         )->getData();
 
         $yielding = $this->loadRecurse($check, isset($check['_source.segment']) ? array_keys($check['_source.segment']) : [], $response['aggregations']);
-        foreach ($yielding as $yield) yield $yield;
+        foreach ($yielding as $yield) {
+            yield $yield;
+        }
     }
 
     protected function loadRecurse(Check $check, array $segments, array $aggregations, array $extraContext = [], array $source = [])
@@ -161,7 +163,7 @@ class ShipperMetricSource implements SourceInterface
                     $key = $bucket['key'];
 
                     foreach ($check['_source.stats'] as $stat) {
-                        $source[$key . '.' . $stat] = $bucket[$stat]['value'];
+                        $source[$key.'.'.$stat] = $bucket[$stat]['value'];
                     }
                 }
             }
@@ -186,7 +188,9 @@ class ShipperMetricSource implements SourceInterface
 
             $yielding = $this->loadRecurse($check, $segments, $bucket, $extraContext, $source);
 
-            foreach ($yielding as $yield) yield $yield;
+            foreach ($yielding as $yield) {
+                yield $yield;
+            }
         }
     }
 }

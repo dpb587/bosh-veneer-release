@@ -4,7 +4,6 @@ namespace Veneer\HubBundle\Service;
 
 use Psr\Log\LoggerInterface;
 use Doctrine\ORM\EntityManager;
-use Veneer\HubBundle\Service\NaiveSemverParser;
 
 class Updater
 {

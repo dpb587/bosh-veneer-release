@@ -31,7 +31,7 @@ class DeploymentProperties implements \ArrayAccess
     {
         $exp = explode('.', $offset);
         $key = array_pop($exp);
-        $ref =& $this->traversePath($exp, true);
+        $ref = &$this->traversePath($exp, true);
         $ref[$key] = $value;
     }
 
@@ -39,7 +39,7 @@ class DeploymentProperties implements \ArrayAccess
     {
         try {
             $exp = explode('.', $offset);
-            $ref =& $this->traversePath(array_slice($exp, 0, -1), true);
+            $ref = &$this->traversePath(array_slice($exp, 0, -1), true);
             unset($ref[$exp[count($exp) - 1]]);
         } catch (\InvalidArgumentException $e) {
             return;
@@ -48,7 +48,7 @@ class DeploymentProperties implements \ArrayAccess
 
     private function &traversePath(array $segments, $create = false)
     {
-        $context =& $this->hierarchy;
+        $context = &$this->hierarchy;
 
         while (0 < count($segments)) {
             $segment = array_shift($segments);
@@ -61,7 +61,7 @@ class DeploymentProperties implements \ArrayAccess
                 $context[$segment] = [];
             }
 
-            $context =& $context[$segment];
+            $context = &$context[$segment];
         }
 
         return $context;

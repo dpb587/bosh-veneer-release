@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * OrphanDisks
+ * OrphanDisks.
  *
  * @ORM\Table(name="orphan_disks", uniqueConstraints={@ORM\UniqueConstraint(name="orphan_disks_disk_cid_key", columns={"disk_cid"})}, indexes={@ORM\Index(name="orphan_disks_orphaned_at_index", columns={"created_at"})})
  * @ORM\Entity
@@ -20,7 +20,7 @@ class OrphanDisks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $diskCid;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="size", type="integer", nullable=true)
      */
@@ -62,7 +62,7 @@ class OrphanDisks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $createdAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -70,6 +70,4 @@ class OrphanDisks extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="orphan_disks_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

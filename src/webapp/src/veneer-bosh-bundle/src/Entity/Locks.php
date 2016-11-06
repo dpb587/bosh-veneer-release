@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Locks
+ * Locks.
  *
  * @ORM\Table(name="locks", uniqueConstraints={@ORM\UniqueConstraint(name="locks_name_key", columns={"name"}), @ORM\UniqueConstraint(name="locks_uid_key", columns={"uid"})})
  * @ORM\Entity
@@ -34,7 +34,7 @@ class Locks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $uid;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,6 +42,4 @@ class Locks extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="locks_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

@@ -2,7 +2,6 @@
 
 namespace Veneer\OpsBundle\Controller\Plugin\WebLinkProvider;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Plugin\LinkProvider\PluginInterface;
 use Veneer\CoreBundle\Plugin\LinkProvider\Link;
@@ -34,8 +33,8 @@ class GitWorkspacePlugin implements PluginInterface
                         ->setRoute(
                             'veneer_ops_workspace_app_deployment_edit',
                             [
-                                'path' => 'bosh/deployment/' . $_bosh['deployment']['name'] . '/manifest.yml',
-                                'property' => 'instance_groups[' . $_bosh['instance_group']['job'] . ']',
+                                'path' => 'bosh/deployment/'.$_bosh['deployment']['name'].'/manifest.yml',
+                                'property' => 'instance_groups['.$_bosh['instance_group']['job'].']',
                             ]
                         ),
                 ];
@@ -47,7 +46,7 @@ class GitWorkspacePlugin implements PluginInterface
                         ->setRoute(
                             'veneer_core_workspace_repo_app',
                             [
-                                'path' => 'bosh/deployment/' . $_bosh['deployment']['name'] . '/manifest.yml',
+                                'path' => 'bosh/deployment/'.$_bosh['deployment']['name'].'/manifest.yml',
                             ]
                         ),
                 ];

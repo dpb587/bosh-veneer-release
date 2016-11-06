@@ -2,7 +2,6 @@
 
 namespace Veneer\BoshBundle\Security\User;
 
-use Veneer\BoshBundle\Entity\Users;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
@@ -53,7 +52,7 @@ class User implements UserInterface
         // we don't actually erase credentials from the user
         // because we might want to impersonate them with an
         // upstream api request
-        //
+
         // instead, we avoid serializing their credentials
     }
 

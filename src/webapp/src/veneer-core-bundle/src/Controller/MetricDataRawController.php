@@ -2,11 +2,8 @@
 
 namespace Veneer\CoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Veneer\CoreBundle\Controller\AbstractController;
 
 class MetricDataRawController extends AbstractController
 {
@@ -26,7 +23,7 @@ class MetricDataRawController extends AbstractController
 
         $start = new \DateTime($request->query->get('start'));
         $end = new \DateTime($request->query->get('end'));
-        $interval = new \DateInterval('P' . $request->query->get('interval'));
+        $interval = new \DateInterval('P'.$request->query->get('interval'));
         $statistic = $request->query->get('statistic');
         $metricName = $request->query->get('metric');
 

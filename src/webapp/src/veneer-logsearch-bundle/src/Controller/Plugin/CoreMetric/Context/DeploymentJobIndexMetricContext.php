@@ -2,13 +2,12 @@
 
 namespace Veneer\LogsearchBundle\Controller\Plugin\CoreMetric\Context;
 
-use Aws\CloudWatch\CloudWatchClient;
 use Veneer\CoreBundle\Plugin\Metric\Context\ContextTrait;
 use Veneer\CoreBundle\Plugin\Metric\Context\ContextInterface;
 use Veneer\CoreBundle\Plugin\Metric\Metric\AbstractMetric;
 use Veneer\LogsearchBundle\Service\ElasticsearchHelper;
 
-class DeploymentInstanceGroupInstanceMetricContext extends AbstractMetric implements ContextInterface
+class DeploymentJobIndexMetricContext extends AbstractMetric implements ContextInterface
 {
     use ContextTrait;
 
@@ -59,7 +58,7 @@ class DeploymentInstanceGroupInstanceMetricContext extends AbstractMetric implem
 
     public function resolve($name)
     {
-        $context = new self($this->helper, ((null !== $this->metric) ? ($this->metric . '.') : '') . $name);
+        $context = new self($this->helper, ((null !== $this->metric) ? ($this->metric.'.') : '').$name);
         $context->replaceContext($this->context);
 
         return $context;
@@ -78,7 +77,7 @@ class DeploymentInstanceGroupInstanceMetricContext extends AbstractMetric implem
                     'interval' => [
                         'date_histogram' => [
                             'field' => '@timestamp',
-                            'interval' => $intervalSeconds . 's',
+                            'interval' => $intervalSeconds.'s',
                         ],
                         'aggregations' => [
                             'value' => [

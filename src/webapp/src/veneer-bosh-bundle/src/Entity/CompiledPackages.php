@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CompiledPackages
+ * CompiledPackages.
  *
  * @ORM\Table(name="compiled_packages", uniqueConstraints={@ORM\UniqueConstraint(name="package_stemcell_build_idx", columns={"package_id", "stemcell_os", "stemcell_version", "build"}), @ORM\UniqueConstraint(name="package_stemcell_dependency_idx", columns={"package_id", "stemcell_os", "stemcell_version", "dependency_key_sha1"})}, indexes={@ORM\Index(name="IDX_4A96D06F44CABFF", columns={"package_id"})})
  * @ORM\Entity
@@ -34,7 +34,7 @@ class CompiledPackages extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $dependencyKey;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="build", type="integer", nullable=false)
      */
@@ -62,7 +62,7 @@ class CompiledPackages extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $stemcellVersion;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -80,6 +80,4 @@ class CompiledPackages extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $package;
-
-
 }

@@ -5,7 +5,6 @@ namespace Veneer\BoshBundle\DependencyInjection\Security\Factory;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractFactory;
 
 class BoshDirectorFactory extends AbstractFactory
@@ -13,7 +12,7 @@ class BoshDirectorFactory extends AbstractFactory
     protected function createAuthProvider(ContainerBuilder $container, $id, $config, $userProviderId)
     {
         $providerId = 'security.authentication.provider.bosh_director.'.$id;
-        
+
         $container
             ->setDefinition($providerId, new DefinitionDecorator('veneer_bosh.security.authentication.bosh_director_provider'))
             ->replaceArgument(0, $id);

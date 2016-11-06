@@ -2,11 +2,7 @@
 
 namespace Veneer\OpsBundle\Form\Type;
 
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Veneer\OpsBundle\Form\DataTransformer\DeploymentInstanceGroupTemplateTransformer;
@@ -42,11 +38,11 @@ class DeploymentInstanceGroupTemplatesType extends AbstractDeploymentManifestPat
                 $params = [];
 
                 foreach ($options['manifest']['releases'] as $i => $release) {
-                    $params['r' . $i] = $release['name'];
-                    $params['v' . $i] = $release['version'];
+                    $params['r'.$i] = $release['name'];
+                    $params['v'.$i] = $release['version'];
                     $ors->add(new Expr\Andx([
-                        new Expr\Comparison('r.name', '=', ':r' . $i),
-                        new Expr\Comparison('rv.version', '=', ':v' . $i),
+                        new Expr\Comparison('r.name', '=', ':r'.$i),
+                        new Expr\Comparison('rv.version', '=', ':v'.$i),
                     ]));
                 }
 
@@ -68,7 +64,7 @@ class DeploymentInstanceGroupTemplatesType extends AbstractDeploymentManifestPat
                 $choices = [];
 
                 foreach ($available as $choice) {
-                    $choices[$choice['release'] . '/' . $choice['template']] = $choice['release'] . '/' . $choice['template'];
+                    $choices[$choice['release'].'/'.$choice['template']] = $choice['release'].'/'.$choice['template'];
                 }
 
                 return $choices;

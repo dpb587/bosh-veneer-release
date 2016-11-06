@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Teams
+ * Teams.
  *
  * @ORM\Table(name="teams", uniqueConstraints={@ORM\UniqueConstraint(name="teams_name_key", columns={"name"})})
  * @ORM\Entity
@@ -20,7 +20,7 @@ class Teams extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $name;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -44,12 +44,11 @@ class Teams extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $task;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->deployment = new \Doctrine\Common\Collections\ArrayCollection();
         $this->task = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }

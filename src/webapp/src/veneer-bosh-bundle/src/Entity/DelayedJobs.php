@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DelayedJobs
+ * DelayedJobs.
  *
  * @ORM\Table(name="delayed_jobs", indexes={@ORM\Index(name="delayed_jobs_priority", columns={"priority", "run_at"})})
  * @ORM\Entity
@@ -13,14 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 class DelayedJobs extends \Veneer\BoshBundle\Service\AbstractEntity
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="priority", type="integer", nullable=false)
      */
     protected $priority;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="attempts", type="integer", nullable=false)
      */
@@ -76,7 +76,7 @@ class DelayedJobs extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $queue;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -84,6 +84,4 @@ class DelayedJobs extends \Veneer\BoshBundle\Service\AbstractEntity
      * @ORM\SequenceGenerator(sequenceName="delayed_jobs_id_seq", allocationSize=1, initialValue=1)
      */
     protected $id;
-
-
 }

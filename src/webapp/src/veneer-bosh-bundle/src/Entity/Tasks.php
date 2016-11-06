@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tasks
+ * Tasks.
  *
  * @ORM\Table(name="tasks", indexes={@ORM\Index(name="tasks_state_index", columns={"state"}), @ORM\Index(name="tasks_timestamp_index", columns={"timestamp"}), @ORM\Index(name="tasks_description_index", columns={"description"})})
  * @ORM\Entity
@@ -83,7 +83,7 @@ class Tasks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $startedAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -108,11 +108,10 @@ class Tasks extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $team;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->team = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 }

@@ -17,7 +17,7 @@ class DeploymentInstanceGroupTemplateTransformer implements DataTransformerInter
 
         return array_map(
             function (array $value) {
-                return $value['release'] . '/' . $value['name'];
+                return $value['release'].'/'.$value['name'];
             },
             $value
         );

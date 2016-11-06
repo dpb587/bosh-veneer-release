@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ReleaseVersions
+ * ReleaseVersions.
  *
  * @ORM\Table(name="release_versions", indexes={@ORM\Index(name="IDX_42DC9BB3B12A727D", columns={"release_id"})})
  * @ORM\Entity
@@ -27,14 +27,14 @@ class ReleaseVersions extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $commitHash;
 
     /**
-     * @var boolean
+     * @var bool
      *
      * @ORM\Column(name="uncommitted_changes", type="boolean", nullable=true)
      */
     protected $uncommittedChanges;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -52,6 +52,4 @@ class ReleaseVersions extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $release;
-
-
 }

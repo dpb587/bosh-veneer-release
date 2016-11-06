@@ -18,7 +18,7 @@ class DirectorApiClient extends GuzzleClient
         if ($token instanceof UaaToken) {
             $authorizationHeader = $token->getUser()->getCredentials();
         } elseif ($token instanceof BasicToken) {
-            $authorizationHeader = 'Basic ' . base64_encode($token->getUsername() . ':' . ($token->getCredentials() ?: $token->getUser()->getCredentials()));
+            $authorizationHeader = 'Basic '.base64_encode($token->getUsername().':'.($token->getCredentials() ?: $token->getUser()->getCredentials()));
         } else {
             throw new \InvalidArgumentException('Token must be Uaa or Basic');
         }
@@ -34,7 +34,7 @@ class DirectorApiClient extends GuzzleClient
         });
 
         $clientOptions['handler'] = $stack;
-        
+
         parent::__construct($clientOptions);
     }
 
@@ -47,14 +47,14 @@ class DirectorApiClient extends GuzzleClient
             ]
         );
 
-        if (!in_array($response->getStatusCode(), [ 302, 303 ])) {
-            throw new \RuntimeException('A redirect was expected to a task, but received: ' . $response->getStatusCode());
+        if (!in_array($response->getStatusCode(), [302, 303])) {
+            throw new \RuntimeException('A redirect was expected to a task, but received: '.$response->getStatusCode());
         }
 
         $location = current($response->getHeader('location'));
 
         if (!preg_match('#/tasks/\d+$#', $location)) {
-            throw new \RuntimeException('A location for task was expected, but received: ' . $location);
+            throw new \RuntimeException('A location for task was expected, but received: '.$location);
         }
 
         return basename($location);
@@ -82,14 +82,14 @@ class DirectorApiClient extends GuzzleClient
     public function getTaskOutput($taskId, $offset, $logType = 'result')
     {
         $response = $this->get(
-            'tasks/' . $taskId . '/output',
+            'tasks/'.$taskId.'/output',
             [
                 'query' => [
                     'type' => $logType,
                 ],
-                #'headers' => [
-                #    'Range' => 'bytes=' . $offset . '-',
-                #,
+                //'headers' => [
+                //    'Range' => 'bytes=' . $offset . '-',
+                //,
             ]
         );
 

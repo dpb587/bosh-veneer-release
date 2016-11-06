@@ -30,7 +30,7 @@ class LifecycleFactory
     public function compile(CheckoutInterface $checkout, $path = '.')
     {
         foreach ($checkout->ls($path) as $item) {
-            $itempath = ltrim($path . '/' . $item['name'], '/');
+            $itempath = ltrim($path.'/'.$item['name'], '/');
 
             if ('dir' == $item['type']) {
                 $this->compile($checkout, $itempath);

@@ -2,17 +2,9 @@
 
 namespace Veneer\AwsCpiBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Veneer\CoreBundle\Controller\WorkspaceRepoController;
-use Symfony\Component\Yaml\Yaml;
-use Veneer\BoshBundle\Controller\DeploymentController;
-use Veneer\BoshBundle\Entity\Deployments;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
 
 class WorkspaceAppCloudFormationController extends AbstractController
 {

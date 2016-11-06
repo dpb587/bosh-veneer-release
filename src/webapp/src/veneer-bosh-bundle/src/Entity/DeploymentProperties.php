@@ -5,7 +5,7 @@ namespace Veneer\BoshBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * DeploymentProperties
+ * DeploymentProperties.
  *
  * @ORM\Table(name="deployment_properties", uniqueConstraints={@ORM\UniqueConstraint(name="deployment_properties_deployment_id_name_key", columns={"deployment_id", "name"})}, indexes={@ORM\Index(name="IDX_EAC48AF69DF4CE98", columns={"deployment_id"})})
  * @ORM\Entity
@@ -27,7 +27,7 @@ class DeploymentProperties extends \Veneer\BoshBundle\Service\AbstractEntity
     protected $value;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -45,6 +45,4 @@ class DeploymentProperties extends \Veneer\BoshBundle\Service\AbstractEntity
      * })
      */
     protected $deployment;
-
-
 }

@@ -2,12 +2,7 @@
 
 namespace Veneer\CoreBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class WorkspaceRepoTreeController extends AbstractController
 {
@@ -25,9 +20,8 @@ class WorkspaceRepoTreeController extends AbstractController
 
             foreach ($ls as $i => $item) {
                 try {
-                    $ls[$i]['app'] = $apps->findApp($path . '/' . $item['name']);
+                    $ls[$i]['app'] = $apps->findApp($path.'/'.$item['name']);
                 } catch (\Exception $e) {
-                    //
                 }
             }
         }
@@ -35,7 +29,7 @@ class WorkspaceRepoTreeController extends AbstractController
         usort(
             $ls,
             function (array $a, array $b) {
-                if (('dir' == $a['type']) XOR ('dir' == $b['type'])) {
+                if (('dir' == $a['type']) xor ('dir' == $b['type'])) {
                     if ('dir' == $a['type']) {
                         return -1;
                     }

@@ -3,8 +3,6 @@
 namespace Veneer\AwsCpiBundle\Form\Type\Api;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints;
 use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class Ec2AvailabilityZoneType extends AbstractType

@@ -11,7 +11,7 @@ interface LifecycleInterface
      * Compile the configuration and write it to the file system.
      *
      * @param CheckoutInterface $checkout
-     * @param string $path
+     * @param string            $path
      */
     public function onCompile(CheckoutInterface $checkout, $path);
 
@@ -20,7 +20,7 @@ interface LifecycleInterface
      *
      * @param CheckoutInterface $existing
      * @param CheckoutInterface $target
-     * @param string $path
+     * @param string            $path
      */
     public function onPlan(CheckoutInterface $existing, CheckoutInterface $target, $path, array $compiled);
 
@@ -28,7 +28,7 @@ interface LifecycleInterface
      * A plan suggested changes need to be made; apply whatever changes should happen.
      *
      * @param CheckoutInterface $checkout
-     * @param string $path
+     * @param string            $path
      */
     public function onApply(LoggerInterface $logger, array $compiled);
 }

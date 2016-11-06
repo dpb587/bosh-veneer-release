@@ -24,7 +24,7 @@ class ListingHelper
     public function importTarball($url)
     {
         $guzzle = new Client();
-        $response = $guzzle->get($url, [ 'stream' => true ]);
+        $response = $guzzle->get($url, ['stream' => true]);
 
         $body = $response->getBody();
         $tmp = tempnam(sys_get_temp_dir(), 'sheaftar');
@@ -36,7 +36,7 @@ class ListingHelper
 
         fclose($fh);
 
-        $tmpdir = $tmp . '-extract';
+        $tmpdir = $tmp.'-extract';
         mkdir($tmpdir, 0700, true);
 
         $p = new Process(
@@ -49,7 +49,7 @@ class ListingHelper
 
         $p->mustRun();
 
-        $spec = Yaml::parse(file_get_contents($tmpdir . '/spec.yml'));
+        $spec = Yaml::parse(file_get_contents($tmpdir.'/spec.yml'));
 
         $entity = new Sheaf();
         $entity->setSheaf($spec['name']);
@@ -67,16 +67,16 @@ class ListingHelper
 
     public function getStoragePath(Sheaf $sheaf)
     {
-        return $this->storagePath . '/' . $sheaf->getId();
+        return $this->storagePath.'/'.$sheaf->getId();
     }
 
     public function createInstallation(Sheaf $sheaf, $name, $data, RepositoryInterface $repository)
     {
-        $path = 'sheaf/' . $name . '/installation.yml';
-        $draftProfile = $repository->getDraftProfile('sheaf-install-' . substr(md5($path), 0, 8), $path);
+        $path = 'sheaf/'.$name.'/installation.yml';
+        $draftProfile = $repository->getDraftProfile('sheaf-install-'.substr(md5($path), 0, 8), $path);
 
         $writes = [
-            'sheaf/' . $name . '/installation.yml' => Yaml::dump(array_merge(
+            'sheaf/'.$name.'/installation.yml' => Yaml::dump(array_merge(
                 $data,
                 [
                     'installation' => [
@@ -88,7 +88,7 @@ class ListingHelper
         ];
 
         foreach ((new Finder())->in($this->getStoragePath($sheaf))->notName('*.tgz')->files() as $path) {
-            $writes['sheaf/' . $name . '/' . $path->getRelativePathname()] = file_get_contents($path);
+            $writes['sheaf/'.$name.'/'.$path->getRelativePathname()] = file_get_contents($path);
         }
 
         $repository->commitWrites($draftProfile, $writes);

@@ -28,29 +28,29 @@ abstract class AbstractEntity implements \ArrayAccess
 
         throw new \InvalidArgumentException(sprintf('Invalid property "%s" on "%s".', $offset, get_class($this)));
     }
-    
+
     public function offsetSet($offset, $value)
     {
         throw new \BadMethodCallException('Read only');
     }
-    
+
     public function offsetExists($offset)
     {
         return property_exists($this, $offset) || property_exists($this, preg_replace('/AsArray$/', '', $offset));
     }
-    
+
     public function offsetUnset($offset)
     {
         throw new \BadMethodCallException('Read only');
     }
-    
+
     public function setSerializationHint($property, $include)
     {
         $this->_serializationHints[$property] = $include;
-        
+
         return $this;
     }
-    
+
     public function toArray()
     {
         $vars = get_object_vars($this);
@@ -63,19 +63,19 @@ abstract class AbstractEntity implements \ArrayAccess
                     case false:
                         unset($vars[$k]);
                 }
-                
+
                 continue;
             } elseif ('_' == $k[0]) {
                 unset($vars[$k]);
-            
+
                 continue;
             } elseif ($v instanceof self) {
                 unset($vars[$k]);
-                
+
                 continue;
             }
         }
-        
+
         return $vars;
     }
 }

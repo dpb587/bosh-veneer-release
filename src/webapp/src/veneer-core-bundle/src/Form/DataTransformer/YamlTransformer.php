@@ -14,7 +14,7 @@ class YamlTransformer implements DataTransformerInterface
         }
 
         if (is_string($value) && (false !== strpos($value, "\n"))) {
-            return '|' . "\n" . $value;
+            return '|'."\n".$value;
         }
 
         return Yaml::dump($value, 8);

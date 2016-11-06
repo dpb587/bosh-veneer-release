@@ -2,11 +2,7 @@
 
 namespace Veneer\OpsBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints;
-use SYmfony\Component\OptionsResolver\OptionsResolverInterface;
-use Veneer\OpsBundle\Form\DataTransformer\ArrayToYamlTransformer;
 
 class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
 {
