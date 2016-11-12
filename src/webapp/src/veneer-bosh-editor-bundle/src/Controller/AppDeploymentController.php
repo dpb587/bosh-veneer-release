@@ -12,6 +12,7 @@ use Veneer\BoshBundle\Controller\DeploymentController;
 use Veneer\BoshBundle\Entity\Deployments;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
+use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
 
 class AppDeploymentController extends AbstractController
 {

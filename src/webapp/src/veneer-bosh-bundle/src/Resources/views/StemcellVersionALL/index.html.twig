@@ -1,0 +1,20 @@
+{% extends _layout %}
+
+{% block def_title 'Versions' %}
+
+{% block frag_content %}
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Version</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td><a href="{{ path('veneer_bosh_stemcell_version_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.version }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

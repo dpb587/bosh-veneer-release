@@ -43,7 +43,7 @@ class DeploymentInstanceGroupInstancePersistentDiskController extends AbstractCo
     public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
-            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupInstancePersistentDisk:cpi',
+            $this->container->get('veneer_bosh.cpi')->lookup()->getControllerAction('CoreDeploymentInstanceGroupInstancePersistentDisk'),
             [
                 '_bosh' => $_bosh,
                 '_route' => $request->attributes->get('_route'),

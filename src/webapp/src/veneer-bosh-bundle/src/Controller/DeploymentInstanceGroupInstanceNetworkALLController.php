@@ -37,6 +37,9 @@ class DeploymentInstanceGroupInstanceNetworkALLController extends AbstractContro
             'VeneerBoshBundle:DeploymentInstanceGroupInstanceNetworkALL:index.html.twig',
             [
                 'results' => array_values($results),
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

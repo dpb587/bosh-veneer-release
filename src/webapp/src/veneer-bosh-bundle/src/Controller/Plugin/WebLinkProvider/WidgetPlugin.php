@@ -271,6 +271,29 @@ class WidgetPlugin implements PluginInterface
                             ]
                         ),
                 ];
+            case 'veneer_bosh_stemcell_summary':
+                return [
+                    (new Link('versionALL'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute(
+                            'veneer_bosh_stemcell_versionALL_index',
+                            [
+                                'stemcell' => $_bosh['stemcell']['name'],
+                            ]
+                        ),
+                ];
+            case 'veneer_bosh_stemcell_version_summary':
+                return [
+                    (new Link('deployments'))
+                        ->setTopic(Link::TOPIC_WIDGET)
+                        ->setRoute(
+                            'veneer_bosh_stemcell_version_deployments',
+                            [
+                                'stemcell' => $_bosh['stemcell']['name'],
+                                'version' => $_bosh['version']['version'],
+                            ]
+                        ),
+                ];
             default:
                 return [];
         }

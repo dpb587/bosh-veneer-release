@@ -307,4 +307,10 @@
         <default key="_veneer_core_context">bosh/stemcell/version</default>
     </route>
 
+    <route id="veneer_bosh_stemcell_version_deployments" path="/bosh/stemcell/{stemcell}/version/{version}/deployments.{_format}">
+        <default key="_controller">Veneer\BoshBundle\Controller\StemcellVersionController::deploymentsAction</default>
+        <default key="_format">html</default>
+        <default key="_veneer_core_context">bosh/stemcell/version</default>
+    </route>
+
 </routes>

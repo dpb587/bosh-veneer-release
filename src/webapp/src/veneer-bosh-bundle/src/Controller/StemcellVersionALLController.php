@@ -3,19 +3,20 @@
 namespace Veneer\BoshBundle\Controller;
 
 use Doctrine\ORM\Query\Expr;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 
-class ReleaseVersionALLController extends AbstractController
+class StemcellVersionALLController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $_bosh)
     {
-        return ReleaseController::defNav($nav, $_bosh)
+        return StemcellController::defNav($nav, $_bosh)
             ->add(
                 'version',
                 [
-                    'veneer_bosh_release_versionALL_index' => [
-                        'release' => $_bosh['release']['name'],
+                    'veneer_bosh_stemcell_versionALL_index' => [
+                        'stemcell' => $_bosh['stemcell']['name'],
                     ],
                 ],
                 [
@@ -24,14 +25,13 @@ class ReleaseVersionALLController extends AbstractController
             )
         ;
     }
-
     public function indexAction($_bosh)
     {
         $results = $this->container->get('doctrine.orm.bosh_entity_manager')
-            ->getRepository('VeneerBoshBundle:ReleaseVersions')
-            ->createQueryBuilder('v')
-            ->andWhere(new Expr\Comparison('v.release', '=', ':release'))->setParameter('release', $_bosh['release'])
-            ->addOrderBy('v.version')
+            ->getRepository('VeneerBoshBundle:Stemcells')
+            ->createQueryBuilder('s')
+            ->andWhere(new Expr\Comparison('s.name', '=', ':stemcell'))->setParameter('stemcell', $_bosh['stemcell']['name'])
+            ->addOrderBy('s.version')
             ->getQuery()
             ->getResult();
 
@@ -43,9 +43,12 @@ class ReleaseVersionALLController extends AbstractController
         );
 
         return $this->renderApi(
-            'VeneerBoshBundle:ReleaseVersionALL:index.html.twig',
+            'VeneerBoshBundle:StemcellVersionALL:index.html.twig',
             [
                 'results' => $results,
+            ],
+            [
+                'def_nav' => static::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
             ]
         );
     }

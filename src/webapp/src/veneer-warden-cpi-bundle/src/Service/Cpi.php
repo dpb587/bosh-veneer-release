@@ -25,4 +25,9 @@ class Cpi implements CpiInterface
     {
         return false;
     }
+
+    public function getControllerAction($object)
+    {
+        return sprintf('VeneerWardenCpiBundle:%s:cpi', $object);
+    }
 }

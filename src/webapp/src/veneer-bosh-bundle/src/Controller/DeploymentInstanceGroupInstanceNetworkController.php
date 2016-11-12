@@ -40,7 +40,7 @@ class DeploymentInstanceGroupInstanceNetworkController extends AbstractControlle
     public function cpiAction(Request $request, $_bosh)
     {
         return $this->forward(
-            'VeneerAwsCpiBundle:CoreDeploymentInstanceGroupInstanceNetwork:cpi',
+            $this->container->get('veneer_bosh.cpi')->lookup()->getControllerAction('CoreDeploymentInstanceGroupInstanceNetwork'),
             [
                 '_bosh' => $_bosh,
                 '_route' => $request->attributes->get('_route'),

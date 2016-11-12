@@ -1,0 +1,22 @@
+{% extends _layout %}
+
+{% block def_title _veneer_bosh_context.stemcell.name ~ '/' ~ _veneer_bosh_context.version.version %}
+
+{% block frag_content %}
+    {{ render(_links.widget.deployments.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <dl>
+        <dt>Operating System</dt>
+        <dd>{{ data.operatingSystem }}</dd>
+
+        {% if data.sha1 %}
+            <dt>SHA1</dt>
+            <dd><abbr title="{{ data.sha1 }}">{{ data.sha1[0:8] }}&hellip;{{ data.sha1[-8:] }}</dd></dd>
+        {% endif %}
+
+        <dt>CID</dt>
+        <dd>{{ data.cid }}</dd>
+    </dl>
+{% endblock %}

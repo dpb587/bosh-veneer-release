@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Veneer\BoshBundle\Entity\Deployments;
 use Veneer\BoshBundle\Entity\Instances;
 use Veneer\BoshBundle\Entity\Releases;
+use Veneer\BoshBundle\Service\StemcellNameParser;
 use Veneer\CoreBundle\Plugin\RequestContext\PluginInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -83,6 +84,17 @@ class BuiltinPlugin implements PluginInterface
                     $veneerBoshContext['package'] = $this->loadReleasePackage(
                         $veneerBoshContext['release'],
                         $request->attributes->get('package'),
+                        $request->attributes->get('version')
+                    );
+                }
+            } elseif ('stemcell' == $contextSplit[1]) {
+                $veneerBoshContext['stemcell'] = $this->loadStemcell(
+                    $request->attributes->get('stemcell')
+                );
+
+                if ('version' == $contextSplit[2]) {
+                    $veneerBoshContext['version'] = $this->loadStemcellVersion(
+                        $veneerBoshContext['stemcell'],
                         $request->attributes->get('version')
                     );
                 }
@@ -259,6 +271,43 @@ class BuiltinPlugin implements PluginInterface
 
         if (!$loaded) {
             throw new NotFoundHttpException('Failed to find release package');
+        }
+
+        return $loaded;
+    }
+
+    protected function loadStemcell($stemcell)
+    {
+        $loaded = $this->em->getRepository('VeneerBoshBundle:Stemcells')
+            ->createQueryBuilder('r')
+            ->andWhere(new Expr\Comparison('r.name', '=', ':stemcell'))->setParameter('stemcell', $stemcell)
+            ->getQuery()
+            ->getSingleResult();
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find stemcell');
+        }
+
+        try {
+            return StemcellNameParser::parse($loaded['name']);
+        } catch (\InvalidArgumentException $e) {
+            return [
+                'name' => $loaded['name'],
+            ];
+        }
+    }
+
+    protected function loadStemcellVersion(array $stemcell, $version)
+    {
+        $loaded = $this->em->getRepository('VeneerBoshBundle:Stemcells')
+            ->createQueryBuilder('v')
+            ->andWhere(new Expr\Comparison('v.name', '=', ':stemcell'))->setParameter('stemcell', $stemcell['name'])
+            ->andWhere(new Expr\Comparison('v.version', '=', ':version'))->setParameter('version', $version)
+            ->getQuery()
+            ->getSingleResult();
+
+        if (!$loaded) {
+            throw new NotFoundHttpException('Failed to find stemcell version');
         }
 
         return $loaded;

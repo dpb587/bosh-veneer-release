@@ -22,6 +22,8 @@
             <tag name="veneer_core.link_provider" route="veneer_bosh_release_summary" />
             <tag name="veneer_core.link_provider" route="veneer_bosh_release_job_summary" />
             <tag name="veneer_core.link_provider" route="veneer_bosh_release_version_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_stemcell_summary" />
+            <tag name="veneer_core.link_provider" route="veneer_bosh_stemcell_version_summary" />
         </service>
     </services>
 </container>

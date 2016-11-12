@@ -1,7 +1,29 @@
 {% extends _layout %}
 
-{% block def_title _veneer_bosh_context.release.name %}
+{% block def_title _veneer_bosh_context.stemcell.name %}
 
-{% block frag_content %}  
-    {#}{{ render(links.versionALL|veneer_core_appendqs({ '_frag' : 'content' })) }}}#}
+{% block frag_content %}
+    {{ render(_links.widget.versionALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+{% endblock %}
+
+{% block frag_sidebar %}
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ data.name }}</dd>
+    </dl>
+
+    <dl>
+        <dt>Infrastructure</dt>
+        <dd>{{ data.infrastructure|default('unknown') }}</dd>
+    </dl>
+
+    <dl>
+        <dt>Hypervisor</dt>
+        <dd>{{ data.hypervisor|default('unknown') }}</dd>
+    </dl>
+
+    <dl>
+        <dt>Operating System</dt>
+        <dd>{{ data.operatingSystem|default('unknown') }}/{{ data.operatingSystemVersion|default('unknown') }}</dd>
+    </dl>
 {% endblock %}

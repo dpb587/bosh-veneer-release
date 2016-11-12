@@ -25,4 +25,9 @@ class Cpi implements CpiInterface
     {
         return true;
     }
+
+    public function getControllerAction($object)
+    {
+        return sprintf('VeneerAwsCpiBundle:%s:cpi', $object);
+    }
 }

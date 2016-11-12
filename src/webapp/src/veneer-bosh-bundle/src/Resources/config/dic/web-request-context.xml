@@ -36,6 +36,8 @@
             <tag name="veneer_core.request_context" context="bosh/release/version:all" />
             <tag name="veneer_core.request_context" context="bosh/stemcell" />
             <tag name="veneer_core.request_context" context="bosh/stemcell:all" />
+            <tag name="veneer_core.request_context" context="bosh/stemcell/version" />
+            <tag name="veneer_core.request_context" context="bosh/stemcell/version:all" />
         </service>
     </services>
 </container>

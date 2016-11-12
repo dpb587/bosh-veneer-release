@@ -72,6 +72,10 @@ EOF
     export GIT_AUTHOR_EMAIL="dpb587@gmail.com"
 
 
+## forwarding
+
+    ssh $(vagrant ssh-config | awk 'NR>1 {print " -o "$1"="$2}') -L 5432:127.0.0.1:5432 -L 25555:127.0.0.1:25555 -L 7777:127.0.0.1:7777 default
+
 ## License
 
 [Copyright 2015](./LICENSE)

@@ -7,14 +7,12 @@
         <thead>
             <tr>
                 <th>Stemcell</th>
-                <th>CID</th>
             </tr>
         </thead>
         <tbody>
             {% for result in results %}
                 <tr>
-                    <td><a href="{{ path('veneer_bosh_stemcell_summary', { 'stemcell' : result.name, 'version' : result.version }) }}">{{ result.name }}/{{ result.version }}</a></td>
-                    <td><code>{{ result.cid }}</code></td>
+                    <td><a href="{{ path('veneer_bosh_stemcell_summary', { 'stemcell' : result.name }) }}">{{ result.name }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>
