@@ -3,11 +3,16 @@
 namespace Veneer\BoshBundle\Controller;
 
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\ReleaseJob
+ */
 class ReleaseJobController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return ReleaseJobALLController::defNav($nav, $_bosh)
             ->add(
@@ -26,7 +31,7 @@ class ReleaseJobController extends AbstractController
             );
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseJob:summary.html.twig',
@@ -39,7 +44,7 @@ class ReleaseJobController extends AbstractController
         );
     }
 
-    public function propertiesAction($_bosh)
+    public function propertiesAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseJob:properties.html.twig',

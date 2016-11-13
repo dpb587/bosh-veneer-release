@@ -4,14 +4,19 @@ namespace Veneer\BoshBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\BoshBundle\Model\TaskTracker;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\Task
+ */
 class TaskController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
-        return TaskALLController::defNav($nav, $_bosh)
+        return TaskALLController::defNav($nav)
             ->add(
                 '#'.$_bosh['task']['id'],
                 [
@@ -23,7 +28,7 @@ class TaskController extends AbstractController
         ;
     }
 
-    public function summaryAction(Request $request, $_bosh)
+    public function summaryAction(Request $request, Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Task:summary.html.twig',
@@ -37,7 +42,7 @@ class TaskController extends AbstractController
         );
     }
 
-    public function eventsAction(Request $request, $_bosh)
+    public function eventsAction(Request $request, Context $_bosh)
     {
         $events = $this->container->get('veneer_bosh.api')->getTaskOutput($_bosh['task']['id'], 0, 'event');
 

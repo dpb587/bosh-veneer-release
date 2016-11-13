@@ -17,14 +17,14 @@ class RequestContextPluginCompilerPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('veneer_core.request_context') as $id => $attributes) {
             foreach ($attributes as $attribute) {
-                if (!isset($attribute['context'])) {
-                    throw new \InvalidArgumentException(sprintf('The service "%s" is missing the "context" property for tag "veneer_core.request_context".', $id));
+                if (!isset($attribute['annotation'])) {
+                    throw new \InvalidArgumentException(sprintf('The service "%s" is missing the "annotation" property for tag "veneer_core.request_context".', $id));
                 }
 
-                $map[$attribute['context']][] = $id;
+                $map[$attribute['annotation']] = $id;
             }
         }
 
-        $container->getDefinition('veneer_core.plugin.request_context.factory')->replaceArgument(1, $map);
+        $container->getDefinition('veneer_core.plugin.request_context.factory')->replaceArgument(2, $map);
     }
 }

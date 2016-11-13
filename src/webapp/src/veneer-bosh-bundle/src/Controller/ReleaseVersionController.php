@@ -4,12 +4,17 @@ namespace Veneer\BoshBundle\Controller;
 
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\ReleaseVersion
+ */
 class ReleaseVersionController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return ReleaseVersionALLController::defNav($nav, $_bosh)
             ->add(
@@ -27,7 +32,7 @@ class ReleaseVersionController extends AbstractController
             );
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseVersion:summary.html.twig',
@@ -40,7 +45,7 @@ class ReleaseVersionController extends AbstractController
         );
     }
 
-    public function packagesAction($_bosh)
+    public function packagesAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseVersion:packages.html.twig',
@@ -65,7 +70,7 @@ class ReleaseVersionController extends AbstractController
         );
     }
 
-    public function deploymentsAction($_bosh)
+    public function deploymentsAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseVersion:deployments.html.twig',
@@ -90,7 +95,7 @@ class ReleaseVersionController extends AbstractController
         );
     }
 
-    public function templatesAction($_bosh)
+    public function templatesAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:ReleaseVersion:templates.html.twig',
@@ -103,7 +108,7 @@ class ReleaseVersionController extends AbstractController
         );
     }
 
-    public function propertiesAction($_bosh)
+    public function propertiesAction(Context $_bosh)
     {
         $specs = [];
 
@@ -127,7 +132,7 @@ class ReleaseVersionController extends AbstractController
         );
     }
 
-    protected function loadTemplates(array $_bosh)
+    protected function loadTemplates(Context $_bosh)
     {
         return array_map(
             function ($v) {

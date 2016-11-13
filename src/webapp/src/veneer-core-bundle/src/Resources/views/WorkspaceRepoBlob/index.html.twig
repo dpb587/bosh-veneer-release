@@ -7,7 +7,10 @@
 {% endblock %}
 
 {% block frag_sidebar %}
-    <div class="list-group">
-        n/a
-    </div>
+    <dl>
+        {% if workspace_app %}
+            <dt>Application</dt>
+            <dd><a href="{{ path(workspace_app.appRoute, { 'path' : path }) }}">{{ workspace_app.appTitle }}</a></dd>
+        {% endif %}
+    </dl>
 {% endblock %}

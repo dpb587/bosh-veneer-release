@@ -4,10 +4,15 @@ namespace Veneer\LogsearchBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\DeploymentInstanceGroupInstanceNetwork
+ */
 class DeploymentInstanceGroupInstanceNetworkController extends AbstractController
 {
-    public function hoststatsAction(array $_bosh)
+    public function hoststatsAction(Context $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 

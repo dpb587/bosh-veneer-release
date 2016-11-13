@@ -4,11 +4,16 @@ namespace Veneer\BoshBundle\Controller;
 
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\Deployment
+ */
 class DeploymentController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, array $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return DeploymentALLController::defNav($nav, $_bosh)
             ->add(
@@ -22,7 +27,7 @@ class DeploymentController extends AbstractController
         ;
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:summary.html.twig',
@@ -35,7 +40,7 @@ class DeploymentController extends AbstractController
         );
     }
 
-    public function manifestAction($_bosh)
+    public function manifestAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:manifest.html.twig',
@@ -48,7 +53,7 @@ class DeploymentController extends AbstractController
         );
     }
 
-    public function releasesAction($_bosh)
+    public function releasesAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:releases.html.twig',
@@ -76,7 +81,7 @@ class DeploymentController extends AbstractController
         );
     }
 
-    public function stemcellsAction($_bosh)
+    public function stemcellsAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:Deployment:stemcells.html.twig',

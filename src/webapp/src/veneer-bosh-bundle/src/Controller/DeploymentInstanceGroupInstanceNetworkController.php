@@ -4,11 +4,16 @@ namespace Veneer\BoshBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\DeploymentInstanceGroupInstanceNetwork
+ */
 class DeploymentInstanceGroupInstanceNetworkController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return DeploymentInstanceGroupInstanceNetworkALLController::defNav($nav, $_bosh)
             ->add(
@@ -24,7 +29,7 @@ class DeploymentInstanceGroupInstanceNetworkController extends AbstractControlle
             );
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstanceGroupInstanceNetwork:summary.html.twig',
@@ -37,7 +42,7 @@ class DeploymentInstanceGroupInstanceNetworkController extends AbstractControlle
         );
     }
 
-    public function cpiAction(Request $request, $_bosh)
+    public function cpiAction(Request $request, Context $_bosh)
     {
         return $this->forward(
             $this->container->get('veneer_bosh.cpi')->lookup()->getControllerAction('CoreDeploymentInstanceGroupInstanceNetwork'),

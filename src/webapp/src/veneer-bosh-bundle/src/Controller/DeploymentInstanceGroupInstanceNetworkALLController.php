@@ -3,11 +3,16 @@
 namespace Veneer\BoshBundle\Controller;
 
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\DeploymentInstanceGroupInstance
+ */
 class DeploymentInstanceGroupInstanceNetworkALLController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return DeploymentInstanceGroupInstanceController::defNav($nav, $_bosh)
             ->add(
@@ -25,7 +30,7 @@ class DeploymentInstanceGroupInstanceNetworkALLController extends AbstractContro
             );
     }
 
-    public function indexAction($_bosh)
+    public function indexAction(Context $_bosh)
     {
         $results = $_bosh['instance']['specJsonAsArray']['networks'];
 

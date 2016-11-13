@@ -5,39 +5,96 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_bosh.plugin.web_request_context.builtin" class="Veneer\BoshBundle\Controller\Plugin\WebRequestContext\BuiltinPlugin">
+        <service id="veneer_bosh.plugin.core_request_context.deployment" class="Veneer\BoshBundle\Plugin\RequestContext\DeploymentContext">
             <argument type="service" id="doctrine.orm.bosh_entity_manager" />
 
-            <tag name="veneer_core.request_context" context="bosh/cloud-config" />
-            <tag name="veneer_core.request_context" context="bosh/runtime-config" />
-            <tag name="veneer_core.request_context" context="bosh/deployment" />
-            <tag name="veneer_core.request_context" context="bosh/deployment:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/property:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/property" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/persistent_disk" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/persistent_disk:all" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/network" />
-            <tag name="veneer_core.request_context" context="bosh/deployment/instance_group/instance/network:all" />
-            <tag name="veneer_core.request_context" context="bosh/task" />
-            <tag name="veneer_core.request_context" context="bosh/task:all" />
-            <tag name="veneer_core.request_context" context="bosh/event" />
-            <tag name="veneer_core.request_context" context="bosh/event:all" />
-            <tag name="veneer_core.request_context" context="bosh/release" />
-            <tag name="veneer_core.request_context" context="bosh/release:all" />
-            <tag name="veneer_core.request_context" context="bosh/release/package" />
-            <tag name="veneer_core.request_context" context="bosh/release/package:all" />
-            <tag name="veneer_core.request_context" context="bosh/release/job" />
-            <tag name="veneer_core.request_context" context="bosh/release/job:all" />
-            <tag name="veneer_core.request_context" context="bosh/release/version" />
-            <tag name="veneer_core.request_context" context="bosh/release/version:all" />
-            <tag name="veneer_core.request_context" context="bosh/stemcell" />
-            <tag name="veneer_core.request_context" context="bosh/stemcell:all" />
-            <tag name="veneer_core.request_context" context="bosh/stemcell/version" />
-            <tag name="veneer_core.request_context" context="bosh/stemcell/version:all" />
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\Deployment" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.deployment_instance_group" class="Veneer\BoshBundle\Plugin\RequestContext\DeploymentInstanceGroupContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.deployment" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\DeploymentInstanceGroup" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.deployment_instance_group_instance" class="Veneer\BoshBundle\Plugin\RequestContext\DeploymentInstanceGroupInstanceContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.deployment_instance_group" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\DeploymentInstanceGroupInstance" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.deployment_instance_group_instance_network" class="Veneer\BoshBundle\Plugin\RequestContext\DeploymentInstanceGroupInstanceNetworkContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.deployment_instance_group_instance" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\DeploymentInstanceGroupInstanceNetwork" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.deployment_instance_group_instance_persistent_disk" class="Veneer\BoshBundle\Plugin\RequestContext\DeploymentInstanceGroupInstancePersistentDiskContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.deployment_instance_group_instance" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\DeploymentInstanceGroupInstancePersistentDisk" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.event" class="Veneer\BoshBundle\Plugin\RequestContext\EventContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\Event" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.task" class="Veneer\BoshBundle\Plugin\RequestContext\TaskContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\Task" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.release" class="Veneer\BoshBundle\Plugin\RequestContext\ReleaseContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\Release" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.release_version" class="Veneer\BoshBundle\Plugin\RequestContext\ReleaseVersionContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.release" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\ReleaseVersion" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.release_job" class="Veneer\BoshBundle\Plugin\RequestContext\ReleaseJobContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.release" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\ReleaseJob" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.release_package" class="Veneer\BoshBundle\Plugin\RequestContext\ReleasePackageContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.release" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\ReleasePackage" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.stemcell" class="Veneer\BoshBundle\Plugin\RequestContext\StemcellContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\Stemcell" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.stemcell_version" class="Veneer\BoshBundle\Plugin\RequestContext\StemcellVersionContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+            <argument type="service" id="veneer_bosh.plugin.core_request_context.stemcell" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\StemcellVersion" />
+        </service>
+
+        <service id="veneer_bosh.plugin.core_request_context.cloudconfig" class="Veneer\BoshBundle\Plugin\RequestContext\CloudConfigContext">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\BoshBundle\Plugin\RequestContext\Annotations\CloudConfig" />
         </service>
     </services>
 </container>

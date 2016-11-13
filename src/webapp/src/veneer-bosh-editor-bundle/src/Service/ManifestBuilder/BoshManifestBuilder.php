@@ -4,9 +4,12 @@ namespace Veneer\BoshEditorBundle\Service\ManifestBuilder;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Yaml;
 
 class BoshManifestBuilder implements ManifestBuilderInterface
 {
+    const REGEX_VARIABLE = '/\(\(!?([-\w\p{L}]+)\)\)/';
+
     protected $executable;
 
     public function __construct($executable)
@@ -53,5 +56,65 @@ class BoshManifestBuilder implements ManifestBuilderInterface
         $p->mustRun();
 
         return $p->getOutput();
+    }
+
+    public function findMissingParameters($cwd, $manifestPath)
+    {
+        $manifestHash = Yaml::parse($this->build($cwd, $manifestPath));
+
+        return $this->findMissingParametersDeep($manifestHash);
+    }
+
+    private function findMissingParametersDeep(array $data, $path = '')
+    {
+        $missing = [];
+
+        $pathMethod = $this->findPathMethod($data);
+
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $placeholders = preg_match_all(static::REGEX_VARIABLE, $value, $matches);
+
+                if (!$placeholders) {
+                    continue;
+                }
+
+                foreach ($placeholders as $placeholder) {
+                    $missing[$placeholder][] = $this->appendPath($path, $data, $pathMethod, $key);
+                }
+            } elseif (is_array($value)) {
+                foreach ($this->findMissingParametersDeep($value, $this->appendPath($path, $data, $pathMethod, $key)) as $placeholder => $paths) {
+                    $missing[$placeholder][] = $paths;
+                }
+            }
+        }
+
+        return $missing;
+    }
+
+    private function findPathMethod(array $data)
+    {
+        $dataCount = count($data);
+        $byName = array_filter(
+            $data,
+            function ($value) {
+                return is_array($value) && isset($value['name']);
+            }
+        );
+
+        if (count($byName) == $dataCount) {
+            return 'name';
+        }
+
+        return 'index';
+    }
+
+    private function appendPath($basePath, array $data, $pathMethod, $key)
+    {
+        if ('name' == $pathMethod) {
+            return $basePath.'/name='.$key;
+        }
+
+        return $basePath.'/'.$key;
     }
 }

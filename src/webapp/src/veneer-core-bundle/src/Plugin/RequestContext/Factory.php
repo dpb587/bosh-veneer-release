@@ -2,38 +2,64 @@
 
 namespace Veneer\CoreBundle\Plugin\RequestContext;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Util\ClassUtils;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Factory
 {
     protected $container;
+    protected $annotationReader;
     protected $contextMap;
 
-    public function __construct(ContainerInterface $container, array $contextMap = [])
+    public function __construct(ContainerInterface $container, AnnotationReader $annotationReader, array $contextMap = [])
     {
         $this->container = $container;
+        $this->annotationReader = $annotationReader;
         $this->contextMap = $contextMap;
     }
 
     public function onKernelController(FilterControllerEvent $event)
     {
-        $request = $event->getRequest();
+        $controller = $event->getController();
 
-        if (!$request->attributes->has('_veneer_core_context')) {
+        if (!is_array($controller)) {
             return;
         }
 
-        $contextList = (array) $request->attributes->get('_veneer_core_context');
+        $request = $event->getRequest();
+        $context = $request->attributes->get('_bosh') ?: new Context();
 
-        foreach ($contextList as $context) {
-            if (!isset($this->contextMap[$context])) {
-                continue;
+        list($controllerObject, $methodName) = $controller;
+
+        $controllerClass = ClassUtils::getClass($controllerObject);
+
+        $annotations = array_merge(
+            array_filter(
+                $this->annotationReader->getMethodAnnotations(new \ReflectionMethod($controllerClass, $methodName)),
+                function ($annotation) {
+                    return $annotation instanceof Annotation;
+                }
+            ),
+            array_filter(
+                $this->annotationReader->getClassAnnotations(new \ReflectionClass($controllerClass)),
+                function ($annotation) {
+                    return $annotation instanceof Annotation;
+                }
+            )
+        );
+
+        foreach ($annotations as $annotation) {
+            $annotationClass = ClassUtils::getClass($annotation);
+
+            if (!isset($this->contextMap[$annotationClass])) {
+                throw new \LogicException(sprintf('Annotation class is not registered: %s', $annotationClass));
             }
 
-            foreach ($this->contextMap[$context] as $service) {
-                $this->container->get($service)->applyContext($request, $context);
-            }
+            $this->container->get($this->contextMap[$annotationClass])->apply($request, $annotation, $context);
         }
+
+        $request->attributes->set('_bosh', $context);
     }
 }

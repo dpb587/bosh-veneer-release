@@ -4,11 +4,16 @@ namespace Veneer\HubBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\HubBundle\Plugin\RequestContext\Annotations as HubContext;
 
+/**
+ * @HubContext\HubStemcellVersion
+ */
 class HubStemcellVersionController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return HubStemcellVersionALLController::defNav($nav, $_bosh)
             ->add(
@@ -23,7 +28,7 @@ class HubStemcellVersionController extends AbstractController
             );
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerHubBundle:HubStemcellVersion:summary.html.twig',
@@ -36,7 +41,7 @@ class HubStemcellVersionController extends AbstractController
         );
     }
 
-    public function uploadAction(Request $request, $_bosh)
+    public function uploadAction(Request $request, Context $_bosh)
     {
         if (Request::METHOD_POST == $request->getMethod()) {
             $authenticatedUrl = $this->container->get('veneer_hub.hubs')

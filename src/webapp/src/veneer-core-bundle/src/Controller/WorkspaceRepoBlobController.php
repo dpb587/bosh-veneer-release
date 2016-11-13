@@ -17,6 +17,13 @@ class WorkspaceRepoBlobController extends AbstractController
             throw new NotFoundHttpException('File not found');
         }
 
+        $apps = $this->container->get('veneer_core.workspace.app');
+
+        try {
+            $app = $apps->findApp($path);
+        } catch (\Exception $e) {
+        }
+
         return $this->renderApi(
             'VeneerCoreBundle:WorkspaceRepoBlob:index.html.twig',
             [
@@ -26,6 +33,7 @@ class WorkspaceRepoBlobController extends AbstractController
             ],
             [
                 'def_nav' => WorkspaceRepoController::defNav($this->container->get('veneer_core.breadcrumbs'), $ref, $path),
+                'workspace_app' => $app,
             ]
         );
     }

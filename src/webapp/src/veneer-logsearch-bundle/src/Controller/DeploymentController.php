@@ -2,12 +2,15 @@
 
 namespace Veneer\LogsearchBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 
+/**
+ * @BoshContext\Deployment
+ */
 class DeploymentController extends AbstractController
 {
-    public function monitstatusAction(array $_bosh)
+    public function monitstatusAction(Context $_bosh)
     {
         $es = $this->container->get('veneer_logsearch.elasticsearch_helper');
 

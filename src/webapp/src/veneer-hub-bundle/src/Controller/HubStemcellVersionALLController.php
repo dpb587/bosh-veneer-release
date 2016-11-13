@@ -4,11 +4,16 @@ namespace Veneer\HubBundle\Controller;
 
 use Doctrine\ORM\Query\Expr;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\HubBundle\Plugin\RequestContext\Annotations as HubContext;
 
+/**
+ * @HubContext\HubStemcell
+ */
 class HubStemcellVersionALLController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return HubStemcellController::defNav($nav, $_bosh)
             ->add(
@@ -18,11 +23,14 @@ class HubStemcellVersionALLController extends AbstractController
                         'hub' => $_bosh['hub']['name'],
                         'stemcell' => $_bosh['stemcell']['name'],
                     ],
+                ],
+                [
+                    'fontawesome' => 'code-fork',
                 ]
             )
         ;
     }
-    public function indexAction(array $_bosh)
+    public function indexAction(Context $_bosh)
     {
         $results = $this->container->get('doctrine.orm.state_entity_manager')
             ->getRepository('VeneerHubBundle:StemcellVersion')

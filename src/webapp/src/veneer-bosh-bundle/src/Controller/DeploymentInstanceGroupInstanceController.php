@@ -6,12 +6,17 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\BoshBundle\Form\Type\JobRestartType;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\DeploymentInstanceGroupInstance
+ */
 class DeploymentInstanceGroupInstanceController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return DeploymentInstanceGroupInstanceALLController::defNav($nav, $_bosh)
             ->add(
@@ -27,7 +32,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         ;
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstanceGroupInstance:summary.html.twig',
@@ -40,7 +45,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         );
     }
 
-    public function specAction($_bosh)
+    public function specAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstanceGroupInstance:spec.html.twig',
@@ -51,7 +56,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         );
     }
 
-    public function packagesAction($_bosh)
+    public function packagesAction(Context $_bosh)
     {
         $results = $_bosh['instance']['specJsonAsArray']['packages'];
 
@@ -73,7 +78,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         );
     }
 
-    public function templatesAction($_bosh)
+    public function templatesAction(Context $_bosh)
     {
         $results = $_bosh['instance']['specJsonAsArray']['job']['templates'];
 
@@ -95,7 +100,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         );
     }
 
-    public function restartAction(Request $request, array $_bosh)
+    public function restartAction(Request $request, Context $_bosh)
     {
         $form = $this->container->get('form.factory')->createNamed(
             null,
@@ -173,7 +178,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
         );
     }
 
-    public function recreateAction(Request $request, array $_bosh)
+    public function recreateAction(Request $request, Context $_bosh)
     {
         $form = $this->container->get('form.factory')->createNamed(
             null,

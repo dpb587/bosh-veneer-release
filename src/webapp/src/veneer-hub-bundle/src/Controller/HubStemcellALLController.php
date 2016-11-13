@@ -3,11 +3,16 @@
 namespace Veneer\HubBundle\Controller;
 
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\HubBundle\Plugin\RequestContext\Annotations as HubContext;
 
+/**
+ * @HubContext\Hub
+ */
 class HubStemcellALLController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, array $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return HubController::defNav($nav, $_bosh)->add(
             'stemcell',
@@ -15,11 +20,14 @@ class HubStemcellALLController extends AbstractController
                 'veneer_hub_hub_stemcellALL_index' => [
                     'hub' => $_bosh['hub']['name'],
                 ],
+            ],
+            [
+                'fontawesome' => 'archive',
             ]
         );
     }
 
-    public function indexAction(array $_bosh)
+    public function indexAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerHubBundle:HubStemcellALL:index.html.twig',

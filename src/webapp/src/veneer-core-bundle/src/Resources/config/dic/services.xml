@@ -21,6 +21,7 @@
 
         <service id="veneer_core.plugin.request_context.factory" class="Veneer\CoreBundle\Plugin\RequestContext\Factory">
             <argument type="service" id="service_container" />
+            <argument type="service" id="annotations.reader" />
             <argument type="collection" /><!-- compiler -->
 
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
@@ -37,11 +38,6 @@
         </service>
 
         <service id="veneer_core.workspace.watcher" class="Veneer\CoreBundle\Service\Workspace\WatcherFactory">
-            <argument type="service" id="service_container" />
-            <argument type="collection" /><!-- map -->
-        </service>
-
-        <service id="veneer_core.workspace.environment" class="Veneer\CoreBundle\Service\Workspace\Environment\EnvironmentFactory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- map -->
         </service>

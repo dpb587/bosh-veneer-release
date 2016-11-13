@@ -5,19 +5,38 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_hub.plugin.web_request_context.builtin" class="Veneer\HubBundle\Controller\Plugin\WebRequestContext\BuiltinPlugin">
+        <service id="veneer_hub.plugin.core_request_context.hub" class="Veneer\HubBundle\Plugin\RequestContext\HubContext">
             <argument type="service" id="veneer_hub.hubs" />
-            <argument type="service" id="doctrine.orm.state_entity_manager" />
 
-            <tag name="veneer_core.request_context" context="hub/hub" />
-            <tag name="veneer_core.request_context" context="hub/hub/release:all" />
-            <tag name="veneer_core.request_context" context="hub/hub/release" />
-            <tag name="veneer_core.request_context" context="hub/hub/release/version:all" />
-            <tag name="veneer_core.request_context" context="hub/hub/release/version" />
-            <tag name="veneer_core.request_context" context="hub/hub/stemcell:all" />
-            <tag name="veneer_core.request_context" context="hub/hub/stemcell" />
-            <tag name="veneer_core.request_context" context="hub/hub/stemcell/version:all" />
-            <tag name="veneer_core.request_context" context="hub/hub/stemcell/version" />
+            <tag name="veneer_core.request_context" annotation="Veneer\HubBundle\Plugin\RequestContext\Annotations\Hub" />
+        </service>
+
+        <service id="veneer_hub.plugin.core_request_context.hub_release" class="Veneer\HubBundle\Plugin\RequestContext\HubReleaseContext">
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+            <argument type="service" id="veneer_hub.plugin.core_request_context.hub" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\HubBundle\Plugin\RequestContext\Annotations\HubRelease" />
+        </service>
+
+        <service id="veneer_hub.plugin.core_request_context.hub_release_version" class="Veneer\HubBundle\Plugin\RequestContext\HubReleaseVersionContext">
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+            <argument type="service" id="veneer_hub.plugin.core_request_context.hub_release" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\HubBundle\Plugin\RequestContext\Annotations\HubReleaseVersion" />
+        </service>
+
+        <service id="veneer_hub.plugin.core_request_context.hub_stemcell" class="Veneer\HubBundle\Plugin\RequestContext\HubStemcellContext">
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+            <argument type="service" id="veneer_hub.plugin.core_request_context.hub" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\HubBundle\Plugin\RequestContext\Annotations\HubStemcell" />
+        </service>
+
+        <service id="veneer_hub.plugin.core_request_context.hub_stemcell_version" class="Veneer\HubBundle\Plugin\RequestContext\HubStemcellVersionContext">
+            <argument type="service" id="doctrine.orm.state_entity_manager" />
+            <argument type="service" id="veneer_hub.plugin.core_request_context.hub_stemcell" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\HubBundle\Plugin\RequestContext\Annotations\HubStemcellVersion" />
         </service>
     </services>
 </container>

@@ -3,10 +3,11 @@
 namespace Veneer\AwsCpiBundle\Controller;
 
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 
 class CoreDeploymentVmResourcePoolController extends AbstractController
 {
-    public function cpiAction(array $_bosh)
+    public function cpiAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerAwsCpiBundle:CoreDeploymentVmResourcePool:cpi.html.twig',

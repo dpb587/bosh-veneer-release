@@ -14,13 +14,11 @@
     <route id="veneer_bosh_cloudconfig_summary" path="/bosh/cloud-config/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\CloudConfigController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/cloud-config</default>
     </route>
 
     <route id="veneer_bosh_cloudconfig_manifest" path="/bosh/cloud-config/manifest.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\CloudConfigController::manifestAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/cloud-config</default>
     </route>
 
     <!-- runtime-config -->
@@ -28,7 +26,6 @@
     <route id="veneer_bosh_runtimeconfig_index" path="/bosh/runtime-config/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\RuntimeConfigController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/runtime-config</default>
     </route>
 
     <!-- events -->
@@ -36,13 +33,11 @@
     <route id="veneer_bosh_eventALL_index" path="/bosh/event/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\EventALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/event:all</default>
     </route>
 
     <route id="veneer_bosh_event_summary" path="/bosh/event/{event}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\EventController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/event</default>
     </route>
 
     <!-- deployment -->
@@ -50,135 +45,112 @@
     <route id="veneer_bosh_deploymentALL_index" path="/bosh/deployment/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment:all</default>
     </route>
 
     <route id="veneer_bosh_deployment_summary" path="/bosh/deployment/{deployment}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
     <route id="veneer_bosh_deployment_manifest" path="/bosh/deployment/{deployment}/manifest.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentController::manifestAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
     <route id="veneer_bosh_deployment_releases" path="/bosh/deployment/{deployment}/releases.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentController::releasesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
     <route id="veneer_bosh_deployment_stemcells" path="/bosh/deployment/{deployment}/stemcells.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentController::stemcellsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment</default>
     </route>
 
     <route id="veneer_bosh_deployment_jobALL_index" path="/bosh/deployment/{deployment}/instance-group/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group:all</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_summary" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_restart" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/restart">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupController::restartAction</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_recreate" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/recreate">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupController::recreateAction</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instanceALL_index" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance:all</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_summary" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_vm" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/vm.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::vmAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_restart" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/restart">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::restartAction</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_recreate" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/recreate">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::recreateAction</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_persistentdiskALL_index" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/persistent-disk/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstancePersistentDiskALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/persistent_disk:all</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_persistentdisk_summary" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/persistent-disk/{persistent_disk}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstancePersistentDiskController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/persistent_disk</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_persistentdisk_cpi" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/persistent-disk/{persistent_disk}/cpi.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstancePersistentDiskController::cpiAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/persistent_disk</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_spec" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/spec.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::specAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_packages" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/packages.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::packagesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_templates" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/templates.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceController::templatesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_networkALL_index" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceNetworkALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/network:all</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_network_summary" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/{network}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceNetworkController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/network</default>
     </route>
 
     <route id="veneer_bosh_deployment_instancegroup_instance_network_cpi" path="/bosh/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/network/{network}/cpi.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\DeploymentInstanceGroupInstanceNetworkController::cpiAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/deployment/instance_group/instance/network</default>
     </route>
 
     <!-- task -->
@@ -186,19 +158,16 @@
     <route id="veneer_bosh_taskALL_index" path="/bosh/task/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\TaskALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/task:all</default>
     </route>
 
     <route id="veneer_bosh_task_summary" path="/bosh/task/{task}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\TaskController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/task</default>
     </route>
 
     <route id="veneer_bosh_task_events" path="/bosh/task/{task}/events.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\TaskController::eventsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/task</default>
     </route>
 
     <!-- release -->
@@ -206,79 +175,66 @@
     <route id="veneer_bosh_releaseALL_index" path="/bosh/release/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release:all</default>
     </route>
 
     <route id="veneer_bosh_release_summary" path="/bosh/release/{release}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release</default>
     </route>
 
     <route id="veneer_bosh_release_versionALL_index" path="/bosh/release/{release}/version/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseVersionALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/version:all</default>
     </route>
 
     <route id="veneer_bosh_release_version_summary" path="/bosh/release/{release}/version/{version}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseVersionController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/version</default>
     </route>
 
     <route id="veneer_bosh_release_version_properties" path="/bosh/release/{release}/version/{version}/properties.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseVersionController::propertiesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/version</default>
     </route>
 
     <route id="veneer_bosh_release_version_deployments" path="/bosh/release/{release}/version/{version}/deployments.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseVersionController::deploymentsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/version</default>
     </route>
 
     <route id="veneer_bosh_release_version_packages" path="/bosh/release/{release}/version/{version}/packages.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseVersionController::packagesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/version</default>
     </route>
 
     <route id="veneer_bosh_release_version_templates" path="/bosh/release/{release}/version/{version}/templates.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseVersionController::templatesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/version</default>
     </route>
 
     <route id="veneer_bosh_release_packageALL_index" path="/bosh/release/{release}/package/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleasePackageALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/package:all</default>
     </route>
 
     <route id="veneer_bosh_release_package_summary" path="/bosh/release/{release}/package/{package}/{version}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleasePackageController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/package</default>
     </route>
 
     <route id="veneer_bosh_release_jobALL_index" path="/bosh/release/{release}/job/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseJobALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/job:all</default>
     </route>
 
     <route id="veneer_bosh_release_job_summary" path="/bosh/release/{release}/job/{job}/{version}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseJobController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/job</default>
     </route>
 
     <route id="veneer_bosh_release_job_properties" path="/bosh/release/{release}/job/{job}/{version}/properties.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\ReleaseJobController::propertiesAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/release/job</default>
     </route>
 
     <!-- stemcell -->
@@ -286,31 +242,26 @@
     <route id="veneer_bosh_stemcellALL_index" path="/bosh/stemcell/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\StemcellALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/stemcell:all</default>
     </route>
 
     <route id="veneer_bosh_stemcell_summary" path="/bosh/stemcell/{stemcell}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\StemcellController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/stemcell</default>
     </route>
 
     <route id="veneer_bosh_stemcell_versionALL_index" path="/bosh/stemcell/{stemcell}/version/:all/index.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\StemcellVersionALLController::indexAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/stemcell/version:all</default>
     </route>
 
     <route id="veneer_bosh_stemcell_version_summary" path="/bosh/stemcell/{stemcell}/version/{version}/summary.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\StemcellVersionController::summaryAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/stemcell/version</default>
     </route>
 
     <route id="veneer_bosh_stemcell_version_deployments" path="/bosh/stemcell/{stemcell}/version/{version}/deployments.{_format}">
         <default key="_controller">Veneer\BoshBundle\Controller\StemcellVersionController::deploymentsAction</default>
         <default key="_format">html</default>
-        <default key="_veneer_core_context">bosh/stemcell/version</default>
     </route>
 
 </routes>

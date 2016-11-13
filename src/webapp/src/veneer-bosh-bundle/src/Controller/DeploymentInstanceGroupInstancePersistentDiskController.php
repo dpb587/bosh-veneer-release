@@ -4,11 +4,16 @@ namespace Veneer\BoshBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
+/**
+ * @BoshContext\DeploymentInstanceGroupInstancePersistentDisk
+ */
 class DeploymentInstanceGroupInstancePersistentDiskController extends AbstractController
 {
-    public static function defNav(Breadcrumbs $nav, $_bosh)
+    public static function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return DeploymentInstanceGroupInstancePersistentDiskALLController::defNav($nav, $_bosh)
             ->add(
@@ -27,7 +32,7 @@ class DeploymentInstanceGroupInstancePersistentDiskController extends AbstractCo
             );
     }
 
-    public function summaryAction($_bosh)
+    public function summaryAction(Context $_bosh)
     {
         return $this->renderApi(
             'VeneerBoshBundle:DeploymentInstanceGroupInstancePersistentDisk:summary.html.twig',
