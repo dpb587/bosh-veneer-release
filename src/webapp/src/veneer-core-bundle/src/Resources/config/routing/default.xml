@@ -79,4 +79,11 @@
         <default key="_format">html</default>
     </route>
 
+    <!-- schema-map -->
+
+    <route id="veneer_core_schemamap_schema" path="/core/schema-map/schema.{_format}">
+        <default key="_controller">Veneer\CoreBundle\Controller\SchemaMapController::schemaAction</default>
+        <default key="_format">html</default>
+    </route>
+
 </routes>

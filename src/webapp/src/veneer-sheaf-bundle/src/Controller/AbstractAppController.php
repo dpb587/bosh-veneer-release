@@ -25,8 +25,8 @@ abstract class AbstractAppController extends AbstractController
         $this->repository = $this->container->get('veneer_core.workspace.repository');
         $this->installationHelper = $this->container->get('veneer_sheaf.installation_helper');
 
-        if ($this->repository->fileExists($context['app']['path'], $context['app']['profile']['ref_read'])) {
-            $this->installationHash = Yaml::parse($this->repository->showFile($context['app']['path'], $context['app']['profile']['ref_read'])) ?: [];
+        if ($this->repository->fileExists($context['app']['file'], $context['app']['profile']['ref_read'])) {
+            $this->installationHash = Yaml::parse($this->repository->showFile($context['app']['file'], $context['app']['profile']['ref_read'])) ?: [];
         }
     }
 }

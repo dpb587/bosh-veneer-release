@@ -51,7 +51,7 @@ class CloudConfigApp implements AppInterface, PluginInterface, LifecycleInterfac
                         ->setRoute(
                             $this->getAppRoute(),
                             [
-                                'path' => 'bosh/cloud-config/manifest.yml',
+                                'file' => 'bosh/cloud-config/manifest.yml',
                             ]
                         ),
                 ];

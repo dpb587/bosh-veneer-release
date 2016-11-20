@@ -9,12 +9,12 @@ class UriResolver extends BaseUriResolver
     protected function getTranslations()
     {
         return [
-            #'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-bosh-bundle/src/Resources/schema-map/dev/cpi'),
-            #'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-warden-cpi-bundle/src/Resources/schema-map/dev'),
-            'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-aws-cpi-bundle/src/Resources/schema-map/dev'),
-            'https://dpb587.github.io/bosh-json-schema/default/director/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-bosh-bundle/src/Resources/schema-map/dev/director'),
-            'https://dpb587.github.io/bosh-json-schema/default/aws-cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-aws-cpi-bundle/src/Resources/schema-map/dev'),
-            'https://dpb587.github.io/bosh-json-schema/default/warden-cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-warden-cpi-bundle/src/Resources/schema-map/dev'),
+            #'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-bosh-bundle/src/Resources/schema-map/dev/cpi') . '/',
+            #'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-warden-cpi-bundle/src/Resources/schema-map/dev') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-aws-cpi-bundle/src/Resources/schema-map/dev') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/director/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-bosh-bundle/src/Resources/schema-map/dev/director') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/aws-cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-aws-cpi-bundle/src/Resources/schema-map/dev') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/warden-cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-warden-cpi-bundle/src/Resources/schema-map/dev') . '/',
         ];
     }
 
@@ -24,22 +24,27 @@ class UriResolver extends BaseUriResolver
         $resolved = parent::resolve($uri, $baseUri);
         $resolvedScheme = parse_url($resolved, PHP_URL_SCHEME);
 
-        $translations = $this->getTranslations();
-
         if ('file' == $resolvedScheme) {
             return $resolved;
         }
 
-        foreach ($translations as $from => $to) {
+        foreach ($this->getTranslations() as $from => $to) {
             if (preg_match('@^(' . preg_quote($from, '@') . ')(.*)$@', $resolved, $match)) {
-                return $to . '/' . $match[2];
+                return $to . $match[2];
             }
         }
 
-        if ('file' != $resolvedScheme) {
-            throw new \RuntimeException('Blocked request: ' . $resolved);
+        return $resolved;
+    }
+
+    public function reverseResolve($uri)
+    {
+        foreach (array_flip($this->getTranslations()) as $from => $to) {
+            if (preg_match('@^(' . preg_quote($from, '@') . ')(.*)$@', $uri, $match)) {
+                return $to . $match[2];
+            }
         }
 
-        return $resolved;
+        return $uri;
     }
 }

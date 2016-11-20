@@ -64,6 +64,14 @@
       "description": "Specifies the mapping between BOSH release jobs and cloud instances. Jobs are defined in the BOSH release. The Jobs block defines how BOSH associates jobs with the VMs started by the IaaS.",
       "items": {
         "properties": {
+          "azs": {
+            "items": {
+              "title": "Availability Zone",
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Availability Zones"
+          },
           "instances": {
             "description": "The number of job instances. Each instance is a VM running this particular job.",
             "type": "integer"
@@ -147,6 +155,18 @@
           },
           "update": {
             "$ref": "#/definitions/update"
+          },
+          "vm_type": {
+            "type": "string",
+            "title": "VM Type"
+          },
+          "vm_extensions": {
+            "items": {
+              "title": "VM Extension",
+              "type": "string"
+            },
+            "type": "array",
+            "title": "VM Extensions"
           }
         },
         "required": [

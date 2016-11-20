@@ -21,16 +21,16 @@
 
 {% block frag_sidebar %}
     <ul class="nav">
-        {{ _self.navlink(path('veneer_sheaf_app_dependencies', { 'path' : _veneer_bosh_context.app.path }), 'Dependencies', 'truck', 'dependencies', sidenav_active) }}
+        {{ _self.navlink(path('veneer_sheaf_app_dependencies', { 'file' : _veneer_bosh_context.app.file }), 'Dependencies', 'truck', 'dependencies', sidenav_active) }}
         {% for component in installation.components if installation.installation.components[component.name]|default %}
-            {{ _self.navlink(path('veneer_sheaf_app_deployment_summary', { 'deployment': component.name, 'path' : _veneer_bosh_context.app.path }), component.title, 'sitemap', 'deployment:' ~ component.name, sidenav_active) }}
+            {{ _self.navlink(path('veneer_sheaf_app_deployment_summary', { 'deployment': component.name, 'file' : _veneer_bosh_context.app.file }), component.title, 'sitemap', 'deployment:' ~ component.name, sidenav_active) }}
         {% endfor %}
     </ul>
 
     <hr />
 
     <ul class="list-unstyled">
-        <li><small><a class="text-muted" href="{{ path('veneer_core_workspace_repo_blob_index', { 'ref' : _veneer_bosh_context.app.profile.ref_read, 'path' : _veneer_bosh_context.app.path }) }}"><i class="fa fa-code fa-fw"></i> {{ _veneer_bosh_context.app.path }}</a></small></li>
+        <li><small><a class="text-muted" href="{{ path('veneer_core_workspace_repo_blob_index', { 'ref' : _veneer_bosh_context.app.profile.ref_read, 'path' : _veneer_bosh_context.app.file }) }}"><i class="fa fa-code fa-fw"></i> {{ _veneer_bosh_context.app.file }}</a></small></li>
     </ul>
 {% endblock %}
 

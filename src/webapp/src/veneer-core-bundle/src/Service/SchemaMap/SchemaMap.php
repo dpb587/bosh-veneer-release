@@ -6,21 +6,24 @@ use Doctrine\DBAL\Schema\Schema;
 use JsonSchema\SchemaStorage;
 use Veneer\CoreBundle\Service\SchemaMap\DataNode\DataNodeInterface;
 use Veneer\CoreBundle\Service\SchemaMap\DataNode\TraversableDataNodeInterface;
+use Veneer\CoreBundle\Service\SchemaMap\Filter\FilterInterface;
 use Veneer\CoreBundle\Service\SchemaMap\SchemaNode\ArraySchemaNode;
 use Veneer\CoreBundle\Service\SchemaMap\SchemaNode\SchemaNodeInterface;
 
 class SchemaMap
 {
     protected $jsonSchema;
+    protected $filterFactory;
     protected $rootSchemaId;
 
-    public function __construct(SchemaStorage $jsonSchema, $rootSchemaId)
+    public function __construct(SchemaStorage $jsonSchema, FilterInterface $filterFactory, $rootSchemaId)
     {
         $this->jsonSchema = $jsonSchema;
+        $this->filterFactory = $filterFactory;
         $this->rootSchemaId = $rootSchemaId;
     }
 
-    public function getSchema($uri, $baseUri = null)
+    protected function getSchema($uri, $baseUri = null)
     {
         return new ArraySchemaNode(
             $this->jsonSchema->getSchema(
@@ -29,26 +32,10 @@ class SchemaMap
         );
     }
 
-    public function getResolvedSchema(SchemaNodeInterface $schema)
-    {
-        $rawSchema = $schema->getSchema();
-
-        if (!isset($rawSchema->{'$ref'})) {
-            return $schema;
-        }
-
-        return $this->getSchema($rawSchema->{'$ref'}, isset($rawSchema->id) ? $rawSchema->id : null);
-    }
-
-    public function getSchemaPath($base, $suffix)
-    {
-        return $base . (strpos($base, '#') ? '' : '#') . $suffix;
-    }
-
     public function traverse(DataNodeInterface $dataNode, $path)
     {
         return $this->traverseNode(
-            new Node(
+            $this->createFilteredNode(
                 $dataNode,
                 $this->getSchema($this->rootSchemaId)
             ),
@@ -56,7 +43,7 @@ class SchemaMap
         );
     }
 
-    public function traverseNode(Node $node, $path)
+    protected function traverseNode(Node $node, $path)
     {
         $segments = explode('/', ltrim($path, '/'));
 
@@ -70,17 +57,28 @@ class SchemaMap
             $traversedDataNode = $dataNode->traverse($segment);
             $traversedSchemaNode = $this->traverseSchema($node->getSchema(), $segment, $dataNode);
 
-            $node = new Node($traversedDataNode, $traversedSchemaNode);
+            $node = $this->createFilteredNode($traversedDataNode, $traversedSchemaNode);
         }
 
         return $node;
+    }
+
+    protected function createFilteredNode(DataNodeInterface $dataNode, SchemaNodeInterface $schemaNode)
+    {
+        if ($this->filterFactory->supports($dataNode, $schemaNode)) {
+            $schemaNode = $this->filterFactory->filter($dataNode, $schemaNode);
+        }
+
+        return new Node($dataNode, $schemaNode);
     }
 
     protected function traverseSchema(SchemaNodeInterface $schemaNode, $path, DataNodeInterface $dataNode)
     {
         $schema = $schemaNode->getSchema();
 
-        if (($path === '-') || is_numeric($path) || (strpos($path, '=') !== false)) {
+        if ($path === '-') {
+            return $schemaNode;
+        } elseif (is_numeric($path) || (strpos($path, '=') !== false)) {
             if ($schema->type != 'array') {
                 throw new \UnexpectedValueException(
                     sprintf(
@@ -118,5 +116,10 @@ class SchemaMap
                 $schemaNode->getSchemaId()
             )
         );
+    }
+
+    protected function getSchemaPath($base, $suffix)
+    {
+        return $base . (strpos($base, '#') ? '' : '#') . $suffix;
     }
 }

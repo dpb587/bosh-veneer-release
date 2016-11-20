@@ -25,7 +25,7 @@ class AppController extends AbstractAppController
                 $this->installationHash['installation']['name'],
                 [
                     'veneer_sheaf_app_summary' => [
-                        'path' => $_bosh['app']['path'],
+                        'file' => $_bosh['app']['file'],
                     ],
                 ]
             )
@@ -38,7 +38,7 @@ class AppController extends AbstractAppController
             'VeneerSheafBundle:App:summary.html.twig',
             [
                 'installation' => $this->installationHash,
-                'logo' => base64_encode($this->container->get('veneer_core.workspace.repository')->showFile(dirname($_bosh['app']['path']).'/logo.png', $_bosh['app']['profile']['ref_read'])),
+                'logo' => base64_encode($this->container->get('veneer_core.workspace.repository')->showFile(dirname($_bosh['app']['file']).'/logo.png', $_bosh['app']['profile']['ref_read'])),
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $_bosh),
@@ -49,7 +49,7 @@ class AppController extends AbstractAppController
 
     public function dependenciesAction(Context $_bosh)
     {
-        $dependencies = $this->installationHelper->enumerateBoshDependencies($_bosh['app']['profile'], $_bosh['app']['path']);
+        $dependencies = $this->installationHelper->enumerateBoshDependencies($_bosh['app']['profile'], $_bosh['app']['file']);
 
         return $this->renderApi(
             'VeneerSheafBundle:App:dependencies.html.twig',
@@ -66,7 +66,7 @@ class AppController extends AbstractAppController
 
     public function dependenciesInstallAction(Request $request, Context $_bosh)
     {
-        $dependencies = $this->installationHelper->enumerateBoshDependencies($_bosh['app']['profile'], $_bosh['app']['path']);
+        $dependencies = $this->installationHelper->enumerateBoshDependencies($_bosh['app']['profile'], $_bosh['app']['file']);
 
         if ($request->query->get('install') == 'release') {
             $release = $request->query->get('name');
@@ -92,7 +92,7 @@ class AppController extends AbstractAppController
                     'continue' => $this->container->get('router')->generate(
                         'veneer_sheaf_app_dependencies',
                         [
-                            'path' => $_bosh['app']['path'],
+                            'file' => $_bosh['app']['file'],
                         ]
                     ),
                 ]

@@ -86,6 +86,7 @@ class AppCloudConfigController extends AbstractController
 
         $editor = new SchemaMapFormHelper(
             $this->container->get('form.factory'),
+            $this->container->get('veneer_core.schema_map.form_builder'),
             $this->container->get('veneer_bosh.schema_map.cloud_config')
         );
 

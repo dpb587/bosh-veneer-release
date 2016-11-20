@@ -18,10 +18,6 @@ class ArrayDataNode extends AbstractDataNode implements TraversableDataNodeInter
             return $this;
         }
 
-        if (isset($this->children[$segment])) {
-            return $this->children[$segment];
-        }
-
         $node = $this->buildNode($segment);
 
         if (count($segments) === 0) {
@@ -73,6 +69,10 @@ class ArrayDataNode extends AbstractDataNode implements TraversableDataNodeInter
             } elseif ($found > 1) {
                 throw new \InvalidArgumentException(sprintf('Failed to find single %s', $path));
             }
+        }
+
+        if (isset($this->children[$path])) {
+            return $this->children[$path];
         }
 
         if ($path === '-') {

@@ -1,10 +1,14 @@
-{% extends 'VeneerBoshEditorBundle:AppCloudConfig:layout.html.twig' %}
+{% extends 'VeneerSheafBundle:App:layout.html.twig' %}
 
 {% block frag_content %}
     <h3>{{ title }}</h3>
 
     <form action="{{ def_nav[-1].url }}" method="post">
-        {{ form_rest(form) }}
+        {% if form.vars.block_prefixes|length > 2 %}
+            {{ form_widget(form) }}
+        {% else %}
+            {{ form_rest(form) }}
+        {% endif %}
 
         <div>
             <button class="btn btn-success" type="submit">Save Changes</button>

@@ -26,7 +26,7 @@
                         {% endif %}
                     </td>
                     <td class="text-right">
-                        {% set url = path('veneer_bosh_editor_app_deployment_edit', { 'path' : _veneer_bosh_context.app.path, 'property' : editpath ~ node.property }) %}
+                        {% set url = path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : editpath ~ node.property }) %}
                         {% if manifest[key] is defined %}
                             <a class="btn btn-primary-outline btn-sm" href="{{ url }}"><i class="fa fa-pencil fa-fw"></i></a>
                         {% elseif node.value.default is defined %}

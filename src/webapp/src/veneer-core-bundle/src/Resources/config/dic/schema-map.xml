@@ -10,10 +10,29 @@
             <argument type="service" id="veneer_core.schema_map.schema_storage.url_resolver" />
         </service>
 
-        <service id="veneer_core.schema_map.schema_storage.url_retriever" class="JsonSchema\Uri\UriRetriever" />
+        <service id="veneer_core.schema_map.schema_storage.url_retriever" class="JsonSchema\Uri\UriRetriever">
+            <call method="setUriRetriever">
+                <argument type="service">
+                    <service class="Veneer\CoreBundle\Service\JsonSchema\UriRetriever">
+                        <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+                    </service>
+                </argument>
+            </call>
+        </service>
+
+        <service id="veneer_core.schema_map.filter_factory" class="Veneer\CoreBundle\Service\SchemaMap\Filter\MultiContainerFilter">
+            <argument type="service" id="service_container" />
+            <argument type="collection">
+                <argument>veneer_bosh.schema_map.filter.release_version</argument>
+            </argument>
+        </service>
 
         <service id="veneer_core.schema_map.schema_storage.url_resolver" class="Veneer\CoreBundle\Service\JsonSchema\UriResolver">
             <argument type="collection" /><!-- compiler -->
+        </service>
+
+        <service id="veneer_core.schema_map.form_builder" class="Veneer\CoreBundle\Service\SchemaMap\FormBuilder\FormBuilder">
+            <argument type="service" id="veneer_core.schema_map.schema_storage" />
         </service>
     </services>
 </container>

@@ -40,7 +40,7 @@ class DeploymentApp implements AppInterface, PluginInterface , LifecycleInterfac
                         ->setRoute(
                             $this->getAppRoute(),
                             [
-                                'path' => sprintf(
+                                'file' => sprintf(
                                     'bosh/deployment/%s/manifest.yml',
                                     $_bosh['deployment']['name']
                                 ),
@@ -55,11 +55,11 @@ class DeploymentApp implements AppInterface, PluginInterface , LifecycleInterfac
                         ->setRoute(
                             'veneer_bosh_editor_app_deployment_edit',
                             [
-                                'path' => sprintf(
+                                'file' => sprintf(
                                     'bosh/deployment/%s/manifest.yml',
                                     $_bosh['deployment']['name']
                                 ),
-                                'property' => 'instance_groups['.$_bosh['instance_group']['job'].']',
+                                'path' => '/instance_groups/name='.$_bosh['instance_group']['job'],
                             ]
                         ),
                 ];
