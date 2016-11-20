@@ -74,7 +74,7 @@ class DeploymentFormHelper extends AbstractFormHelper
         } else {
             $options = isset($config['options']) ? $config['options'] : [];
             $options['manifest'] = $manifest;
-            $options['manifest_path'] = $manifestPath;
+            $options['manifest_file'] = $manifestPath;
 
             $formBuilder = $this->formFactory->createNamedBuilder('data', $config['type'], null, $options);
 

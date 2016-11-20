@@ -1,9 +1,18 @@
 {% extends 'VeneerSheafBundle:App:layout.html.twig' %}
 
 {% block frag_content %}
-    <p>
 
-    </p>
+    <div class="media">
+        <a class="media-left" href="#">
+            <img class="media-object" height="64" src="data:image/png;base64,{{ logo }}" width="64" />
+        </a>
+
+        <div class="media-body">
+            <h4 class="media-heading">{{ installation.title }}</h4>
+            {{ installation.summary }}
+        </div>
+    </div>
+
 
     <hr />
 

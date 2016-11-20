@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "title": "Manual Network",
+  "description": "http://bosh.io/docs/networks.html#manual",
+  "properties": {
+    "name": {
+      "description": "Name used to reference this network configuration.",
+      "type": "string"
+    },
+    "subnets": {
+      "description": "Lists subnets in this network",
+      "items": {
+        "properties": {
+          "azs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cloud_properties": {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/cpi/network.json#"
+          },
+          "dns": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "gateway": {
+            "type": "string"
+          },
+          "range": {
+            "type": "string"
+          },
+          "reserved": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "static": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "range",
+          "gateway"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "type": {
+      "description": "Value should be manual.",
+      "enum": [
+        "manual"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "type",
+    "subnets"
+  ],
+  "type": "object"
+}

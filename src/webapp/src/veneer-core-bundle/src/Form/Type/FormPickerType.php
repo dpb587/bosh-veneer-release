@@ -27,19 +27,24 @@ class FormPickerType extends AbstractType
         $builder->get('via')->setDataLocked(false);
 
         foreach ($options['forms'] as $name => $formset) {
-            $builder->add(
-                'via_'.$name,
-                $formset[0],
-                array_merge(
-                    $formset[1],
-                    [
-                        'required' => false,
-                        'validation_groups' => function (FormInterface $form) use ($name) {
-                            return $form->getParent()->get('via')->getData() == $name ? 'Default' : 'None';
-                        },
-                    ]
-                )
-            );
+            if (!$formset instanceof FormBuilderInterface) {
+                $formset = $builder->create(
+                    'via_' . $name,
+                    $formset[0],
+                    $formset[1]
+                );
+            }
+
+            if ($formset->getName() != 'via_' . $name) {
+                throw new \LogicException(sprintf('Expected builder form named %s', 'via_' . $name));
+            }
+
+            $formset->setRequired(false);
+            $formset->setAttribute('validation_groups', function (FormInterface $form) use ($name) {
+                return $form->getParent()->get('via')->getData() == $name ? 'Default' : 'None';
+            });
+
+            $builder->add($formset);
         }
 
         if ($options['transform_via']) {

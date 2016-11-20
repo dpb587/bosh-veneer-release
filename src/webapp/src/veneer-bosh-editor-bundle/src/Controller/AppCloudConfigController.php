@@ -5,22 +5,27 @@ namespace Veneer\BoshEditorBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Veneer\BoshBundle\Controller\CloudConfigController;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
-use Veneer\BoshEditorBundle\Service\Editor\CloudConfigFormHelper;
+use Veneer\BoshEditorBundle\Service\Editor\SchemaMapFormHelper;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Veneer\CoreBundle\Plugin\RequestContext\Annotations as CoreContext;
 
+/**
+ * @CoreContext\AppPath(name = "ops-deployment")
+ */
 class AppCloudConfigController extends AbstractController
 {
-    public function defNav(Breadcrumbs $nav, $path)
+    public function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return CloudConfigController::defNav($nav)
             ->add(
                 'editor',
                 [
                     'veneer_bosh_editor_app_cloudconfig_summary' => [
-                        'path' => $path,
+                        'file' => $_bosh['app']['file'],
                     ],
                 ],
                 [
@@ -30,53 +35,43 @@ class AppCloudConfigController extends AbstractController
         ;
     }
 
-    public function summaryAction(Request $request)
+    public function summaryAction(Context $_bosh)
     {
-        $path = $request->query->get('path');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
-
-        $yaml = $this->loadData($repo, $path, $draftProfile);
+        $yaml = $this->loadData($_bosh['app']['file'], $_bosh['app']['profile']);
 
         return $this->renderApi(
             'VeneerBoshEditorBundle:AppCloudConfig:summary.html.twig',
             [
-                'draft_profile' => $draftProfile,
-                'path' => $path,
+                'draft_profile' => $_bosh['app']['profile'],
                 'manifest' => $yaml,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path),
+                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
                 'sidenav_active' => 'summary',
             ]
         );
     }
 
-    public function sectionAction(Request $request, $section)
+    public function sectionAction(Context $_bosh, $section)
     {
-        $path = $request->query->get('path');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
-
-        $yaml = $this->loadData($repo, $path, $draftProfile);
+        $yaml = $this->loadData($_bosh['app']['file'], $_bosh['app']['profile']);
 
         $navSection = $section;
 
         return $this->renderApi(
             'VeneerBoshEditorBundle:AppCloudConfig:section-'.$section.'.html.twig',
             [
-                'draft_profile' => $draftProfile,
-                'path' => $path,
+                'draft_profile' => $_bosh['app']['profile'],
                 'manifest' => $yaml,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path)
+                'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh)
                     ->add(
                         $navSection,
                         [
                             'veneer_bosh_editor_app_cloudconfig_section' => [
                                 'section' => $navSection,
-                                'path' => $path,
+                                'file' => $_bosh['app']['file'],
                             ],
                         ]
                     ),
@@ -85,57 +80,30 @@ class AppCloudConfigController extends AbstractController
         );
     }
 
-    public function editAction(Request $request)
+    public function editAction(Request $request, Context $_bosh)
     {
         $path = $request->query->get('path');
-        $property = $request->query->get('property');
-        $raw = $request->query->get('raw');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('ops-deployment-'.substr(md5($path), 0, 8), $path);
 
-        $yaml = $this->loadData($repo, $path, $draftProfile);
+        $editor = new SchemaMapFormHelper(
+            $this->container->get('form.factory'),
+            $this->container->get('veneer_bosh.schema_map.cloud_config')
+        );
 
-        $editor = new CloudConfigFormHelper($this->container->get('form.factory'));
-        $editorProfile = $editor->lookup($yaml, $path, $property, filter_var($raw, FILTER_VALIDATE_BOOLEAN));
+        $editorNode = $editor->getEditorNode($this->loadData($_bosh['app']['file'], $_bosh['app']['profile']), $path);
+        $editorProfile = $editor->createEditor($editorNode);
 
-        $section = str_replace('_', '-', preg_replace('/^([^\.\[]+)(.*)$/', '$1', $property));
-        $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $path);
+        $section = str_replace('_', '-', explode('/', $editorNode->getData()->getPath())[1]);
 
-        if (($property === null) || in_array($section, ['compilation', 'update'])) {
-            $nav->add(
-                $editorProfile['title'],
-                [
-                    'veneer_bosh_editor_app_cloudconfig_edit' => [
-                        'path' => $path,
-                        'property' => $property,
-                        'raw' => $raw,
-                    ],
-                ]
-            );
-        } else {
-            $nav
-                ->add(
-                    $section,
-                    [
-                        'veneer_bosh_editor_app_cloudconfig_section' => [
-                            'section' => $section,
-                            'path' => $path,
-                        ],
-                    ]
-                )
-                ->add(
-                    $section,
-                    [
-                        'veneer_bosh_editor_app_cloudconfig_edit' => [
-                            'section' => $section,
-                            'path' => $path,
-                            'property' => $property,
-                            'raw' => $raw,
-                        ],
-                    ]
-                )
-            ;
-        }
+        $nav = self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh);
+        $nav->add(
+            'edit',
+            [
+                'veneer_bosh_editor_app_cloudconfig_edit' => [
+                    'file' => $_bosh['app']['file'],
+                    'path' => $path,
+                ],
+            ]
+        );
 
         if ($request->request->has($editorProfile['form']->getName())) {
             $editorProfile['form']->bind($request);
@@ -143,20 +111,18 @@ class AppCloudConfigController extends AbstractController
             if ($editorProfile['form']->isValid()) {
                 $data = $editorProfile['form']->getData();
 
-                if ($property !== null) {
-                    $accessor = PropertyAccess::createPropertyAccessor();
+                if ($path !== null) {
+                    $editorNode->getData()->setData($data);
 
-                    $accessor->setValue($yaml, $editorProfile['path'], $data);
-
-                    $data = Yaml::dump($yaml, 8);
+                    $data = Yaml::dump($editorNode->getData()->getRoot()->getData(), 8);
                 }
 
-                $repo->commitWrites(
-                    $draftProfile,
+                $this->container->get('veneer_core.workspace.repository')->commitWrites(
+                    $_bosh['app']['profile'],
                     [
-                        $path => $data,
+                        $_bosh['app']['file'] => $data,
                     ],
-                    'Update cloud config'.(isset($property) ? (' ('.$property.')') : '')
+                    sprintf('Update cloud-config (%s)', $path)
                 );
 
                 return $this->redirect($nav[-2]['url']);
@@ -166,10 +132,9 @@ class AppCloudConfigController extends AbstractController
         return $this->renderApi(
             'VeneerBoshEditorBundle:AppCloudConfig:edit.html.twig',
             [
-                'draft_profile' => $draftProfile,
+                'draft_profile' => $_bosh['app']['profile'],
+                'section' => $section,
                 'path' => $path,
-                'manifest' => $yaml,
-                'property' => $property,
                 'title' => $editorProfile['title'],
                 'form' => $editorProfile['form']->createView(),
             ],
@@ -180,10 +145,12 @@ class AppCloudConfigController extends AbstractController
         );
     }
 
-    protected function loadData(RepositoryInterface $repo, $path, array $draftProfile)
+    protected function loadData($file, array $draftProfile)
     {
-        if ($repo->fileExists($path, $draftProfile['ref_read'])) {
-            return Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
+        $repo = $this->container->get('veneer_core.workspace.repository');
+
+        if ($repo->fileExists($file, $draftProfile['ref_read'])) {
+            return Yaml::parse($repo->showFile($file, $draftProfile['ref_read'])) ?: [];
         }
 
         return null;

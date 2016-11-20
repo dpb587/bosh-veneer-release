@@ -22,7 +22,7 @@ class DeploymentInstanceGroupNetworkType extends AbstractDeploymentManifestPathT
                 [
                     'label' => 'Network',
                     'manifest' => $options['manifest'],
-                    'manifest_path' => $options['manifest_path'],
+                    'manifest_file' => $options['manifest_file'],
                 ]
             )
             ->add(

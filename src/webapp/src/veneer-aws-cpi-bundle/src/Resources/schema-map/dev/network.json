@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "Schema for cloud_properties section used by dynamic network or manual network subnet.",
+  "links": [
+    {
+      "rel": "via",
+      "href": "http://bosh.io/docs/aws-cpi.html#networks"
+    }
+  ],
+  "properties": {
+    "security_groups": {
+      "description": "Array of Security Groups, by name or ID, to apply to all VMs placed on this network. Security groups can be specified as follows, ordered by greatest precedence: vm_types, followed by networks, followed by default_security_groups.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Security Groups"
+    },
+    "subnet": {
+      "description": "Subnet ID in which the instance will be created.",
+      "pattern": "^subnet-[a-f0-9]{8}$",
+      "type": "string",
+      "title": "Subnet"
+    }
+  },
+  "required": [
+    "subnet"
+  ],
+  "type": "object",
+  "description": "Describes any IaaS-specific properties for networks.",
+  "title": "Cloud Properties"
+}

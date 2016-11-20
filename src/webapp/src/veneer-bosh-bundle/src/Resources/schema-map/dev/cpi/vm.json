@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "oneOf": [
+    {
+      "$ref": "https://dpb587.github.io/bosh-json-schema/default/warden-cpi/vm.json",
+      "title": "warden"
+    },
+    {
+      "$ref": "https://dpb587.github.io/bosh-json-schema/default/aws-cpi/vm.json",
+      "title": "aws"
+    }
+  ]
+}

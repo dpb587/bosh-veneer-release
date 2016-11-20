@@ -10,7 +10,8 @@
     "require": {
         "php": ">=5.3.9",
         "sensio/distribution-bundle": "~4.0",
-        "wikimedia/composer-merge-plugin": "^1.2"
+        "wikimedia/composer-merge-plugin": "^1.2",
+        "justinrainbow/json-schema": "~4.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "http://bosh.io/docs/runtime-config.html",
+  "properties": {
+    "addons": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "jobs": {
+            "items": {
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "release": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "release"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "name": {
+            "type": "string"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "releases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "version"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "title": "runtime-config",
+  "type": "object"
+}

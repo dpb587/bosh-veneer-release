@@ -11,7 +11,7 @@ abstract class AbstractDeploymentManifestPathType extends AbstractType
     {
         $resolver->setRequired([
             'manifest',
-            'manifest_path',
+            'manifest_file',
         ]);
     }
 }

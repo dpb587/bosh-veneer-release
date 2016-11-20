@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://dpb587.github.io/bosh-json-schema/default/cpi/disk",
+  "oneOf": [
+    {
+      "$ref": "https://dpb587.github.io/bosh-json-schema/default/warden-cpi/disk.json",
+      "title": "warden"
+    },
+    {
+      "$ref": "https://dpb587.github.io/bosh-json-schema/default/aws-cpi/disk.json",
+      "title": "aws"
+    }
+  ],
+  "description": "Describes any IaaS-specific properties needed to create disks.",
+  "title": "Cloud Properties"
+}

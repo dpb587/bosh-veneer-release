@@ -6,13 +6,7 @@
 
     <services>
         <service id="veneer_sheaf.plugin.web_workspace_app.sheaf" class="Veneer\SheafBundle\Service\Workspace\App\SheafApp">
-            <argument type="service" id="veneer_ops.manifest_builder.bosh" />
-            <argument type="service" id="veneer_bosh.api" />
-            <argument type="service" id="logger" />
-
-            <tag name="veneer_core.link_provider" route="veneer_bosh_cloudconfig_summary" />
-            <tag name="veneer_core.workspace.app" path=";bosh/cloud-config/manifest.yml;" />
-            <tag name="monolog.logger" channel="veneer_sheaf.workspace.app.sheaf" />
+            <tag name="veneer_core.workspace.app" path=";^sheaf/[^/]+/installation\.yml$;" />
         </service>
     </services>
 </container>

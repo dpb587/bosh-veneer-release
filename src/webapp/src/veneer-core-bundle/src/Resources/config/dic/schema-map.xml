@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_core.schema_map.schema_storage" class="JsonSchema\SchemaStorage">
+            <argument type="service" id="veneer_core.schema_map.schema_storage.url_retriever" />
+            <argument type="service" id="veneer_core.schema_map.schema_storage.url_resolver" />
+        </service>
+
+        <service id="veneer_core.schema_map.schema_storage.url_retriever" class="JsonSchema\Uri\UriRetriever" />
+
+        <service id="veneer_core.schema_map.schema_storage.url_resolver" class="Veneer\CoreBundle\Service\JsonSchema\UriResolver">
+            <argument type="collection" /><!-- compiler -->
+        </service>
+    </services>
+</container>

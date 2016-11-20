@@ -32,7 +32,7 @@ class CompilationType extends AbstractDeploymentManifestPathType
                     'label' => 'Network',
                     'veneer_help_html' => '<p>References a valid network name defined in the Networks block. BOSH assigns network properties to compilation VMs according to the type and properties of the specified network.</p>',
                     'manifest' => $options['manifest'],
-                    'manifest_path' => $options['manifest_path'],
+                    'manifest_file' => $options['manifest_file'],
                 ]
             )
             ->add(

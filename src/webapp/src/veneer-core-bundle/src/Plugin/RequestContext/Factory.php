@@ -50,7 +50,16 @@ class Factory
             )
         );
 
+        $callback = false;
+
         foreach ($annotations as $annotation) {
+            if ($annotation instanceof Annotations\ControllerMethod) {
+                // eww
+                $callback = true;
+
+                continue;
+            }
+
             $annotationClass = ClassUtils::getClass($annotation);
 
             if (!isset($this->contextMap[$annotationClass])) {
@@ -58,6 +67,10 @@ class Factory
             }
 
             $this->container->get($this->contextMap[$annotationClass])->apply($request, $annotation, $context);
+        }
+
+        if ($callback) {
+            call_user_func([$controller[0], 'applyRequestContext'], $request, $context);
         }
 
         $request->attributes->set('_bosh', $context);

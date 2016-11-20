@@ -27,6 +27,12 @@
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
 
+        <service id="veneer_core.plugin.core_request_context.app_path" class="Veneer\CoreBundle\Plugin\RequestContext\AppPathContext">
+            <argument type="service" id="veneer_core.workspace.repository" />
+
+            <tag name="veneer_core.request_context" annotation="Veneer\CoreBundle\Plugin\RequestContext\Annotations\AppPath" />
+        </service>
+
         <service id="veneer_core.workspace.app" class="Veneer\CoreBundle\Service\Workspace\App\AppFactory">
             <argument type="service" id="service_container" />
             <argument type="collection" /><!-- map -->

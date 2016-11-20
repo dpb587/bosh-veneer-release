@@ -13,6 +13,10 @@
         <default key="_format">html</default>
     </route>
 
+    <route id="veneer_core_dev" path="/dev">
+        <default key="_controller">Veneer\CoreBundle\Controller\IndexController::devAction</default>
+    </route>
+
     <route id="veneer_core_summary" path="/summary.{_format}">
         <default key="_controller">Veneer\CoreBundle\Controller\IndexController::summaryAction</default>
         <default key="_format">html</default>

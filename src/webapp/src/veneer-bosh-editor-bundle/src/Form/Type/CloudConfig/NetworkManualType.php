@@ -20,7 +20,7 @@ class NetworkManualType extends AbstractDeploymentManifestPathType
                     'allow_delete' => true,
                     'options' => [
                         'manifest' => $options['manifest'],
-                        'manifest_path' => $options['manifest_path'],
+                        'manifest_file' => $options['manifest_file'],
                     ],
                 )
             )

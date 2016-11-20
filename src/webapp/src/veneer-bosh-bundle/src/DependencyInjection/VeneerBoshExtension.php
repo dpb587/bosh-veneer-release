@@ -15,6 +15,7 @@ class VeneerBoshExtension extends Extension
 
         $loader->load('core-metric.xml');
         $loader->load('services.xml');
+        $loader->load('schema-map.xml');
         $loader->load('web-link-provider.xml');
         $loader->load('web-request-context.xml');
         $loader->load('plugin-core-workspace-environment.xml');

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "links": [
+    {
+      "rel": "via",
+      "href": "http://bosh.io/docs/aws-cpi.html#disk-pools"
+    }
+  ],
+  "properties": {
+    "encrypted": {
+      "default": false,
+      "description": "Enables encryption for the EBS backed ephemeral disk.",
+      "type": "boolean",
+      "title": "Encrypted"
+    },
+    "iops": {
+      "description": "Specifies the number of I/O operations per second to provision for the drive.",
+      "type": "integer",
+      "title": "IOPS"
+    },
+    "type": {
+      "default": "standard",
+      "description": "Type of the disk",
+      "enum": [
+        "standard",
+        "gp2",
+        "io1"
+      ],
+      "type": "string",
+      "title": "Type"
+    }
+  },
+  "description": "Describes any IaaS-specific properties needed to create disks.",
+  "title": "Cloud Properties",
+  "type": "object"
+}

@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "update": {
+      "description": "This specifies instance update properties. These properties control how BOSH updates job instances during the deployment.",
+      "properties": {
+        "canaries": {
+          "description": "The number of canary instances.",
+          "type": "integer"
+        },
+        "canary_watch_time": {
+          "oneOf": [
+            {
+              "description": "If the canary_watch_time is an integer, the Director sleeps for that many milliseconds, then checks whether the canary instances are healthy.",
+              "type": "integer"
+            },
+            {
+              "description": "If the canary_watch_time is a range (low-high), the Director: Waits for low milliseconds; Waits until instances are healthy or high milliseconds have passed since instances started updating.",
+              "pattern": "^\\d+\\-\\d+$",
+              "type": "string"
+            }
+          ]
+        },
+        "max_in_flight": {
+          "description": "The maximum number of non-canary instances to update in parallel.",
+          "type": "integer"
+        },
+        "serial": {
+          "default": true,
+          "description": "If disabled (set to false), deployment jobs will be deployed in parallel, otherwise - sequentially. Instances within a deployment job will still follow canary and max_in_flight configuration.",
+          "type": "boolean"
+        },
+        "update_watch_time": {
+          "oneOf": [
+            {
+              "description": "If the update_watch_time is an integer, the Director sleeps for that many milliseconds, then checks whether the instances are healthy.",
+              "type": "integer"
+            },
+            {
+              "description": "If the update_watch_time is a range (low-high), the Director: Waits for low milliseconds; Waits until instances are healthy or high milliseconds have passed since instances started updating.",
+              "pattern": "^\\d+\\-\\d+$",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "canaries",
+        "canary_watch_time",
+        "update_watch_time",
+        "max_in_flight"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "http://bosh.io/docs/deployment-manifest.html",
+  "properties": {
+    "director_uuid": {
+      "description": "This string must match the UUID of the currently targeted Director for the CLI to allow any operations on the deployment. Use bosh status to display the UUID of the currently targeted Director.",
+      "type": "string"
+    },
+    "instance_groups": {
+      "description": "Specifies the mapping between BOSH release jobs and cloud instances. Jobs are defined in the BOSH release. The Jobs block defines how BOSH associates jobs with the VMs started by the IaaS.",
+      "items": {
+        "properties": {
+          "instances": {
+            "description": "The number of job instances. Each instance is a VM running this particular job.",
+            "type": "integer"
+          },
+          "jobs": {
+            "description": "Specifies the name and release of a job template.",
+            "items": {
+              "properties": {
+                "name": {
+                  "description": "The job template name",
+                  "type": "string"
+                },
+                "properties": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "release": {
+                  "description": "The release where the job template exists",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "release"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "lifecycle": {
+            "default": "service",
+            "description": "Specifies the kind of task the job represents. Valid values are service and errand; defaults to service. A service runs indefinitely and restarts if it fails. An errand starts with a manual trigger and does not restart if it fails.",
+            "enum": [
+              "errand",
+              "service"
+            ]
+          },
+          "name": {
+            "description": "A unique name used to identify and reference this association between a BOSH release job and a VM.",
+            "type": "string"
+          },
+          "networks": {
+            "description": "Specifies the networks this job requires.",
+            "items": {
+              "properties": {
+                "default": {
+                  "description": "Specifies which network components (DNS, Gateway) BOSH populates by default from this network. BOSH references this property if the Networks block defines multiple networks.",
+                  "items": {
+                    "enum": [
+                      "dns",
+                      "gateway"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "name": {
+                  "description": "A valid network name from the Networks block",
+                  "type": "string"
+                },
+                "static_ips": {
+                  "description": "Array of IP addresses reserved for the job on the network",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "name"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "description": "Specifies job properties. Properties allow BOSH to configure jobs to a specific environment. properties defined in a Job block are accessible only to that job, and override any identically named global properties.",
+            "type": "object"
+          },
+          "update": {
+            "$ref": "#/definitions/update"
+          }
+        },
+        "required": [
+          "name",
+          "jobs",
+          "instances",
+          "networks"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "The name of the deployment. A single Director can manage multiple deployments and distinguishes them by name.",
+      "type": "string"
+    },
+    "properties": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "releases": {
+      "items": {
+        "properties": {
+          "name": {
+            "description": "Name of a release used in the deployment.",
+            "type": "string"
+          },
+          "sha1": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "version": {
+            "description": "The version of the release to use. Version can be `latest`.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "version"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "update": {
+      "$ref": "#/definitions/update"
+    }
+  },
+  "required": [
+    "name",
+    "director_uuid",
+    "releases",
+    "update"
+  ],
+  "title": "deployment",
+  "type": "object"
+}

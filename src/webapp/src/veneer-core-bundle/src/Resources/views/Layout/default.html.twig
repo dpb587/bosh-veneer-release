@@ -73,8 +73,10 @@
             <footer class="text-center" style="margin-top:2rem;padding-bottom:4px;">
                 <small class="text-muted">
                     <a class="text-muted" href="{{ path('veneer_bosh_summary') }}" title="Director"><i class="fa fa-university"></i> {{ veneer_bosh_director_name }}</a>
-                    &nbsp;&middot;&nbsp;
-                    <a class="text-muted" href="{{ path('veneer_core_summary') }}" title="User"><i class="fa fa-user"></i> {{ app.security.token.user.username }}</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        &nbsp;&middot;&nbsp;
+                        <a class="text-muted" href="{{ path('veneer_core_summary') }}" title="User"><i class="fa fa-user"></i> {{ app.security.token.user.username }}</a>
+                    {% endif %}
                     &nbsp;&mdash;&nbsp;
                     <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Managing with"><i class="fa fa-trophy"></i> veneer</a>
                     &nbsp;&middot;&nbsp;

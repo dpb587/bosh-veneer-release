@@ -7,56 +7,49 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Veneer\BoshBundle\Controller\CloudConfigController;
 use Veneer\CoreBundle\Controller\AbstractController;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Symfony\Component\Yaml\Yaml;
 use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
+use Veneer\CoreBundle\Plugin\RequestContext\Annotations as CoreContext;
 
-class AppController extends AbstractController
+/**
+ * @CoreContext\AppPath(name = "sheaf-install")
+ * @CoreContext\ControllerMethod
+ */
+class AppController extends AbstractAppController
 {
-    public function defNav(Breadcrumbs $nav, array $installation, $path)
+    public function defNav(Breadcrumbs $nav, Context $_bosh)
     {
         return $nav->add(
-                $installation['installation']['name'],
+                $this->installationHash['installation']['name'],
                 [
                     'veneer_sheaf_app_summary' => [
-                        'path' => $path,
+                        'path' => $_bosh['app']['path'],
                     ],
                 ]
             )
             ;
     }
 
-    public function summaryAction(Request $request)
+    public function summaryAction(Context $_bosh)
     {
-        $path = $request->query->get('path');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('sheaf-install-'.substr(md5($path), 0, 8), $path);
-
-        $installation = $this->loadData($repo, $path, $draftProfile);
-
         return $this->renderApi(
             'VeneerSheafBundle:App:summary.html.twig',
             [
-                'installation' => $installation,
+                'installation' => $this->installationHash,
+                'logo' => base64_encode($this->container->get('veneer_core.workspace.repository')->showFile(dirname($_bosh['app']['path']).'/logo.png', $_bosh['app']['profile']['ref_read'])),
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $installation, $path),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $_bosh),
                 'sidenav_active' => 'summary',
-                'draft_profile' => $draftProfile,
-                'path' => $path,
             ]
         );
     }
 
-    public function dependenciesAction(Request $request)
+    public function dependenciesAction(Context $_bosh)
     {
-        $path = $request->query->get('path');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('sheaf-install-'.substr(md5($path), 0, 8), $path);
-
-        $installation = $this->loadData($repo, $path, $draftProfile);
-
-        $dependencies = $this->container->get('veneer_sheaf.installation_helper')->enumerateBoshDependencies($draftProfile, $path);
+        $dependencies = $this->installationHelper->enumerateBoshDependencies($_bosh['app']['profile'], $_bosh['app']['path']);
 
         return $this->renderApi(
             'VeneerSheafBundle:App:dependencies.html.twig',
@@ -64,22 +57,16 @@ class AppController extends AbstractController
                 'dependencies' => $dependencies,
             ],
             [
-                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $installation, $path),
+                'def_nav' => self::defNav($this->container->get('veneer_sheaf.breadcrumbs'), $_bosh),
                 'sidenav_active' => 'dependencies',
-                'installation' => $installation,
-                'draft_profile' => $draftProfile,
-                'path' => $path,
+                'installation' => $this->installationHash,
             ]
         );
     }
 
-    public function dependenciesInstallAction(Request $request)
+    public function dependenciesInstallAction(Request $request, Context $_bosh)
     {
-        $path = $request->query->get('path');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $draftProfile = $repo->getDraftProfile('sheaf-install-'.substr(md5($path), 0, 8), $path);
-
-        $dependencies = $this->container->get('veneer_sheaf.installation_helper')->enumerateBoshDependencies($draftProfile, $path);
+        $dependencies = $this->installationHelper->enumerateBoshDependencies($_bosh['app']['profile'], $_bosh['app']['path']);
 
         if ($request->query->get('install') == 'release') {
             $release = $request->query->get('name');
@@ -105,20 +92,11 @@ class AppController extends AbstractController
                     'continue' => $this->container->get('router')->generate(
                         'veneer_sheaf_app_dependencies',
                         [
-                            'path' => $path,
+                            'path' => $_bosh['app']['path'],
                         ]
                     ),
                 ]
             );
         }
-    }
-
-    protected function loadData(RepositoryInterface $repo, $path, array $draftProfile)
-    {
-        if ($repo->fileExists($path, $draftProfile['ref_read'])) {
-            return Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
-        }
-
-        return null;
     }
 }

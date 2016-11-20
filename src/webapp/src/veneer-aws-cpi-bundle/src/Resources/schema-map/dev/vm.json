@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "Schema for cloud_properties section used by Resource Pools or VM Types.",
+  "links": [
+    {
+      "rel": "via",
+      "href": "http://bosh.io/docs/aws-cpi.html#resource-pools"
+    }
+  ],
+  "properties": {
+    "availability_zone": {
+      "description": "Availability zone to use for creating instances.",
+      "type": "string",
+      "title": "Availability Zone"
+    },
+    "elbs": {
+      "default": [],
+      "description": "Array of ELB names that should be attached to created VMs.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Elastic Load Balancers"
+    },
+    "ephemeral_disk": {
+      "description": "EBS backed ephemeral disk of custom size.",
+      "properties": {
+        "encrypted": {
+          "default": false,
+          "description": "Enables encryption for the EBS backed ephemeral disk.",
+          "type": "boolean",
+          "title": "Ephemeral Disk"
+        },
+        "iops": {
+          "description": "Specifies the number of I/O operations per second to provision for the drive.",
+          "type": "integer",
+          "title": "IOPS"
+        },
+        "size": {
+          "description": "Specifies the disk size in megabytes.",
+          "type": "integer",
+          "title": "Size"
+        },
+        "type": {
+          "default": "standard",
+          "description": "Type of the disk",
+          "enum": [
+            "standard",
+            "gp2",
+            "io1"
+          ],
+          "type": "string",
+          "title": "Type"
+        },
+        "use_instance_storage": {
+          "default": false,
+          "description": "Forces the usage of instance storage as ephemeral disk backing.",
+          "type": "boolean",
+          "title": "Use Instance Storage"
+        }
+      },
+      "required": [
+        "size"
+      ],
+      "type": "object",
+      "title": "Ephemeral Disk"
+    },
+    "iam_instance_profile": {
+      "description": "Name of an IAM instance profile.",
+      "type": "string",
+      "title": "IAM Instance Profile"
+    },
+    "instance_type": {
+      "description": "Type of the instance.",
+      "enum": [
+        "c1.medium",
+        "c1.xlarge",
+        "c3.large",
+        "c3.xlarge",
+        "c3.2xlarge",
+        "c3.4xlarge",
+        "c3.8xlarge",
+        "c4.large",
+        "c4.xlarge",
+        "c4.2xlarge",
+        "c4.4xlarge",
+        "c4.8xlarge",
+        "cc2.8xlarge",
+        "cg1.4xlarge",
+        "cr1.8xlarge",
+        "d2.xlarge",
+        "d2.2xlarge",
+        "d2.4xlarge",
+        "d2.8xlarge",
+        "g2.2xlarge",
+        "g2.8xlarge",
+        "hi1.4xlarge",
+        "hs1.8xlarge",
+        "i2.xlarge",
+        "i2.2xlarge",
+        "i2.4xlarge",
+        "i2.8xlarge",
+        "m1.small",
+        "m1.medium",
+        "m1.large",
+        "m1.xlarge",
+        "m2.xlarge",
+        "m2.2xlarge",
+        "m2.4xlarge",
+        "m3.medium",
+        "m3.large",
+        "m3.xlarge",
+        "m3.2xlarge",
+        "m4.10xlarge",
+        "m4.large",
+        "m4.xlarge",
+        "m4.2xlarge",
+        "m4.4xlarge",
+        "r3.large",
+        "r3.xlarge",
+        "r3.2xlarge",
+        "r3.4xlarge",
+        "r3.8xlarge",
+        "t1.micro",
+        "t2.nano",
+        "t2.micro",
+        "t2.small",
+        "t2.medium",
+        "t2.large",
+        "x1.32xlarge"
+      ],
+      "type": "string",
+      "title": "Instance Type"
+    },
+    "key_name": {
+      "description": "Key pair name. Defaults to key pair name specified by default_key_name in global CPI settings.",
+      "type": "string",
+      "title": "Key Name"
+    },
+    "placement_group": {
+      "description": "Name of a placement group.",
+      "type": "string",
+      "title": "Placement Group"
+    },
+    "raw_instance_storage": {
+      "default": false,
+      "description": "Exposes all available instance storage via labeled disks.",
+      "type": "boolean",
+      "title": "Raw Instance Storage"
+    },
+    "root_disk": {
+      "description": "EBS backed root disk of custom size.",
+      "properties": {
+        "size": {
+          "description": "Specifies the disk size in megabytes.",
+          "type": "integer",
+          "title": "Size"
+        },
+        "type": {
+          "default": "standard",
+          "description": "Type of the disk",
+          "enum": [
+            "standard",
+            "gp2",
+            "io1"
+          ],
+          "type": "string",
+          "title": "Type"
+        }
+      },
+      "type": "object",
+      "title": "Root Disk"
+    },
+    "security_groups": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "title": "Security Groups"
+    },
+    "spot_bid_price": {
+      "description": "Bid price in dollars for AWS spot instance. Using this option will slow down VM creation.",
+      "type": "number",
+      "title": "Spot Bid Price"
+    },
+    "spot_ondemand_fallback": {
+      "default": false,
+      "description": "Set to true to use an on demand instance if a spot instance is not available during VM creation.",
+      "type": "boolean",
+      "title": "Spot On-Demand Fallback"
+    },
+    "tenancy": {
+      "default": "default",
+      "description": "VM tenancy configuration.",
+      "type": "string",
+      "title": "Tenancy"
+    }
+  },
+  "required": [
+    "instance_type",
+    "availability_zone"
+  ],
+  "type": "object",
+  "description": "Describes any IaaS-specific properties needed to create VMs.",
+  "title": "Cloud Properties"
+}

@@ -1,0 +1,172 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "http://bosh.io/docs/cloud-config.html",
+  "properties": {
+    "azs": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "Name of an AZ within the Director.",
+            "type": "string"
+          },
+          "cloud_properties": {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/cpi/vm.json#",
+            "description": "Describes any IaaS-specific properties needed to associated with AZ; for most IaaSes, some data here is actually required."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "title": "Availability Zone"
+      },
+      "type": "array",
+      "title": "Availability Zones"
+    },
+    "compilation": {
+      "additionalProperties": false,
+      "description": "Properties of compilation VMs.",
+      "properties": {
+        "az": {
+          "description": "Name of the AZ defined in AZs section to use for creating compilation VMs.",
+          "type": "string",
+          "title": "Availability Zone"
+        },
+        "network": {
+          "description": "References a valid network name defined in the Networks block. BOSH assigns network properties to compilation VMs according to the type and properties of the specified network.",
+          "type": "string",
+          "title": "Network"
+        },
+        "reuse_compilation_vms": {
+          "default": false,
+          "description": "If false, BOSH creates a new compilation VM for each new package compilation and destroys the VM when compilation is complete. If true, compilation VMs are re-used when compiling packages.",
+          "type": "boolean",
+          "title": "Reuse Compilation VMs"
+        },
+        "vm_type": {
+          "description": "Name of the VM type defined in VM types section to use for creating compilation VMs.",
+          "type": "string",
+          "title": "VM Type"
+        },
+        "workers": {
+          "description": "The maximum number of compilation VMs.",
+          "type": "integer",
+          "title": "Workers"
+        }
+      },
+      "required": [
+        "workers",
+        "az",
+        "vm_type",
+        "network"
+      ],
+      "type": "object",
+      "title": "Compilation"
+    },
+    "disk_types": {
+      "description": "Specifies the disk types available to deployments. At least one should be specified.",
+      "items": {
+        "properties": {
+          "name": {
+            "description": "A unique name used to identify and reference the disk type.",
+            "type": "string",
+            "title": "Name"
+          },
+          "disk_size": {
+            "description": "Specifies the disk size. disk_size must be a positive integer. BOSH creates a persistent disk of that size in megabytes and attaches it to each job instance VM.",
+            "type": "integer",
+            "title": "Disk Size"
+          },
+          "cloud_properties": {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/cpi/disk.json#"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "title": "Disk Type"
+      },
+      "type": "array",
+      "title": "Disk Types"
+    },
+    "networks": {
+      "description": "Each sub-block listed in the Networks block specifies a network configuration that jobs can reference. There are three different network types: manual, dynamic, and vip. At least one should be specified.",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/director/network/manual.json#"
+          },
+          {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/director/network/vip.json#"
+          }
+        ],
+        "type": "object",
+        "title": "Network"
+      },
+      "type": "array",
+      "title": "Networks"
+    },
+    "vm_extensions": {
+      "description": "Specifies the VM extensions available to deployments.",
+      "items": {
+        "properties": {
+          "name": {
+            "description": "A unique name used to identify and reference the VM extension.",
+            "type": "string",
+            "title": "Name"
+          },
+          "cloud_properties": {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/cpi/vm.json#",
+            "default": {},
+            "description": "Describes any IaaS-specific properties needed to create VMs.",
+            "title": "Cloud Properties"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "title": "VM Extension"
+      },
+      "type": "array",
+      "title": "VM Extensions"
+    },
+    "vm_types": {
+      "description": "Specifies the VM types available to deployments. At least one should be specified.",
+      "items": {
+        "properties": {
+          "name": {
+            "description": "A unique name used to identify and reference the VM type.",
+            "type": "string",
+            "title": "Name"
+          },
+          "cloud_properties": {
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/cpi/vm.json#",
+            "default": {},
+            "description": "Describes any IaaS-specific properties needed to create VMs; for most IaaSes, some data here is actually required.",
+            "title": "Cloud Properties"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "title": "VM Type"
+      },
+      "type": "array",
+      "title": "VM Types"
+    }
+  },
+  "required": [
+    "azs",
+    "networks",
+    "vm_types",
+    "disk_types",
+    "compilation"
+  ],
+  "title": "cloud-config",
+  "type": "object"
+}

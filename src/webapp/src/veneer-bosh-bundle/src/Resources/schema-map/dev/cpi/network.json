@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://dpb587.github.io/bosh-json-schema/default/cpi/network",
+  "oneOf": [
+    {
+      "$ref": "https://dpb587.github.io/bosh-json-schema/default/warden-cpi/network.json",
+      "title": "warden"
+    },
+    {
+      "$ref": "https://dpb587.github.io/bosh-json-schema/default/aws-cpi/network.json",
+      "title": "aws"
+    }
+  ]
+}

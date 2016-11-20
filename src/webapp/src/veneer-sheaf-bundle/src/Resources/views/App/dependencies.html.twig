@@ -19,7 +19,7 @@
                         {% if release.installed %}
                             <a class="btn btn-link" href="{{ path('veneer_bosh_release_version_summary', { 'release': release.name, 'version': release.version }) }}"><i class="fa fa-check"></i> Installed</a>
                         {% elseif release.url %}
-                            <form action="{{ path('veneer_sheaf_app_dependencies_install', { 'path': path, 'install': 'release', 'name': release.name }) }}" method="post"><button class="btn btn-link"><i class="fa fa-download"></i> Download</button></form>
+                            <form action="{{ path('veneer_sheaf_app_dependencies_install', { 'path': _veneer_bosh_context.app.path, 'install': 'release', 'name': release.name }) }}" method="post"><button class="btn btn-link"><i class="fa fa-download"></i> Download</button></form>
                         {% else %}
                             <i class="fa fa-exclamation"></i> Not Found
                         {% endif %}

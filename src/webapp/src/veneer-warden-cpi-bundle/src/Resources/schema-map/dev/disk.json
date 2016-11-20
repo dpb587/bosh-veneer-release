@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "properties": {},
+  "type": "object",
+  "description": "Describes any IaaS-specific properties needed to create disks.",
+  "title": "Cloud Properties"
+}

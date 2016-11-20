@@ -1,0 +1,8 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "Schema for cloud_properties section used by Resource Pools or VM Types.",
+  "properties": {},
+  "type": "object",
+  "title": "Cloud Properties"
+}

@@ -58,10 +58,8 @@ class BoshManifestBuilder implements ManifestBuilderInterface
         return $p->getOutput();
     }
 
-    public function findMissingParameters($cwd, $manifestPath)
+    public function findMissingParameters(array $manifestHash)
     {
-        $manifestHash = Yaml::parse($this->build($cwd, $manifestPath));
-
         return $this->findMissingParametersDeep($manifestHash);
     }
 
@@ -73,18 +71,20 @@ class BoshManifestBuilder implements ManifestBuilderInterface
 
         foreach ($data as $key => $value) {
             if (is_string($value)) {
-                $placeholders = preg_match_all(static::REGEX_VARIABLE, $value, $matches);
+                $match = preg_match_all(static::REGEX_VARIABLE, $value, $placeholders, PREG_SET_ORDER);
 
-                if (!$placeholders) {
+                if (!$match) {
                     continue;
                 }
 
                 foreach ($placeholders as $placeholder) {
-                    $missing[$placeholder][] = $this->appendPath($path, $data, $pathMethod, $key);
+                    $missing[$placeholder[1]][] = $this->appendPath($path, $data, $pathMethod, $key);
                 }
             } elseif (is_array($value)) {
-                foreach ($this->findMissingParametersDeep($value, $this->appendPath($path, $data, $pathMethod, $key)) as $placeholder => $paths) {
-                    $missing[$placeholder][] = $paths;
+                foreach ($this->findMissingParametersDeep($value, $this->appendPath($path, $data, $pathMethod, $key)) as $placeholder => $subpaths) {
+                    foreach ($subpaths as $subpath) {
+                        $missing[$placeholder][] = $subpath;
+                    }
                 }
             }
         }
@@ -112,7 +112,7 @@ class BoshManifestBuilder implements ManifestBuilderInterface
     private function appendPath($basePath, array $data, $pathMethod, $key)
     {
         if ('name' == $pathMethod) {
-            return $basePath.'/name='.$key;
+            return $basePath.'/name='.$data[$key]['name'];
         }
 
         return $basePath.'/'.$key;

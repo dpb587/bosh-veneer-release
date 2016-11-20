@@ -37,7 +37,7 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
                 [
                     'label' => 'Resource Pool',
                     'manifest' => $options['manifest'],
-                    'manifest_path' => $options['manifest_path'],
+                    'manifest_file' => $options['manifest_file'],
                 ]
             )
             ->add(
@@ -47,7 +47,7 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
                     'label' => 'Disk Pool',
                     'required' => false,
                     'manifest' => $options['manifest'],
-                    'manifest_path' => $options['manifest_path'],
+                    'manifest_file' => $options['manifest_file'],
                 ]
             )
             ->add(
@@ -56,7 +56,7 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
                 [
                     'label' => 'Templates',
                     'manifest' => $options['manifest'],
-                    'manifest_path' => $options['manifest_path'],
+                    'manifest_file' => $options['manifest_file'],
                 ]
             )
             ->add(
@@ -67,7 +67,7 @@ class DeploymentInstanceGroupType extends AbstractDeploymentManifestPathType
                     'type' => 'veneer_bosh_editor_deployment_instancegroup_network',
                     'options' => [
                         'manifest' => $options['manifest'],
-                        'manifest_path' => $options['manifest_path'],
+                        'manifest_file' => $options['manifest_file'],
                     ],
                     'allow_add' => true,
                     'allow_delete' => true,

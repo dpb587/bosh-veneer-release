@@ -17,12 +17,5 @@
             <argument type="service" id="security.context" />
             <argument>%veneer.executable.git%</argument>
         </service>
-
-        <service id="veneer_bosh_editor.plugin.web_link_provider.workspace" class="Veneer\BoshEditorBundle\Controller\Plugin\WebLinkProvider\GitWorkspacePlugin">
-            <tag name="veneer_core.link_provider" route="veneer_bosh_cloudconfig_summary" />
-            <tag name="veneer_core.link_provider" route="veneer_bosh_runtimeconfig_summary" />
-            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_summary" />
-            <tag name="veneer_core.link_provider" route="veneer_bosh_deployment_instancegroup_summary" />
-        </service>
     </services>
 </container>

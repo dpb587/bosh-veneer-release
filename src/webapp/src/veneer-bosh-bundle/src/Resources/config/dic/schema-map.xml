@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_bosh.schema_map.deployment_v2" class="Veneer\CoreBundle\Service\SchemaMap\SchemaMap">
+            <argument type="service" id="veneer_core.schema_map.schema_storage" />
+            <argument>https://dpb587.github.io/bosh-json-schema/default/director/deployment-v2.json</argument>
+        </service>
+
+        <service id="veneer_bosh.schema_map.cloud_config" class="Veneer\CoreBundle\Service\SchemaMap\SchemaMap">
+            <argument type="service" id="veneer_core.schema_map.schema_storage" />
+            <argument>https://dpb587.github.io/bosh-json-schema/default/director/cloud-config.json</argument>
+        </service>
+    </services>
+</container>

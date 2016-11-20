@@ -31,7 +31,7 @@ class NetworkType extends AbstractDeploymentManifestPathType
                             [
                                 'label' => 'Manual',
                                 'manifest' => $options['manifest'],
-                                'manifest_path' => $options['manifest_path'],
+                                'manifest_file' => $options['manifest_file'],
                             ],
                         ],
                         'dynamic' => [
@@ -39,7 +39,7 @@ class NetworkType extends AbstractDeploymentManifestPathType
                             [
                                 'label' => 'Dynamic',
                                 'manifest' => $options['manifest'],
-                                'manifest_path' => $options['manifest_path'],
+                                'manifest_file' => $options['manifest_file'],
                             ],
                         ],
                     ],
