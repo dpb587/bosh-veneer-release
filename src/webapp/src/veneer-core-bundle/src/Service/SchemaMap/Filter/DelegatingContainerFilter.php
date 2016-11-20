@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Veneer\CoreBundle\Service\SchemaMap\DataNode\DataNodeInterface;
 use Veneer\CoreBundle\Service\SchemaMap\SchemaNode\SchemaNodeInterface;
 
-class MultiContainerFilter implements FilterInterface
+class DelegatingContainerFilter implements FilterInterface
 {
     protected $container;
     protected $filters;

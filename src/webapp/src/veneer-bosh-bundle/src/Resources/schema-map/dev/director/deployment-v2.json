@@ -129,8 +129,7 @@
                   "type": "array"
                 },
                 "name": {
-                  "description": "A valid network name from the Networks block",
-                  "type": "string"
+                  "$ref": "https://dpb587.github.io/bosh-json-schema/default/director/cloud-config.json#/definitions/network_ref"
                 },
                 "static_ips": {
                   "description": "Array of IP addresses reserved for the job on the network",
@@ -157,8 +156,7 @@
             "$ref": "#/definitions/update"
           },
           "vm_type": {
-            "type": "string",
-            "title": "VM Type"
+            "$ref": "https://dpb587.github.io/bosh-json-schema/default/director/cloud-config.json#/definitions/vm_type_ref"
           },
           "vm_extensions": {
             "items": {

@@ -3,21 +3,26 @@
 namespace Veneer\CoreBundle\Service\SchemaMap\FormBuilder;
 
 use JsonSchema\SchemaStorage;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\FormBuilderInterface as SymfonyFormBuilderInterface;
 use Veneer\CoreBundle\Service\SchemaMap\SchemaNode\ArraySchemaNode;
 use Veneer\CoreBundle\Service\SchemaMap\SchemaNode\SchemaNodeInterface;
 
-class FormBuilder
+class FormBuilder implements FormBuilderInterface
 {
     protected $jsonSchema;
+    protected $container;
+    protected $customizedSchemas;
 
-    public function __construct(SchemaStorage $jsonSchema)
+    public function __construct(SchemaStorage $jsonSchema, ContainerInterface $container, array $customizedSchemas = [])
     {
         $this->jsonSchema = $jsonSchema;
+        $this->container = $container;
+        $this->customizedSchemas = $customizedSchemas;
     }
 
     // @todo make this an actual FormType
-    public function buildForm(FormBuilderInterface $builder, SchemaNodeInterface $schema, $name, array $formOptions)
+    public function buildForm(SymfonyFormBuilderInterface $builder, SchemaNodeInterface $schema, $name, array $formOptions)
     {
         $rawSchema = $this->getResolvedSchema($schema)->getSchema();
 
@@ -28,6 +33,31 @@ class FormBuilder
         if (isset($rawSchema->title)) {
             $formOptions['label'] = $rawSchema->title;
         }
+
+        $schema = new ArraySchemaNode($rawSchema);
+
+        if ($this->isCustomizedSchema($schema)) {
+            $this->buildCustomizedForm($builder, $schema, $name, $formOptions);
+        } else {
+            $this->buildBuiltinForm($builder, $schema, $name, $formOptions);
+        }
+
+        return $builder->get($name);
+    }
+
+    protected function isCustomizedSchema(SchemaNodeInterface $schema)
+    {
+        return isset($this->customizedSchemas[$schema->getSchemaId()]);
+    }
+
+    protected function buildCustomizedForm(SymfonyFormBuilderInterface $builder, SchemaNodeInterface $schema, $name, array $formOptions)
+    {
+        $this->container->get($this->customizedSchemas[$schema->getSchemaId()])->buildForm($builder, $schema, $name, $formOptions);
+    }
+
+    protected function buildBuiltinForm(SymfonyFormBuilderInterface $builder, SchemaNodeInterface $schema, $name, array $formOptions)
+    {
+        $rawSchema = $schema->getSchema();
 
         if (isset($rawSchema->enum)) {
             $builder->add(
@@ -102,8 +132,6 @@ class FormBuilder
         } else {
             throw new \LogicException(sprintf('Unsupported field type: %s', $rawSchema->type));
         }
-
-        return $builder->get($name);
     }
 
     protected function getSchema($uri, $baseUri = null)

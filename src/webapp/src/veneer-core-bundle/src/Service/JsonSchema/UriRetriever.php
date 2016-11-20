@@ -22,6 +22,7 @@ class UriRetriever implements UriRetrieverInterface
 
     public function retrieve($uri)
     {
+        $uri = $this->translateUri($uri);
         $parsedUri = parse_url($uri);
 
         if ($parsedUri['scheme'] == 'file') {
@@ -36,7 +37,7 @@ class UriRetriever implements UriRetrieverInterface
         } elseif (($parsedUri['scheme'] == 'veneer') && ($parsedUri['host'] == 'core')) {
             return json_encode($this->handleCore($parsedUri['path']));
         } else {
-            throw new \RuntimeException('unsupported');
+            throw new \InvalidArgumentException(sprintf('External schema is not supported: %s', $uri));
         }
     }
 
@@ -107,5 +108,34 @@ class UriRetriever implements UriRetrieverInterface
         }
 
         return $schema;
+    }
+
+    protected function getTranslations()
+    {
+        return [
+            #'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-bosh-bundle/src/Resources/schema-map/dev/cpi') . '/',
+            #'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-warden-cpi-bundle/src/Resources/schema-map/dev') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-aws-cpi-bundle/src/Resources/schema-map/dev') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/director/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-bosh-bundle/src/Resources/schema-map/dev/director') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/aws-cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-aws-cpi-bundle/src/Resources/schema-map/dev') . '/',
+            'https://dpb587.github.io/bosh-json-schema/default/warden-cpi/' => 'file://' . realpath(__DIR__ . '/../../../../veneer-warden-cpi-bundle/src/Resources/schema-map/dev') . '/',
+        ];
+    }
+
+    protected function translateUri($uri)
+    {
+        $uriScheme = parse_url($uri, PHP_URL_SCHEME);
+
+        if ('file' == $uriScheme) {
+            throw new \InvalidArgumentException('Will not retrieve file:// paths');
+        }
+
+        foreach ($this->getTranslations() as $from => $to) {
+            if (preg_match('@^(' . preg_quote($from, '@') . ')(.*)$@', $uri, $match)) {
+                return $to . $match[2];
+            }
+        }
+
+        return $uri;
     }
 }

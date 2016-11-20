@@ -7,7 +7,6 @@
     <services>
         <service id="veneer_core.schema_map.schema_storage" class="JsonSchema\SchemaStorage">
             <argument type="service" id="veneer_core.schema_map.schema_storage.url_retriever" />
-            <argument type="service" id="veneer_core.schema_map.schema_storage.url_resolver" />
         </service>
 
         <service id="veneer_core.schema_map.schema_storage.url_retriever" class="JsonSchema\Uri\UriRetriever">
@@ -20,19 +19,20 @@
             </call>
         </service>
 
-        <service id="veneer_core.schema_map.filter_factory" class="Veneer\CoreBundle\Service\SchemaMap\Filter\MultiContainerFilter">
+        <service id="veneer_core.schema_map.filter_factory" class="Veneer\CoreBundle\Service\SchemaMap\Filter\DelegatingContainerFilter">
             <argument type="service" id="service_container" />
             <argument type="collection">
                 <argument>veneer_bosh.schema_map.filter.release_version</argument>
             </argument>
         </service>
 
-        <service id="veneer_core.schema_map.schema_storage.url_resolver" class="Veneer\CoreBundle\Service\JsonSchema\UriResolver">
-            <argument type="collection" /><!-- compiler -->
-        </service>
-
         <service id="veneer_core.schema_map.form_builder" class="Veneer\CoreBundle\Service\SchemaMap\FormBuilder\FormBuilder">
             <argument type="service" id="veneer_core.schema_map.schema_storage" />
+            <argument type="service" id="service_container" />
+            <!--<argument type="collection" />--><!-- compiler -->
+            <argument type="collection">
+                <argument key="https://dpb587.github.io/bosh-json-schema/default/director/cloud-config.json#/definitions/vm_type_ref">veneer_bosh_editor.schema_map.form_builder.cloud_config_vm_type</argument>
+            </argument>
         </service>
     </services>
 </container>

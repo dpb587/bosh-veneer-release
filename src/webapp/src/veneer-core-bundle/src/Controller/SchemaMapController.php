@@ -7,6 +7,7 @@ use Monolog\Logger;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\CoreBundle\Service\JsonSchema\UriResolver;
@@ -16,22 +17,22 @@ class SchemaMapController extends AbstractController
 {
     public function schemaAction(Request $request, $_format)
     {
-        $resolver = $this->container->get('veneer_core.schema_map.schema_storage.url_resolver');
-        $resolvedUri = $resolver->resolve($request->query->get('uri'));
-
         $storage = $this->container->get('veneer_core.schema_map.schema_storage');
-        $schema = $storage->getSchema($resolvedUri);
 
-        $presentableSchema = $this->convertSchema($resolver, $schema);
+        try {
+            $schema = $storage->getSchema($request->query->get('uri'));
+        } catch (\InvalidArgumentException $e) {
+            throw new BadRequestHttpException('Loading schema', $e);
+        }
 
         if ($_format == 'json') {
-            return new JsonResponse($presentableSchema);
+            return new JsonResponse($schema);
         }
 
         $router = $this->container->get('router');
-        $parsedSchema = json_encode($presentableSchema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        $parsedSchema = htmlentities($parsedSchema);
-        $parsedSchema = preg_replace_callback(
+        $renderedSchema = json_encode($schema, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $renderedSchema = htmlentities($renderedSchema);
+        $renderedSchema = preg_replace_callback(
             '/&quot;(\$ref|\$schema|id)&quot;: &quot;(.+)&quot;/',
             function ($match) use ($router) {
                 return sprintf(
@@ -46,34 +47,15 @@ class SchemaMapController extends AbstractController
                     $match[2]
                 );
             },
-            $parsedSchema
+            $renderedSchema
         );
 
         return new Response(
             sprintf(
-                '<html><head><title>%s</title></head><body><pre><code>%s</code></pre></body></html>',
+                '<html><head><title>%s</title><style type="text/css">a{color:#0000CC}</style></head><body><pre><code>%s</code></pre></body></html>',
                 $request->query->get('uri'),
-                $parsedSchema
+                $renderedSchema
             )
         );
-    }
-
-    protected function convertSchema(UriResolver $resolver, \stdClass $schema)
-    {
-        if (isset($schema->id)) {
-            $schema->id = $resolver->reverseResolve($schema->id);
-        }
-
-        if (isset($schema->{'$ref'})) {
-            $schema->{'$ref'} = $resolver->reverseResolve($schema->{'$ref'});
-        }
-
-        foreach ($schema as $key => $value) {
-            if ($value instanceof \stdClass) {
-                $schema->$key = $this->convertSchema($resolver, $value);
-            }
-        }
-
-        return $schema;
     }
 }
