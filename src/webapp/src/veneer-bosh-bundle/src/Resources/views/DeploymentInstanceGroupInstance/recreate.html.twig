@@ -4,7 +4,7 @@
 
 {% block frag_content %}
     <p>
-        Are you sure you want to recreate <strong>{{ _veneer_bosh_context.job.job }}/{{ _veneer_bosh_context.index.index }}</strong>?
+        Are you sure you want to recreate <strong>{{ _veneer_bosh_context.instance_group.job }}/{{ _veneer_bosh_context.instance.uuid }}</strong>?
     </p>
 
     {% include 'VeneerCoreBundle:Layout:form.html.twig' %}

@@ -8,7 +8,7 @@
             <div class="pull-right">
 
                 &nbsp;
-                <a class="btn btn-secondary" href="{{ path('veneer_core_workspace_repo_review_index', { 'ref' : _veneer_bosh_context.app.profile.ref_write }) }}">Review Changes</a>
+                <a class="btn btn-secondary" href="{{ path('veneer_core_storage_review_index', { 'ref' : _veneer_bosh_context.app.profile.ref_write }) }}">Review Changes</a>
             </div>
             <div style="padding:6px 0;">
                 Some changes have not yet been applied.
@@ -30,7 +30,7 @@
     <hr />
 
     <ul class="list-unstyled">
-        <li><small><a class="text-muted" href="{{ path('veneer_core_workspace_repo_blob_index', { 'ref' : _veneer_bosh_context.app.profile.ref_read, 'path' : _veneer_bosh_context.app.file }) }}"><i class="fa fa-code fa-fw"></i> {{ _veneer_bosh_context.app.file }}</a></small></li>
+        <li><small><a class="text-muted" href="{{ path('veneer_core_storage_blob_index', { 'ref' : _veneer_bosh_context.app.profile.ref_read, 'path' : _veneer_bosh_context.app.file }) }}"><i class="fa fa-code fa-fw"></i> {{ _veneer_bosh_context.app.file }}</a></small></li>
     </ul>
 {% endblock %}
 

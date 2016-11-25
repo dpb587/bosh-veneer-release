@@ -15,6 +15,7 @@ use Veneer\BoshBundle\Controller\DeploymentController;
 use Veneer\BoshBundle\Entity\Deployments;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Veneer\BoshBundle\Service\DeploymentPropertySpecHelper;
+use Veneer\CoreBundle\Service\SchemaMap\DataNode\ArrayDataNode;
 use Veneer\CoreBundle\Service\Workspace\RepositoryInterface;
 use Veneer\CoreBundle\Plugin\RequestContext\Annotations as CoreContext;
 
@@ -30,7 +31,7 @@ class AppDeploymentController extends AbstractController
                 'editor',
                 [
                     'veneer_bosh_editor_app_deployment_summary' => [
-                        'file' => $_bosh['app']['file'],
+                        'file' => $_bosh['app']['file']->getPath(),
                     ],
                 ],
                 [
@@ -40,15 +41,15 @@ class AppDeploymentController extends AbstractController
         ;
     }
 
-    public function summaryAction(Request $request, Context $_bosh)
+    public function summaryAction(Context $_bosh)
     {
-        $yaml = $this->loadData($_bosh['app']['file'], $_bosh['app']['profile']);
+        $manifest = Yaml::parse($_bosh['app']['file']->getData()) ?: [];
 
         return $this->renderApi(
             'VeneerBoshEditorBundle:AppDeployment:summary.html.twig',
             [
                 'draft_profile' => $_bosh['app']['profile'],
-                'manifest' => $yaml,
+                'manifest' => $manifest,
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
@@ -59,46 +60,51 @@ class AppDeploymentController extends AbstractController
 
     public function sectionAction(Request $request, Context $_bosh, $section)
     {
-        $yaml = $this->loadData($_bosh['app']['file'], $_bosh['app']['profile']);
+        $manifest = Yaml::parse($_bosh['app']['file']->getData()) ?: [];
 
         $navSection = $section;
         $tplExtras = [];
 
         if ('properties' == $section) {
-            $deploymentPropertySpecHelper = $this->container->get('veneer_bosh.deployment_property_spec_helper');
+            $path = $request->query->get('path', '/properties');
 
-            if ($request->query->has('instance_group')) {
-                $filterJob = $request->query->get('instance_group');
-                $foundJob = false;
-
-                foreach ($yaml['instance_groups'] as $job) {
-                    if ($job['name'] != $filterJob) {
-                        continue;
-                    }
-
-                    $foundJob = true;
-
-                    break;
-                }
-
-                if (!$foundJob) {
-                    throw new NotFoundHttpException('Failed to find instance group');
-                }
-
-                $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseJobs($yaml, $filterJob);
-                $tplExtras['properties_configured'] = isset($job['properties']) ? $job['properties'] : null;
-                $tplExtras['properties_editpath'] = 'instance_groups['.$filterJob.'].properties.';
-                $navSection = 'instance-groups';
+            if (preg_match('#^/properties(/.+|)$#', $path)) {
+                $tplExtras['title'] = 'Deployment Properties';
+            } elseif (preg_match('#^/instance_groups/([^/]+)/properties(/.+|)$#', $path)) {
+                $tplExtras['title'] = 'Instance Group Properties';
+            } elseif (preg_match('#^/instance_groups/([^/]+)/jobs/([^/]+)/properties(/.+|)$#', $path)) {
+                $tplExtras['title'] = 'Job Properties';
             } else {
-                $propertyTemplates = DeploymentPropertySpecHelper::collectReleaseJobs($yaml);
-                $tplExtras['properties_configured'] = isset($yaml['properties']) ? $yaml['properties'] : null;
-                $tplExtras['properties_editpath'] = 'properties.';
+                throw new NotFoundHttpException('Matching properties path to expected scopes');
             }
 
-            $merged = $deploymentPropertySpecHelper->mergeTemplatePropertiesSpecs($propertyTemplates);
-            $propertyTree = $deploymentPropertySpecHelper->convertSpecToTree($merged);
+            $schemaTuple = $this->container->get('veneer_bosh.schema_map.deployment_v2')
+                ->traverse((new ArrayDataNode(''))->setData($manifest), $path);
 
-            $tplExtras['properties_tree'] = $propertyTree;
+            $dataNode = $schemaTuple->getData();
+            $schemaNode = $schemaTuple->getSchema();
+
+            // @todo should probably fully resolve schema (in case sub-types are referenced)
+
+            $tplExtras['properties_schema'] = json_decode(json_encode($schemaNode->getSchema()), true);
+            $tplExtras['properties_values'] = $dataNode->getData();
+            $tplExtras['properties_path'] = $path;
+        } elseif ('instance-group' == $section) {
+            $path = $request->query->get('path');
+
+            if (preg_match('#^/instance_groups(/.+|)$#', $path)) {
+                $tplExtras['title'] = 'Instance Group';
+            } else {
+                throw new NotFoundHttpException('Matching instance_groups path to expected scopes');
+            }
+
+            $schemaTuple = $this->container->get('veneer_bosh.schema_map.deployment_v2')
+                ->traverse((new ArrayDataNode(''))->setData($manifest), $path);
+
+            $dataNode = $schemaTuple->getData();
+
+            $tplExtras['path'] = $path;
+            $tplExtras['instance_group'] = $dataNode->getData();
         }
 
         return $this->renderApi(
@@ -106,7 +112,7 @@ class AppDeploymentController extends AbstractController
             array_merge(
                 [
                     'draft_profile' => $_bosh['app']['profile'],
-                    'manifest' => $yaml,
+                    'manifest' => $manifest,
                 ],
                 $tplExtras
             ),
@@ -136,7 +142,9 @@ class AppDeploymentController extends AbstractController
             $this->container->get('veneer_bosh.schema_map.deployment_v2')
         );
 
-        $editorNode = $editor->getEditorNode($this->loadData($_bosh['app']['file'], $_bosh['app']['profile']), $path);
+        $manifest = Yaml::parse($_bosh['app']['file']->getData()) ?: [];
+
+        $editorNode = $editor->getEditorNode($manifest, $path);
         $editorProfile = $editor->createEditor($editorNode);
 
         $section = str_replace('_', '-', explode('/', $editorNode->getData()->getPath())[1]);
@@ -146,7 +154,7 @@ class AppDeploymentController extends AbstractController
             'edit',
             [
                 'veneer_bosh_editor_app_deployment_edit' => [
-                    'file' => $_bosh['app']['file'],
+                    'file' => $_bosh['app']['file']->getPath(),
                     'path' => $path,
                 ],
             ]
@@ -164,13 +172,13 @@ class AppDeploymentController extends AbstractController
                     $data = Yaml::dump($editorNode->getData()->getRoot()->getData(), 8);
                 }
 
-                $this->container->get('veneer_core.workspace.repository')->commitWrites(
-                    $_bosh['app']['profile'],
-                    [
-                        $_bosh['app']['file'] => $data,
-                    ],
-                    sprintf('Update cloud-config (%s)', $path)
-                );
+//                $this->container->get('veneer_core.workspace.repository')->commitWrites(
+//                    $_bosh['app']['profile'],
+//                    [
+//                        $_bosh['app']['file'] => $data,
+//                    ],
+//                    sprintf('Update cloud-config (%s)', $path)
+//                );
 
                 return $this->redirect($nav[-2]['url']);
             }
@@ -188,18 +196,8 @@ class AppDeploymentController extends AbstractController
             [
                 'def_nav' => $nav,
                 'sidenav_active' => $section,
+                'manifest' => $manifest,
             ]
         );
-    }
-
-    protected function loadData($path, array $draftProfile)
-    {
-        $repo = $this->container->get('veneer_core.workspace.repository');
-
-        if ($repo->fileExists($path, $draftProfile['ref_read'])) {
-            return Yaml::parse($repo->showFile($path, $draftProfile['ref_read'])) ?: [];
-        }
-
-        return [];
     }
 }

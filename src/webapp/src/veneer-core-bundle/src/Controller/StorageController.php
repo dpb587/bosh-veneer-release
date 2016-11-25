@@ -5,7 +5,7 @@ namespace Veneer\CoreBundle\Controller;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class WorkspaceRepoController extends AbstractController
+class StorageController extends AbstractController
 {
     public static function defNav(Breadcrumbs $nav, $ref, $path)
     {
@@ -20,7 +20,7 @@ class WorkspaceRepoController extends AbstractController
                 ->add(
                     'Workspace',
                     [
-                        'veneer_core_workspace_repo_tree_index' => [
+                        'veneer_core_storage_tree_index' => [
                             'ref' => $ref,
                             'path' => '',
                         ],
@@ -45,7 +45,7 @@ class WorkspaceRepoController extends AbstractController
                 $nav->add(
                     $path,
                     [
-                        'veneer_core_workspace_repo_tree_index' => [
+                        'veneer_core_storage_tree_index' => [
                             'ref' => $ref,
                             'path' => implode('/', $partialPath),
                         ],

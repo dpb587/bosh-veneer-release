@@ -2,10 +2,11 @@
 
 namespace Veneer\CoreBundle\Controller;
 
+use Monolog\Logger;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Veneer\CoreBundle\Service\Workspace\Lifecycle\LifecycleInterface;
 
-class WorkspaceRepoReviewController extends AbstractController
+class StorageApplyController extends AbstractController
 {
     public function indexAction($ref)
     {
@@ -39,27 +40,27 @@ class WorkspaceRepoReviewController extends AbstractController
                 if ($mappedChanges[$path]['app'] instanceof LifecycleInterface) {
                     $compiled = $mappedChanges[$path]['app']->onCompile($repo->createCheckout($changeset->getNewRef()), $path);
 
-                    $plan = $mappedChanges[$path]['app']->onPlan(
-                        $repo->createCheckout($changeset->getOldRef()),
-                        $repo->createCheckout($changeset->getNewRef()),
-                        $path,
+                    $logger = new Logger($path);
+
+                    $mappedChanges[$path]['app']->onApply(
+                        $logger,
                         $compiled
                     );
 
-                    $mappedChanges[$path]['plan'] = $plan;
+                    $mappedChanges[$path]['apply'] = $logger;
                 }
             }
         }
 
         return $this->renderApi(
-            'VeneerCoreBundle:WorkspaceRepoReview:index.html.twig',
+            'VeneerCoreBundle:StorageApply:index.html.twig',
             [
                 'ref' => $ref,
                 'changeset' => $changeset,
                 'mapped_changes' => $mappedChanges,
             ],
             [
-                'def_nav' => WorkspaceRepoController::defNav($this->container->get('veneer_core.breadcrumbs'), $ref, '/'),
+                'def_nav' => StorageController::defNav($this->container->get('veneer_core.breadcrumbs'), $ref, '/'),
             ]
         );
     }

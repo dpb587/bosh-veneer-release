@@ -16,22 +16,22 @@
         <default key="_format">html</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_instancegroup_instance_diskstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/diskstats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_diskstats" path="/logsearch/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/diskstats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceController::diskstatsAction</default>
         <default key="_format">html</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_instancegroup_instance_memstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/memstats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_memstats" path="/logsearch/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/memstats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceController::memstatsAction</default>
         <default key="_format">html</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_instancegroup_instance_loadstats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/loadstats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_loadstats" path="/logsearch/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/loadstats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstanceController::loadstatsAction</default>
         <default key="_format">html</default>
     </route>
 
-    <route id="veneer_logsearch_deployment_instancegroup_instance_persistentdisk_hoststats" path="/logsearch/deployment/{deployment}/job/{job}/index/{index}/persistent-disk/{persistent_disk}/hoststats.{_format}">
+    <route id="veneer_logsearch_deployment_instancegroup_instance_persistentdisk_hoststats" path="/logsearch/deployment/{deployment}/instance-group/{instance_group}/instance/{instance}/persistent-disk/{persistent_disk}/hoststats.{_format}">
         <default key="_controller">Veneer\LogsearchBundle\Controller\DeploymentInstanceGroupInstancePersistentDiskController::hoststatsAction</default>
         <default key="_format">html</default>
     </route>

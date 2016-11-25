@@ -22,7 +22,7 @@ class VeneerCoreBundle extends Bundle
         $builder->addCompilerPass(new DependencyInjection\CompilerPass\MetricSimpleContextCompilerPass());
 
         if (!$builder->hasParameter('veneer_core.build.tag')) {
-            $p = new Process('git describe --exact-match --abbrev=0', __DIR__);
+            $p = new Process('git describe --tags --abbrev=0', __DIR__);
             $p->run();
 
             if (0 == $p->getExitCode()) {

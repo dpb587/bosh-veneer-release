@@ -5,9 +5,10 @@ namespace Veneer\LogsearchBundle\Controller\Plugin\CoreMetric\Context;
 use Veneer\CoreBundle\Plugin\Metric\Context\ContextTrait;
 use Veneer\CoreBundle\Plugin\Metric\Context\ContextInterface;
 use Veneer\CoreBundle\Plugin\Metric\Metric\AbstractMetric;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 use Veneer\LogsearchBundle\Service\ElasticsearchHelper;
 
-class DeploymentJobIndexMetricContext extends AbstractMetric implements ContextInterface
+class DeploymentInstanceGroupInstanceMetricContext extends AbstractMetric implements ContextInterface
 {
     use ContextTrait;
 
@@ -49,6 +50,7 @@ class DeploymentJobIndexMetricContext extends AbstractMetric implements ContextI
     {
         $this->helper = $helper;
         $this->metric = $metric;
+        $this->context = new Context();
     }
 
     public function getChartDefaults()

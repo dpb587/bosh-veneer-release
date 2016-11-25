@@ -43,32 +43,32 @@
 
     <!-- workspace/repo -->
 
-    <route id="veneer_core_workspace_repo_app" path="/core/workspace/repo/app/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoController::appAction</default>
+    <route id="veneer_core_storage_app" path="/core/storage/app/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\StorageController::appAction</default>
         <requirement key="path">.*</requirement>
     </route>
 
-    <route id="veneer_core_workspace_repo_blob_index" path="/core/workspace/repo/blob/{ref}/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoBlobController::indexAction</default>
+    <route id="veneer_core_storage_blob_index" path="/core/storage/blob/{ref}/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\StorageBlobController::indexAction</default>
         <requirement key="path">.*</requirement>
     </route>
 
-    <route id="veneer_core_workspace_repo_tree_index" path="/core/workspace/repo/tree/{ref}/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoTreeController::indexAction</default>
+    <route id="veneer_core_storage_tree_index" path="/core/storage/tree/{ref}/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\StorageTreeController::indexAction</default>
         <requirement key="path">.*</requirement>
     </route>
 
-    <route id="veneer_core_workspace_repo_review_index" path="/core/workspace/repo/review/{ref}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoReviewController::indexAction</default>
+    <route id="veneer_core_storage_review_index" path="/core/storage/review/{ref}">
+        <default key="_controller">Veneer\CoreBundle\Controller\StorageReviewController::indexAction</default>
     </route>
 
-    <route id="veneer_core_workspace_repo_review_diff" path="/core/workspace/repo/review/{ref}/diff/{path}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoReviewController::indexAction</default>
+    <route id="veneer_core_storage_review_diff" path="/core/storage/review/{ref}/diff/{path}">
+        <default key="_controller">Veneer\CoreBundle\Controller\StorageReviewController::indexAction</default>
         <requirement key="path">.*</requirement>
     </route>
 
-    <route id="veneer_core_workspace_repo_apply_index" path="/core/workspace/repo/apply/{ref}">
-        <default key="_controller">Veneer\CoreBundle\Controller\WorkspaceRepoApplyController::indexAction</default>
+    <route id="veneer_core_storage_apply_index" path="/core/storage/apply/{ref}">
+        <default key="_controller">Veneer\CoreBundle\Controller\StorageApplyController::indexAction</default>
         <requirement key="_method">POST</requirement>
     </route>
 

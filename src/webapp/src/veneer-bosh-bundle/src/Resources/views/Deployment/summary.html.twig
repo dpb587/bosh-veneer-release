@@ -3,7 +3,7 @@
 {% block def_title _veneer_bosh_context.deployment.name %}
 
 {% block frag_content %}
-    {#{{ render(_links.widget.logsearch_monitstatus.url|veneer_core_appendqs({ '_frag' : 'content' })) }}#}
+    {#{% if _links.widget.logsearch_monitstatus is defined %}{{ render(_links.widget.logsearch_monitstatus.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}#}
     {{ render(_links.widget.jobALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
     {{ render(_links.widget.releases.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}

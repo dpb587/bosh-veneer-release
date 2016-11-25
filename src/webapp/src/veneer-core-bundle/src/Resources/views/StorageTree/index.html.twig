@@ -5,24 +5,24 @@
 {% block frag_content %}
     <table class="table">
         <tbody>
-            {% for item in ls %}
+            {% for object in children %}
                 <tr>
                     <td>
-                        {% if 'dir' == item.type %}
-                            <a href="{{ path('veneer_core_workspace_repo_tree_index', { 'ref' : ref, 'path' : path ~ '/' ~ item.name }) }}">
+                        {% if object.objectType == constant('Veneer\\CoreBundle\\Service\\Storage\\Object\\AbstractObject::OBJECT_TYPE_DIR') %}
+                            <a href="{{ path('veneer_core_storage_tree_index', { 'ref' : ref, 'path' : object.path }) }}">
                                 <i class="fa fa-folder fa-fw"></i>
-                                {{ item.name }}
+                                {{ object.basename }}
                             </a>
                         {% else %}
-                            <a href="{{ path('veneer_core_workspace_repo_blob_index', { 'ref' : ref, 'path' : path ~ '/' ~ item.name }) }}">
+                            <a href="{{ path('veneer_core_storage_blob_index', { 'ref' : ref, 'path' : object.path }) }}">
                                 <i class="fa fa-file fa-fw"></i>
-                                {{ item.name }}
+                                {{ object.basename }}
                             </a>
                         {% endif %}
                     </td>
                     <td class="text-right">
-                        {% if item.app|default %}
-                            <a href="{{ path(item.app.appRoute, { 'path' : path ~ '/' ~ item.name }) }}">{{ item.app.appTitle }}</a>
+                        {% if object.app|default %}
+                            <a href="{{ path(object.app.appRoute, { 'path' : path ~ '/' ~ object.name }) }}">{{ object.app.appTitle }}</a>
                         {% else %}
                             &nbsp;
                         {% endif %}

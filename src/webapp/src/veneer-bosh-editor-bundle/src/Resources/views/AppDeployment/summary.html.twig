@@ -2,10 +2,10 @@
 
 {% block frag_content %}
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'releases', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Releases</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'releases', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Releases</strong></a>
         &ndash;
         {% if not manifest.releases|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/releases/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/releases/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.releases|length }} {{ 1 == manifest.releases|length ? 'release' : 'releases' }}
         {% endif %}
@@ -15,11 +15,12 @@
         </span>
     </p>
 
+    {#
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'networks', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Networks</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'networks', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Networks</strong></a>
         &ndash;
         {% if not manifest.networks|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/networks/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/networks/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.networks|length }} {{ 1 == manifest.networks|length ? 'release' : 'networks' }}
         {% endif %}
@@ -28,12 +29,14 @@
             Network is an IaaS-agnostic representation of the networking layer usually assigned at the boot of the VM and/or when network configuration changes in the deployment manifest.
         </span>
     </p>
+    #}
 
+    {#
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'resourcepools', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Resource Pools</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'resourcepools', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Resource Pools</strong></a>
         &ndash;
         {% if not manifest.resource_pools|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/resource_pools/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/resource_pools/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.resource_pools|length }} {{ 1 == manifest.resource_pools|length ? 'resource pool' : 'resource pools' }}
         {% endif %}
@@ -42,12 +45,14 @@
             Resource pools are collections of VMs created from the same stemcell, with the same configuration, in a deployment.
         </span>
     </p>
+    #}
 
+    {#
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'diskpools', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Disk Pools</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'diskpools', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Disk Pools</strong></a>
         &ndash;
         {% if not manifest.disk_pools|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/disk_pools/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/disk_pools/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.disk_pools|length }} {{ 1 == manifest.disk_pools|length ? 'disk pool' : 'disk pools' }}
         {% endif %}
@@ -56,12 +61,13 @@
             Disk pools are logical collections of disks, in a deployment, each created with the same configuration.
         </span>
     </p>
+    #}
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'instance-groups', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Instance Groups</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'instance-groups', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Instance Groups</strong></a>
         &ndash;
         {% if not manifest.instance_groups|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/jobs/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/jobs/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.instance_groups|length }} {{ 1 == manifest.instance_groups|length ? 'instance group' : 'instance groups' }}
         {% endif %}
@@ -72,7 +78,7 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'properties', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Properties</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_deployment_section', { 'section' : 'properties', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Properties</strong></a>
         <br />
         <span class="text-muted">
             &hellip;

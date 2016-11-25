@@ -21,10 +21,10 @@ class DeploymentInstanceGroupContext extends SimpleContext
 
     public function resolve($name)
     {
-        if (preg_match('/^index\[([^]]+)\]$/', $name, $match)) {
+        if (preg_match('/^instance\[([^]]+)\]$/', $name, $match)) {
             $entity = $this->em->getRepository('VeneerBoshBundle:Instances')->findOneBy([
                 'job' => $this->context['job']['job'],
-                'index' => $match[1],
+                'uuid' => $match[1],
             ]);
 
             if (!$entity) {

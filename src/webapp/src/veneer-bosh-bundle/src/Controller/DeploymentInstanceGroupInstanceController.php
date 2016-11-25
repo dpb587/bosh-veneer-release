@@ -4,6 +4,7 @@ namespace Veneer\BoshBundle\Controller;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
+use Veneer\BoshBundle\Form\Type\JobRecreateType;
 use Veneer\BoshBundle\Form\Type\JobRestartType;
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Plugin\RequestContext\Context;
@@ -120,12 +121,6 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
 
             $payload = $form->getData();
 
-            $state = $this->container->get('doctrine.orm.state_entity_manager')
-                ->getRepository('VeneerBoshBundle:DeploymentWorkspace')
-                ->findOneBy([
-                    'deployment' => $_bosh['deployment']['name'],
-                ]);
-
             $task = $this->container->get('veneer_bosh.api')->sendForTaskId(
                 new GuzzleRequest(
                     'PUT',
@@ -141,11 +136,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                     ),
                     [
                         'content-type' => 'text/yaml',
-                    ],
-                    $this->container->get('veneer_core.workspace.repository')->showFile(
-                        dirname($state->getSourcePath()).'/.'.basename($state->getSourcePath()),
-                        'master'
-                    )
+                    ]
                 )
             );
 
@@ -182,7 +173,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
     {
         $form = $this->container->get('form.factory')->createNamed(
             null,
-            new JobRestartType(),
+            new JobRecreateType(),
             null,
             [
                 'csrf_protection' => false,
@@ -197,12 +188,6 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
             }
 
             $payload = $form->getData();
-
-            $state = $this->container->get('doctrine.orm.state_entity_manager')
-                ->getRepository('VeneerBoshBundle:DeploymentWorkspace')
-                ->findOneBy([
-                    'deployment' => $_bosh['deployment']['name'],
-                ]);
 
             $task = $this->container->get('veneer_bosh.api')->sendForTaskId(
                 new GuzzleRequest(
@@ -219,11 +204,7 @@ class DeploymentInstanceGroupInstanceController extends AbstractController
                     ),
                     [
                         'content-type' => 'text/yaml',
-                    ],
-                    $this->container->get('veneer_core.workspace.repository')->showFile(
-                        dirname($state->getSourcePath()).'/.'.basename($state->getSourcePath()),
-                        'master'
-                    )
+                    ]
                 )
             );
 

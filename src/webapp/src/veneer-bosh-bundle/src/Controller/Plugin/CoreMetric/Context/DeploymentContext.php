@@ -21,7 +21,7 @@ class DeploymentContext extends SimpleContext
 
     public function resolve($name)
     {
-        if (preg_match('/^job\[([^]]+)\]$/', $name, $match)) {
+        if (preg_match('/^instance_group\[([^]]+)\]$/', $name, $match)) {
             $entity = $this->em->getRepository('VeneerBoshBundle:Instances')->findOneBy([
                 'deployment' => $this->context['deployment'],
                 'job' => $match[1],
@@ -34,21 +34,6 @@ class DeploymentContext extends SimpleContext
             $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup');
             $context->replaceContext($this->context);
             $context->addContext('job', ['job' => $entity['job']]);
-
-            return $context;
-        } elseif (preg_match('/^vm\[([^]]+)\]$/', $name, $match)) {
-            $entity = $this->em->getRepository('VeneerBoshBundle:Vms')->findOneBy([
-                'deployment' => $this->context['deployment'],
-                'agentId' => $match[1],
-            ]);
-
-            if (!$entity) {
-                throw new \InvalidArgumentException('Invalid vm key');
-            }
-
-            $context = $this->container->get('veneer_bosh.plugin.core_metric.context.deployment_instancegroup_instance');
-            $context->replaceContext($this->context);
-            $context->addContext('vm', $entity);
 
             return $context;
         }

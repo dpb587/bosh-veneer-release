@@ -37,13 +37,13 @@ class AppCloudConfigController extends AbstractController
 
     public function summaryAction(Context $_bosh)
     {
-        $yaml = $this->loadData($_bosh['app']['file'], $_bosh['app']['profile']);
+        $manifest = Yaml::parse($_bosh['app']['file']->getData()) ?: [];
 
         return $this->renderApi(
             'VeneerBoshEditorBundle:AppCloudConfig:summary.html.twig',
             [
                 'draft_profile' => $_bosh['app']['profile'],
-                'manifest' => $yaml,
+                'manifest' => $manifest,
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh),
@@ -54,7 +54,7 @@ class AppCloudConfigController extends AbstractController
 
     public function sectionAction(Context $_bosh, $section)
     {
-        $yaml = $this->loadData($_bosh['app']['file'], $_bosh['app']['profile']);
+        $manifest = Yaml::parse($_bosh['app']['file']->getData()) ?: [];
 
         $navSection = $section;
 
@@ -62,7 +62,7 @@ class AppCloudConfigController extends AbstractController
             'VeneerBoshEditorBundle:AppCloudConfig:section-'.$section.'.html.twig',
             [
                 'draft_profile' => $_bosh['app']['profile'],
-                'manifest' => $yaml,
+                'manifest' => $manifest,
             ],
             [
                 'def_nav' => self::defNav($this->container->get('veneer_bosh.breadcrumbs'), $_bosh)
@@ -90,7 +90,9 @@ class AppCloudConfigController extends AbstractController
             $this->container->get('veneer_bosh.schema_map.cloud_config')
         );
 
-        $editorNode = $editor->getEditorNode($this->loadData($_bosh['app']['file'], $_bosh['app']['profile']), $path);
+        $manifest = Yaml::parse($_bosh['app']['file']->getData()) ?: [];
+
+        $editorNode = $editor->getEditorNode($manifest, $path);
         $editorProfile = $editor->createEditor($editorNode);
 
         $section = str_replace('_', '-', explode('/', $editorNode->getData()->getPath())[1]);
@@ -144,16 +146,5 @@ class AppCloudConfigController extends AbstractController
                 'sidenav_active' => $section,
             ]
         );
-    }
-
-    protected function loadData($file, array $draftProfile)
-    {
-        $repo = $this->container->get('veneer_core.workspace.repository');
-
-        if ($repo->fileExists($file, $draftProfile['ref_read'])) {
-            return Yaml::parse($repo->showFile($file, $draftProfile['ref_read'])) ?: [];
-        }
-
-        return null;
     }
 }

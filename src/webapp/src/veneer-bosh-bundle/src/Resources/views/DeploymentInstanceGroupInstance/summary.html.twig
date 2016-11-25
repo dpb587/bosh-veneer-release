@@ -3,9 +3,9 @@
 {% block def_title data.job ~ '/' ~ data.index %}
 
 {% block frag_content %}  
-    {#{{ render(_links.widget.loadstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}#}
-    {#{{ render(_links.widget.memstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}#}
-    {#{{ render(_links.widget.diskstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}#}
+    {% if _links.widget.loadstats is defined %}{{ render(_links.widget.loadstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
+    {% if _links.widget.memstats is defined %}{{ render(_links.widget.memstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
+    {% if _links.widget.diskstats is defined %}{{ render(_links.widget.diskstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
     {{ render(_links.widget.persistentdiskALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
     {{ render(_links.widget.networkALL.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
 {% endblock %}

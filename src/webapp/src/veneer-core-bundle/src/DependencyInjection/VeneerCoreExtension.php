@@ -16,6 +16,7 @@ class VeneerCoreExtension extends Extension
         $loader->load('form.xml');
         $loader->load('schema-map.xml');
         $loader->load('services.xml');
+        $loader->load('storage.xml');
         $loader->load('twig.xml');
     }
 }

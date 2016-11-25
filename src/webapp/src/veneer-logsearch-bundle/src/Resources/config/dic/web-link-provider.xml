@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="veneer_logsearch.plugin.web_link_provider.deployment_instance" class="Veneer\LogsearchBundle\Controller\Plugin\WebLinkProvider\DeploymentInstanceGroupInstancePlugin">
+        <service id="veneer_logsearch.plugin.web_link_provider.deployment_instance" class="Veneer\LogsearchBundle\Controller\Plugin\WebLinkProvider\DeploymentJobIndexPlugin">
             <argument>%veneer_logsearch.kibana_url%</argument>
             <argument>%veneer_bosh.director_name%</argument>
 

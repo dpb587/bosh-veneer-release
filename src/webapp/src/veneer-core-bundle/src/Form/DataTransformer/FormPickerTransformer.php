@@ -10,6 +10,9 @@ class FormPickerTransformer implements DataTransformerInterface
     {
         if (!$value) {
             return null;
+        } elseif (!is_array($value)) {
+            // @todo make this compatible for oneOf schema types for detecting value types
+            return null;
         }
 
         reset($value);

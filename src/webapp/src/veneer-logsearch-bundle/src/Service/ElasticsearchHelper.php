@@ -4,6 +4,7 @@ namespace Veneer\LogsearchBundle\Service;
 
 use Elastica\Client;
 use Elastica\Request;
+use Veneer\CoreBundle\Plugin\RequestContext\Context;
 
 class ElasticsearchHelper
 {
@@ -26,7 +27,7 @@ class ElasticsearchHelper
         return $this->elasticsearch;
     }
 
-    public function generateContextFilters(array $context)
+    public function generateContextFilters(Context $context)
     {
         $filters = [];
 

@@ -8,10 +8,10 @@
     <hr />
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'azs', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Availability Zones</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'azs', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Availability Zones</strong></a>
         &ndash;
         {% if not manifest.azs|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/azs/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/azs/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.azs|length }} {{ 1 == manifest.azs|length ? 'availability zone' : 'availability zones' }}
         {% endif %}
@@ -22,10 +22,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'networks', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Networks</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'networks', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Networks</strong></a>
         &ndash;
         {% if not manifest.networks|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/networks/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/networks/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.networks|length }} {{ 1 == manifest.networks|length ? 'network' : 'networks' }}
         {% endif %}
@@ -36,10 +36,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'vm-types', 'file' : _veneer_bosh_context.app.file }) }}"><strong>VM Types</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'vm-types', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>VM Types</strong></a>
         &ndash;
         {% if not manifest.vm_types|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/vm_types/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/vm_types/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.vm_types|length }} {{ 1 == manifest.vm_types|length ? 'VM types' : 'VM types' }}
         {% endif %}
@@ -50,10 +50,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'vm-extensions', 'file' : _veneer_bosh_context.app.file }) }}"><strong>VM Extensions</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'vm-extensions', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>VM Extensions</strong></a>
         &ndash;
         {% if not manifest.vm_extensions|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/vm_extensions/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/vm_extensions/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.vm_extensions|length }} {{ 1 == manifest.vm_extensions|length ? 'VM extension' : 'VM extensions' }}
         {% endif %}
@@ -64,10 +64,10 @@
     </p>
 
     <p>
-        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'disk-types', 'file' : _veneer_bosh_context.app.file }) }}"><strong>Disk Types</strong></a>
+        <a href="{{ path('veneer_bosh_editor_app_cloudconfig_section', { 'section' : 'disk-types', 'file' : _veneer_bosh_context.app.file.path }) }}"><strong>Disk Types</strong></a>
         &ndash;
         {% if not manifest.disk_types|default %}
-            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/disk_types/-' }) }}">add one</a>)
+            none (<a href="{{ path('veneer_bosh_editor_app_cloudconfig_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/disk_types/-' }) }}">add one</a>)
         {% else %}
             {{ manifest.disk_types|length }} {{ 1 == manifest.disk_types|length ? 'disk type' : 'disk types' }}
         {% endif %}

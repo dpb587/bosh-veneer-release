@@ -78,9 +78,7 @@
                         <a class="text-muted" href="{{ path('veneer_core_summary') }}" title="User"><i class="fa fa-user"></i> {{ app.security.token.user.username }}</a>
                     {% endif %}
                     &nbsp;&mdash;&nbsp;
-                    <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Managing with"><i class="fa fa-trophy"></i> veneer</a>
-                    &nbsp;&middot;&nbsp;
-                    <a class="text-muted" href="https://github.com/dpb587/bosh-veneer-release" title="Built from"><i class="fa fa-wrench"></i> {{ veneer_core_build_tag }}{% if veneer_core_build_tag_commit != veneer_core_build_commit %}+dev.{{ veneer_core_build_commit }}{{ veneer_core_build_dirty ? '.dirty' : '' }}{% endif %}</a>
+                    <a class="text-muted" href="{{ path('veneer_core_about') }}" title="Managing with"><i class="fa fa-trophy"></i> veneer ({{ veneer_core_build_tag }}{% if veneer_core_build_tag_commit != veneer_core_build_commit %}+dev.{{ veneer_core_build_commit }}{% elseif veneer_core_build_dirty %}+dev{% endif %}{{ veneer_core_build_dirty ? '.dirty' : '' }})</a>
                     &nbsp;&middot;&nbsp;
                     <a class="text-muted" href="https://dpb587.me/" target="_blank" title="Created by"><i class="fa fa-hand-peace-o"></i> dpb587</a>
                 </small>

@@ -5,34 +5,31 @@ namespace Veneer\CoreBundle\Controller;
 use Veneer\CoreBundle\Service\Breadcrumbs;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class WorkspaceRepoBlobController extends AbstractController
+class StorageBlobController extends AbstractController
 {
     public function indexAction($ref, $path)
     {
         $path = ltrim($path, '/');
-        $repo = $this->container->get('veneer_core.workspace.repository');
-        $checkout = $repo->createCheckout($ref);
+        $storageSystem = $this->container->get('veneer_core.storage.system');
 
-        if (!$checkout->exists($path)) {
-            throw new NotFoundHttpException('File not found');
-        }
+        $file = $storageSystem->get($path, [ 'ref' => $ref ]);
 
         $apps = $this->container->get('veneer_core.workspace.app');
 
         try {
-            $app = $apps->findApp($path);
+            $app = $apps->findApp($file->getPath());
         } catch (\Exception $e) {
         }
 
         return $this->renderApi(
-            'VeneerCoreBundle:WorkspaceRepoBlob:index.html.twig',
+            'VeneerCoreBundle:StorageBlob:index.html.twig',
             [
                 'ref' => $ref,
                 'path' => $path,
-                'data' => $checkout->get($path),
+                'data' => $file->getData(),
             ],
             [
-                'def_nav' => WorkspaceRepoController::defNav($this->container->get('veneer_core.breadcrumbs'), $ref, $path),
+                'def_nav' => StorageController::defNav($this->container->get('veneer_core.breadcrumbs'), $ref, $path),
                 'workspace_app' => $app,
             ]
         );

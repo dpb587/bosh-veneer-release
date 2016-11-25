@@ -14,7 +14,7 @@ class AbstractSchemaNode implements SchemaNodeInterface
 
     public function getSchemaId()
     {
-        return $this->schema->id;
+        return isset($this->schema->id) ? $this->schema->id : null;
     }
 
     public function getSchema()

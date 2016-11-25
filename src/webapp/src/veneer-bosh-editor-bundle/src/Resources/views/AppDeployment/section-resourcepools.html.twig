@@ -8,7 +8,7 @@
                     <h3 style="margin-bottom:0;">Resource Pools</h3>
                 </th>
                 <th class="text-right" style="border-top:0;">
-                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/resource_pools/-' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
+                    <a class="btn btn-success-outline btn-sm" href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/resource_pools/-' }) }}" title="Add" type="button"><i class="fa fa-plus fa-fw"></i></a>
                 </th>
             </tr>
         </thead>
@@ -23,7 +23,7 @@
                         <td class="text-right">
                             <div class="btn-group" role="group" aria-label="Actions">
                                 <a class="btn btn-warning-outline btn-sm" type="button"><i class="fa fa-arrow-circle-o-up"></i> v2019</a>
-                                <a class="btn btn-primary-outline btn-sm" href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/resource_pools/name=' ~ resource_pool.name }) }}" title="Change" type="button"><i class="fa fa-pencil fa-fw"></i></a>
+                                <a class="btn btn-primary-outline btn-sm" href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/resource_pools/name=' ~ resource_pool.name }) }}" title="Change" type="button"><i class="fa fa-pencil fa-fw"></i></a>
                                 <a class="btn btn-danger-outline btn-sm" title="Remove" type="button"><i class="fa fa-remove fa-fw"></i></a>
                             </div>
                         </td>
@@ -35,7 +35,7 @@
                 <tr>
                     <td colspan="2">
                         <p>
-                            No resource pools configured &mdash; <a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file, 'path' : '/resource_pools/-' }) }}">add one&hellip;</a>
+                            No resource pools configured &mdash; <a href="{{ path('veneer_bosh_editor_app_deployment_edit', { 'file' : _veneer_bosh_context.app.file.path, 'path' : '/resource_pools/-' }) }}">add one&hellip;</a>
                         </p>
                         <p class="text-muted">
                             <span class="text-primary"><i class="fa fa-question-circle"></i></span>

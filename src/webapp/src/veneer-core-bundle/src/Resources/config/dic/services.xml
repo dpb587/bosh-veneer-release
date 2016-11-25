@@ -28,7 +28,7 @@
         </service>
 
         <service id="veneer_core.plugin.core_request_context.app_path" class="Veneer\CoreBundle\Plugin\RequestContext\AppPathContext">
-            <argument type="service" id="veneer_core.workspace.repository" />
+            <argument type="service" id="veneer_core.storage.system" />
 
             <tag name="veneer_core.request_context" annotation="Veneer\CoreBundle\Plugin\RequestContext\Annotations\AppPath" />
         </service>

@@ -100,23 +100,25 @@ class FormBuilder implements FormBuilderInterface
 
             $subBuilder = $builder->get($name);
 
-            foreach ($rawSchema->properties as $propertyName => $propertyRelativeSchema) {
-                $formOptions = [];
+            if (isset($rawSchema->properties)) {
+                foreach ($rawSchema->properties as $propertyName => $propertyRelativeSchema) {
+                    $formOptions = [];
 
-                if (empty($rawSchema->required)) {
-                    $formOptions['required'] = false;
-                } elseif (in_array($propertyName, $rawSchema->required)) {
-                    $formOptions['required'] = true;
-                } else {
-                    $formOptions['required'] = false;
+                    if (empty($rawSchema->required)) {
+                        $formOptions['required'] = false;
+                    } elseif (in_array($propertyName, $rawSchema->required)) {
+                        $formOptions['required'] = true;
+                    } else {
+                        $formOptions['required'] = false;
+                    }
+
+                    $this->buildForm(
+                        $subBuilder,
+                        new ArraySchemaNode($this->jsonSchema->getSchema($this->getSchemaPath($rawSchema->id, '/properties/' . $propertyName))),
+                        $propertyName,
+                        $formOptions
+                    );
                 }
-
-                $this->buildForm(
-                    $subBuilder,
-                    new ArraySchemaNode($this->jsonSchema->getSchema($this->getSchemaPath($rawSchema->id, '/properties/' . $propertyName))),
-                    $propertyName,
-                    $formOptions
-                );
             }
         } elseif ('integer' == $rawSchema->type) {
             $builder->add($name, 'number', $formOptions);

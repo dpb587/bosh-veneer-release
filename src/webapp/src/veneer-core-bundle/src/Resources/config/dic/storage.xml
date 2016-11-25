@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="veneer_core.storage.system" class="Veneer\CoreBundle\Service\Storage\System">
+            <argument type="service" id="service_container" />
+            <argument type="collection">
+                <argument>veneer_core.storage.layer.git_repository</argument>
+                <argument>veneer_core.storage.layer.bosh_readable</argument>
+            </argument>
+        </service>
+
+        <service id="veneer_core.storage.layer.bosh_readable" class="Veneer\CoreBundle\Service\Storage\Layer\BoshReadableLayer">
+            <argument type="service" id="doctrine.orm.bosh_entity_manager" />
+        </service>
+
+        <service id="veneer_core.storage.layer.git_repository" class="Veneer\CoreBundle\Service\Storage\Layer\GitRepositoryLayer">
+            <argument>%veneer_core.workspace.repository_path%</argument>
+            <argument />
+            <argument>%veneer.executable.git%</argument>
+        </service>
+    </services>
+</container>

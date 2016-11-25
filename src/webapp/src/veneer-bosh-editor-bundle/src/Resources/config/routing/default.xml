@@ -21,7 +21,7 @@
     <route id="veneer_bosh_editor_app_deployment_section" path="/bosh-editor/app/deployment/{section}.{_format}">
         <default key="_controller">Veneer\BoshEditorBundle\Controller\AppDeploymentController::sectionAction</default>
         <default key="_format">html</default>
-        <requirement key="section">releases|networks|diskpools|resourcepools|instance-groups|properties</requirement>
+        <requirement key="section">releases|networks|diskpools|resourcepools|instance-group|instance-groups|properties</requirement>
     </route>
 
     <route id="veneer_bosh_editor_app_deployment_edit" path="/bosh-editor/app/deployment/edit.{_format}">

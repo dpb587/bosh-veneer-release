@@ -4,6 +4,7 @@ namespace Veneer\LogsearchBundle\Controller;
 
 use Veneer\CoreBundle\Controller\AbstractController;
 use Veneer\CoreBundle\Plugin\RequestContext\Context;
+use Veneer\BoshBundle\Plugin\RequestContext\Annotations as BoshContext;
 
 /**
  * @BoshContext\Deployment
@@ -100,7 +101,7 @@ class DeploymentController extends AbstractController
                     'timestamp' => $jobBucket['latest']['hits']['hits'][0]['_source']['@timestamp'],
                 ];
             }
-
+if (!isset($statusCounts[0])) die(print_r($statusCounts, true));
             $results[$key]['healthy'] = count($results[$key]['jobs']) == $statusCounts[0];
         }
 

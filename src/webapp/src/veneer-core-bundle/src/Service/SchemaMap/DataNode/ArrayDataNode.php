@@ -14,7 +14,7 @@ class ArrayDataNode extends AbstractDataNode implements TraversableDataNodeInter
         $segments = explode('/', $path);
         $segment = array_shift($segments);
 
-        if (empty($segment)) {
+        if ($segment === null) {
             return $this;
         }
 

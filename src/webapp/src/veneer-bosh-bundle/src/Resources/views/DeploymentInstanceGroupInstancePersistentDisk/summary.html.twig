@@ -4,10 +4,11 @@
 
 {% block frag_content %}
     {{ render(_links.widget.cpi.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-    {{ render(_links.widget.cloudwatchbytesstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-    {{ render(_links.widget.cloudwatchopsstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-    {{ render(_links.widget.cloudwatchqueuestats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
-    {{ render(_links.widget.cloudwatchidlestats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}
+    {% if _links.widget.hoststats is defined %}{{ render(_links.widget.hoststats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
+    {% if _links.widget.cloudwatchbytesstats is defined %}{{ render(_links.widget.cloudwatchbytesstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
+    {% if _links.widget.cloudwatchopsstats is defined %}{{ render(_links.widget.cloudwatchopsstats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
+    {% if _links.widget.cloudwatchqueuestats is defined %}{{ render(_links.widget.cloudwatchqueuestats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
+    {% if _links.widget.cloudwatchidlestats is defined %}{{ render(_links.widget.cloudwatchidlestats.url|veneer_core_appendqs({ '_frag' : 'content' })) }}{% endif %}
 {% endblock %}
 
 {% block frag_sidebar %}

@@ -1,0 +1,102 @@
+{% extends _layout %}
+
+{% block def_title 'Logsearch - Disk Activity' %}
+
+{% block frag_content %}  
+    <div id="highcharts-{{ _uuid }}" style="height:180px;"></div>
+{% endblock %}
+
+{% block javascripts %}
+    function bytesLabel(value) {
+        var label = 'B';
+
+        if (value >= 1024) {
+            value /= 1024;
+            label = 'KB';
+        }
+
+        if (value >= 1024) {
+            value /= 1024;
+            label = 'MB';
+        }
+
+        if (value >= 1024) {
+            value /= 1024;
+            label = 'GB';
+        }
+
+        if (value >= 1024) {
+            value /= 1024;
+            label = 'TB';
+        }
+
+        if (value >= 1024) {
+            value /= 1024;
+            label = 'PB';
+        }
+
+        return (Math.ceil(value * 10) / 10) + ' ' + label;
+    }
+
+    $('#highcharts-{{ _uuid }}').highcharts({
+        chart: {
+            spacingBottom: 4,
+            spacingLeft: 4,
+            spacingRight: 4,
+            spacingTop: 4,
+            type: 'areaspline'
+        },
+        credits: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        plotOptions: {
+            areaspline: {
+                animation: false,
+                marker: {
+                    radius: 2,
+                    symbol: 'circle'
+                }
+            }
+        },
+        series: [
+            {
+                color: '#3D6CAD',
+                data: {{ series.octets_read|json_encode|raw }},
+                fillOpacity: 0.4,
+                name: 'Read'
+            },
+            {
+                color: '#D67E41',
+                data: {{ series.octets_write|json_encode|raw }}.map(function (v) {
+                    v['y'] *= -1;
+
+                    return v;
+                }),
+                fillOpacity: 0.4,
+                name: 'Write'
+            }
+        ],
+        title: {
+            text: null
+        },
+        tooltip: {
+            shared: true
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            labels: {
+                formatter: function () {
+                    return bytesLabel(Math.abs(this.value));
+                }
+            },
+            title: {
+                text: 'Write / Read'
+            }
+        }
+    });
+{% endblock %}
